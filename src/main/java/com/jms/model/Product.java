@@ -38,19 +38,39 @@ public class Product implements Serializable {
     @Column (name = "BioP")
     private boolean bio;
     
+    @Column (name = "NutriscoreP")
+    private Nutriscore nutriscore;
+    
+    @Column (name = "ConditionnementP")
+    private Packaging packaging;
+    
 
     // Constructors.
     
     public Product() {
     }
 
-    public Product(String ean, String libelle, String description, String brand, String format, boolean bio) {
+    public Product(String ean, String libelle, String description, String brand, 
+            String format, boolean bio) {
         this.ean = ean;
         this.libelle = libelle;
         this.description = description;
         this.brand = brand;
         this.format = format;
         this.bio = bio;
+    }
+
+    public Product(String ean, String libelle, String description, 
+            String brand, String format, boolean bio, 
+            Nutriscore nutriscore, Packaging packaging) {
+        this.ean = ean;
+        this.libelle = libelle;
+        this.description = description;
+        this.brand = brand;
+        this.format = format;
+        this.bio = bio;
+        this.nutriscore = nutriscore;
+        this.packaging = packaging;
     }
     
     // Getters & Setters.
@@ -102,6 +122,22 @@ public class Product implements Serializable {
     public void setBio(boolean bio) {
         this.bio = bio;
     }
+
+    public Nutriscore getNutriscore() {
+        return nutriscore;
+    }
+
+    public void setNutriscore(Nutriscore nutriscore) {
+        this.nutriscore = nutriscore;
+    }
+
+    public Packaging getPackaging() {
+        return packaging;
+    }
+
+    public void setPackaging(Packaging packaging) {
+        this.packaging = packaging;
+    }
     
     // Methods.
 
@@ -132,8 +168,12 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "ean=" + ean + ", libelle=" + libelle + ", description=" + description + ", brand=" + brand + ", format=" + format + ", bio=" + bio + '}';
+        return "Product{" + "ean=" + ean + ", libelle=" + libelle 
+                + ", description=" + description + ", brand=" + brand 
+                + ", format=" + format + ", bio=" + bio + ", nutriscore=" 
+                + nutriscore + ", packaging=" + packaging + '}';
     }
+
     
     
     
