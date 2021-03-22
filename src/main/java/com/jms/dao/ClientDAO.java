@@ -4,11 +4,28 @@
  * and open the template in the editor.
  */
 package com.jms.dao;
-
+import com.jms.model.Client;
 /**
  *
  * @author RAKOTOARISOA
  */
 public class ClientDAO {
     
+    /**
+     * check if entered email and entered password are right
+     * @param email
+     * @param password 
+     */
+    public boolean authenticate(String email, String password){
+       
+        Client client = null;
+
+        if((email == client.getEmail())&&(password == client.getPassword())){
+            return true;
+        }else {
+            return false;
+        }
+        
+    }
 }
+
