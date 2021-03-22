@@ -1,0 +1,29 @@
+html, body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin-top: 2%;
+}
+
+#logo{
+    width:100px;
+    height: 100px;
+}
+#container {
+    margin-top: 1.5em;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.btn-outline-primary, .btn-outline-primary:active, .btn-outline-primary:visited { 
+    color:#6610f2 !important;
+    border-color: #6610f2 !important;
+}
+.btn-outline-primary:hover {
+    border-color: #6610f2 !important;
+    background-color: #6610f2 !important;
+    color: #fff !important;
+}
+
+.row{
+    align-content: flex-end !important;
+}
