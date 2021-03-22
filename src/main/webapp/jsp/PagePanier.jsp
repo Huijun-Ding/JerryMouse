@@ -6,6 +6,7 @@
         <title>Mon panier</title>
     </head>
     <body>
+        
      <div class="en_tete" name="en_tete">
          < img src="">
          <button id="se_connecter">Se connecter</button>
