@@ -5,22 +5,39 @@
  */
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.*;
 
 /**
  *
  * @author mlk
  */
-public class Product {
+
+@Entity (name="Produit")
+public class Product implements Serializable {
     
     // Properties.
     
+    @Id
+    @Column (name = "EANP")
     private String ean;
+    
+    @Column (name = "LibelleP")
     private String libelle;
+    
+    @Column (name = "DescriptionP")
     private String description;
+    
+    @Column (name = "MarqueP")
     private String brand;
+    
+    @Column (name = "FormatP")
     private String format;
+    
+    @Column (name = "BioP")
     private boolean bio;
+    
 
     // Constructors.
     
