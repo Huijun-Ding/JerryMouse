@@ -10,7 +10,7 @@ import java.util.Objects;
 import javax.persistence.*;
 
 /**
- *
+ * The class Product represents a product that exists in the catalog of a store.
  * @author mlk
  */
 
