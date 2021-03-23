@@ -1,10 +1,17 @@
 package com.jms.model;
 
+import java.util.Map;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.OneToMany;
 
 /**
  * Store Class.
@@ -28,6 +35,7 @@ public class Store {
      * Name of a store.
      * <b>Maximum size : 50</b>
      */
+    @Column(name="NomM")
     private String name;
 
     /**
@@ -36,21 +44,36 @@ public class Store {
      * <b>Format : street_number, street_type street_name</b>
      * <b>Maximum size : 100</b>
      */
+    @Column(name="RueM")
     private String street;
 
     /**
      * City where a store is located.
      * <b>Maximum size : 100</b>
      */
+    @Column(name="VilleM")
     private String city;
 
     /**
      * Postal code of the place where a store is located.
      * <b>Maximum size : 5</b>
      */
+    @Column(name="CodePostalM")
     private String postalCode;
-    
-    private Set
+
+    /**
+     * Hibernate join property with Product Class  and Stock Class.
+     */
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "CodeP")
+    private Map<Product, Stock> products;
+
+    /**
+     * Hibernate join property with Have Class  and PickUpTime Class.
+     */
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "CodeCR")
+    private Map<PickupTime, Have> pickUpTimes;
 
     // -------------------- CONSTRUCTORS --------------------
 
