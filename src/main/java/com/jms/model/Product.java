@@ -57,6 +57,11 @@ public class Product implements Serializable {
             joinColumns = @JoinColumn(name = "EANP"), 
             inverseJoinColumns = @JoinColumn(name = "CodeLB"))
     private Set<Label> labels = new HashSet<>(0);
+    
+    // Relation Etre PostIt
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
+    private Set<PostIt> postIts = new HashSet<>(0);
 
     // Constructors.
     
@@ -167,6 +172,15 @@ public class Product implements Serializable {
     public void setLabels(Set<Label> labels) {
         this.labels = labels;
     }
+
+    public Set<PostIt> getPostIts() {
+        return postIts;
+    }
+
+    public void setPostIts(Set<PostIt> postIts) {
+        this.postIts = postIts;
+    }
+    
     
     // Methods.
 
