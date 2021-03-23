@@ -3,23 +3,31 @@ package com.jms.model;
 import java.util.Objects;
 
 /**
- *
- * @author Shanshan ZHAO
+ * Department Class represents a shelf in a store.
+ * @author Jerry Mouse Software
  */
-public class Family {
-    // Properties.
+public class Department {
+    
+    // --------------------- PROPERTIES ---------------------
+    /** 
+     * Unique code identifying a department.
+     */
     private int id;
+    
+    /**
+     * 
+     */
     private String name;
     
-    // Constructors.
-    public Family() {
+    // -------------------- CONSTRUCTORS --------------------
+    public Department() {
     }
 
-    public Family(String description) {
+    public Department(String description) {
         this.name = description;
     }
     
-    // Getters and setters.
+    // ----------------- GETTERS & SETTERS ------------------
     public int getId() {
         return id;
     }
@@ -36,17 +44,16 @@ public class Family {
         this.name = description;
     }
     
-    // Override methods.
+    // ----------------------- METHODS ----------------------
     @Override
     public String toString() {
-        return "Family{" + "id=" + id + ", description=" + name + '}';
+        return "Department{" + "id=" + id + ", name=" + name + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + this.id;
-        hash = 79 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -61,11 +68,8 @@ public class Family {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Family other = (Family) obj;
+        final Department other = (Department) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
