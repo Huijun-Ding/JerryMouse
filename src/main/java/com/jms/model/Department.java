@@ -1,30 +1,45 @@
 package com.jms.model;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.*;
 
 /**
- * Department Class represents a shelf in a store.
+ * Department Class represents a department in a store.
  * @author Jerry Mouse Software
  */
-public class Department {
+@Entity (name = "Rayon")
+public class Department implements Serializable {
     
     // --------------------- PROPERTIES ---------------------
     /** 
      * Unique code identifying a department.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "CodeR")
     private int id;
     
     /**
-     * 
+     * Label of a department.
      */
+    @Column (name = "LibelleR")
     private String name;
+    
+    /**
+     * List of categories of products in a department.
+     */
+    @OneToMany (mappedBy = "department", fetch = FetchType.LAZY)
+    private Set<ProductCategory> categories = new HashSet<>(0);
     
     // -------------------- CONSTRUCTORS --------------------
     public Department() {
     }
 
-    public Department(String description) {
-        this.name = description;
+    public Department(String name) {
+        this.name = name;
     }
     
     // ----------------- GETTERS & SETTERS ------------------
@@ -35,13 +50,21 @@ public class Department {
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getDescription() {
+    
+    public String getName() {
         return name;
     }
 
-    public void setDescription(String description) {
-        this.name = description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<ProductCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<ProductCategory> categories) {
+        this.categories = categories;
     }
     
     // ----------------------- METHODS ----------------------
