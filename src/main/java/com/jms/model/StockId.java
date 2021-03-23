@@ -1,53 +1,64 @@
 package com.jms.model;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  *
  * @author carol
  */
+@Embeddable
 public class StockId {
-    //proprieties
-    private int id;// id of store
-    private String ean; //identity of produit
-    //constructor
+
+    // --------------------- PROPERTIES ---------------------
+
+    @Column(name = "CodeM")
+    private int storeId;
+    
+    @Column(name = "CodeP")
+    private String productEAN;
+    
+    // -------------------- CONSTRUCTORS --------------------
 
     public StockId() {
     }
 
-    public StockId(int id, String ean) {
-        this.id = id;
-        this.ean = ean;
+    public StockId(int storeId, String productEAN) {
+        this.storeId = storeId;
+        this.productEAN = productEAN;
     }
-    //getter/setter
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    
+    // ----------------- GETTERS & SETTERS ------------------
+    
+    public int getStoreId() {
+        return storeId;
     }
 
-    public String getEan() {
-        return ean;
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
     }
 
-    public void setEan(String ean) {
-        this.ean = ean;
+    public String getProductEAN() {
+        return productEAN;
     }
-    //Override methods
+
+    public void setProductEAN(String productEAN) {
+        this.productEAN = productEAN;
+    }
+    
+    // ----------------------- METHODS ----------------------
 
     @Override
     public String toString() {
-        return "StockId{" + "id=" + id + ", ean=" + ean + '}';
+        return "StockId{" + "storeId=" + storeId + ", productEAN=" + productEAN + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.ean);
+        hash = 97 * hash + this.storeId;
+        hash = 97 * hash + Objects.hashCode(this.productEAN);
         return hash;
     }
 
@@ -63,13 +74,12 @@ public class StockId {
             return false;
         }
         final StockId other = (StockId) obj;
-        if (this.id != other.id) {
+        if (this.storeId != other.storeId) {
             return false;
         }
-        if (!Objects.equals(this.ean, other.ean)) {
+        if (!Objects.equals(this.productEAN, other.productEAN)) {
             return false;
         }
         return true;
     }
-    
 }
