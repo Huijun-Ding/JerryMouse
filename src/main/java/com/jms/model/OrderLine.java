@@ -47,7 +47,6 @@ public class OrderLine {
     public int hashCode() {
         int hash = 5;
         hash = 53 * hash + this.id;
-        hash = 53 * hash + Objects.hashCode(this.date);
         return hash;
     }
 
@@ -66,9 +65,8 @@ public class OrderLine {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.date, other.date)) {
-            return false;
-        }
         return true;
     }
+
+
 }

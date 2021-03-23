@@ -46,7 +46,6 @@ public class Shelf {
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + this.id;
-        hash = 79 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -63,9 +62,6 @@ public class Shelf {
         }
         final Shelf other = (Shelf) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
