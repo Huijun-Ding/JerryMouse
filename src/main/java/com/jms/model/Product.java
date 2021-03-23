@@ -17,35 +17,34 @@ import javax.persistence.*;
  * The class Product represents a product that exists in the catalog of a store.
  * @author Jerry Mouse Software
  */
-
-@Entity (name="Produit")
+@Entity(name = "Produit")
 public class Product implements Serializable {
     
     // --------------------- PROPERTIES ---------------------
     
     @Id
-    @Column (name = "EANP")
+    @Column(name = "EANP")
     private String ean;
-    
-    @Column (name = "LibelleP")
+
+    @Column(name = "LibelleP")
     private String name;
-    
-    @Column (name = "DescriptionP")
+
+    @Column(name = "DescriptionP")
     private String description;
-    
-    @Column (name = "MarqueP")
+
+    @Column(name = "MarqueP")
     private String brand;
-    
-    @Column (name = "FormatP")
+
+    @Column(name = "FormatP")
     private String format;
-    
-    @Column (name = "BioP")
+
+    @Column(name = "BioP")
     private boolean bio;
-    
-    @Column (name = "NutriscoreP")
+
+    @Column(name = "NutriscoreP")
     private ProductNutriScore nutriscore;
-    
-    @Column (name = "ConditionnementP")
+
+    @Column(name = "ConditionnementP")
     private ProductConditioning packaging;
     
     // Relation Appartenir Categorie
@@ -78,12 +77,20 @@ public class Product implements Serializable {
     // Relation Ligne de commande Commande
     @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
     @MapKeyJoinColumn (name = "CodeCD")
-    private Map<CommandLine, Order> orders = new HashMap<>(0);
+    private Map<OrderLine, Order> orders = new HashMap<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
     
+
+    // -------------------- RELATION WITH REDUCE --------------------
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "EANP")
+    private Map<Promotion, Reduce> reduce = new HashMap<>(0);
+
+    // -------------------- CONSTRUCTORS --------------------
     public Product() {
     }
+
 
     public Product(String ean, String libelle, String description, 
             String brand, String format, boolean bio, 
@@ -97,7 +104,7 @@ public class Product implements Serializable {
         this.nutriscore = nutriscore;
         this.packaging = packaging;
     }
-    
+
     // ----------------- GETTERS & SETTERS ------------------
 
     public String getEan() {
@@ -204,17 +211,18 @@ public class Product implements Serializable {
         this.promotions = promotions;
     }
     
-    public Map<CommandLine, Order> getOrders() {
+    public Map<OrderLine, Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Map<CommandLine, Order> orders) {
+    public void setOrders(Map<OrderLine, Order> orders) {
         this.orders = orders;
     }
     
     
     // ----------------------- METHODS ----------------------
 
+    // ----------------------- METHODS ------------------------
     @Override
     public int hashCode() {
         int hash = 3;

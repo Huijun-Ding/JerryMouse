@@ -7,16 +7,16 @@ import java.util.Objects;
  *
  * @author Shanshan ZHAO
  */
-public class CommandLine {
+public class OrderLine {
     // Properties.
     private int id;
     private Date date;
     
     // Constructors.
-    public CommandLine() {
+    public OrderLine() {
     }
 
-    public CommandLine(Date date) {
+    public OrderLine(Date date) {
         this.date = date;
     }
     
@@ -47,7 +47,6 @@ public class CommandLine {
     public int hashCode() {
         int hash = 5;
         hash = 53 * hash + this.id;
-        hash = 53 * hash + Objects.hashCode(this.date);
         return hash;
     }
 
@@ -62,13 +61,12 @@ public class CommandLine {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final CommandLine other = (CommandLine) obj;
+        final OrderLine other = (OrderLine) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.date, other.date)) {
             return false;
         }
         return true;
     }
+
+
 }

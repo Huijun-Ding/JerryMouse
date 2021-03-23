@@ -85,7 +85,6 @@ public class ProductCategory implements Serializable {
     public int hashCode() {
         int hash = 7;
         hash = 71 * hash + this.id;
-        hash = 71 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -102,9 +101,6 @@ public class ProductCategory implements Serializable {
         }
         final ProductCategory other = (ProductCategory) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;

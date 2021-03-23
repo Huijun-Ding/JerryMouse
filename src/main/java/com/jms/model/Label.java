@@ -46,7 +46,6 @@ public class Label {
     public int hashCode() {
         int hash = 7;
         hash = 83 * hash + this.id;
-        hash = 83 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -63,9 +62,6 @@ public class Label {
         }
         final Label other = (Label) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;

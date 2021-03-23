@@ -35,3 +35,16 @@ h3 {
   color: #6610f2;
 }
 
+.box {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	/*display: none;
+	width: 198px; BUG : Si le texte est plus long il déborde. A corriger en css ! */
+        width: 100%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #7F9DB9;
+	margin-top: 1px;
+	padding: 2px;
+}
+
