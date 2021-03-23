@@ -44,6 +44,10 @@ public class Product implements Serializable {
     @Column (name = "ConditionnementP")
     private ProductConditioning packaging;
     
+    // Relation Appartenir
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CodeCat")
+    private ProductCategory category;
 
     // Constructors.
     
@@ -62,7 +66,8 @@ public class Product implements Serializable {
 
     public Product(String ean, String libelle, String description, 
             String brand, String format, boolean bio, 
-            ProductNutriScore nutriscore, ProductConditioning packaging) {
+            ProductNutriScore nutriscore, ProductConditioning packaging, 
+            ProductCategory category) {
         this.ean = ean;
         this.name = libelle;
         this.description = description;
@@ -71,8 +76,9 @@ public class Product implements Serializable {
         this.bio = bio;
         this.nutriscore = nutriscore;
         this.packaging = packaging;
+        this.category = category;
     }
-    
+
     // Getters & Setters.
 
     public String getEan() {
@@ -138,6 +144,15 @@ public class Product implements Serializable {
     public void setPackaging(ProductConditioning packaging) {
         this.packaging = packaging;
     }
+
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProductCategory category) {
+        this.category = category;
+    }
+    
     
     // Methods.
 
@@ -168,11 +183,14 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "ean=" + ean + ", libelle=" + name 
-                + ", description=" + description + ", brand=" + brand 
-                + ", format=" + format + ", bio=" + bio + ", nutriscore=" 
-                + nutriscore + ", packaging=" + packaging + '}';
+        return "Product{" + "ean=" + ean + ", name=" + name 
+                + ", description=" + description + ", brand=" 
+                + brand + ", format=" + format + ", bio=" + bio 
+                + ", nutriscore=" + nutriscore + ", packaging=" 
+                + packaging + ", category=" + category + '}';
     }
+
+    
 
     
 }
