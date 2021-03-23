@@ -1,17 +1,37 @@
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
- *
- * @author carol
+ * Basket Class.
+ * @author Jerry Mouse Software.
  */
-public class Basket {
-    //proprieties
+@Entity
+public class Basket implements Serializable{
+    // --------------------- PROPERTIES ---------------------
+    @EmbeddedId
     private BasketId basketId;
+    
+    @Column (name = "qtePanier")
     private int qtyBasket;
-    //constructor
 
+    //-----------Relation with Product--------------
+    @ManyToOne 
+    @JoinColumn(name = "EANP", insertable = false, updatable = false)
+    private Product product;
+    
+    //-----------Relation with Client--------------
+    @ManyToOne 
+    @JoinColumn(name = "CodeCL", insertable = false, updatable = false)
+    private Client client;
+    
+    // -------------------- CONSTRUCTORS --------------------
     public Basket() {
     }
 
@@ -19,8 +39,8 @@ public class Basket {
         this.basketId = basketId;
         this.qtyBasket = qtyBasket;
     }
-    //getter/setter
-
+    
+    // ----------------- GETTERS & SETTERS ------------------
     public BasketId getBasketId() {
         return basketId;
     }
@@ -36,8 +56,8 @@ public class Basket {
     public void setQtyBasket(int qtyBasket) {
         this.qtyBasket = qtyBasket;
     }
-    //Override methods
-
+    
+    // ----------------------- METHODS ------------------------
     @Override
     public String toString() {
         return "Basket{" + "basketId=" + basketId + ", qtyBasket=" + qtyBasket + '}';

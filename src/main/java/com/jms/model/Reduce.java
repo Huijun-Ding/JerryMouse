@@ -1,18 +1,44 @@
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
- *
- * @author Shanshan ZHAO
+ * Reduce Class.
+ * @author Jerry Mouse Software.
  */
-public class Reduce {
-    // Properties.
+@Entity
+public class Reduce implements Serializable{
+    // --------------------- PROPERTIES ---------------------
+    @EmbeddedId
+    private ReduceID reduceid;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column (name = "DateDebutPromoP")
     private Date promoStartDate;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column (name = "DateFinPromoP")
     private Date promoEndDate;
     
-    //Constructors.
+    //-----------Relation with Promotion--------------
+    @ManyToOne 
+    @JoinColumn(name = "CodePR", insertable = false, updatable = false)
+    private Promotion promotion;
+    
+    //-----------Relation with Product--------------
+    @ManyToOne 
+    @JoinColumn(name = "EANP", insertable = false, updatable = false)
+    private Product product;
+    
+    // -------------------- CONSTRUCTORS --------------------
     public Reduce() {
     }
 
@@ -21,7 +47,7 @@ public class Reduce {
         this.promoEndDate = endDatePromo;
     }
     
-    // Getters and setters.
+    // ----------------- GETTERS & SETTERS ------------------
     public Date getPromoStartDate() {
         return promoStartDate;
     }
@@ -38,7 +64,7 @@ public class Reduce {
         this.promoEndDate = promoEndDate;
     }
     
-    // Override methods.
+    // ----------------------- METHODS ------------------------
     @Override
     public String toString() {
         return "Reduce{" + "promoStartDate=" + promoStartDate + ", promoEndDate=" + promoEndDate + '}';

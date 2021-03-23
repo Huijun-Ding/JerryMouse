@@ -7,16 +7,16 @@ import java.util.Objects;
  *
  * @author Shanshan ZHAO
  */
-public class CommandLine {
+public class OrderLine {
     // Properties.
     private int id;
     private Date date;
     
     // Constructors.
-    public CommandLine() {
+    public OrderLine() {
     }
 
-    public CommandLine(Date date) {
+    public OrderLine(Date date) {
         this.date = date;
     }
     
@@ -62,7 +62,7 @@ public class CommandLine {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final CommandLine other = (CommandLine) obj;
+        final OrderLine other = (OrderLine) obj;
         if (this.id != other.id) {
             return false;
         }
