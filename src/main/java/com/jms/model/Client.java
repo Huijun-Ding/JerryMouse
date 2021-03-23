@@ -6,6 +6,7 @@
 package com.jms.model;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,7 +29,7 @@ import javax.persistence.OneToMany;
  * @author JerryMouseSoftware
  */
 @Entity(name="Client")
-public class Client {
+public class Client implements Serializable {
     //------------ Properties ------------
     
     /**
@@ -101,7 +102,10 @@ public class Client {
     
 
     // ----------------- GETTERS & SETTERS ------------------
-
+    /**
+     * Getter for the property code.
+     * @return the code property.
+     */
     public int getCode() {
         return code;
     }
@@ -196,6 +200,9 @@ public class Client {
     
 
     // ----------------------- METHODS ----------------------
+    /**
+     * Method which converts the current object into a String object.
+     */
     @Override
     public String toString() {
         return "Client{" + "code=" + code + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email + ", password=" + password + ", fidelityPoints=" + fidelityPoints + '}';
