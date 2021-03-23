@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mon panier</title>
+        <title>My basket</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="../css/Style.css">
     </head>
@@ -13,13 +13,13 @@
                 <div class="col-2" name="en_tete">
                     <img id="logo" src="../img/photo.png">
                 </div>
-                <div class="col-8">Magasin choisi:</div>
+                <div class="col-8">Store:</div>
                 <div class="col-2">
-                    <button class="btn btn-outline-primary" id="se_connecter">Se connecter</button>
+                    <button class="btn btn-outline-primary" id="se_connecter">Login</button>
                 </div>
             </div>
 
-            <h1>Mon panier</h1>
+            <h1>My basket</h1>
 
             <form action="">
                 <div class="lst_prod" name="div_prod">
@@ -39,8 +39,8 @@
                 <div name="calcul">
                     <table class="table">
                         <tr>
-                            <td>Gagnotte gagn&eacute;: <span id="gagnotte_gagne"></span></td>
-                            <td>Gagnotte cumul: <span id="gagnotte_cumul"></span></td>
+                            <td>Points got: <span id="gagnotte_gagne"></span></td>
+                            <td>Points cumulative: <span id="gagnotte_cumul"></span></td>
                             <td>Total: <span id="total"></span></td>
                         </tr>
                     </table>
@@ -51,10 +51,10 @@
                 <div class="row">
                     <div class="col-8"></div>
                     <div class="col-2">
-                        <input class="btn btn-outline-primary" type="submit" name="valider" value="Valider">
+                        <input class="btn btn-outline-primary" type="submit" name="valider" value="OK">
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-outline-primary" id="retour">Retour</button>
+                        <button class="btn btn-outline-primary" id="retour">Return</button>
                     </div>
                 </div>
             </form>

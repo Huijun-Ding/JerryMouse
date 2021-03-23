@@ -1,25 +1,64 @@
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
- *
- * @author carol
+ * Stock Class.
+ * @author Jerry Mouse Software.
  */
-public class Stock {
-    //proprieties
-    private StockId stockId;
-    private int qtyStock;
-    //constructor
+@Entity(name = "Stocker")
+@SuppressWarnings("PersistenceUnitPresent")
+public class Stock implements Serializable {
 
+    // --------------------- PROPERTIES ---------------------
+    
+    @EmbeddedId
+    private StockId stockId;
+    
+    /**
+     * Quantity of stock of a given product in a store.
+     * <b>Rule(s) : ≥ 0</b>
+     */
+    @Column(name = "QteStock")
+    private int qtyStock;
+            
+    /**
+     * Hibernate join property with Store Class.
+     */
+    @ManyToOne
+    @JoinColumn(name = "CodeM", insertable = false, updatable = false)
+    private Store store;
+    
+    /**
+     * Hibernate join property with Product Class.
+     */
+    @ManyToOne
+    @JoinColumn(name = "CodeP", insertable = false, updatable = false)
+    private Product product;
+    
+    // -------------------- CONSTRUCTORS --------------------
+    /**
+     * A constructor of the Stock Class.
+     */
     public Stock() {
     }
-
+    /**
+     * A constructor of the Stock Class.
+     * @param stockId
+     * @param qtyStock 
+     */
     public Stock(StockId stockId, int qtyStock) {
         this.stockId = stockId;
         this.qtyStock = qtyStock;
     }
-    //getter/setter
+
+    // ----------------- GETTERS & SETTERS ------------------
 
     public StockId getStockId() {
         return stockId;
@@ -36,7 +75,8 @@ public class Stock {
     public void setQtyStock(int qtyStock) {
         this.qtyStock = qtyStock;
     }
-    //
+
+    // ----------------------- METHODS ----------------------
 
     @Override
     public String toString() {
@@ -67,5 +107,4 @@ public class Stock {
         }
         return true;
     }
-    
 }

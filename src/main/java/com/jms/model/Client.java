@@ -5,6 +5,7 @@
  */
 package com.jms.model;
 
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -18,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 
@@ -84,7 +86,8 @@ public class Client {
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private Set<Order> orders = new HashSet(0);
     
-    //---------------- Constructor --------------
+    // -------------------- CONSTRUCTORS --------------------
+
     public Client() {
     }
 
@@ -96,12 +99,9 @@ public class Client {
         this.fidelityPoints = fidelityPoints;
     }
     
-    //-------------- Getter & Setters --------------
-    
-    /**
-     * Getter for the property code.
-     * @return the code property.
-     */
+
+    // ----------------- GETTERS & SETTERS ------------------
+
     public int getCode() {
         return code;
     }
@@ -194,11 +194,8 @@ public class Client {
         this.fidelityPoints = fidelityPoints;
     }
     
-    //-------------- Methods ---------------------
-    
-    /**
-     * Method which converts the current object into a String object.
-     */
+
+    // ----------------------- METHODS ----------------------
     @Override
     public String toString() {
         return "Client{" + "code=" + code + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email + ", password=" + password + ", fidelityPoints=" + fidelityPoints + '}';
@@ -236,7 +233,5 @@ public class Client {
             return false;
         }
         return true;
-    }
-    
-    
+    } 
 }

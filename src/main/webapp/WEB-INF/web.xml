@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>com.jms.controller.NewServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>searchServlet</servlet-name>
         <servlet-class>com.jms.controller.searchServlet</servlet-class>
     </servlet>
@@ -20,6 +16,14 @@
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>visualiserPanierServlet</servlet-name>
+        <servlet-class>com.jms.controller.visualiserPanierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>basketPage</servlet-name>
+        <jsp-file>/jsp/basket_page.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
         <url-pattern>/searchServlet</url-pattern>
@@ -31,6 +35,12 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
+        <servlet-name>visualiserPanierServlet</servlet-name>
+        <url-pattern>/visualiserPanierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>basketPage</servlet-name>
+        <url-pattern>/basketPage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
