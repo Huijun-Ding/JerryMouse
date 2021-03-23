@@ -1,28 +1,37 @@
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  *
  * @author carol
  */
-public class HaveId {
-    //proprieties
+@Embeddable
+public class HaveId implements Serializable {
+    
+    // --------------------- PROPERTIES ---------------------
+    @Column(name = "HeureDebutCR")
     private Date hourStart;
-    private int id;   //id of store
-    //constructor
-
-    public HaveId(Date hourStart, int id) {
-        this.hourStart = hourStart;
-        this.id = id;
-    }
+    
+    @Column(name = "CodeM")
+    private int storeId;
+    
+    // -------------------- CONSTRUCTORS --------------------
 
     public HaveId() {
     }
     
-    // getter/setter
+    public HaveId(Date hourStart, int storeId) {
+        this.hourStart = hourStart;
+        this.storeId = storeId;
+    }
 
+    // ----------------- GETTERS & SETTERS ------------------
+    
     public Date getHourStart() {
         return hourStart;
     }
@@ -31,25 +40,26 @@ public class HaveId {
         this.hourStart = hourStart;
     }
 
-    public int getId() {
-        return id;
+    public int getStoreId() {
+        return storeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
     }
-    // Override methods
+    
+    // ----------------------- METHODS ----------------------
 
     @Override
     public String toString() {
-        return "HaveId{" + "hourStart=" + hourStart + ", id=" + id + '}';
+        return "HaveId{" + "hourStart=" + hourStart + ", storeId=" + storeId + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.hourStart);
-        hash = 67 * hash + this.id;
+        hash = 67 * hash + this.storeId;
         return hash;
     }
 
@@ -65,7 +75,7 @@ public class HaveId {
             return false;
         }
         final HaveId other = (HaveId) obj;
-        if (this.id != other.id) {
+        if (this.storeId != other.storeId) {
             return false;
         }
         if (!Objects.equals(this.hourStart, other.hourStart)) {
