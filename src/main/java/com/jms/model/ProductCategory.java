@@ -7,11 +7,12 @@ import java.util.Objects;
  * @author Shanshan ZHAO
  */
 public class ProductCategory {
-    // Properties.
+    
+    // --------------------- PROPERTIES ---------------------
     private int id;
     private String name;
     
-    // Constructors.
+    // -------------------- CONSTRUCTORS --------------------
     public ProductCategory(String description) {
         this.name = description;
     }
@@ -19,7 +20,7 @@ public class ProductCategory {
     public ProductCategory() {
     }
     
-    // Getters and setters.
+    // ----------------- GETTERS & SETTERS ------------------
     public int getId() {    
         return id;
     }
@@ -36,7 +37,7 @@ public class ProductCategory {
         this.name = description;
     }
 
-    // Override methods.
+    // ----------------------- METHODS ----------------------    
     @Override
     public String toString() {
         return "ProductCategory{" + "id=" + id + ", description=" + name + '}';
