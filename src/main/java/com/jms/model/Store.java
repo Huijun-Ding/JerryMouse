@@ -1,9 +1,16 @@
 package com.jms.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Store Class.
  * @author Jerry Mouse Software.
  */
+@Entity(name="Magasin")
 public class Store {
 
     // --------------------- PROPERTIES ---------------------
@@ -12,6 +19,9 @@ public class Store {
      * Unique code identifying a store.
      * <b>Rule(s) : > 0</b>.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="CodeM")
     private int id;
 
     /**
@@ -39,6 +49,8 @@ public class Store {
      * <b>Maximum size : 5</b>
      */
     private String postalCode;
+    
+    private Set
 
     // -------------------- CONSTRUCTORS --------------------
 
