@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Mathi
  */
-public class productDAO {
+public class ProductDAO {
     
     /*---------*/
     /* Données */
@@ -48,7 +48,7 @@ public class productDAO {
 
         /*----- Ouverture de la connexion -----*/
         try {
-            productDAO.cx = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+            ProductDAO.cx = DriverManager.getConnection(URL, LOGIN, PASSWORD);
         } catch (SQLException ex) {
             throw new SQLException("Exception connexion() - Problème de connexion à la base de données - " + ex.getMessage());
         }
@@ -56,8 +56,8 @@ public class productDAO {
     
         public static ArrayList<String> searchProduct(String product) throws ClassNotFoundException, SQLException {
         /*----- Création de la connexion à la base de données -----*/
-        if (productDAO.cx == null) {
-            productDAO.connexion();
+        if (ProductDAO.cx == null) {
+            ProductDAO.connexion();
         }
 
         /*----- Interrogation de la base -----*/
@@ -67,7 +67,7 @@ public class productDAO {
         String sql = "SELECT p.idP FROM Produit p, Categorie c WHERE p.numC = c.numC and p.NomP LIKE ? or c.NomC LIKE ?";
 
         /*----- Ouverture de l'espace de requête -----*/
-        try (PreparedStatement st = productDAO.cx.prepareStatement(sql)) {
+        try (PreparedStatement st = ProductDAO.cx.prepareStatement(sql)) {
             /*----- Exécution de la requête -----*/
             st.setString(1, "%" + product + "%");
             st.setString(2, "%" + product + "%");
@@ -86,7 +86,7 @@ public class productDAO {
     
         public static void main(String[] s) {
         try {
-            System.out.println(productDAO.searchProduct("café"));
+            System.out.println(ProductDAO.searchProduct("café"));
 
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
