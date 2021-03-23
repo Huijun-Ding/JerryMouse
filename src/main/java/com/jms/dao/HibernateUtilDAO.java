@@ -36,6 +36,7 @@ public class HibernateUtilDAO {
             //configuration.addAnnotatedClass(miage.metier.Employe.class);
             
             configuration.addAnnotatedClass(com.jms.model.Product.class);
+            configuration.addAnnotatedClass(com.jms.model.ProductCategory.class);
 
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
