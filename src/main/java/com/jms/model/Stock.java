@@ -3,15 +3,29 @@ package com.jms.model;
 import java.util.Objects;
 
 /**
- *
- * @author carol
+ * Stock Class.
+ * @author Jerry Mouse Software.
  */
 public class Stock {
-    //proprieties
+
+    // --------------------- PROPERTIES ---------------------
+    
+    
     private StockId stockId;
     private int qtyStock;
-    //constructor
-
+            
+    /**
+     * Hibernate join property with <nom_de_la_classe_1> Class  and <nom_de_la_classe_2> Class.
+     */
+    private Store store;
+    
+    /**
+     * Hibernate join property with <nom_de_la_classe_1> Class  and <nom_de_la_classe_2> Class.
+     */
+    private Product product;
+    
+    // -------------------- CONSTRUCTORS --------------------
+    
     public Stock() {
     }
 
@@ -19,7 +33,8 @@ public class Stock {
         this.stockId = stockId;
         this.qtyStock = qtyStock;
     }
-    //getter/setter
+
+    // ----------------- GETTERS & SETTERS ------------------
 
     public StockId getStockId() {
         return stockId;
@@ -36,7 +51,8 @@ public class Stock {
     public void setQtyStock(int qtyStock) {
         this.qtyStock = qtyStock;
     }
-    //
+
+    // ----------------------- METHODS ----------------------
 
     @Override
     public String toString() {
@@ -67,5 +83,4 @@ public class Stock {
         }
         return true;
     }
-    
 }
