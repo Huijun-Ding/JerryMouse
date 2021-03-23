@@ -1,5 +1,7 @@
 package com.jms.model;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -64,26 +66,26 @@ public class Store {
      */
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeP")
-    private Map<Product, Stock> products;
+    private Map<Product, Stock> products = new HashMap<>(0);
 
     /**
      * Hibernate join property with Have Class and PickUpTime Class.
      */
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeCR")
-    private Map<PickupTime, Have> pickUpTimes;
+    private Map<PickUpTime, Have> pickUpTimes = new HashMap<>(0);
     
     /**
      * Hibernate join property with Client Class.
      */
     @OneToMany(mappedBy = "store")
-    private Set<Client> clients;
+    private Set<Client> clients = new HashSet<>(0);
     
     /**
      * Hibernate join property with Order Class.
      */
     @OneToMany(mappedBy = "store")
-    private Set<Order> orders;
+    private Set<Order> orders = new HashSet<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
 
@@ -204,7 +206,7 @@ public class Store {
         this.products = products;
     }
 
-    public Map<PickupTime, Have> getPickUpTimes() {
+    public Map<PickUpTime, Have> getPickUpTimes() {
         return pickUpTimes;
     }
 
@@ -212,7 +214,7 @@ public class Store {
      * Setter for the pick up times property.
      * @param pickUpTimes The new value to set to the property.
      */
-    public void setPickUpTimes(Map<PickupTime, Have> pickUpTimes) {
+    public void setPickUpTimes(Map<PickUpTime, Have> pickUpTimes) {
         this.pickUpTimes = pickUpTimes;
     }
 
