@@ -12,12 +12,12 @@ import javax.persistence.Embeddable;
 public class ReduceID implements Serializable{
 
     // --------------------- PROPERTIES ---------------------
-    private String ean;
+    private String eanp;
     private int id;
 
     // -------------------- CONSTRUCTORS --------------------
-    public ReduceID(String ean, int id) {
-        this.ean = ean;
+    public ReduceID(String eanp, int id) {
+        this.eanp = eanp;
         this.id = id;
     }
 
@@ -25,12 +25,12 @@ public class ReduceID implements Serializable{
     }
 
     // ----------------- GETTERS & SETTERS ------------------
-    public String getEan() {
-        return ean;
+    public String getEanp() {
+        return eanp;
     }
 
-    public void setEan(String ean) {
-        this.ean = ean;
+    public void setEanp(String eanp) {
+        this.eanp = eanp;
     }
 
     public int getId() {
@@ -44,13 +44,13 @@ public class ReduceID implements Serializable{
     // ----------------------- METHODS ----------------------
     @Override
     public String toString() {
-        return "ReduceID{" + "ean=" + ean + ", id=" + id + '}';
+        return "ReduceID{" + "ean=" + eanp + ", id=" + id + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 17 * hash + Objects.hashCode(this.ean);
+        hash = 17 * hash + Objects.hashCode(this.eanp);
         hash = 17 * hash + this.id;
         return hash;
     }
@@ -70,7 +70,7 @@ public class ReduceID implements Serializable{
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.ean, other.ean)) {
+        if (!Objects.equals(this.eanp, other.eanp)) {
             return false;
         }
         return true;
