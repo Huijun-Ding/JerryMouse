@@ -71,6 +71,8 @@ public class Product implements Serializable {
     private Map<Client, Basket> baskets = new HashMap<>(0);
     
     // Relation Reduire Promotion
+    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn (name = "CodePR")
     private Map<Promotion, Reduce> promotions = new HashMap<>(0);
 
     // Constructors.
