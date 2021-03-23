@@ -7,58 +7,50 @@ import java.util.Set;
 import javax.persistence.*;
 
 /**
- * ProductCategory class represents a category to which a product belongs.
+ * Department Class represents a department in a store.
  * @author Jerry Mouse Software
  */
-@Entity (name = "CategorieProduit")
-public class ProductCategory implements Serializable {
+@Entity (name = "Rayon")
+public class Department implements Serializable {
     
     // --------------------- PROPERTIES ---------------------
-    /**
-     * Unique code identifying a product category
+    /** 
+     * Unique code identifying a department.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "CodeCP")
+    @Column (name = "CodeR")
     private int id;
     
     /**
-     * Label of a product category
+     * Label of a department.
      */
-    @Column (name = "LibelleCP")
+    @Column (name = "LibelleR")
     private String name;
     
     /**
-     * Collection of products of this category.
+     * List of categories of products in a department.
      */
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, 
-            fetch = FetchType.LAZY)
-    private Set<Product> products = new HashSet<>(0);
-    
-    /**
-     * Department of a product category.
-     */
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "CodeR")
-    private Department department;
+    @OneToMany (mappedBy = "department", fetch = FetchType.LAZY)
+    private Set<ProductCategory> categories = new HashSet<>(0);
     
     // -------------------- CONSTRUCTORS --------------------
-    public ProductCategory(String description) {
-        this.name = description;
+    public Department() {
     }
 
-    public ProductCategory() {
+    public Department(String name) {
+        this.name = name;
     }
     
     // ----------------- GETTERS & SETTERS ------------------
-    public int getId() {    
+    public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
-
+    
     public String getName() {
         return name;
     }
@@ -67,24 +59,24 @@ public class ProductCategory implements Serializable {
         this.name = name;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Set<ProductCategory> getCategories() {
+        return categories;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setCategories(Set<ProductCategory> categories) {
+        this.categories = categories;
     }
-
-    // ----------------------- METHODS ----------------------    
+    
+    // ----------------------- METHODS ----------------------
     @Override
     public String toString() {
-        return "ProductCategory{" + "id=" + id + ", description=" + name + '}';
+        return "Department{" + "id=" + id + ", name=" + name + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + this.id;
+        hash = 79 * hash + this.id;
         return hash;
     }
 
@@ -99,10 +91,11 @@ public class ProductCategory implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ProductCategory other = (ProductCategory) obj;
+        final Department other = (Department) obj;
         if (this.id != other.id) {
             return false;
         }
         return true;
     }
+    
 }

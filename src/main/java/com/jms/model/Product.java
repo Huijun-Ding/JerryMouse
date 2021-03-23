@@ -14,13 +14,14 @@ import java.util.Set;
 import javax.persistence.*;
 
 /**
- * Product Class.
- * @author Jerry Mouse Software.
+ * The class Product represents a product that exists in the catalog of a store.
+ * @author Jerry Mouse Software
  */
 @Entity(name = "Produit")
 public class Product implements Serializable {
-
+    
     // --------------------- PROPERTIES ---------------------
+    
     @Id
     @Column(name = "EANP")
     private String ean;
@@ -72,8 +73,13 @@ public class Product implements Serializable {
     @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
     @MapKeyJoinColumn (name = "CodePR")
     private Map<Promotion, Reduce> promotions = new HashMap<>(0);
+    
+    // Relation Ligne de commande Commande
+    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn (name = "CodeCD")
+    private Map<OrderLine, Order> orders = new HashMap<>(0);
 
-    // Constructors.
+    // -------------------- CONSTRUCTORS --------------------
     
 
     // -------------------- RELATION WITH REDUCE --------------------
@@ -85,18 +91,9 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String ean, String libelle, String description, String brand,
-            String format, boolean bio) {
-        this.ean = ean;
-        this.name = libelle;
-        this.description = description;
-        this.brand = brand;
-        this.format = format;
-        this.bio = bio;
-    }
 
-    public Product(String ean, String libelle, String description,
-            String brand, String format, boolean bio,
+    public Product(String ean, String libelle, String description, 
+            String brand, String format, boolean bio, 
             ProductNutriScore nutriscore, ProductConditioning packaging) {
         this.ean = ean;
         this.name = libelle;
@@ -109,6 +106,7 @@ public class Product implements Serializable {
     }
 
     // ----------------- GETTERS & SETTERS ------------------
+
     public String getEan() {
         return ean;
     }
@@ -213,8 +211,16 @@ public class Product implements Serializable {
         this.promotions = promotions;
     }
     
+    public Map<OrderLine, Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Map<OrderLine, Order> orders) {
+        this.orders = orders;
+    }
     
-    // Methods.
+    
+    // ----------------------- METHODS ----------------------
 
     // ----------------------- METHODS ------------------------
     @Override
@@ -252,4 +258,5 @@ public class Product implements Serializable {
                 + ", labels=" + labels + '}';
     }
 
+    
 }
