@@ -1,15 +1,13 @@
 package com.jms.model;
 
 import java.util.Map;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 
@@ -62,18 +60,30 @@ public class Store {
     private String postalCode;
 
     /**
-     * Hibernate join property with Product Class  and Stock Class.
+     * Hibernate join property with Product Class and Stock Class.
      */
-    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeP")
     private Map<Product, Stock> products;
 
     /**
-     * Hibernate join property with Have Class  and PickUpTime Class.
+     * Hibernate join property with Have Class and PickUpTime Class.
      */
-    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeCR")
     private Map<PickupTime, Have> pickUpTimes;
+    
+    /**
+     * Hibernate join property with Client Class.
+     */
+    @OneToMany(mappedBy = "store")
+    private Set<Client> clients;
+    
+    /**
+     * Hibernate join property with Order Class.
+     */
+    @OneToMany(mappedBy = "store")
+    private Set<Order> orders;
 
     // -------------------- CONSTRUCTORS --------------------
 
@@ -178,6 +188,58 @@ public class Store {
         this.postalCode = postalCode;
     }
 
+    /**
+     * Getter for the postal code property.
+     * @return The postal code property.
+     */
+    public Map<Product, Stock> getProducts() {
+        return products;
+    }
+
+    /**
+     * Setter for the products property.
+     * @param products The new value to set to the property.
+     */
+    public void setProducts(Map<Product, Stock> products) {
+        this.products = products;
+    }
+
+    public Map<PickupTime, Have> getPickUpTimes() {
+        return pickUpTimes;
+    }
+
+    /**
+     * Setter for the pick up times property.
+     * @param pickUpTimes The new value to set to the property.
+     */
+    public void setPickUpTimes(Map<PickupTime, Have> pickUpTimes) {
+        this.pickUpTimes = pickUpTimes;
+    }
+
+    public Set<Client> getClients() {
+        return clients;
+    }
+
+    /**
+     * Setter for the clients property.
+     * @param clients The new value to set to the property.
+     */
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    /**
+     * Setter for the orders property.
+     * @param orders The new value to set to the property.
+     */
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+    
     // ----------------------- METHODS ----------------------
 
     /**
