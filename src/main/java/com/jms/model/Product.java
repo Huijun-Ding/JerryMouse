@@ -21,7 +21,7 @@ import javax.persistence.*;
 @Entity (name="Produit")
 public class Product implements Serializable {
     
-    // Properties.
+    // --------------------- PROPERTIES ---------------------
     
     @Id
     @Column (name = "EANP")
@@ -75,7 +75,7 @@ public class Product implements Serializable {
     @MapKeyJoinColumn (name = "CodePR")
     private Map<Promotion, Reduce> promotions = new HashMap<>(0);
 
-    // Constructors.
+    // -------------------- CONSTRUCTORS --------------------
     
     public Product() {
     }
@@ -103,7 +103,7 @@ public class Product implements Serializable {
         this.packaging = packaging;
     }
     
-    // Getters & Setters.
+    // ----------------- GETTERS & SETTERS ------------------
 
     public String getEan() {
         return ean;
@@ -210,7 +210,7 @@ public class Product implements Serializable {
     }
     
     
-    // Methods.
+    // ----------------------- METHODS ----------------------
 
     @Override
     public int hashCode() {
