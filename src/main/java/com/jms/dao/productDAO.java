@@ -26,7 +26,7 @@ public class ProductDAO {
     private static Connection cx = null;
 
     /*----- Données de connexion -----*/
-    private static final String URL = "jdbc:mysql://localhost:3307/db_21509053_2";
+    private static final String URL = "jdbc:mysql://localhost:3307/db_21509053";
     private static final String LOGIN = "21509053";
     private static final String PASSWORD = "Q02MI0";
 
@@ -41,6 +41,7 @@ public class ProductDAO {
         /*----- Chargement du pilote pour la BD -----*/
         try {
             Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("pilot ok");
         } catch (ClassNotFoundException ex) {
             throw new ClassNotFoundException("Exception connexion() - Pilote MySql introuvable - " + ex.getMessage());
         }
@@ -48,6 +49,7 @@ public class ProductDAO {
         /*----- Ouverture de la connexion -----*/
         try {
             ProductDAO.cx = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+            System.out.println("connection ok");
         } catch (SQLException ex) {
             throw new SQLException("Exception connexion() - Problème de connexion à la base de données - " + ex.getMessage());
         }
@@ -64,6 +66,7 @@ public class ProductDAO {
 
         /*----- Requête SQL -----*/
         String sql = "SELECT LibelleP FROM Produit WHERE LibelleP LIKE ?";
+        //String sql = "SELECT LibelleP FROM Produit WHERE LibelleP LIKE ?";
 
         /*----- Ouverture de l'espace de requête -----*/
         try (PreparedStatement st = ProductDAO.cx.prepareStatement(sql)) {
@@ -76,7 +79,7 @@ public class ProductDAO {
                 }
             }
         } catch (SQLException ex) {
-            throw new SQLException("Exception lireMots() : Problème SQL - " + ex.getMessage());
+            throw new SQLException("Exception completeSearchBarByProductName() : Problème SQL - " + ex.getMessage());
         }
 
         return products;
@@ -97,7 +100,7 @@ public class ProductDAO {
         /*----- Ouverture de l'espace de requête -----*/
         try (PreparedStatement st = ProductDAO.cx.prepareStatement(sql)) {
             /*----- Exécution de la requête -----*/
-            st.setString(1, product + "%");
+            st.setString(1, "%" + product + "%");
             try (ResultSet rs = st.executeQuery()) {
                 /*----- Lecture du contenu du ResultSet -----*/
                 while (rs.next()) {
@@ -105,7 +108,7 @@ public class ProductDAO {
                 }
             }
         } catch (SQLException ex) {
-            throw new SQLException("Exception lireMots() : Problème SQL - " + ex.getMessage());
+            throw new SQLException("Exception completeSearchBarByCategory() : Problème SQL - " + ex.getMessage());
         }
 
         return categories;
@@ -143,8 +146,8 @@ public class ProductDAO {
 
     public static void main(String[] s) {
         try {
-            System.out.println(ProductDAO.completeSearchBarByProductName("ca"));
-            System.out.println(ProductDAO.completeSearchBarByProductName("ca"));
+            System.out.println(ProductDAO.completeSearchBarByProductName("fr"));
+            System.out.println(ProductDAO.completeSearchBarByCategory("fr"));
 
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
