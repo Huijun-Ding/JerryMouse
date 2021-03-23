@@ -69,6 +69,7 @@ public class Product implements Serializable {
     private Map<Client, Basket> baskets = new HashMap<>(0);
     
     // Relation Reduire Promotion
+    private Map<Promotion, Reduce> promotions = new HashMap<>(0);
 
     // Constructors.
     
@@ -194,6 +195,14 @@ public class Product implements Serializable {
 
     public void setBaskets(Map<Client, Basket> baskets) {
         this.baskets = baskets;
+    }
+
+    public Map<Promotion, Reduce> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(Map<Promotion, Reduce> promotions) {
+        this.promotions = promotions;
     }
     
     
