@@ -5,8 +5,11 @@
  */
 package com.jms.model;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 
 /**
@@ -72,6 +76,13 @@ public class Client {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "CodeMag")
     private Store store;
+    
+    @OneToMany(mappedBy= "client", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name="EANP")
+    private Map<Product, Basket> baskets = new HashMap(0);
+    
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    private Set<Order> orders = new HashSet(0);
     
     //---------------- Constructor --------------
     public Client() {
