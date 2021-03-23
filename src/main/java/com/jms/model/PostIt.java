@@ -23,7 +23,7 @@ public class PostIt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CodePI")
-    private int id;
+    private int code;
     
     /**
      * Designation: Label of a post-it
@@ -55,19 +55,19 @@ public class PostIt {
     //------------ Getter & Setters --------------
 
     /**
-     * Getter for the property id.
-     * @return the id property .
+     * Getter for the property code.
+     * @return the code property .
      */
-    public int getId() {
-        return id;
+    public int getCode() {
+        return code;
     }
 
     /**
-     * Setter for the property id.
-     * @param id The new value to set to the property.
+     * Setter for the property code.
+     * @param code The new value to set to the property.
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     /**
@@ -92,7 +92,7 @@ public class PostIt {
      */
     @Override
     public String toString() {
-        return "PostIt{" + "id=" + id + ", wording=" + wording + '}';
+        return "PostIt{" + "code=" + code + ", wording=" + wording + '}';
     }
 
     /**
@@ -102,7 +102,7 @@ public class PostIt {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + this.id;
+        hash = 67 * hash + this.code;
         return hash;
     }
 
@@ -123,7 +123,7 @@ public class PostIt {
             return false;
         }
         final PostIt other = (PostIt) obj;
-        if (this.id != other.id) {
+        if (this.code != other.code) {
             return false;
         }
         return true;
