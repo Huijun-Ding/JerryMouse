@@ -24,7 +24,7 @@ public class Product implements Serializable {
     private String ean;
     
     @Column (name = "LibelleP")
-    private String libelle;
+    private String name;
     
     @Column (name = "DescriptionP")
     private String description;
@@ -39,10 +39,10 @@ public class Product implements Serializable {
     private boolean bio;
     
     @Column (name = "NutriscoreP")
-    private Nutriscore nutriscore;
+    private ProductNutriScore nutriscore;
     
     @Column (name = "ConditionnementP")
-    private Packaging packaging;
+    private ProductConditioning packaging;
     
 
     // Constructors.
@@ -53,7 +53,7 @@ public class Product implements Serializable {
     public Product(String ean, String libelle, String description, String brand, 
             String format, boolean bio) {
         this.ean = ean;
-        this.libelle = libelle;
+        this.name = libelle;
         this.description = description;
         this.brand = brand;
         this.format = format;
@@ -62,9 +62,9 @@ public class Product implements Serializable {
 
     public Product(String ean, String libelle, String description, 
             String brand, String format, boolean bio, 
-            Nutriscore nutriscore, Packaging packaging) {
+            ProductNutriScore nutriscore, ProductConditioning packaging) {
         this.ean = ean;
-        this.libelle = libelle;
+        this.name = libelle;
         this.description = description;
         this.brand = brand;
         this.format = format;
@@ -83,12 +83,12 @@ public class Product implements Serializable {
         this.ean = ean;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public String getName() {
+        return name;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -123,19 +123,19 @@ public class Product implements Serializable {
         this.bio = bio;
     }
 
-    public Nutriscore getNutriscore() {
+    public ProductNutriScore getNutriscore() {
         return nutriscore;
     }
 
-    public void setNutriscore(Nutriscore nutriscore) {
+    public void setNutriscore(ProductNutriScore nutriscore) {
         this.nutriscore = nutriscore;
     }
 
-    public Packaging getPackaging() {
+    public ProductConditioning getPackaging() {
         return packaging;
     }
 
-    public void setPackaging(Packaging packaging) {
+    public void setPackaging(ProductConditioning packaging) {
         this.packaging = packaging;
     }
     
@@ -168,13 +168,11 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "ean=" + ean + ", libelle=" + libelle 
+        return "Product{" + "ean=" + ean + ", libelle=" + name 
                 + ", description=" + description + ", brand=" + brand 
                 + ", format=" + format + ", bio=" + bio + ", nutriscore=" 
                 + nutriscore + ", packaging=" + packaging + '}';
     }
 
-    
-    
     
 }
