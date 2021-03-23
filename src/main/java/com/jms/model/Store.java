@@ -73,7 +73,7 @@ public class Store {
      */
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeCR")
-    private Map<PickUpTime, Have> pickUpTimes = new HashMap<>(0);
+    private Map<TimeSlot, Have> timeSlots = new HashMap<>(0);
     
     /**
      * Hibernate join property with Client Class.
@@ -206,16 +206,16 @@ public class Store {
         this.products = products;
     }
 
-    public Map<PickUpTime, Have> getPickUpTimes() {
-        return pickUpTimes;
+    public Map<TimeSlot, Have> getTimeSlots() {
+        return timeSlots;
     }
 
     /**
      * Setter for the pick up times property.
      * @param pickUpTimes The new value to set to the property.
      */
-    public void setPickUpTimes(Map<PickUpTime, Have> pickUpTimes) {
-        this.pickUpTimes = pickUpTimes;
+    public void setTimeSlots(Map<TimeSlot, Have> timeSlots) {
+        this.timeSlots = timeSlots;
     }
 
     public Set<Client> getClients() {
