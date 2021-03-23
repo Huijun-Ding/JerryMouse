@@ -214,12 +214,12 @@ public class Product implements Serializable {
         this.promotions = promotions;
     }
     
-    public Map<CommandLine, Order> getPromotions() {
-        return promotions;
+    public Map<CommandLine, Order> getOrders() {
+        return orders;
     }
 
-    public void setPromotions(Map<CommandLine, Order> promotions) {
-        this.promotions = promotions;
+    public void setOrders(Map<CommandLine, Order> orders) {
+        this.orders = orders;
     }
     
     
