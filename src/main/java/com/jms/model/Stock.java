@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
  * @author Jerry Mouse Software.
  */
 @Entity(name = "Stocker")
-@SuppressWarnings("PersistentUnitPresent")
+@SuppressWarnings("PersistenceUnitPresent")
 public class Stock implements Serializable {
 
     // --------------------- PROPERTIES ---------------------
