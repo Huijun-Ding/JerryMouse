@@ -35,14 +35,14 @@ public class PostIt {
      * Designation: ..A REMPLIR!!!!
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PostIts")
+    @JoinColumn(name = "CodePI")
     private ShoppingList shoppingList;
     
     /**
      * Designation: A REMPLIR!!!!
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PostIts")
+    @JoinColumn(name = "CodePI")
     private Product product;
 
     //------------- Constructor ------------------
