@@ -1,5 +1,6 @@
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,8 +18,8 @@ import javax.persistence.OneToMany;
  * Store Class.
  * @author Jerry Mouse Software.
  */
-@Entity(name="Magasin")
-public class Store {
+@Entity(name = "Magasin")
+public class Store implements Serializable {
 
     // --------------------- PROPERTIES ---------------------
 
