@@ -1,6 +1,6 @@
 package com.jms.controller;
 
-import com.jms.dao.productDAO;
+import com.jms.dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -32,7 +32,7 @@ public class searchServlet extends HttpServlet {
             if (!product.equals("")) {
                 try {
                     /*----- Lecture de liste de mots dans la BD -----*/
-                    ArrayList<String> mots = productDAO.searchProduct(product);
+                    ArrayList<String> mots = ProductDAO.searchProduct(product);
 
                     for (String mot : mots) {
                         out.println("<mot><![CDATA[" + mot + "]]></mot>");

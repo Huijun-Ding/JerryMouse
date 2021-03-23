@@ -7,8 +7,10 @@ package com.jms.model;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -44,10 +46,34 @@ public class Product implements Serializable {
     @Column(name = "ConditionnementP")
     private ProductConditioning packaging;
     
-    //-----------Relation with Basket--------------
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL) 
-    @MapKeyJoinColumn(name = "EANP")
-    private Map<Product,Basket> basket = new HashMap<>(0);
+    // Relation Appartenir Categorie
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CodeCat")
+    private ProductCategory category;
+    
+    // Relation Posseder Label
+    @ManyToMany
+    @JoinTable(name = "Posseder", 
+            joinColumns = @JoinColumn(name = "EANP"), 
+            inverseJoinColumns = @JoinColumn(name = "CodeLB"))
+    private Set<Label> labels = new HashSet<>(0);
+    
+    // Relation Etre PostIt
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
+    private Set<PostIt> postIts = new HashSet<>(0);
+    
+    // Relation Panier Client
+    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn (name = "CodeCL")
+    private Map<Client, Basket> baskets = new HashMap<>(0);
+    
+    // Relation Reduire Promotion
+    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn (name = "CodePR")
+    private Map<Promotion, Reduce> promotions = new HashMap<>(0);
+
+    // Constructors.
     
 
     // -------------------- RELATION WITH REDUCE --------------------
@@ -147,6 +173,49 @@ public class Product implements Serializable {
         this.packaging = packaging;
     }
 
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProductCategory category) {
+        this.category = category;
+    }
+
+    public Set<Label> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(Set<Label> labels) {
+        this.labels = labels;
+    }
+
+    public Set<PostIt> getPostIts() {
+        return postIts;
+    }
+
+    public void setPostIts(Set<PostIt> postIts) {
+        this.postIts = postIts;
+    }
+
+    public Map<Client, Basket> getBaskets() {
+        return baskets;
+    }
+
+    public void setBaskets(Map<Client, Basket> baskets) {
+        this.baskets = baskets;
+    }
+
+    public Map<Promotion, Reduce> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(Map<Promotion, Reduce> promotions) {
+        this.promotions = promotions;
+    }
+    
+    
+    // Methods.
+
     // ----------------------- METHODS ------------------------
     @Override
     public int hashCode() {
@@ -175,10 +244,12 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "ean=" + ean + ", libelle=" + name
-                + ", description=" + description + ", brand=" + brand
-                + ", format=" + format + ", bio=" + bio + ", nutriscore="
-                + nutriscore + ", packaging=" + packaging + '}';
+        return "Product{" + "ean=" + ean + ", name=" + name 
+                + ", description=" + description + ", brand=" 
+                + brand + ", format=" + format + ", bio=" + bio 
+                + ", nutriscore=" + nutriscore 
+                + ", packaging=" + packaging + ", category=" + category 
+                + ", labels=" + labels + '}';
     }
 
 }
