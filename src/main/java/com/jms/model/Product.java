@@ -66,6 +66,8 @@ public class Product implements Serializable {
     private Set<PostIt> postIts = new HashSet<>(0);
     
     // Relation Panier Client
+    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn (name = "CodeCL")
     private Map<Client, Basket> baskets = new HashMap<>(0);
     
     // Relation Reduire Promotion
