@@ -74,6 +74,11 @@ public class Product implements Serializable {
     @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
     @MapKeyJoinColumn (name = "CodePR")
     private Map<Promotion, Reduce> promotions = new HashMap<>(0);
+    
+    // Relation Ligne de commande Commande
+    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn (name = "CodeCD")
+    private Map<CommandLine, Order> orders = new HashMap<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
     
@@ -206,6 +211,14 @@ public class Product implements Serializable {
     }
 
     public void setPromotions(Map<Promotion, Reduce> promotions) {
+        this.promotions = promotions;
+    }
+    
+    public Map<CommandLine, Order> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(Map<CommandLine, Order> promotions) {
         this.promotions = promotions;
     }
     
