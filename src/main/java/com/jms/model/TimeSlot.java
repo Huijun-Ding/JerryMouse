@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
@@ -127,15 +125,34 @@ public class TimeSlot {
      */
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TimeSlot other = (TimeSlot) obj;
+        if (!Objects.equals(this.startTime, other.startTime)) {
+            return false;
+        }
+        if (!Objects.equals(this.endTime, other.endTime)) {
+            return false;
+        }
+        return true; 
     }
-    
+
     /**
      * Method which returns the hash code of the current object id.
      * @return The hash code of the current object id.
      */
     @Override
     public int hashCode() {
-        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.startTime);
+        hash = 23 * hash + Objects.hashCode(this.endTime);
+        return hash;
     }
 }
