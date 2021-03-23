@@ -5,20 +5,51 @@
  */
 package com.jms.model;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.OneToMany;
+
 /**
- *
- * @author RAKOTOARISOA
+ * Client Class.
+ * @author Jerry Mouse Software.
  */
-public class Client {
-    //------Properties ------
+@Entity
+public class Client implements Serializable{
+    // --------------------- PROPERTIES ---------------------
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "CodeCL")
     private int code;
+    
+    @Column (name = "NomCL")
     private String lastName;
+    
+    @Column (name = "PrenomCL")
     private String firstName;
+    
+    @Column (name = "AdresseMailCL")
     private String email;
+    
+    @Column (name = "MotDePasseCL")
     private String password;
+    
+    @Column (name = "PointsFidelitesCL")
     private int fidelityPoints;
     
-    //-----Constructor ------------
+    //-----------Relation with Basket--------------
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL) 
+    @MapKeyJoinColumn(name = "CodeCL")
+    private Map<Client,Basket> basket = new HashMap<>(0);
+    
+    // -------------------- CONSTRUCTORS --------------------
     public Client() {
     }
 
@@ -30,8 +61,7 @@ public class Client {
         this.fidelityPoints = fidelityPoints;
     }
     
-    //---------Getter&Setters------------
-
+    // ----------------- GETTERS & SETTERS ------------------
     public int getCode() {
         return code;
     }
@@ -81,8 +111,7 @@ public class Client {
         this.fidelityPoints = fidelityPoints;
     }
     
-    //-------Overriden Methods ------------------------
-
+    // ----------------------- METHODS ----------------------
     @Override
     public String toString() {
         return "Client{" + "code=" + code + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email + ", password=" + password + ", fidelityPoints=" + fidelityPoints + '}';
@@ -111,7 +140,5 @@ public class Client {
             return false;
         }
         return true;
-    }
-    
-    
+    } 
 }

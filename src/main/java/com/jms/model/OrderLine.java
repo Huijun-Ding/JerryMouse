@@ -1,22 +1,23 @@
 package com.jms.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
  *
  * @author Shanshan ZHAO
  */
-public class Family {
+public class OrderLine {
     // Properties.
     private int id;
-    private String name;
+    private Date date;
     
     // Constructors.
-    public Family() {
+    public OrderLine() {
     }
 
-    public Family(String description) {
-        this.name = description;
+    public OrderLine(Date date) {
+        this.date = date;
     }
     
     // Getters and setters.
@@ -28,25 +29,24 @@ public class Family {
         this.id = id;
     }
 
-    public String getDescription() {
-        return name;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDescription(String description) {
-        this.name = description;
+    public void setDate(Date date) {
+        this.date = date;
     }
     
-    // Override methods.
+    // Override methods
     @Override
     public String toString() {
-        return "Family{" + "id=" + id + ", description=" + name + '}';
+        return "CommandLine{" + "id=" + id + ", date=" + date + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + this.id;
-        hash = 79 * hash + Objects.hashCode(this.name);
+        int hash = 5;
+        hash = 53 * hash + this.id;
         return hash;
     }
 
@@ -61,14 +61,12 @@ public class Family {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Family other = (Family) obj;
+        final OrderLine other = (OrderLine) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
     }
-    
+
+
 }

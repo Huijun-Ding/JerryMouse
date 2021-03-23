@@ -20,7 +20,7 @@ public class Order {
     private int orderId;
     private String orderName;
     
-    private Map<CommandLine, Product> products = new HashMap<>();
+    private Map<OrderLine, Product> products = new HashMap<>();
 
     //-----------Constructors--------------
     public Order() {

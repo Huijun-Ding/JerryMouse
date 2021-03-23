@@ -1,23 +1,22 @@
 package com.jms.model;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
  *
  * @author Shanshan ZHAO
  */
-public class CommandLine {
+public class Shelf {
     // Properties.
     private int id;
-    private Date date;
+    private String name;
     
     // Constructors.
-    public CommandLine() {
+    public Shelf() {
     }
 
-    public CommandLine(Date date) {
-        this.date = date;
+    public Shelf(String description) {
+        this.name = description;
     }
     
     // Getters and setters.
@@ -29,25 +28,24 @@ public class CommandLine {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDescription() {
+        return name;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDescription(String description) {
+        this.name = description;
     }
     
-    // Override methods
+    // Override methods.
     @Override
     public String toString() {
-        return "CommandLine{" + "id=" + id + ", date=" + date + '}';
+        return "Family{" + "id=" + id + ", description=" + name + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + this.id;
-        hash = 53 * hash + Objects.hashCode(this.date);
+        int hash = 7;
+        hash = 79 * hash + this.id;
         return hash;
     }
 
@@ -62,13 +60,11 @@ public class CommandLine {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final CommandLine other = (CommandLine) obj;
+        final Shelf other = (Shelf) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.date, other.date)) {
             return false;
         }
         return true;
     }
+    
 }
