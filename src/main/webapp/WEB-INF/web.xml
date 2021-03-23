@@ -26,11 +26,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
-        <url-pattern>/ConnectServlet</url-pattern>
+        <url-pattern>/connect</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
