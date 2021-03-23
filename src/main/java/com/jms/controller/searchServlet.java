@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class searchServlet extends HttpServlet {
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         /*----- Lecture de la requête en UTF-8 -----*/
         request.setCharacterEncoding("UTF-8");
 
@@ -32,19 +32,33 @@ public class searchServlet extends HttpServlet {
             if (!product.equals("")) {
                 try {
                     /*----- Lecture de liste de mots dans la BD -----*/
-                    ArrayList<String> mots = ProductDAO.searchProduct(product);
-
-                    for (String mot : mots) {
-                        out.println("<mot><![CDATA[" + mot + "]]></mot>");
+                    ArrayList<String> categories = ProductDAO.completeSearchBarByCategory(product);
+                    
+                    out.println("Catégorie");
+                    for (String c : categories) {
+                        out.println("<prod><![CDATA[" + c + "]]></prod>");
+                    }
+                    
+                } catch (ClassNotFoundException | SQLException ex) {
+                    out.println("<prod>Erreur - " + ex.getMessage() + "</prod>");
+                }
+                
+                try {
+                    /*----- Lecture de liste de mots dans la BD -----*/
+                    ArrayList<String> products = ProductDAO.completeSearchBarByProductName(product);
+                    
+                    out.println("Article");
+                    for (String p : products) {
+                        out.println("<prod><![CDATA[" + p + "]]></prod>");
                     }
                 } catch (ClassNotFoundException | SQLException ex) {
-                    out.println("<mot>Erreur - " + ex.getMessage() + "</mot>");
+                    out.println("<prod>Erreur - " + ex.getMessage() + "</prod>");
                 }
             } else {
-                out.println("<mot><![CDATA[]]></mot>");
+                out.println("<prod><![CDATA[]]></prod>");
             }
             out.println("</list_products>");
-        }     
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

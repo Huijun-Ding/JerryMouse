@@ -38,8 +38,8 @@ h3 {
 .box {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	/*display: none;
-	width: 198px; BUG : Si le texte est plus long il déborde. A corriger en css ! */
+	display: none;
+	/*width: 198px; BUG : Si le texte est plus long il déborde. A corriger en css ! */
         width: 100%;
 	border-width: 1px;
 	border-style: solid;
