@@ -16,18 +16,20 @@
         <div id="infoConnection">
             <p>Veuillez entrer votre login et votre mot de passe <br>
             Les champs suivis d'un * sont obligatoires</p>
+            <div>${requestScope.msg_error}</div>
         </div>
         
-        <form action="action">
+        <form action="connect" method ="GET">
             <div>
                 <p>Login* :</p>
-                <input type="email" name="login" required />
+                <input type="email" id="mail" name="login" required />
                 <p>Mot de passe*: </p>
-                <input type="text" name="password" required />    
+                <input type="text" id="pw" name="password" required />    
             </div>
             
-            <input type ="submit" value="retour"/>
-            <input type="submit" value = "Se connecter"/>
+            <a href="connect?method=return"> Retour vers l'accueil<a/>
+            <a href="connect?method=connection" >Se connecter</a>
         </form>
+        
     </body>
 </html>
