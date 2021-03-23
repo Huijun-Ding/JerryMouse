@@ -8,6 +8,10 @@
         <servlet-name>searchServlet</servlet-name>
         <servlet-class>com.jms.controller.searchServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConnectServlet</servlet-name>
+        <servlet-class>com.jms.controller.ConnectServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
         <url-pattern>/searchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConnectServlet</servlet-name>
+        <url-pattern>/ConnectServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
