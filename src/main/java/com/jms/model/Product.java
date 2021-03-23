@@ -6,7 +6,9 @@
 package com.jms.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -44,10 +46,17 @@ public class Product implements Serializable {
     @Column (name = "ConditionnementP")
     private ProductConditioning packaging;
     
-    // Relation Appartenir
+    // Relation Appartenir Categorie
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CodeCat")
     private ProductCategory category;
+    
+    // Relation Posseder Label
+    @ManyToMany
+    @JoinTable(name = "Posseder", 
+            joinColumns = @JoinColumn(name = "EANP"), 
+            inverseJoinColumns = @JoinColumn(name = "CodeLB"))
+    private Set<Label> labels = new HashSet<>(0);
 
     // Constructors.
     
@@ -66,8 +75,7 @@ public class Product implements Serializable {
 
     public Product(String ean, String libelle, String description, 
             String brand, String format, boolean bio, 
-            ProductNutriScore nutriscore, ProductConditioning packaging, 
-            ProductCategory category) {
+            ProductNutriScore nutriscore, ProductConditioning packaging) {
         this.ean = ean;
         this.name = libelle;
         this.description = description;
@@ -76,9 +84,8 @@ public class Product implements Serializable {
         this.bio = bio;
         this.nutriscore = nutriscore;
         this.packaging = packaging;
-        this.category = category;
     }
-
+    
     // Getters & Setters.
 
     public String getEan() {
@@ -152,7 +159,14 @@ public class Product implements Serializable {
     public void setCategory(ProductCategory category) {
         this.category = category;
     }
-    
+
+    public Set<Label> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(Set<Label> labels) {
+        this.labels = labels;
+    }
     
     // Methods.
 
@@ -186,11 +200,10 @@ public class Product implements Serializable {
         return "Product{" + "ean=" + ean + ", name=" + name 
                 + ", description=" + description + ", brand=" 
                 + brand + ", format=" + format + ", bio=" + bio 
-                + ", nutriscore=" + nutriscore + ", packaging=" 
-                + packaging + ", category=" + category + '}';
+                + ", nutriscore=" + nutriscore 
+                + ", packaging=" + packaging + ", category=" + category 
+                + ", labels=" + labels + '}';
     }
-
-    
 
     
 }
