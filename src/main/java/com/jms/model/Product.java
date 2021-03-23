@@ -14,38 +14,36 @@ import java.util.Set;
 import javax.persistence.*;
 
 /**
- * The class Product represents a product that exists in the catalog of a store.
- * @author mlk
+ * Product Class.
+ * @author Jerry Mouse Software.
  */
-
-@Entity (name="Produit")
+@Entity(name = "Produit")
 public class Product implements Serializable {
-    
-    // Properties.
-    
+
+    // --------------------- PROPERTIES ---------------------
     @Id
-    @Column (name = "EANP")
+    @Column(name = "EANP")
     private String ean;
-    
-    @Column (name = "LibelleP")
+
+    @Column(name = "LibelleP")
     private String name;
-    
-    @Column (name = "DescriptionP")
+
+    @Column(name = "DescriptionP")
     private String description;
-    
-    @Column (name = "MarqueP")
+
+    @Column(name = "MarqueP")
     private String brand;
-    
-    @Column (name = "FormatP")
+
+    @Column(name = "FormatP")
     private String format;
-    
-    @Column (name = "BioP")
+
+    @Column(name = "BioP")
     private boolean bio;
-    
-    @Column (name = "NutriscoreP")
+
+    @Column(name = "NutriscoreP")
     private ProductNutriScore nutriscore;
-    
-    @Column (name = "ConditionnementP")
+
+    @Column(name = "ConditionnementP")
     private ProductConditioning packaging;
     
     // Relation Appartenir Categorie
@@ -77,10 +75,17 @@ public class Product implements Serializable {
 
     // Constructors.
     
+
+    // -------------------- RELATION WITH REDUCE --------------------
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "EANP")
+    private Map<Promotion, Reduce> reduce = new HashMap<>(0);
+
+    // -------------------- CONSTRUCTORS --------------------
     public Product() {
     }
 
-    public Product(String ean, String libelle, String description, String brand, 
+    public Product(String ean, String libelle, String description, String brand,
             String format, boolean bio) {
         this.ean = ean;
         this.name = libelle;
@@ -90,8 +95,8 @@ public class Product implements Serializable {
         this.bio = bio;
     }
 
-    public Product(String ean, String libelle, String description, 
-            String brand, String format, boolean bio, 
+    public Product(String ean, String libelle, String description,
+            String brand, String format, boolean bio,
             ProductNutriScore nutriscore, ProductConditioning packaging) {
         this.ean = ean;
         this.name = libelle;
@@ -102,9 +107,8 @@ public class Product implements Serializable {
         this.nutriscore = nutriscore;
         this.packaging = packaging;
     }
-    
-    // Getters & Setters.
 
+    // ----------------- GETTERS & SETTERS ------------------
     public String getEan() {
         return ean;
     }
@@ -212,6 +216,7 @@ public class Product implements Serializable {
     
     // Methods.
 
+    // ----------------------- METHODS ------------------------
     @Override
     public int hashCode() {
         int hash = 3;
@@ -247,5 +252,4 @@ public class Product implements Serializable {
                 + ", labels=" + labels + '}';
     }
 
-    
 }

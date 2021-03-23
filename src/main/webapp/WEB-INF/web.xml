@@ -4,9 +4,25 @@
         <servlet-name>searchServlet</servlet-name>
         <servlet-class>com.jms.controller.searchServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>visualiserPanierServlet</servlet-name>
+        <servlet-class>com.jms.controller.visualiserPanierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>basketPage</servlet-name>
+        <jsp-file>/jsp/basket_page.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
         <url-pattern>/searchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>visualiserPanierServlet</servlet-name>
+        <url-pattern>/visualiserPanierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>basketPage</servlet-name>
+        <url-pattern>/basketPage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
