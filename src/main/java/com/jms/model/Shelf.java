@@ -6,16 +6,16 @@ import java.util.Objects;
  *
  * @author Shanshan ZHAO
  */
-public class Family {
+public class Shelf {
     // Properties.
     private int id;
     private String name;
     
     // Constructors.
-    public Family() {
+    public Shelf() {
     }
 
-    public Family(String description) {
+    public Shelf(String description) {
         this.name = description;
     }
     
@@ -61,7 +61,7 @@ public class Family {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Family other = (Family) obj;
+        final Shelf other = (Shelf) obj;
         if (this.id != other.id) {
             return false;
         }
