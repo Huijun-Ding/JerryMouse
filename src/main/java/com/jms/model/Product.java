@@ -1,33 +1,80 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.*;
 
 /**
- *
- * @author Shanshan ZHAO
+ * The class Product represents a product that exists in the catalog of a store.
+ * @author mlk
  */
-public class Product {
+
+@Entity (name="Produit")
+public class Product implements Serializable {
+    
     // Properties.
+    
+    @Id
+    @Column (name = "EANP")
     private String ean;
+    
+    @Column (name = "LibelleP")
     private String name;
+    
+    @Column (name = "DescriptionP")
     private String description;
+    
+    @Column (name = "MarqueP")
     private String brand;
+    
+    @Column (name = "FormatP")
     private String format;
+    
+    @Column (name = "BioP")
     private boolean bio;
     
+    @Column (name = "NutriscoreP")
+    private ProductNutriScore nutriscore;
+    
+    @Column (name = "ConditionnementP")
+    private ProductConditioning packaging;
+    
+
     // Constructors.
-    public Product(String name, String description, String brand, String format, boolean bio) {
-        this.name = name;
+    
+    public Product() {
+    }
+
+    public Product(String ean, String libelle, String description, String brand, 
+            String format, boolean bio) {
+        this.ean = ean;
+        this.name = libelle;
         this.description = description;
         this.brand = brand;
         this.format = format;
         this.bio = bio;
     }
 
-    public Product() {
+    public Product(String ean, String libelle, String description, 
+            String brand, String format, boolean bio, 
+            ProductNutriScore nutriscore, ProductConditioning packaging) {
+        this.ean = ean;
+        this.name = libelle;
+        this.description = description;
+        this.brand = brand;
+        this.format = format;
+        this.bio = bio;
+        this.nutriscore = nutriscore;
+        this.packaging = packaging;
     }
     
-    // Getters and setters
+    // Getters & Setters.
+
     public String getEan() {
         return ean;
     }
@@ -75,22 +122,29 @@ public class Product {
     public void setBio(boolean bio) {
         this.bio = bio;
     }
-    
-    // Override methods.
-    @Override
-    public String toString() {
-        return "Product{" + "ean=" + ean + ", name=" + name + ", description=" + description + ", brand=" + brand + ", format=" + format + ", bio=" + bio + '}';
+
+    public ProductNutriScore getNutriscore() {
+        return nutriscore;
     }
+
+    public void setNutriscore(ProductNutriScore nutriscore) {
+        this.nutriscore = nutriscore;
+    }
+
+    public ProductConditioning getPackaging() {
+        return packaging;
+    }
+
+    public void setPackaging(ProductConditioning packaging) {
+        this.packaging = packaging;
+    }
+    
+    // Methods.
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.ean);
-        hash = 23 * hash + Objects.hashCode(this.name);
-        hash = 23 * hash + Objects.hashCode(this.description);
-        hash = 23 * hash + Objects.hashCode(this.brand);
-        hash = 23 * hash + Objects.hashCode(this.format);
-        hash = 23 * hash + (this.bio ? 1 : 0);
+        hash = 97 * hash + Objects.hashCode(this.ean);
         return hash;
     }
 
@@ -106,25 +160,19 @@ public class Product {
             return false;
         }
         final Product other = (Product) obj;
-        if (this.bio != other.bio) {
-            return false;
-        }
         if (!Objects.equals(this.ean, other.ean)) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Objects.equals(this.brand, other.brand)) {
-            return false;
-        }
-        if (!Objects.equals(this.format, other.format)) {
             return false;
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "ean=" + ean + ", libelle=" + name 
+                + ", description=" + description + ", brand=" + brand 
+                + ", format=" + format + ", bio=" + bio + ", nutriscore=" 
+                + nutriscore + ", packaging=" + packaging + '}';
+    }
+
     
 }
