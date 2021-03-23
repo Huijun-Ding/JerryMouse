@@ -8,14 +8,27 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 
 /**
- * PickUpTime Class.
+ * TimeSlot Class.
  * @author Jerry Mouse Software.
  */
-public class PickUpTime {
+public class TimeSlot {
 
     // --------------------- PROPERTIES ---------------------
 
+    /**
+     * <Désignation_du_dictionnaire_des_données>.
+     * <b>Rule(s) : <règle_ici></b>
+     * <b>Format : <format_si_existe></b>
+     * <b>Maximum size : <taille_si_existe></b>
+     */
     private Date startTime;
+    
+    /**
+     * <Désignation_du_dictionnaire_des_données>.
+     * <b>Rule(s) : <règle_ici></b>
+     * <b>Format : <format_si_existe></b>
+     * <b>Maximum size : <taille_si_existe></b>
+     */
     private Date endTime;
 
     /**
@@ -27,7 +40,7 @@ public class PickUpTime {
 
     // -------------------- CONSTRUCTORS --------------------
 
-    public PickUpTime() {
+    public TimeSlot() {
     }
 
     // ----------------- GETTERS & SETTERS ------------------
