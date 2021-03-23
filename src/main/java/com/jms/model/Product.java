@@ -15,7 +15,7 @@ import javax.persistence.*;
 
 /**
  * The class Product represents a product that exists in the catalog of a store.
- * @author mlk
+ * @author Jerry Mouse Software
  */
 
 @Entity (name="Produit")
@@ -83,16 +83,6 @@ public class Product implements Serializable {
     // -------------------- CONSTRUCTORS --------------------
     
     public Product() {
-    }
-
-    public Product(String ean, String libelle, String description, String brand, 
-            String format, boolean bio) {
-        this.ean = ean;
-        this.name = libelle;
-        this.description = description;
-        this.brand = brand;
-        this.format = format;
-        this.bio = bio;
     }
 
     public Product(String ean, String libelle, String description, 
