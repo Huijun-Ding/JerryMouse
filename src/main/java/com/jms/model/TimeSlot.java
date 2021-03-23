@@ -1,10 +1,12 @@
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
@@ -13,7 +15,9 @@ import javax.persistence.OneToMany;
  * TimeSlot Class.
  * @author Jerry Mouse Software.
  */
-public class TimeSlot {
+@Entity(name = "CreneauHoraire")
+@SuppressWarnings("PersistenceUnitPresent")
+public class TimeSlot implements Serializable {
 
     // --------------------- PROPERTIES ---------------------
 

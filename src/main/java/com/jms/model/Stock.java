@@ -1,34 +1,58 @@
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Stock Class.
  * @author Jerry Mouse Software.
  */
-public class Stock {
+@Entity(name = "Stocker")
+@SuppressWarnings("PersistenceUnitPresent")
+public class Stock implements Serializable {
 
     // --------------------- PROPERTIES ---------------------
     
-    
+    @EmbeddedId
     private StockId stockId;
+    
+    /**
+     * Quantity of stock of a given product in a store.
+     * <b>Rule(s) : ≥ 0</b>
+     */
+    @Column(name = "QteStock")
     private int qtyStock;
             
     /**
-     * Hibernate join property with <nom_de_la_classe_1> Class  and <nom_de_la_classe_2> Class.
+     * Hibernate join property with Store Class.
      */
+    @ManyToOne
+    @JoinColumn(name = "CodeM", insertable = false, updatable = false)
     private Store store;
     
     /**
-     * Hibernate join property with <nom_de_la_classe_1> Class  and <nom_de_la_classe_2> Class.
+     * Hibernate join property with Product Class.
      */
+    @ManyToOne
+    @JoinColumn(name = "CodeP", insertable = false, updatable = false)
     private Product product;
     
     // -------------------- CONSTRUCTORS --------------------
-    
+    /**
+     * A constructor of the Stock Class.
+     */
     public Stock() {
     }
-
+    /**
+     * A constructor of the Stock Class.
+     * @param stockId
+     * @param qtyStock 
+     */
     public Stock(StockId stockId, int qtyStock) {
         this.stockId = stockId;
         this.qtyStock = qtyStock;
