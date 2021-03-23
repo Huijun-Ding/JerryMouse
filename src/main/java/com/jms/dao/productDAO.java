@@ -17,12 +17,12 @@ import java.util.ArrayList;
  * @author Mathi
  */
 public class ProductDAO {
-    
-    /*---------*/
-    /* Données */
-    /*---------*/
 
-    /*----- Connexion -----*/
+    /*---------*/
+ /* Données */
+ /*---------*/
+
+ /*----- Connexion -----*/
     private static Connection cx = null;
 
     /*----- Données de connexion -----*/
@@ -32,9 +32,8 @@ public class ProductDAO {
 
 
     /*----------*/
-    /* Méthodes */
-    /*----------*/
-
+ /* Méthodes */
+ /*----------*/
     /**
      * Crée la connexion avec la base de données.
      */
@@ -53,8 +52,8 @@ public class ProductDAO {
             throw new SQLException("Exception connexion() - Problème de connexion à la base de données - " + ex.getMessage());
         }
     }
-    
-        public static ArrayList<String> searchProduct(String product) throws ClassNotFoundException, SQLException {
+
+    public static ArrayList<String> completeSearchBarByProductName(String product) throws ClassNotFoundException, SQLException {
         /*----- Création de la connexion à la base de données -----*/
         if (ProductDAO.cx == null) {
             ProductDAO.connexion();
@@ -64,7 +63,65 @@ public class ProductDAO {
         ArrayList<String> products = new ArrayList<>();
 
         /*----- Requête SQL -----*/
-        String sql = "SELECT p.idP FROM Produit p, Categorie c WHERE p.numC = c.numC and p.NomP LIKE ? or c.NomC LIKE ?";
+        String sql = "SELECT LibelleP FROM Produit WHERE LibelleP LIKE ?";
+
+        /*----- Ouverture de l'espace de requête -----*/
+        try (PreparedStatement st = ProductDAO.cx.prepareStatement(sql)) {
+            /*----- Exécution de la requête -----*/
+            st.setString(1, product + "%");
+            try (ResultSet rs = st.executeQuery()) {
+                /*----- Lecture du contenu du ResultSet -----*/
+                while (rs.next()) {
+                    products.add(rs.getString(1));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new SQLException("Exception lireMots() : Problème SQL - " + ex.getMessage());
+        }
+
+        return products;
+    }
+
+    public static ArrayList<String> completeSearchBarByCategory(String product) throws ClassNotFoundException, SQLException {
+        /*----- Création de la connexion à la base de données -----*/
+        if (ProductDAO.cx == null) {
+            ProductDAO.connexion();
+        }
+
+        /*----- Interrogation de la base -----*/
+        ArrayList<String> categories = new ArrayList<>();
+
+        /*----- Requête SQL -----*/
+        String sql = "SELECT LibelleCP FROM CategorieProduit WHERE LibelleCP LIKE ?";
+
+        /*----- Ouverture de l'espace de requête -----*/
+        try (PreparedStatement st = ProductDAO.cx.prepareStatement(sql)) {
+            /*----- Exécution de la requête -----*/
+            st.setString(1, product + "%");
+            try (ResultSet rs = st.executeQuery()) {
+                /*----- Lecture du contenu du ResultSet -----*/
+                while (rs.next()) {
+                    categories.add(rs.getString(1));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new SQLException("Exception lireMots() : Problème SQL - " + ex.getMessage());
+        }
+
+        return categories;
+    }
+
+    public static ArrayList<String> searchProduct(String product) throws ClassNotFoundException, SQLException {
+        /*----- Création de la connexion à la base de données -----*/
+        if (ProductDAO.cx == null) {
+            ProductDAO.connexion();
+        }
+
+        /*----- Interrogation de la base -----*/
+        ArrayList<String> products = new ArrayList<>();
+
+        /*----- Requête SQL -----*/
+        String sql = "SELECT p.EANP, c.codeCP FROM Produit p, CategorieProduit c WHERE p.codeCP = c.codeCP and p.LibelleP LIKE ? or c.LibelleCP LIKE ?";
 
         /*----- Ouverture de l'espace de requête -----*/
         try (PreparedStatement st = ProductDAO.cx.prepareStatement(sql)) {
@@ -83,10 +140,11 @@ public class ProductDAO {
 
         return products;
     }
-    
-        public static void main(String[] s) {
+
+    public static void main(String[] s) {
         try {
-            System.out.println(ProductDAO.searchProduct("café"));
+            System.out.println(ProductDAO.completeSearchBarByProductName("ca"));
+            System.out.println(ProductDAO.completeSearchBarByProductName("ca"));
 
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
