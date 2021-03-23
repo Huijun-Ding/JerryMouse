@@ -1,16 +1,37 @@
 package com.jms.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.*;
 
 /**
- *
- * @author Shanshan ZHAO
+ * ProductCategory class.
+ * @author Jerry Mouse Software
  */
+@Entity (name = "CategorieProduit")
 public class ProductCategory {
     
     // --------------------- PROPERTIES ---------------------
+    /**
+     * Unique code identifying a product category
+     */
+    @Id
+    @Column (name = "CodeCP")
     private int id;
+    
+    /**
+     * Label of a product category
+     */
+    @Column (name = "LibelleCP")
     private String name;
+    
+    /**
+     * Collection of products of this category.
+     */
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
+    private Set<Product> products = new HashSet<>(0);
     
     // -------------------- CONSTRUCTORS --------------------
     public ProductCategory(String description) {
@@ -29,12 +50,20 @@ public class ProductCategory {
         this.id = id;
     }
 
-    public String getDescription() {
+    public String getName() {
         return name;
     }
 
-        public void setDescription(String description) {    
-        this.name = description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     // ----------------------- METHODS ----------------------    
