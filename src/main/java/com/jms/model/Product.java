@@ -6,7 +6,9 @@
 package com.jms.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
@@ -62,6 +64,11 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
             fetch = FetchType.LAZY)
     private Set<PostIt> postIts = new HashSet<>(0);
+    
+    // Relation Panier Client
+    private Map<Client, Basket> baskets = new HashMap<>(0);
+    
+    // Relation Reduire Promotion
 
     // Constructors.
     
@@ -179,6 +186,14 @@ public class Product implements Serializable {
 
     public void setPostIts(Set<PostIt> postIts) {
         this.postIts = postIts;
+    }
+
+    public Map<Client, Basket> getBaskets() {
+        return baskets;
+    }
+
+    public void setBaskets(Map<Client, Basket> baskets) {
+        this.baskets = baskets;
     }
     
     
