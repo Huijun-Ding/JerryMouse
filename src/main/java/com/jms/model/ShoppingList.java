@@ -28,7 +28,7 @@ public class ShoppingList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CodeLC")
-    private int id;
+    private int code;
     
     /**
      * Designation: Name of a shopping list
@@ -53,8 +53,7 @@ public class ShoppingList {
     public ShoppingList() {
     }
 
-    public ShoppingList(int id, String name) {
-        this.id = id;
+    public ShoppingList( String name) {
         this.name = name;
     }
 
@@ -63,15 +62,15 @@ public class ShoppingList {
      * Getter for the property id.
      * @return the id property. 
      */
-    public int getId() {
-        return id;
+    public int getCode() {
+        return code;
     }
     /**
-     * Setter for the property id.
-     * @param id The new value to set to the property.
+     * Setter for the property code.
+     * @param code The new value to set to the property.
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setCode(int code) {
+        this.code = code;
     }
     
     /**
@@ -94,7 +93,7 @@ public class ShoppingList {
      */
     @Override
     public String toString() {
-        return "ShoppingList{" + "id=" + id + ", name=" + name + '}';
+        return "ShoppingList{" + "code=" + code + ", name=" + name + '}';
     }
     
     /**
@@ -104,7 +103,7 @@ public class ShoppingList {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 19 * hash + this.id;
+        hash = 19 * hash + this.code;
         return hash;
     }
     
@@ -125,7 +124,7 @@ public class ShoppingList {
             return false;
         }
         final ShoppingList other = (ShoppingList) obj;
-        if (this.id != other.id) {
+        if (this.code != other.code) {
             return false;
         }
         return true;
