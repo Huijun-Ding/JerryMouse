@@ -5,6 +5,11 @@
  */
 package com.jms.model;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
  *
  * @author Mathi
@@ -14,6 +19,8 @@ public class Order {
     //-----------Properties----------------
     private int orderId;
     private String orderName;
+    
+    private Map<CommandLine, Product> products = new HashMap<>();
 
     //-----------Constructors--------------
     public Order() {
