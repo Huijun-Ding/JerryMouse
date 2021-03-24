@@ -46,3 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+/**
+ * Launch after loading the DOM.
+ */
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.getElementById("bt_connect").addEventListener("click", connection);
+});
+
+
