@@ -28,6 +28,10 @@
         <servlet-name>DisplayProductsServlet</servlet-name>
         <servlet-class>com.jms.controller.DisplayProductsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>/ProductsList</servlet-name>
+        <jsp-file>/jsp/products_list.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>DisplayProductsServlet</servlet-name>
         <url-pattern>/DisplayProducts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>/ProductsList</servlet-name>
+        <url-pattern>/ProductsList</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
