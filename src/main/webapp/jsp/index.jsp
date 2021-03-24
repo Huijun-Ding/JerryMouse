@@ -71,12 +71,12 @@
                             <a class="dropdown-item" href="#">S'inscrire</a>
                         </div>
                     </div>
-                    <button type="button" class="btn  btn-sm btn-primary">
+                    <a href="checkBasket?idClient=<%out.println("1");%>" role="button" class="btn  btn-sm btn-primary">
                         <div class="d-flex flex-column">
                             <i class="fa fa-shopping-basket"></i>
                             Panier
                         </div>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
