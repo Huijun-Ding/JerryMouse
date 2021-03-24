@@ -48,7 +48,7 @@ public class Promotion implements Serializable {
     /**
      * Hibernate join property with Promotion Class and Reduce Class.
      */
-    @OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "promotions", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodePR")
     private Map<Product, Reduce> products = new HashMap<>(0);
 

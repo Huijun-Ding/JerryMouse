@@ -19,7 +19,6 @@ import javax.persistence.Embeddable;
 public class OrderLineId {
 
     // --------------------- PROPERTIES ---------------------
-    
     /**
      * EAN (European Article Numbering): Bar code that uniquely identifies a
      * product.
@@ -35,7 +34,7 @@ public class OrderLineId {
      */
     @Column(name = "CodeCD")
     private int orderId;
-    
+
     // -------------------- CONSTRUCTORS --------------------
     /**
      * A constructor of the OrderLineID Class.
@@ -44,14 +43,14 @@ public class OrderLineId {
      * identifies a product.
      * @param orderId Unique code identifying a order.
      */
-        public OrderLineId() {
+    public OrderLineId() {
     }
 
     public OrderLineId(String ean, int orderId) {
         this.ean = ean;
         this.orderId = orderId;
     }
-    
+
     // ----------------- GETTERS & SETTERS ------------------
     public String getEan() {
         return ean;
@@ -70,7 +69,6 @@ public class OrderLineId {
     }
 
     // ----------------------- METHODS ----------------------
-
     @Override
     public String toString() {
         return "OrderLineId{" + "ean=" + ean + ", orderId=" + orderId + '}';
@@ -104,6 +102,5 @@ public class OrderLineId {
         }
         return true;
     }
-    
-        
+
 }
