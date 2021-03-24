@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.jms.controller;
 
 import com.jms.dao.ProductDAO;
@@ -10,41 +15,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class searchServlet extends HttpServlet {
-    
+public class searchByKeyWordServlet extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-        /*----- Lecture de la requête en UTF-8 -----*/
-        request.setCharacterEncoding("UTF-8");
 
-        /*----- Type de la réponse -----*/
         response.setContentType("application/xml;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         try (PrintWriter out = response.getWriter()) {
-            /*----- Ecriture de la page XML -----*/
+            // XML page
             out.println("<?xml version=\"1.0\"?>");
             out.println("<list_products>");
 
-            /*----- Récupération des paramètres -----*/
+            // get parameter
             String product = request.getParameter("product");
+            System.out.println("product");
             if (!product.equals("")) {
                 try {
-                    /*----- Lecture de liste de mots dans la BD -----*/
-                    ArrayList<String> mots = ProductDAO.searchProduct(product);
+                    // put result into a list
+                    ArrayList<String> categories = ProductDAO.completeSearchBarByCategory(product);
 
-                    for (String mot : mots) {
-                        out.println("<mot><![CDATA[" + mot + "]]></mot>");
+                    for (String c : categories) {
+                        out.println("<product><![CDATA[" + c + "]]></product>");
                     }
                 } catch (ClassNotFoundException | SQLException ex) {
-                    out.println("<mot>Erreur - " + ex.getMessage() + "</mot>");
+                    out.println("<product>Erreur - " + ex.getMessage() + "</product>");
+                }
+
+                try {
+                    // put result into a list
+                    ArrayList<String> products = ProductDAO.completeSearchBarByProductName(product);
+
+                    for (String p : products) {
+                        out.println("<product><![CDATA[" + p + "]]></product>");
+                    }
+                } catch (ClassNotFoundException | SQLException ex) {
+                    out.println("<product>Erreur - " + ex.getMessage() + "</product>");
                 }
             } else {
-                out.println("<mot><![CDATA[]]></mot>");
+                out.println("<product><![CDATA[]]></product>");
             }
             out.println("</list_products>");
-        }     
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
