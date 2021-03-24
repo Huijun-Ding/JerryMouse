@@ -9,11 +9,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import javax.persistence.Entity;
 
 /**
- *
- * @author Mathi
+ * The class Order represents a order that ordered by a client which includ multiple order lines.
+ * @author Jerry Mouse Software
  */
+@Entity(name = "Produit")
 public class Order {
 
     //-----------Properties----------------
