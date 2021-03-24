@@ -18,28 +18,26 @@ import javax.persistence.ManyToMany;
 @Entity(name = "Label")
 public class Label {
 
-    //------------ Properties ------------
-    
     /**
-     * Designation: Unique code identifying a label
-     */
+    * Code of a label.
+    */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CodeLB")
     private int id;
-    
+
     /**
-     * Designation: Name of a label
-     */
+    * Name of a label.
+    */
     @Column(name = "LibelleLB")
     private String name;
-    
+
     /**
-     * Designation: for the relationship "Posseder"
-     */
-    @ManyToMany(mappedBy = "services") 
-    private Set<Product> products = new HashSet(0); 
-    
+    *  Hibernate join property with Produit Class and Label Class for the relationship "Posseder".
+    */
+    @ManyToMany(mappedBy = "services")
+    private Set<Product> products = new HashSet(0);
+
     // Constructors.
     public Label() {
     }
@@ -63,6 +61,23 @@ public class Label {
 
     public void setDescription(String description) {
         this.name = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    //------------ Properties ------------
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     // Override methods.
