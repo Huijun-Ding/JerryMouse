@@ -47,6 +47,24 @@ public class Product implements Serializable {
     @Column(name = "ConditionnementP")
     private ProductConditioning packaging;
     
+    /**
+     * The unit price of a product.
+     */
+    @Column (name = "PrixUnit")
+    private Double unitPrice;
+    
+    /**
+     * The price per kilo of a product if exists.
+     */
+    @Column (name = "PrixKG")
+    private Double kgPrice;
+    
+    /**
+     * The url of the thumbnail of the product.
+     */
+    @Column (name = "URLP")
+    private String urlThumbnail;
+    
     // Relation Appartenir Categorie
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CodeCat")
@@ -80,14 +98,6 @@ public class Product implements Serializable {
     private Map<OrderLine, Order> orders = new HashMap<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
-    
-
-    // -------------------- RELATION WITH REDUCE --------------------
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn(name = "EANP")
-    private Map<Promotion, Reduce> reduce = new HashMap<>(0);
-
-    // -------------------- CONSTRUCTORS --------------------
     public Product() {
     }
 
@@ -104,6 +114,8 @@ public class Product implements Serializable {
         this.nutriscore = nutriscore;
         this.packaging = packaging;
     }
+    
+    
 
     // ----------------- GETTERS & SETTERS ------------------
 
@@ -169,6 +181,30 @@ public class Product implements Serializable {
 
     public void setPackaging(ProductConditioning packaging) {
         this.packaging = packaging;
+    }
+
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Double getKgPrice() {
+        return kgPrice;
+    }
+
+    public void setKgPrice(Double kgPrice) {
+        this.kgPrice = kgPrice;
+    }
+
+    public String getUrlThumbnail() {
+        return urlThumbnail;
+    }
+
+    public void setUrlThumbnail(String urlThumbnail) {
+        this.urlThumbnail = urlThumbnail;
     }
 
     public ProductCategory getCategory() {
