@@ -5,6 +5,7 @@
  */
 package com.jms.controller;
 
+import com.jms.dao.ClientDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,10 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Class ConnectServlet
  *
- * @author Mathi
+ * @author Jerry Mouse Software.
  */
-public class NewServlet extends HttpServlet {
+public class ConnectServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,16 +33,44 @@ public class NewServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            //Get parameter method
+            String method = request.getParameter("method");
+            
+            //Get parameter login and password
+            String login = request.getParameter("login");
+            String pw = request.getParameter("password");
+            
+            //Call method authenticate to check login and password
+            boolean check = ClientDAO.authenticate(login, pw);
+            
+            
+            switch (method) {
+                /*
+                if method = connection, check the login and password and get the connection
+                    if check is true
+                */
+                case "connection":
+                    if (check == true) {
+                        //chain to index page
+                        request.getRequestDispatcher("index").forward(request, response);
+                    } else {
+                        //chain to page login and display a message error
+                        request.getRequestDispatcher("login").forward(request, response);
+                        request.setAttribute("msg_error", "Le login ou le mot de passe est incorrect!");
+                    }
+                    
+                    break;
+                /*
+                if method = return, chain to page index.jsp
+                */
+                case "return":
+                    //chain to page index page
+                    request.getRequestDispatcher("index").forward(request, response);
+                    
+                    break;
+            }
+
         }
     }
 

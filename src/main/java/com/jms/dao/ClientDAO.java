@@ -16,9 +16,9 @@ public class ClientDAO {
      * @param email
      * @param password 
      */
-    public boolean authenticate(String email, String password){
+    public static boolean authenticate(String email, String password){
        
-        Client client = null;
+        Client client = new Client();
 
         if((email == client.getEmail())&&(password == client.getPassword())){
             return true;
