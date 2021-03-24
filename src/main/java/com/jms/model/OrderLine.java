@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- *
- * @author Shanshan ZHAO
+ * The class OrderLine represents a order line which a product with certain quantity.
+ * @author Jerry Mouse Software
  */
 public class OrderLine {
     // Properties.

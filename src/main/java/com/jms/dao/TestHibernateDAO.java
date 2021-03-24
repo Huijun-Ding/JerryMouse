@@ -6,7 +6,9 @@
 package com.jms.dao;
 
 import com.jms.model.Client;
+import com.jms.model.Product;
 import java.text.ParseException;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -33,11 +35,23 @@ public class TestHibernateDAO {
             t.commit();
         }
     }
+    
+    public static void getProductsBySearch(String keyword) {
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            //Open a transaction
+            session.beginTransaction();
+
+            Product p = session.get(Product.class, keyword);
+            
+        }
+    }
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
 
         //TestHibernateDAO.xxxxxxx();
         TestHibernateDAO.createClient();
+        //TestHibernateDAO.getProductsBySearch("fr");
 
         /*----- Exit -----*/
         System.exit(0);
