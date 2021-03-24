@@ -21,7 +21,7 @@ import javax.persistence.OneToMany;
 @Entity(name="ListeCourse")
 public class ShoppingList implements Serializable{
 
-    //--------------- Properties -----------------
+    //--------------- PROPERTIES -----------------
     
     /**
      * Designation: Unique code identifying a Shopping list
@@ -38,27 +38,35 @@ public class ShoppingList implements Serializable{
     private String name;
     
     /**
-     * Designation: A REMPLIR!!!!
-     */
+    *  Hibernate join property with ShoppingList Class  and Client Class.
+    */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="CodeClient")
     private Client client;
     
     /**
-     * Designation: A REMPLIR!!!!
-     */
+    *  Hibernate join property with ShoppingList Class  and PostIt Class.
+    */
     @OneToMany(mappedBy ="shoppingList", fetch = FetchType.LAZY)
     private Set<PostIt> postIts = new HashSet(0);
     
-    //---------------- Constructor -----------------
+    //---------------- CONSTRUCTOR -----------------
+    /**
+     * A constructor of the ShoppingList Class.
+     */      
     public ShoppingList() {
     }
+    
+    /**
+    * A constructor of the ShoppingList Class.
+    * @param name Name of a shopping list.
+    */
 
     public ShoppingList( String name) {
         this.name = name;
     }
 
-    //---------------- Getters & Setters -----------------------
+    //---------------- GETTERS&SETTERS -----------------------
     /**
      * Getter for the property id.
      * @return the id property. 
@@ -88,7 +96,41 @@ public class ShoppingList implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-    //--------------------- Methods -------------------
+    
+    /**
+     * Getter for the object client.
+     * @return the client objetc. 
+     */
+    public Client getClient() {
+        return client;
+    }
+    
+    /**
+     * Setter for the object client.
+     * @param client The new value to set to the property.
+     */
+    public void setClient(Client client) {
+        this.client = client;
+    }
+    
+    /**
+     * Getter for the Set postIts.
+     * @return the postIts property. 
+     */
+    public Set<PostIt> getPostIts() {
+        return postIts;
+    }
+    
+    /**
+     * Setter for the Set postIts.
+     * @param postIts The new value to set to the property.
+     */
+    public void setPostIts(Set<PostIt> postIts) {
+        this.postIts = postIts;
+    }
+    
+    
+    //--------------------- METHODS -------------------
     /**
      * Method which converts the current object into a String object.
      */
