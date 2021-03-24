@@ -48,6 +48,13 @@ public class Product implements Serializable {
     private ProductConditioning packaging;
     
     /**
+     * If the conditioning of the product is in pack, 
+     * the quantity of products in the pack.
+     */
+    @Column (name = "QteConditionnementP")
+    private int packagingQuantity;
+    
+    /**
      * The unit price of a product.
      */
     @Column (name = "PrixUnit")
@@ -186,6 +193,14 @@ public class Product implements Serializable {
 
     public void setPackaging(ProductConditioning packaging) {
         this.packaging = packaging;
+    }
+
+    public int getPackagingQuantity() {
+        return packagingQuantity;
+    }
+
+    public void setPackagingQuantity(int packagingQuantity) {
+        this.packagingQuantity = packagingQuantity;
     }
 
     public Double getUnitPrice() {
