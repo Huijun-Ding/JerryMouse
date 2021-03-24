@@ -91,9 +91,6 @@ public class Product implements Serializable {
     @MapKeyJoinColumn (name = "CodeCD")
     private Map<OrderLine, Order> orders = new HashMap<>(0);
 
-    // -------------------- CONSTRUCTORS --------------------
-    
-
     // -------------------- RELATION WITH REDUCE --------------------
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "EANP")
