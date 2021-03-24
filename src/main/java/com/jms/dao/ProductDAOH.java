@@ -91,6 +91,28 @@ public class ProductDAOH {
         }
     }
     
-    
+    /**
+     * Gets the products of a department from its id.
+     * @param id the id of the department.
+     * @return the list of products.
+     */
+    public static List<Product> getProductsOfDepartment(int id) {
+        List<Product> list;
+        /*----- Session opening -----*/
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
 
+            //System.out.println("--------- GET PRODUCTS OF A DEPARTMENT ");
+            
+            String sql = 
+                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
+                    + "p.nutriscore, p.packaging, p.packagingQuantity, "
+                    + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
+                    + "FROM Product p "
+                    + "WHERE p.category.department.id = :id";
+            list = session.createQuery(sql).list();
+            return list;
+        }
+    }
+    
 }
