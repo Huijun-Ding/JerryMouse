@@ -64,7 +64,33 @@ public class ProductDAOH {
                     + "FROM Product p";
             list = session.createQuery(sql).list();
             return list;
+        } 
+    }
+    
+    /**
+     * Gets the products of a category from its id.
+     * @param id the id of the category.
+     * @return the list of products.
+     */
+    public static List<Product> getProductsOfCategory(int id) {
+        List<Product> list;
+        /*----- Session opening -----*/
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            //System.out.println("--------- GET PRODUCTS OF A CATEGORY ");
+            
+            String sql = 
+                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
+                    + "p.nutriscore, p.packaging, p.packagingQuantity, "
+                    + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
+                    + "FROM Product p "
+                    + "WHERE p.category.id = :id";
+            list = session.createQuery(sql).list();
+            return list;
         }
     }
+    
+    
 
 }
