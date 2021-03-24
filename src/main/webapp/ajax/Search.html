@@ -15,14 +15,15 @@ and open the template in the editor.
     </head>
     <body>
         <nav class="navbar navbar-light bg-light">
-            <div class="container-fluid">
-                <form class="d-flex">
-                    <h3>Eat Bio</h3>
-                    <input id="search" class="form-control me-2" type="search" placeholder="Pain,fruit,jeux-vidéo,poisson..." aria-label="Search">
-                    <button type="submit" class="btn btn-outline-primary">Recherche</button>
-                    <!--<div id="search_result" class="box"></div>-->
-                    <ul class="list-group" id="search_result"></ul>
-                </form>
+            <div id="search_bar">
+                <div class="container-fluid">
+                    <form class="d-flex">
+                        <input id="search" class="form-control me-2" type="search" placeholder="Pain,fruit,jeux-vidéo,poisson..." aria-label="Search">
+                        <button type="submit" class="btn btn-outline-primary">Recherche</button>
+                        <!--<div id="search_result" class="box"></div>-->
+                    </form>
+                </div>
+                <div><ul class="list-group" id="search_result"></ul></div>
             </div>
         </nav>
 
