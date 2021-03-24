@@ -34,8 +34,10 @@ public class StoreServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<?xml version='1.0' encoding='utf-8'?>");
             out.println("<magasins>");
-            
-            for(Store s : StoreDAO.getAllStores()) {
+
+            String postalCode = request.getParameter("postalCode");
+
+            for(Store s : StoreDAO.getAllStores(postalCode)) {
                 out.println("   <magasin>");
                 out.println("       <nom>" + s.getName() + "</nom>");
                 out.println("       <rue>" + s.getStreet() + "</rue>");
@@ -43,7 +45,7 @@ public class StoreServlet extends HttpServlet {
                 out.println("       <codepostal>" + s.getPostalCode() + "</codepostal>");
                 out.println("   </magasin>");
             }
-            
+
             out.println("</magasins>");
         }
     }
