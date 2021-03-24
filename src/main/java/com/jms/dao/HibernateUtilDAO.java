@@ -30,23 +30,31 @@ public class HibernateUtilDAO {
              * hbm.xml attaché est com/jms/Client.hbm.xml.
              */
 //			configuration.addClass(com.jms.model.Client.class);
-           
             /**
              * Entité.
              */
-
-//            configuration.addAnnotatedClass(com.jms.model.Client.class);
             configuration.addAnnotatedClass(com.jms.model.Client.class);
             configuration.addAnnotatedClass(com.jms.model.ShoppingList.class);
             configuration.addAnnotatedClass(com.jms.model.PostIt.class);
-
-            //configuration.addAnnotatedClass(miage.metier.Employe.class);
-            
             configuration.addAnnotatedClass(com.jms.model.Product.class);
+            configuration.addAnnotatedClass(com.jms.model.Label.class);
             configuration.addAnnotatedClass(com.jms.model.ProductCategory.class);
             configuration.addAnnotatedClass(com.jms.model.Department.class);
-
-
+            configuration.addAnnotatedClass(com.jms.model.Basket.class);
+            configuration.addAnnotatedClass(com.jms.model.BasketId.class);
+            configuration.addAnnotatedClass(com.jms.model.Have.class);
+            configuration.addAnnotatedClass(com.jms.model.HaveId.class);
+            configuration.addAnnotatedClass(com.jms.model.Order.class);
+            configuration.addAnnotatedClass(com.jms.model.OrderLine.class);
+            configuration.addAnnotatedClass(com.jms.model.ProductConditioning.class);
+            configuration.addAnnotatedClass(com.jms.model.ProductNutriScore.class);
+            configuration.addAnnotatedClass(com.jms.model.Promotion.class);
+            configuration.addAnnotatedClass(com.jms.model.Reduce.class);
+            configuration.addAnnotatedClass(com.jms.model.ReduceID.class);
+            configuration.addAnnotatedClass(com.jms.model.Stock.class);
+            configuration.addAnnotatedClass(com.jms.model.StockId.class);
+            configuration.addAnnotatedClass(com.jms.model.Store.class);
+            configuration.addAnnotatedClass(com.jms.model.TimeSlot.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate serviceRegistry created");
