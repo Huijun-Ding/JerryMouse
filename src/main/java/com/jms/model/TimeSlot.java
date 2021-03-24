@@ -41,7 +41,7 @@ public class TimeSlot implements Serializable {
     /**
      * Hibernate join property with Store Class and Have Class.
      */
-    @OneToMany(mappedBy = "pickUpTimes", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "timeSlots", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeM")
     private Map<Store, Have> stores;
 
