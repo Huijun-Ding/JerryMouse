@@ -1,15 +1,44 @@
 package com.jms.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
+ * Label Class.
  *
- * @author Shanshan ZHAO
+ * @author Jerry Mouse Software.
  */
+@Entity(name = "Label")
 public class Label {
-    // Properties.
+
+    //------------ Properties ------------
+    
+    /**
+     * Designation: Unique code identifying a label
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CodeLB")
     private int id;
+    
+    /**
+     * Designation: Name of a label
+     */
+    @Column(name = "LibelleLB")
     private String name;
+    
+    /**
+     * Designation: for the relationship "Posseder"
+     */
+    @ManyToMany(mappedBy = "services") 
+    private Set<Product> products = new HashSet(0); 
     
     // Constructors.
     public Label() {
@@ -18,9 +47,9 @@ public class Label {
     public Label(String description) {
         this.name = description;
     }
-    
+
     // Getters and setters
-    public int getId() {    
+    public int getId() {
         return id;
     }
 
@@ -32,7 +61,7 @@ public class Label {
         return name;
     }
 
-    public void setDescription(String description) {    
+    public void setDescription(String description) {
         this.name = description;
     }
 
