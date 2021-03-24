@@ -23,21 +23,30 @@
                         <i class="fa fa-shopping-bag"></i> Toulouse
                     </button>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-item"">
+                        <li class="dropdown-item">
                             <i class="fas fa-store-alt"></i> Carrefour Market Toulouse Compans
                         </li>
-                        <li class="dropdown-item"">
+                        <li class="dropdown-item">
                             <i class="fa fa-map-pin"></i> 3, Espl. Compans Caffarelli
                         </li>
-                        <li class="dropdown-item"">
+                        <li class="dropdown-item">
                             <i class="fa fa-map-signs"></i> Toulouse
                         </li>
-                        <li class="dropdown-item"">
+                        <li class="dropdown-item">
                             <i class="fa fa-envelope-open"></i> Code Postal
                         </li>
                         <li><hr class="dropdown-divider"></li>
-                        <li class="dropdown-item"">
-                            <input type="search" class="form-control" placeholder="Rechercher un autre magasin ...">
+                        <li class="dropdown-item">
+                            Changer de magasin : 
+                            <input type="search" class="form-control" placeholder="Saisir le code postal ici ...">
+                        </li>
+                        <li id="stores_list" class="dropdown-item"">
+                            <ul class="list-group">
+                                <%
+                                    
+                                    <li class="list-group-item">First item</li>
+                                %>
+                            </ul>
                         </li>
                     </ul>
                 </div>
