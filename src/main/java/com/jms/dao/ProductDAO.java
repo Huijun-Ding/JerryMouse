@@ -68,7 +68,7 @@ public class ProductDAO {
 
         try (PreparedStatement st = ProductDAO.cx.prepareStatement(sql)) {
             //execute request
-            st.setString(1, product + "%");
+            st.setString(1, "%" + product + "%");
             try (ResultSet rs = st.executeQuery()) {
                 // read request result
                 while (rs.next()) {
