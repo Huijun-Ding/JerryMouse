@@ -116,7 +116,7 @@ public class BasketDAO {
             query.setParameter("code", CodeCL);
 
             List<Basket> lstBasket = query.list();
-            lstBasket.forEach(System.out::println);
+           // lstBasket.forEach(System.out::println);
             
             t.commit(); // Commit et flush automatique de la session.
             return lstBasket;
