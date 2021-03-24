@@ -19,13 +19,20 @@ public class ClientDAO {
     public static boolean authenticate(String email, String password){
        
         Client client = new Client();
-
-        if((email == client.getEmail())&&(password == client.getPassword())){
-            return true;
-        }else {
-            return false;
+        /*
+        Check if email and password are not 
+        */
+        if((email!="")&&(password!="")){
+            /**
+             * check the value of client and password
+             */
+            if((email == client.getEmail())&&(password == client.getPassword())){
+                return true;
+            }else {
+                return false;
+            }
         }
-        
+        return false;
     }
 }
 
