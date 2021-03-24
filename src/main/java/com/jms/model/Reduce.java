@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
  *
  * @author Jerry Mouse Software.
  */
-@Entity
+@Entity (name = "Reduire")
 public class Reduce implements Serializable {
 
     // --------------------- PROPERTIES ---------------------
