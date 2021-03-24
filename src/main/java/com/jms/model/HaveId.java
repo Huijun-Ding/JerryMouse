@@ -15,7 +15,7 @@ public class HaveId implements Serializable {
     
     // --------------------- PROPERTIES ---------------------
     @Column(name = "HeureDebutCR")
-    private Date hourStart;
+    private Date startTime;
     
     @Column(name = "CodeM")
     private int storeId;
@@ -25,19 +25,19 @@ public class HaveId implements Serializable {
     public HaveId() {
     }
     
-    public HaveId(Date hourStart, int storeId) {
-        this.hourStart = hourStart;
+    public HaveId(Date startTime, int storeId) {
+        this.startTime = startTime;
         this.storeId = storeId;
     }
 
     // ----------------- GETTERS & SETTERS ------------------
     
-    public Date getHourStart() {
-        return hourStart;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setHourStart(Date hourStart) {
-        this.hourStart = hourStart;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
     public int getStoreId() {
@@ -52,13 +52,13 @@ public class HaveId implements Serializable {
 
     @Override
     public String toString() {
-        return "HaveId{" + "hourStart=" + hourStart + ", storeId=" + storeId + '}';
+        return "HaveId{" + "startTime=" + startTime + ", storeId=" + storeId + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.hourStart);
+        hash = 67 * hash + Objects.hashCode(this.startTime);
         hash = 67 * hash + this.storeId;
         return hash;
     }
@@ -78,7 +78,7 @@ public class HaveId implements Serializable {
         if (this.storeId != other.storeId) {
             return false;
         }
-        if (!Objects.equals(this.hourStart, other.hourStart)) {
+        if (!Objects.equals(this.startTime, other.startTime)) {
             return false;
         }
         return true;
