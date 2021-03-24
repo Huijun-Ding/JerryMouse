@@ -9,18 +9,41 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.OneToMany;
 
 /**
- *
- * @author Mathi
+ * The class Order represents a order that ordered by a client which includ multiple order lines.
+ * @author Jerry Mouse Software
  */
+@Entity(name = "Commande")
 public class Order {
 
     //-----------Properties----------------
+    
+    /**
+     * The unique identity of a order.
+     */
+    @Id
+    @Column(name = "CodeCD")
     private int orderId;
+    
+    /**
+     * The date of order.
+     */
+    @Column(name = "DateCD")
     private String orderName;
     
-    private Map<OrderLine, Product> products = new HashMap<>();
+    /**
+    *  Hibernate join property with Product Class.
+    */
+    @OneToMany (mappedBy = "orders", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn (name = "EANP")
+    private Map<Product, OrderLine> products = new HashMap<>(0);
 
     //-----------Constructors--------------
     public Order() {

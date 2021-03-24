@@ -56,18 +56,14 @@ public class BasketDAO {
     }
     
     public static <T>List<T> ResultSetToBean(ResultSet resultSet, Class beanClass) throws Exception {
-        // 获取Bean对象内的所有属性
         Field[] fields = beanClass.getDeclaredFields();
         List<T> beanList = new ArrayList<>();
         if (resultSet != null) {
             while (resultSet.next()) {
-                // 每当有一行数据就创建一个Bean对象
                 T object = (T) beanClass.newInstance();
                 for (Field field : fields) {
                     String fieldName = field.getName();
-                    // 利用字符串拼接，将属性名的首字母变为大写，获取对应的set方法。
                     Method setField = beanClass.getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), field.getType());
-                    // 利用MySQL数据库不区分大小写的性质获取对应字段的值。
                     setField.invoke(object,resultSet.getObject(fieldName.toUpperCase()));
                 }
                 beanList.add(object);
@@ -116,7 +112,7 @@ public class BasketDAO {
             query.setParameter("code", CodeCL);
 
             List<Basket> lstBasket = query.list();
-            lstBasket.forEach(System.out::println);
+           // lstBasket.forEach(System.out::println);
             
             t.commit(); // Commit et flush automatique de la session.
             return lstBasket;

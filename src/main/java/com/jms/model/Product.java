@@ -59,6 +59,12 @@ public class Product implements Serializable {
     @Column (name = "PrixKG")
     private Double kgPrice;
     
+    /**
+     * The url of the thumbnail of the product.
+     */
+    @Column (name = "URLP")
+    private String urlThumbnail;
+    
     // Relation Appartenir Categorie
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CodeCat")
@@ -82,19 +88,14 @@ public class Product implements Serializable {
     private Map<Client, Basket> baskets = new HashMap<>(0);
     
     // Relation Reduire Promotion
-    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "products", cascade = CascadeType.ALL)
     @MapKeyJoinColumn (name = "CodePR")
     private Map<Promotion, Reduce> promotions = new HashMap<>(0);
     
     // Relation Ligne de commande Commande
-    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "products", cascade = CascadeType.ALL)
     @MapKeyJoinColumn (name = "CodeCD")
     private Map<OrderLine, Order> orders = new HashMap<>(0);
-
-    // -------------------- RELATION WITH REDUCE --------------------
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn(name = "EANP")
-    private Map<Promotion, Reduce> reduce = new HashMap<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
     public Product() {
@@ -196,6 +197,14 @@ public class Product implements Serializable {
 
     public void setKgPrice(Double kgPrice) {
         this.kgPrice = kgPrice;
+    }
+
+    public String getUrlThumbnail() {
+        return urlThumbnail;
+    }
+
+    public void setUrlThumbnail(String urlThumbnail) {
+        this.urlThumbnail = urlThumbnail;
     }
 
     public ProductCategory getCategory() {
