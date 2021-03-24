@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.jms.controller;
 
 import com.jms.dao.ProductDAO;
@@ -10,52 +15,46 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class searchServlet extends HttpServlet {
+public class searchByKeyWordServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        /*----- Lecture de la requête en UTF-8 -----*/
-        request.setCharacterEncoding("UTF-8");
-
-        /*----- Type de la réponse -----*/
         response.setContentType("application/xml;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         try (PrintWriter out = response.getWriter()) {
-            /*----- Ecriture de la page XML -----*/
+            // XML page
             out.println("<?xml version=\"1.0\"?>");
             out.println("<list_products>");
 
-            /*----- Récupération des paramètres -----*/
+            // get parameter
             String product = request.getParameter("product");
+            System.out.println("product");
             if (!product.equals("")) {
                 try {
-                    /*----- Lecture de liste de mots dans la BD -----*/
+                    // put result into a list
                     ArrayList<String> categories = ProductDAO.completeSearchBarByCategory(product);
-                    
-                    out.println("Catégorie");
+
                     for (String c : categories) {
-                        out.println("<prod><![CDATA[" + c + "]]></prod>");
+                        out.println("<product><![CDATA[" + c + "]]></product>");
                     }
-                    
                 } catch (ClassNotFoundException | SQLException ex) {
-                    out.println("<prod>Erreur - " + ex.getMessage() + "</prod>");
+                    out.println("<product>Erreur - " + ex.getMessage() + "</product>");
                 }
-                
+
                 try {
-                    /*----- Lecture de liste de mots dans la BD -----*/
+                    // put result into a list
                     ArrayList<String> products = ProductDAO.completeSearchBarByProductName(product);
-                    
-                    out.println("Article");
+
                     for (String p : products) {
-                        out.println("<prod><![CDATA[" + p + "]]></prod>");
+                        out.println("<product><![CDATA[" + p + "]]></product>");
                     }
                 } catch (ClassNotFoundException | SQLException ex) {
-                    out.println("<prod>Erreur - " + ex.getMessage() + "</prod>");
+                    out.println("<product>Erreur - " + ex.getMessage() + "</product>");
                 }
             } else {
-                out.println("<prod><![CDATA[]]></prod>");
+                out.println("<product><![CDATA[]]></product>");
             }
             out.println("</list_products>");
         }
