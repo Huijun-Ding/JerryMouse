@@ -26,18 +26,26 @@ public class HibernateUtilDAO {
             System.out.println("Hibernate Configuration loaded");
 
             /**
-             * Ajout des classes. Pour miage.metier.Employe le fichier ressource
-             * hbm.xml attaché est miage/metier/Employe.hbm.xml.
+             * Ajout des classes. Pour com.jms.Client le fichier ressource
+             * hbm.xml attaché est com/jms/Client.hbm.xml.
              */
-//			configuration.addClass(miage.metier.Employe.class);
+//			configuration.addClass(com.jms.model.Client.class);
+           
             /**
              * Entité.
              */
+
+//            configuration.addAnnotatedClass(com.jms.model.Client.class);
+            configuration.addAnnotatedClass(com.jms.model.Client.class);
+            configuration.addAnnotatedClass(com.jms.model.ShoppingList.class);
+            configuration.addAnnotatedClass(com.jms.model.PostIt.class);
+
             //configuration.addAnnotatedClass(miage.metier.Employe.class);
             
             configuration.addAnnotatedClass(com.jms.model.Product.class);
             configuration.addAnnotatedClass(com.jms.model.ProductCategory.class);
             configuration.addAnnotatedClass(com.jms.model.Department.class);
+
 
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
