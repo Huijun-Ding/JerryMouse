@@ -79,42 +79,82 @@ public class Have implements Serializable {
 
     // ----------------- GETTERS & SETTERS ------------------
 
+    /**
+     * Getter for the haveId property.
+     * @return The haveId property.
+     */
     public HaveId getHaveId() {
         return haveId;
     }
-
+    
+    /**
+     * Setter for the haveId property.
+     * @param haveId The new value to set to the property.
+     */
     public void setHaveId(HaveId haveId) {
         this.haveId = haveId;
     }
 
+    /**
+     * Getter for the capacity property.
+     * @return The capacity property.
+     */
     public int getCapacity() {
         return capacity;
     }
-
+    
+    /**
+     * Setter for the capacity property.
+     * @param capacity The new value to set to the property.
+     */
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
+    /**
+     * Getter for the date property.
+     * @return The date property.
+     */
     public Date getDate() {
         return date;
     }
-
+    
+    /**
+     * Setter for the date property.
+     * @param date The new value to set to the property.
+     */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /**
+     * Getter for the store property.
+     * @return The store property.
+     */
     public Store getStore() {
         return store;
     }
 
+    /**
+     * Setter for the store property.
+     * @param store The new value to set to the property.
+     */
     public void setStore(Store store) {
         this.store = store;
     }
 
+    /**
+     * Getter for the timeSlotproperty.
+     * @return The timeSlot property.
+     */
     public TimeSlot getTimeSlot() {
         return timeSlot;
     }
-
+    
+    /**
+     * Setter for the timeSlot property.
+     * @param timeSlot The new value to set to the property.
+     */
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeSlot = timeSlot;
     }
