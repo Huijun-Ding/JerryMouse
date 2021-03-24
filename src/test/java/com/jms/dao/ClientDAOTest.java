@@ -51,18 +51,24 @@ public class ClientDAOTest {
      * Test of authenticate method, of class ClientDAO.
      * case when email= "" and password =""
      */
-    /*@Test
-    public void testAuthenticate() {
+    @Test
+    public void testAuthenticateEmailEmptyPasswordEmpty() {
         System.out.println("authenticate");
         String email = "";
         String password = "";
         boolean expResult = false;
         boolean result = ClientDAO.authenticate(email, password);
-        assertEquals(expResult, result);
+        assertFalse(result);
     }
-
-    private void assertEquals(boolean expResult, boolean result) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
+    
+    @Test
+    public void testAuthenticateEmailNotEmptyPasswordNotEmpty() {
+        System.out.println("authenticate");
+        String email = "ss@gmail.com";
+        String password = "ss";
+        boolean expResult = true;
+        boolean result = ClientDAO.authenticate(email, password);
+        assertTrue(result);
+    }
     
 }
