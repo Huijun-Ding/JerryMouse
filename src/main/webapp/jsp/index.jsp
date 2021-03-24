@@ -42,10 +42,6 @@
                         </li>
                         <li id="stores_list" class="dropdown-item"">
                             <ul class="list-group">
-                                <%
-                                    
-                                    <li class="list-group-item">First item</li>
-                                %>
                             </ul>
                         </li>
                     </ul>
