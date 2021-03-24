@@ -24,6 +24,10 @@
         <servlet-name>searchByKeyWordServlet</servlet-name>
         <servlet-class>com.jms.controller.searchByKeyWordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StoreServlet</servlet-name>
+        <servlet-class>com.jms.controller.StoreServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>searchByKeyWordServlet</servlet-name>
         <url-pattern>/searchByKeyWord</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StoreServlet</servlet-name>
+        <url-pattern>/StoreServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
