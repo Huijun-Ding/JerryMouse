@@ -38,7 +38,7 @@ public class ClientDAO {
      * @param idClient
      * @return Client
      */
-    public static Client searchClient(String idClient){
+    public static Client searchClient(int idClient){
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -49,6 +49,12 @@ public class ClientDAO {
             t.commit();
             return client;
         }
+    }
+    
+    public static void main(String[] args) {
+        
+        System.out.println(ClientDAO.searchClient(1));
+        
     }
 }
 
