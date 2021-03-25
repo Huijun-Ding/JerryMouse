@@ -87,14 +87,12 @@ public class StoreDAO {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
 
-            Query query = session.createQuery(""
-                + "SELECT new com.jms.model.Store(m.NomM, m.RueM, m.VilleM, "
-                + "m.CodePostalM) "
-                + "FROM Magasin m "
-                + "WHERE m.CodePostalM LIKE :postalCode"
+            Query query = session.createQuery(
+                "FROM Magasin m "
+                + "WHERE m.postalCode LIKE :postalCode"
             );
 
-            query.setParameter("postalCode", postalCode);
+            query.setParameter("postalCode", postalCode + "%");
 
             stores = query.list();
         }
@@ -103,6 +101,8 @@ public class StoreDAO {
     }
 
     public static void main(String[] args) {
-        StoreDAO.initialize();
+        for(Store s : StoreDAO.getAllStores("311")) {
+            System.out.println(s);
+        }
     }
 }
