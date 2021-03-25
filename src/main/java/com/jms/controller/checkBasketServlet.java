@@ -79,7 +79,6 @@ public class checkBasketServlet extends HttpServlet {
             for (Product product : productQty.keySet()) {
                 // ------ INFO PROMOTION PRODUCT ---------
                 Promotion promotion = PromotionDAO.searchPromotion(product.getEan());
-//                float percentage = promotion.getPercentage();
 
                 // ------- CALCUL: PRICE, POINTS... -----------
                 // calcul price unitary after promotion

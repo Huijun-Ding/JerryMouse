@@ -15,95 +15,144 @@ import javax.persistence.*;
 
 /**
  * The class Product represents a product that exists in the catalog of a store.
+ *
  * @author Jerry Mouse Software
  */
 @Entity(name = "Produit")
 public class Product implements Serializable {
-    
+
     // --------------------- PROPERTIES ---------------------
-    
+    /**
+     * EAN (European Article Numbering): Bar code that uniquely identifies a
+     * product.
+     * <b>Format : 12 or 13 digits</b>
+     * <b>Maximum size : CC(20)</b>
+     */
     @Id
     @Column(name = "EANP")
     private String ean;
 
+    /**
+     * Short name of a product.
+     * <b>Maximum size : CC(50)</b>
+     */
     @Column(name = "LibelleP")
     private String name;
 
+    /**
+     * Detailed description of a product.
+     * <b>Maximum size : CC(255)</b>
+     */
     @Column(name = "DescriptionP")
     private String description;
 
+    /**
+     * Brand name of a product.
+     * <b>Maximum size : CC(100)</b>
+     */
     @Column(name = "MarqueP")
     private String brand;
 
+    /**
+     * Format of a product (value and unit of measure).
+     * <b>Format : (#)*[g/l]</b>
+     * <b>Maximum size : CC(15)</b>
+     */
     @Column(name = "FormatP")
     private String format;
 
+    /**
+     * Indicator of whether a product is organic or not.
+     * <b>Format : boolean</b>
+     */
+    
     @Column(name = "BioP")
     private boolean bio;
 
+    /**
+     * Potential Nutriscore of a product.
+     * <b>Rule : {null, "A", "B", "C", "D", "E"}</b>
+     * <b>Format : Enumeration</b>
+     */
+    @Enumerated(EnumType.STRING)
     @Column(name = "NutriscoreP")
     private ProductNutriScore nutriscore;
 
+    /**
+     * Packaging of a product.
+     * <b>Rule : {"UNITAIRE", "LOT"}</b>
+     * <b>Format : Enumeration</b>
+     */
+    @Enumerated(EnumType.STRING)
     @Column(name = "ConditionnementP")
     private ProductConditioning packaging;
-    
+
+    /**
+     * If the conditioning of the product is in pack, the quantity of products
+     * in the pack.
+     * <b>Format : Integer</b>
+     */
+    @Column(name = "QteConditionnementP")
+    private int packagingQuantity;
+
     /**
      * The unit price of a product.
+     * <b>Rule : > 0</b>
      */
-    @Column (name = "PrixUnit")
-    private Double unitPrice;
-    
+    @Column(name = "PrixUnitaireP")
+    private float unitPrice;
+
     /**
      * The price per kilo of a product if exists.
+     * <b>Rule : > 0</b>
      */
-    @Column (name = "PrixKG")
-    private Double kgPrice;
-    
+    @Column(name = "PrixKgP")
+    private float kgPrice;
+
     /**
      * The url of the thumbnail of the product.
      */
-    @Column (name = "URLP")
+    @Column(name = "URLP")
     private String urlThumbnail;
-    
+
     // Relation Appartenir Categorie
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CodeCat")
+    @JoinColumn(name = "CodeCategorieP")
     private ProductCategory category;
-    
+
     // Relation Posseder Label
     @ManyToMany
-    @JoinTable(name = "Posseder", 
-            joinColumns = @JoinColumn(name = "EANP"), 
+    @JoinTable(name = "Posseder",
+            joinColumns = @JoinColumn(name = "EANP"),
             inverseJoinColumns = @JoinColumn(name = "CodeLB"))
     private Set<Label> labels = new HashSet<>(0);
-    
+
     // Relation Etre PostIt
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private Set<PostIt> postIts = new HashSet<>(0);
-    
+
     // Relation Panier Client
-    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn (name = "CodeCL")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "CodeCL")
     private Map<Client, Basket> baskets = new HashMap<>(0);
-    
+
     // Relation Reduire Promotion
-    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn (name = "CodePR")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "CodePR")
     private Map<Promotion, Reduce> promotions = new HashMap<>(0);
-    
+
     // Relation Ligne de commande Commande
-    @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn (name = "CodeCD")
-    private Map<OrderLine, Order> orders = new HashMap<>(0);
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "CodeCD")
+    private Map<Order, OrderLine> orders = new HashMap<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
     public Product() {
     }
 
-
-    public Product(String ean, String libelle, String description, 
-            String brand, String format, boolean bio, 
+    public Product(String ean, String libelle, String description,
+            String brand, String format, boolean bio,
             ProductNutriScore nutriscore, ProductConditioning packaging) {
         this.ean = ean;
         this.name = libelle;
@@ -114,11 +163,68 @@ public class Product implements Serializable {
         this.nutriscore = nutriscore;
         this.packaging = packaging;
     }
-    
-    
+
+    public Product(String ean, String name, String format, String nutriscore, ProductConditioning packaging, int packagingQuantity, float unitPrice, float kgPrice, String urlThumbnail) {
+        this.ean = ean;
+        this.name = name;
+        this.format = format;
+        switch (nutriscore) {
+            case "A" :
+                this.nutriscore = ProductNutriScore.A;
+                break;
+            case "B" :
+                this.nutriscore = ProductNutriScore.B;
+                break;
+            case "C" :
+                this.nutriscore = ProductNutriScore.C;
+                break;
+            case "D" :
+                this.nutriscore = ProductNutriScore.D;
+                break;
+            case "E" :
+                this.nutriscore = ProductNutriScore.E;
+                break;
+        }       
+        this.packaging = packaging;
+        this.packagingQuantity = packagingQuantity;
+        this.unitPrice = unitPrice;
+        this.kgPrice = kgPrice;
+        this.urlThumbnail = urlThumbnail;
+    }
+
+    public Product(String ean, String name, String format,
+            String nutriscore, ProductConditioning packaging,
+            int packagingQuantity, float unitPrice, float kgPrice,
+            String urlThumbnail, int idPromotion, float percentage, int rank) {
+        this.ean = ean;
+        this.name = name;
+        this.format = format;
+        switch (nutriscore) {
+            case "A" :
+                this.nutriscore = ProductNutriScore.A;
+                break;
+            case "B" :
+                this.nutriscore = ProductNutriScore.B;
+                break;
+            case "C" :
+                this.nutriscore = ProductNutriScore.C;
+                break;
+            case "D" :
+                this.nutriscore = ProductNutriScore.D;
+                break;
+            case "E" :
+                this.nutriscore = ProductNutriScore.E;
+                break;
+        }     
+        this.packaging = packaging;
+        this.packagingQuantity = packagingQuantity;
+        this.unitPrice = unitPrice;
+        this.kgPrice = kgPrice;
+        this.urlThumbnail = urlThumbnail;
+        this.promotions.put(new Promotion(percentage, rank), new Reduce());
+    }
 
     // ----------------- GETTERS & SETTERS ------------------
-
     public String getEan() {
         return ean;
     }
@@ -183,19 +289,27 @@ public class Product implements Serializable {
         this.packaging = packaging;
     }
 
-    public Double getUnitPrice() {
+    public int getPackagingQuantity() {
+        return packagingQuantity;
+    }
+
+    public void setPackagingQuantity(int packagingQuantity) {
+        this.packagingQuantity = packagingQuantity;
+    }
+
+    public float getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Double unitPrice) {
+    public void setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public Double getKgPrice() {
+    public float getKgPrice() {
         return kgPrice;
     }
 
-    public void setKgPrice(Double kgPrice) {
+    public void setKgPrice(float kgPrice) {
         this.kgPrice = kgPrice;
     }
 
@@ -246,18 +360,16 @@ public class Product implements Serializable {
     public void setPromotions(Map<Promotion, Reduce> promotions) {
         this.promotions = promotions;
     }
-    
-    public Map<OrderLine, Order> getOrders() {
+
+    public Map<Order, OrderLine> getOrders() {
         return orders;
     }
 
-    public void setOrders(Map<OrderLine, Order> orders) {
+    public void setOrders(Map<Order, OrderLine> orders) {
         this.orders = orders;
     }
-    
-    
-    // ----------------------- METHODS ----------------------
 
+    // ----------------------- METHODS ----------------------
     // ----------------------- METHODS ------------------------
     @Override
     public int hashCode() {
@@ -286,13 +398,12 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "ean=" + ean + ", name=" + name 
-                + ", description=" + description + ", brand=" 
-                + brand + ", format=" + format + ", bio=" + bio 
-                + ", nutriscore=" + nutriscore 
-                + ", packaging=" + packaging + ", category=" + category 
+        return "Product{" + "ean=" + ean + ", name=" + name
+                + ", description=" + description + ", brand="
+                + brand + ", format=" + format + ", bio=" + bio
+                + ", nutriscore=" + nutriscore
+                + ", packaging=" + packaging + ", category=" + category
                 + ", labels=" + labels + '}';
     }
 
-    
 }

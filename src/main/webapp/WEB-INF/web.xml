@@ -25,6 +25,12 @@
         <servlet-class>com.jms.controller.searchByKeyWordServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DisplayProductsServlet</servlet-name>
+        <servlet-class>com.jms.controller.DisplayProductsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>/ProductsList</servlet-name>
+        <jsp-file>/jsp/products_list.jsp</jsp-file>
         <servlet-name>CtrlCentral</servlet-name>
         <servlet-class>com.jms.controller.CtrlCentral</servlet-class>
     </servlet>
@@ -45,6 +51,12 @@
         <url-pattern>/searchByKeyWord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>DisplayProductsServlet</servlet-name>
+        <url-pattern>/DisplayProducts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>/ProductsList</servlet-name>
+        <url-pattern>/ProductsList</url-pattern>
         <servlet-name>checkBasketServlet</servlet-name>
         <url-pattern>/checkBasketServlet</url-pattern>
     </servlet-mapping>

@@ -70,7 +70,7 @@ public class Store implements Serializable {
     private Map<Product, Stock> products = new HashMap<>(0);
 
     /**
-     * Hibernate join property with Have Class and PickUpTime Class.
+     * Hibernate join property with Have Class and TimeSlot Class.
      */
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeCR")

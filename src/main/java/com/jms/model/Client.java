@@ -77,14 +77,15 @@ public class Client implements Serializable {
     private Set<ShoppingList> shoppingList = new HashSet(0);
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "CodeMag")
+    @JoinColumn(name= "CodeM")
     private Store store;
     
     @OneToMany(mappedBy= "client", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name="EANP")
     private Map<Product, Basket> baskets = new HashMap(0);
     
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    @MapKeyJoinColumn(name="EANP")
     private Set<Order> orders = new HashSet(0);
     
     // -------------------- CONSTRUCTORS --------------------
