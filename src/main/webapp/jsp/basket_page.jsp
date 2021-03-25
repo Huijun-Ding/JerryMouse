@@ -23,11 +23,9 @@
             <h1>My basket</h1>
 
             <%
-                String idClient = (String) session.getAttribute("idClient");
+                String idClient = request.getParameter("idClient");
             %>
-            <%--<label id="idClient">1</label>--%>
             <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
-            <%--<%=idClient%>--%>
             <form action="">
                 <div class="lst_prod" id="div_prod">
                     <table class="table table-hover" id="tabProd">
