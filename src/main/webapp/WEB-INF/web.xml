@@ -40,6 +40,7 @@
         <servlet-name>ProductCategoryServlet</servlet-name>
         <servlet-class>com.jms.controller.ProductCategoryServlet</servlet-class>
     </servlet>
+    <servlet>
         <servlet-name>AddProductServlet</servlet-name>
         <servlet-class>com.jms.controller.AddProductServlet</servlet-class>
     </servlet>
@@ -58,10 +59,6 @@
     <servlet-mapping>
         <servlet-name>basketPage</servlet-name>
         <url-pattern>/basketPage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>StoreServlet</servlet-name>
-        <url-pattern>/StoreServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DisplayProductsServlet</servlet-name>
@@ -92,8 +89,6 @@
         <url-pattern>/ProductCategory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ConnectServlet</servlet-name>
-        <url-pattern>/connect</url-pattern>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/AddProductServlet</url-pattern>
     </servlet-mapping>
