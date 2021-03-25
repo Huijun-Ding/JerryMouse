@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jerry Mouse Software.
  */
-public class checkBasketServlet extends HttpServlet {
+public class LookBasketServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -146,7 +146,7 @@ public class checkBasketServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(checkBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LookBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -164,7 +164,7 @@ public class checkBasketServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(checkBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LookBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
