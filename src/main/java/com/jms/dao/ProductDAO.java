@@ -121,23 +121,40 @@ public class ProductDAO {
     }
 
      /**
-     * Complete the search bar by a product name.
+     * return a objet product by id.
      *
-     * @param keyword key word enter in search bar.
+     * @param id identity of a product.
      * 
-     * @return a list of product.
+     * @return Product.
      */
-    public static void getProductsBySearch(String keyword) {
+    public static Product getProductById(String id) {
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             session.beginTransaction();
 
-            Product p = session.get(Product.class, keyword);
-
+            Product p = session.get(Product.class, id);
+            return p;
         }
     }
 
+    /**
+     * Complete the search bar by a product name.
+     *
+     * @param keyword key word enter in search bar.
+     * 
+     * @return ArrayList<Product>.
+     */
+    public static ArrayList<Product> returnSrearchResult(String keyword) {
+        
+        
+        
+        ArrayList<Product> p = new ArrayList<>();
+        
+        return p;
+    }
+    
+    
     public static void main(String[] s) {
         try {
             System.out.println(ProductDAO.completeSearchBarByProductName("fr"));
