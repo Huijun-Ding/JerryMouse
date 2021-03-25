@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>searchServlet</servlet-name>
-        <servlet-class>com.jms.controller.searchServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ConnectServlet</servlet-name>
         <servlet-class>com.jms.controller.ConnectServlet</servlet-class>
     </servlet>
@@ -19,10 +15,6 @@
     <servlet>
         <servlet-name>basketPage</servlet-name>
         <jsp-file>/jsp/basket_page.jsp</jsp-file>
-    </servlet>
-    <servlet>
-        <servlet-name>SearchByKeyWordServlet</servlet-name>
-        <servlet-class>com.jms.controller.SearchByKeyWordServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StoreServlet</servlet-name>
@@ -75,10 +67,6 @@
     <servlet-mapping>
         <servlet-name>SendSearchRequestServlet</servlet-name>
         <url-pattern>/SendSearchRequestServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchByKeyWordServlet</servlet-name>
-        <url-pattern>/SearchByKeyWord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CompleteSearchBarServlet</servlet-name>
