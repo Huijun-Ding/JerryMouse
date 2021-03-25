@@ -47,7 +47,6 @@ function search_stores() {
             }
             
             document.getElementById("stores_list").innerHTML = htmlText;
-            alert(document.getElementById("stores_list").innerHTML);
         }
     };
 
