@@ -7,7 +7,7 @@ function getSearchElement() {
     var xhr = new XMLHttpRequest();
 
     var myinput = document.getElementById("search").value;
-    xhr.open("GET", "../SearchByKeyWord?product=" + myinput);
+    xhr.open("GET", "../CompleteSearchBarServlet?product=" + myinput);
 
     xhr.onload = function ()
     {

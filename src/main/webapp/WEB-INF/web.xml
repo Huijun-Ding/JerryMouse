@@ -40,6 +40,10 @@
         <servlet-name>SendSearchRequestServlet</servlet-name>
         <servlet-class>com.jms.controller.SendSearchRequestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CompleteSearchBarServlet</servlet-name>
+        <servlet-class>com.jms.controller.CompleteSearchBarServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
@@ -75,6 +79,10 @@
     <servlet-mapping>
         <servlet-name>SearchByKeyWordServlet</servlet-name>
         <url-pattern>/SearchByKeyWord</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompleteSearchBarServlet</servlet-name>
+        <url-pattern>/CompleteSearchBarServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
