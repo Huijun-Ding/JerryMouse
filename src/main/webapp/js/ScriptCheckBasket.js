@@ -15,7 +15,6 @@ function displayBasket() {
 
             var i;
             product = xhr.responseXML.getElementsByTagName("product");
-            alert(product.length);
             for (i = 0; i < product.length; i++) {
                 productLine = product[i];
 
@@ -27,7 +26,7 @@ function displayBasket() {
                 totalPrice = productLine.getElementsByTagName("totalPrice")[0].firstChild.nodeValue;
                 promotion = productLine.getElementsByTagName("promotion")[0].firstChild.nodeValue;
 
-                const rows = "<tr><td><img src='" + photo + "' class='img-thumbnail'></td><td>" 
+                const rows = "<tr><td><img src='" + photo + "' class='prodPhoto'></td><td>" 
                         + name + "</td><td>" 
                         + price + "</br>" + priceAfter + "</td><td>" 
                         + quantity + "</td><td>" 
