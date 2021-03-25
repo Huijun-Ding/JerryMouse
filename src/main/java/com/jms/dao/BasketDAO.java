@@ -119,6 +119,30 @@ public class BasketDAO {
         }
     }
     
+    // calculer le prix avec promotion : produit sans promo?
+    public static double calculPriceUnitaryAfterPromo(double price, float percentage) {
+        return price * (1 - percentage);
+    }
+    
+    // calculer le prix total avec promotion pour chaque produit 
+    public static double calculPriceTotalProduct(int quantity, double price) {
+        return price * quantity; 
+    }
+    
+    // calculer le prix total final
+    public static double calculPriceTotal(ArrayList<Double> prices) {
+        double sum = 0D;
+        for(int i = 0; i<prices.size(); i++){
+            sum += prices.get(i);
+        }
+        return sum; 
+    }
+    
+    // calculer points got
+    public static double calculPointsGot(double priceTotal) {
+        return priceTotal/10; 
+    }
+
     public static void main(String[] args) throws SQLException, Exception {
         if (BasketDAO.cx == null) {
             BasketDAO.connexion();
