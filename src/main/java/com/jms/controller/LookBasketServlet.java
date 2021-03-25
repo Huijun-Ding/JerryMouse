@@ -146,7 +146,7 @@ public class LookBasketServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CheckBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LookBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -164,7 +164,7 @@ public class LookBasketServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CheckBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LookBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
