@@ -100,7 +100,15 @@ public class Client implements Serializable {
         this.password = password;
         this.fidelityPoints = fidelityPoints;
     }
-    
+
+    public Client(int code, String lastName, String firstName, String email, String password, int fidelityPoints) {
+        this.code = code;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.password = password;
+        this.fidelityPoints = fidelityPoints;
+    }
 
     // ----------------- GETTERS & SETTERS ------------------
     /**
