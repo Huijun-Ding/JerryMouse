@@ -36,19 +36,21 @@
                 //int nb_product = 5; // number of products to display    
 
             %> 
-            <div class="row">
+            <div class="">
                 <div class = "card-deck">
                     <% for (Product product : list) { %>
                     <!--% for (int i = 0; i < nb_product; i++) { %-->
                     <!--div class="col-sm-6 col-md-4 col-lg-2"-->
-                    <div class="card ">
+                    <div class="card mb-4 " style="min-width:15rem; max-width: 15rem;">
                         <%  // Properties of a product
                             String url = product.getUrlThumbnail();
                             String libelle = product.getName();
                             String price = String.format("%.2f", product.getUnitPrice());
                             String priceKG = "";
-                            if (product.getKgPrice() != 0f) priceKG = String.format("%.2f", product.getKgPrice());
-                             
+                            if (product.getKgPrice() != 0f) {
+                                priceKG = String.format("%.2f", product.getKgPrice());
+                            }
+
                             String format = product.getFormat();
 
                             // Get the conditioning of the product
@@ -71,29 +73,26 @@
                                     labelStrings.add(label.getDescription());
                                 }
                             }
-                            // a enlever
-                            for (String labelString : labelStrings) {
-                                System.out.println(" " + libelle + " " + labelString);
-                            }
 
-                            // If exists, get the list of promotions on the product.  
-                            int place = 1; 
+                            // If exists, get the current promotion on the product.  
+                            int place = 1;
                             String percent = "";
                             for (Promotion promotion : product.getPromotions().keySet()) {
                                 place = promotion.getRank();
                                 int val = (int) (promotion.getPercentage() * 100);
                                 percent = String.valueOf(val);
                             }
-                            
-%>
+
+                        %>
                         <img class="card-img-top img-thumbnail" src="<%= url%>" alt="alt"/>
                         <div class="card-body">
                             <a href="#" class="stretched-link"></a> 
                             <h6 class="card-title "><%= libelle%></h6>
+                            <!-- subtitle -->
                             <h7 class="card-subtitle mb-2 text-muted">
                                 <% if (priceKG != "") {
-                                    out.print(priceKG + " €/kg");
-                                }
+                                        out.print(priceKG + " €/kg");
+                                    }
                                 %>
                                 <% if (format != "") {
                                         out.print("  " + format + "");
@@ -120,24 +119,27 @@
                             </div> 
 
                             <!-- promotions -->
-                            <% if(percent != "") { %>
+                            <% if (percent != "") {%>
                             <div class="">
                                 <div class="btn btn-outline-danger">
-                                    <%= "-"+ percent + "%" %>
+                                    <%= "-" + percent + "%"%>
                                     <% String infoPromo = "";
-                                        if(place != 1) infoPromo = "sur le "+place+"ème";
+                                        if (place != 1)
+                                            infoPromo = "sur le " + place + "ème";
                                     %>
-                                    <%= infoPromo %>
+                                    <%= infoPromo%>
                                 </div>
                             </div> 
-                            <% } %>
+                            <% }%>
 
-                            <div class="card-footer text-right">
-                                <h3 class=""><%= price + " €"%></h3>
 
-                                <div class="" name="">
-                                    <i class="btn btn-primary fas fa-shopping-basket" ></i>
-                                </div>
+                        </div>
+                        <!-- footer (price, button) -->
+                        <div class="card-footer text-right">
+                            <h3 class=""><%= price + " €"%></h3>
+
+                            <div class="" name="addButton">
+                                <i class="btn btn-primary fas fa-shopping-basket" ></i>
                             </div>
                         </div>
                     </div>
