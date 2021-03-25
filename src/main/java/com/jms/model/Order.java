@@ -44,7 +44,7 @@ public class Order {
     /**
     *  Hibernate join property with Product Class.
     */
-    @OneToMany (mappedBy = "orders", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "order", cascade = CascadeType.ALL)
     @MapKeyJoinColumn (name = "EANP")
     private Map<Product, OrderLine> products = new HashMap<>(0);
     
