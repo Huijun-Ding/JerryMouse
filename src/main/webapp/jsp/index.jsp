@@ -12,6 +12,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="../js/search_stores.js"></script>
+        <script src="../js/department.js"></script>
     </head>
     <body>
         <header class="shadow p-3 mb-5 bg-body fixed-top">
@@ -84,22 +85,16 @@
 
     <ul id="rayon_categorie_navbar" class="nav nav-tabs nav-justified">
         <li class="nav-item">
-            <button type="button" class="nav-link active dropdown-toggle" data-toggle="dropdown">
+            <button id="departmentButton" type="button" class="nav-link active dropdown-toggle" data-toggle="dropdown">
                 Rayon
             </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Rayon 1</a>
-                <a class="dropdown-item" href="#">Rayon 2</a>
-            </div>
+            <div id="departments_list" class="dropdown-menu"></div>
         </li>
         <li class="nav-item">
-            <button type="button" class="nav-link active dropdown-toggle" data-toggle="dropdown">
+            <button id="categoryButton" type="button" class="nav-link active dropdown-toggle" data-toggle="dropdown">
                 Catégorie
             </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Catégorie 1</a>
-                <a class="dropdown-item" href="#">Catégorie 2</a>
-            </div>
+            <div id="productCategories_list" class="dropdown-menu"></div>
         </li>
     </ul>
 

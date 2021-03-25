@@ -32,15 +32,16 @@ public class ProductCategoryServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
-            String departmentName = request.getParameter("departmentName");
+            int departmentId = Integer.parseInt(request.getParameter("departmentId"));
 
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             out.println("<?xml version=\"1.0\"?>");
             out.println("<productCategories>");
 
-            for (ProductCategory c : ProductCategoryDAO.getProductCategoriesByDepartment(departmentName)) {
+            for (ProductCategory c : ProductCategoryDAO.getProductCategoriesByDepartmentId(departmentId)) {
                 out.println("   <productCategory>");
+                out.println("       <id><![CDATA[" + c.getId() + "]]></id>");
                 out.println("       <name><![CDATA[" + c.getName() + "]]></name>");
                 out.println("   </productCategory>");
             }
