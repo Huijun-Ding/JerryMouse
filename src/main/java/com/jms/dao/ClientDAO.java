@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package com.jms.dao;
+import com.jms.model.Basket;
 import com.jms.model.Client;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 /**
  *
  * @author RAKOTOARISOA
@@ -26,6 +31,24 @@ public class ClientDAO {
             return false;
         }
         
+    }
+    
+    /**
+     * Search a client with client's id
+     * @param idClient
+     * @return Client
+     */
+    public static Client searchClient(String idClient){
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Query query = session.createQuery("from Client where CodeCL = :code");
+
+            query.setParameter("code", idClient);
+            Client client = (Client)query.list().get(0);
+            t.commit();
+            return client;
+        }
     }
 }
 
