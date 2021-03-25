@@ -45,9 +45,6 @@ public class ClientDAOTest {
     
     @BeforeEach
     public void setUp() {
-        client = new Client();
-        client.setEmail("ss@gmail.com");
-        client.setPassword("ss");
     }
     
     @AfterEach
@@ -60,9 +57,8 @@ public class ClientDAOTest {
    @Test
     public void testAuthenticateEmailPasswordReturnTrue() {
         System.out.println("authenticate-check if email and password are equals to client email and password");
-        
-        String email = "ss@gmail.com";
-        String password = "ss";
+        String email = "rc@gmail.com";
+        String password = "rm123";
         boolean result = ClientDAO.authenticate(email, password);
         assertTrue(result);
         
