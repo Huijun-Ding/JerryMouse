@@ -81,7 +81,7 @@ public class StoreDAO {
      * @param postalCode The postal code of the reseaching stores.
      * @return List of stores having 'postalCode' as postal code.
      */
-    public static List<Store> getAllStores(String postalCode) {
+    public static List<Store> getAll(String postalCode) {
         List<Store> stores;
 
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -98,11 +98,5 @@ public class StoreDAO {
         }
 
         return stores;
-    }
-
-    public static void main(String[] args) {
-        for(Store s : StoreDAO.getAllStores("311")) {
-            System.out.println(s);
-        }
     }
 }

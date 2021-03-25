@@ -33,6 +33,13 @@
         <servlet-class>com.jms.controller.CompleteSearchBarServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DepartmentServlet</servlet-name>
+        <servlet-class>com.jms.controller.DepartmentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductCategoryServlet</servlet-name>
+        <servlet-class>com.jms.controller.ProductCategoryServlet</servlet-class>
+    </servlet>
         <servlet-name>AddProductServlet</servlet-name>
         <servlet-class>com.jms.controller.AddProductServlet</servlet-class>
     </servlet>
@@ -73,6 +80,20 @@
         <url-pattern>/CompleteSearchBarServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>StoreServlet</servlet-name>
+        <url-pattern>/Store</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepartmentServlet</servlet-name>
+        <url-pattern>/Department</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductCategoryServlet</servlet-name>
+        <url-pattern>/ProductCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConnectServlet</servlet-name>
+        <url-pattern>/connect</url-pattern>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/AddProductServlet</url-pattern>
     </servlet-mapping>

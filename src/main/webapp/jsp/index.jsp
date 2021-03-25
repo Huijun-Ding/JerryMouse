@@ -11,6 +11,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="../js/search_stores.js"></script>
     </head>
     <body>
         <header class="shadow p-3 mb-5 bg-body fixed-top">
@@ -33,16 +34,15 @@
                             <i class="fa fa-map-signs"></i> Toulouse
                         </li>
                         <li class="dropdown-item">
-                            <i class="fa fa-envelope-open"></i> Code Postal
+                            <i class="fa fa-envelope-open"></i> 31400
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li class="dropdown-item">
                             Changer de magasin : 
-                            <input type="search" class="form-control" placeholder="Saisir le code postal ici ...">
+                            <input id="search_stores" type="search" class="form-control" placeholder="Saisir le code postal ici ...">
                         </li>
-                        <li id="stores_list" class="dropdown-item"">
-                            <ul class="list-group">
-                            </ul>
+                        <li class="dropdown-item"">
+                            <div id="stores_list" class="accordion"></div>
                         </li>
                     </ul>
                 </div>
@@ -67,11 +67,11 @@
                             </div>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Se connecter</a>
-                            <a class="dropdown-item" href="#">S'inscrire</a>
+                            <a class="dropdown-item" href="login.jsp">Se connecter</a>
+                            <a class="dropdown-item" href="signup.jsp">S'inscrire</a>
                         </div>
                     </div>
-                    <a href="../basketPage?idClient=<%out.println("1");%>" role="button" class="btn  btn-sm btn-primary">
+                    <a href="basketPage?idClient=<%out.println("1");%>" role="button" class="btn  btn-sm btn-primary">
                         <div class="d-flex flex-column">
                             <i class="fa fa-shopping-basket"></i>
                             Panier
@@ -103,21 +103,9 @@
         </li>
     </ul>
 
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
-    <h1>Hello World!</h1>
+    <!-- 16:9 aspect ratio -->
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe id="view" class="embed-responsive-item" src="../DisplayProducts?home" allowfullscreen></iframe>
+    </div>
 </body>
 </html>
