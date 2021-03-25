@@ -13,20 +13,21 @@ function displayBasket() {
             tabProd = document.getElementById("tabProd");
             tabProd.innerHTML = "";
 
-            var i, product;
+            var i;
             product = xhr.responseXML.getElementsByTagName("product");
+            alert(product.length);
             for (i = 0; i < product.length; i++) {
-                product = product[i];
+                productLine = product[i];
 
-                photo = product.getElementsByTagName("photo")[0].firstChild.nodeValue;
-                name = product.getElementsByTagName("name")[0].firstChild.nodeValue;
-                price = product.getElementsByTagName("price")[0].firstChild.nodeValue;
-                priceAfter = product.getElementsByTagName("priceAfter")[0].firstChild.nodeValue;
-                quantity = product.getElementsByTagName("quantity")[0].firstChild.nodeValue;
-                totalPrice = product.getElementsByTagName("totalPrice")[0].firstChild.nodeValue;
-                promotion = product.getElementsByTagName("promotion")[0].firstChild.nodeValue;
+                photo = productLine.getElementsByTagName("photo")[0].firstChild.nodeValue;
+                name = productLine.getElementsByTagName("name")[0].firstChild.nodeValue;
+                price = productLine.getElementsByTagName("price")[0].firstChild.nodeValue;
+                priceAfter = productLine.getElementsByTagName("priceAfter")[0].firstChild.nodeValue;
+                quantity = productLine.getElementsByTagName("quantity")[0].firstChild.nodeValue;
+                totalPrice = productLine.getElementsByTagName("totalPrice")[0].firstChild.nodeValue;
+                promotion = productLine.getElementsByTagName("promotion")[0].firstChild.nodeValue;
 
-                const rows = "<tr> <td>" + photo + "</td><td>" 
+                const rows = "<tr><td><img src='" + photo + "' class='img-thumbnail'></td><td>" 
                         + name + "</td><td>" 
                         + price + "</br>" + priceAfter + "</td><td>" 
                         + quantity + "</td><td>" 
@@ -62,7 +63,7 @@ function displayPoints() {
             pointsGot = client.getElementsByTagName("pointsGot")[0].firstChild.nodeValue;
             pointsCumulative = client.getElementsByTagName("pointsCumulative")[0].firstChild.nodeValue;
             total = client.getElementsByTagName("total")[0].firstChild.nodeValue;
-            alert(total);
+
             cagnotte_gagne.insertAdjacentHTML('beforeend', pointsGot);
             cagnotte_cumul.insertAdjacentHTML('beforeend', pointsCumulative);
             totalSpan.insertAdjacentHTML('beforeend', total);
