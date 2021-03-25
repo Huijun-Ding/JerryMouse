@@ -1,6 +1,8 @@
 package com.jms.controller;
 
 import com.jms.dao.BasketDAO;
+import com.jms.dao.ClientDAO;
+import com.jms.dao.ProductDAO;
 import com.jms.dao.PromotionDAO;
 import com.jms.model.Basket;
 import com.jms.model.BasketId;
@@ -8,10 +10,13 @@ import com.jms.model.Client;
 import com.jms.model.Product;
 import com.jms.model.ProductConditioning;
 import com.jms.model.ProductNutriScore;
+import com.jms.model.Promotion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,65 +40,83 @@ public class checkBasketServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        BasketId bid = new BasketId(1, "2");
-//        Basket b1 = new Basket(bid, 3);
-
-//        HttpSession session = request.getSession(true);
-        String idClient = request.getParameter("idClient");
-//        int idClient = 1;
-
-//        List<Basket> lstBasket = BasketDAO.loadBasket(idClient);
-        // chercher ensuite chaque produit par une méthode ????
-        Product p = new Product("2", "pomme", "bonne pomme", "bon", "350", true, ProductNutriScore.A, ProductConditioning.LOT);
-        Client c = new Client("Shangshang", "Zhao", "ss@gmail.com", "ss", 5);
-        
-//        float percentage = PromotionDAO.getPercentage(p.getEan());
-//        double priceAfter = BasketDAO.calculPriceUnitaryAfterPromo(p.getUnitPrice(), percentage);
-//        // faut obtenir la quantité de produit dans panier
-//        double totalPrice = BasketDAO.calculPriceTotalProduct(1, priceAfter);
-//        ArrayList<Double> prices = new ArrayList<>();
-//        prices.add(p.getUnitPrice());
-//        double total = BasketDAO.calculPriceTotal(prices);
-//        
-//        // calculer points got
-//        double pointsGot = BasketDAO.calculPointsGot(total);
-        
-        
-        
-        // get un document DOM - XML
-        response.setContentType("application/xml;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
         try ( PrintWriter out = response.getWriter()) {
-            // loop for all products
-//            int qte = 0;
-//            for (Basket basket : lstBasket) {
-//                if (basket.getProduct().getEan().equals(p.getEan())) {
-//                    qte = basket.getQtyBasket();
-//                }
-//            }
+            // get un document DOM - XML
             out.println("<?xml version=\"1.0\"?>");
+            response.setContentType("application/xml;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
             out.println("<pageBasket>");
             out.println("<basket>");
 
-            // loop for all prodcut for(Product p: listProd)
-            out.println("<product>");
-            out.println("<photo>photo</photo>");
-            out.println("<id>" + p.getEan() + "</id>");
-            out.println("<name>" + p.getName() + "</name>");
-            out.println("<price>2,00</price>");
-            out.println("<priceAfter>1,00</priceAfter>");
-            out.println("<quantity>2</quantity>");
-            out.println("<totalPrice>2,00</totalPrice>");
-            out.println("<promotion>50%</promotion>");
-            out.println("</product>");
+            // ----------- TEST : CONSTANT ---------------
+            Product p = new Product("2", "pomme", "bonne pomme", "bon", "350", true, ProductNutriScore.A, ProductConditioning.LOT);
+            Client c = new Client("Shangshang", "Zhao", "ss@gmail.com", "ss", 5);
+
+            // --------------HIBERNATE ------------------
+            // ------ INFO CLIENT ------------------
+            // get id of client from host page
+            String idClient = request.getParameter("idClient");
+
+            // get info of client
+            Client client = ClientDAO.searchClient(idClient);
+
+            // ------ INFO BASKET / PRODUCT CLIENT ---------
+            // search basket for client
+            List<Basket> lstBasket = BasketDAO.loadBasket(Integer.parseInt(idClient));
+
+            // search products in basket and add to a list
+            String eanp = "";
+            Map<Product, Integer> productQty = new HashMap<>();
+            for (Basket basket : lstBasket) {
+                eanp = basket.getBasketId().getEan();
+                productQty.put(ProductDAO.searchProduct(eanp), basket.getQtyBasket());
+            }
+
+            // a list of price for all products
+            ArrayList<Double> prices = new ArrayList<>();
+
+            // loop for all products
+            for (Product product : productQty.keySet()) {
+                // ------ INFO PROMOTION PRODUCT ---------
+                Promotion promotion = PromotionDAO.searchPromotion(product.getEan());
+//                float percentage = promotion.getPercentage();
+
+                // ------- CALCUL: PRICE, POINTS... -----------
+                // calcul price unitary after promotion
+                double priceAfter = BasketDAO.calculPriceUnitaryAfterPromo(product.getUnitPrice(), percentage);
+
+                // quantity of a product in basket
+                int quantityProd = productQty.get(product);
+
+                // total price of a product in basket
+                double totalPriceProduct = BasketDAO.calculPriceTotalProduct(quantityProd, priceAfter);
+
+                prices.add(totalPriceProduct);
+
+                out.println("<product>");
+                out.println("<photo>" + product.getUrlp() + "</photo>");
+                out.println("<id>" + product.getEan() + "</id>");
+                out.println("<name>" + product.getName() + "</name>");
+                out.println("<price>" + product.getUnitPrice() + "</price>");
+                out.println("<priceAfter>" + priceAfter + "</priceAfter>");
+                out.println("<quantity>" + quantityProd + "</quantity>");
+                out.println("<totalPrice>" + totalPriceProduct + "</totalPrice>");
+                out.println("<promotion>" + promotion.getPercentage() + "</promotion>");
+                out.println("</product>");
+            }
             out.println("</basket>");
+            
+            // calcul total price of basket
+            double total = BasketDAO.calculPriceTotal(prices);
+
+            // calculer points got
+            int pointsGot = BasketDAO.calculPointsGot(total);
 
             // get info client via hibernate
             out.println("<client>");
-            out.println("<pointsGot>0,2</pointsGot>");
-            out.println("<pointsCumulative>" + c.getFidelityPoints() + "</pointsCumulative>");
-            out.println("<total>2,00</total>");
+            out.println("<pointsGot>" + pointsGot + "</pointsGot>");
+            out.println("<pointsCumulative>" + client.getFidelityPoints() + "</pointsCumulative>");
+            out.println("<total>" + total + "</total>");
             out.println("</client>");
             out.println("</pageBasket>");
         }
