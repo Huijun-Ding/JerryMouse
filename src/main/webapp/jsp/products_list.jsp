@@ -84,21 +84,7 @@
                                 int val = (int) (promotion.getPercentage() * 100);
                                 percent = String.valueOf(val);
                             }
-                            // --- Valeurs pour tester affichage -> Enlever apres
-                            //                        url = "img/photo.png";
-                            //                        libelle = "Libelle de l'article";
-                            //                        price = 3.50f;
-                            //                        priceKG = 7.0f;
-                            //                        format = "valFormat";
-                            //                        conditioningType = "lot";
-                            //                        conditioningVal = 2;
-                            //                        nutriscore = ProductNutriScore.A;
-                            //                        for (int i = 0; i < labelStrings.size(); i++) {
-                            //                            labelStrings.remove(i);
-                            //                        }
-                            //                        labelStrings.add("AOP");
-                            //                        labelStrings.add("AB");
-                            // --- Enlever
+                            
 %>
                         <img class="card-img-top img-thumbnail" src="<%= url%>" alt="alt"/>
                         <div class="card-body">
