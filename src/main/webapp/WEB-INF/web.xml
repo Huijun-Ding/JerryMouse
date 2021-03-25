@@ -35,6 +35,9 @@
     <servlet>
         <servlet-name>/ProductsList</servlet-name>
         <jsp-file>/jsp/products_list.jsp</jsp-file>
+    </servlet>
+    
+    <servlet>
         <servlet-name>CtrlCentral</servlet-name>
         <servlet-class>com.jms.controller.CtrlCentral</servlet-class>
     </servlet>
@@ -65,6 +68,8 @@
     <servlet-mapping>
         <servlet-name>/ProductsList</servlet-name>
         <url-pattern>/ProductsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>checkBasketServlet</servlet-name>
         <url-pattern>/checkBasketServlet</url-pattern>
     </servlet-mapping>
