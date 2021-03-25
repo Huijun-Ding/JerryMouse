@@ -36,16 +36,6 @@ public class TestHibernateDAO {
         }
     }
     
-    public static void getProductsBySearch(String keyword) {
-        //Open a session
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
-            //Open a transaction
-            session.beginTransaction();
-
-            Product p = session.get(Product.class, keyword);
-            
-        }
-    }
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
 
