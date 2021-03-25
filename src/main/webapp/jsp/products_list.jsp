@@ -22,7 +22,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/Style.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--> 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <title>Products List</title>
@@ -36,97 +36,116 @@
                 //int nb_product = 5; // number of products to display    
 
             %> 
-            <div class="row">
-                <div class = "card-group">
+            <div class="">
+                <div class = "card-deck">
                     <% for (Product product : list) { %>
                     <!--% for (int i = 0; i < nb_product; i++) { %-->
-                    <div class="col-sm-6 col-md-4 col-lg-2">
-                        <div class="card">
-                            <%  // Properties of a product
-                                String url = product.getUrlThumbnail();
-                                String libelle = product.getName();
-                                String price = String.format("%.2f", product.getUnitPrice());
-                                String priceKG = String.format("%.2f", product.getKgPrice());
-                                String format = product.getFormat();
+                    <!--div class="col-sm-6 col-md-4 col-lg-2"-->
+                    <div class="card mb-4 " style="min-width:15rem; max-width: 15rem;">
+                        <%  // Properties of a product
+                            String url = product.getUrlThumbnail();
+                            String libelle = product.getName();
+                            String price = String.format("%.2f", product.getUnitPrice());
+                            String priceKG = "";
+                            if (product.getKgPrice() != 0f) {
+                                priceKG = String.format("%.2f", product.getKgPrice());
+                            }
 
-                                // Get the conditioning of the product
-                                String conditioningType;
-                                int conditioningVal;
-                                if (product.getPackaging() == ProductConditioning.LOT) {
-                                    conditioningType = "lot";
-                                    conditioningVal = product.getPackagingQuantity();
-                                } else {
-                                    conditioningType = "";
-                                    conditioningVal = 1;
-                                }
-                                // Get the nutriscore of the product.
-                                ProductNutriScore nutriscore = product.getNutriscore();
+                            String format = product.getFormat();
 
-                                // If there are labels for the product, get their names.
-                                ArrayList<String> labelStrings = new ArrayList<String>();
+                            // Get the conditioning of the product
+                            String conditioningType;
+                            int conditioningVal;
+                            if (product.getPackaging() == ProductConditioning.LOT) {
+                                conditioningType = "lot";
+                                conditioningVal = product.getPackagingQuantity();
+                            } else {
+                                conditioningType = "";
+                                conditioningVal = 1;
+                            }
+                            // Get the nutriscore of the product.
+                            ProductNutriScore nutriscore = product.getNutriscore();
+
+                            // If there are labels for the product, get their names.
+                            ArrayList<String> labelStrings = new ArrayList<String>();
+                            if (!product.getLabels().isEmpty()) {
                                 for (Label label : product.getLabels()) {
                                     labelStrings.add(label.getDescription());
                                 }
-                                // If exists, get the list of promotions on the product.                                               
-                                //                        Map<Integer, Float> promos = new HashMap<Integer, Float>(0);
-                                //                        for (Promotion promotion : product.getPromotions().keySet()) {
-                                //                            promos.put(promotion.getNieme(), promotion.getPourcentage());
-                                //                        }
+                            }
 
-                                // --- Valeurs pour tester affichage -> Enlever apres
-                                //                        url = "img/photo.png";
-                                //                        libelle = "Libelle de l'article";
-                                //                        price = 3.50f;
-                                //                        priceKG = 7.0f;
-                                //                        format = "valFormat";
-                                //                        conditioningType = "lot";
-                                //                        conditioningVal = 2;
-                                //                        nutriscore = ProductNutriScore.A;
-                                //                        for (int i = 0; i < labelStrings.size(); i++) {
-                                //                            labelStrings.remove(i);
-                                //                        }
-                                //                        labelStrings.add("AOP");
-                                //                        labelStrings.add("AB");
-                                // --- Enlever
-                            %>
-                            <img class="card-img-top img-thumbnail" src="<%= url%>" alt="alt"/>
-                            <div class="card-body">
-                                <a href="#" class="stretched-link"></a> 
-                                <h5 class="card-title "><%= libelle%></h5>
-                                <h6 class="card-subtitle mb-2 text-muted"><%= priceKG + " €/kg"%>
-                                    <% if (format != "") {
-                                            out.print(" | " + format + "");
-                                        } %>
-                                    <% if (conditioningType != "") {
-                                            if (conditioningType == "lot") {
-                                                out.print(" | " + conditioningType + " de " + conditioningVal);
-                                            } else {
-                                                out.print(" | " + conditioningType);
-                                            }
+                            // If exists, get the current promotion on the product.  
+                            int place = 1;
+                            String percent = "";
+                            for (Promotion promotion : product.getPromotions().keySet()) {
+                                place = promotion.getRank();
+                                int val = (int) (promotion.getPercentage() * 100);
+                                percent = String.valueOf(val);
+                            }
+
+                        %>
+                        <img class="card-img-top img-thumbnail" src="<%= url%>" alt="alt"/>
+                        <div class="card-body">
+                            <a href="AddProductServlet?ean=<%= product.getEan() %>" class="stretched-link"></a> 
+                            <h6 class="card-title "><%= libelle%></h6>
+                            <!-- subtitle -->
+                            <h7 class="card-subtitle mb-2 text-muted">
+                                <% if (priceKG != "") {
+                                        out.print(priceKG + " €/kg");
+                                    }
+                                %>
+                                <% if (format != "") {
+                                        out.print("  " + format + "");
+                                    } %>
+                                <% if (conditioningType != "") {
+                                        if (conditioningType == "lot") {
+                                            out.print(" | " + conditioningType + " de " + conditioningVal);
+                                        } else {
+                                            out.print(" | " + conditioningType);
                                         }
-                                    %>
-                                </h6>
-                                <!-- nutriscore -->
-                                <% if (nutriscore != null) {%>
-                                <img src="img/Nutri-score-<%= nutriscore%>.svg" width="100px" alt="alt"/>
+                                    }
+                                %>
+                            </h7>
+                            <!-- nutriscore -->
+                            <% if (nutriscore != null) {%>
+                            <div><img src="img/Nutri-score-<%= nutriscore%>.svg" width="50px" alt="alt"/></div>
                                 <% }%>
 
-                                <!-- labels -->
-                                <div class=""></div> 
+                            <!-- labels -->
+                            <div class="row">
+                                <% for (String labelString : labelStrings) {%>
+                                <div class="btn btn-outline-warning"><%= labelString + " LABEL_HERE "%></div>
+                                <% }%>
+                            </div> 
 
-                                <!-- promotions -->
-                                <div class=""></div> 
+                            <!-- promotions -->
+                            <% if (percent != "") {%>
+                            <div class="">
+                                <div class="btn btn-outline-danger">
+                                    <%= "-" + percent + "%"%>
+                                    <% String infoPromo = "";
+                                        if (place != 1)
+                                            infoPromo = "sur le " + place + "ème";
+                                    %>
+                                    <%= infoPromo%>
+                                </div>
+                            </div> 
+                            <% }%>
 
-                                <footer class="row">
-                                    <h3 class="col-lg-9"><%= price + " €"%></h3>
 
-                                    <div class="col-lg-3 ">
-                                        <i class="btn btn-primary fas fa-shopping-basket" ></i>
-                                    </div>
-                                </footer>
+                        </div>
+                        <!-- footer (price, button) -->
+                        <div class="card-footer text-right">
+                            <h3 class=""><%= price + " €"%></h3>
+
+                            <div class="" name="addButton">
+                                <a href="AddProductServlet?ean=<%= product.getEan() %>" class="">
+                                <i class="btn btn-primary fas fa-shopping-basket" ></i>
+                                </a>
                             </div>
                         </div>
                     </div>
+                    <!--/div-->
                     <% }%>
                 </div>
             </div>
