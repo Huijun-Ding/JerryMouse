@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.jms.controller;
 
-import com.jms.dao.ProductDAOH;
+import com.jms.dao.ProductDAO;
 import com.jms.model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author mlk
- */
-public class DisplayProductsServlet extends HttpServlet {
+public class SendSearchRequestServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,38 +25,32 @@ public class DisplayProductsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
-        // All products to display     
-        if (request.getParameterMap().containsKey("all")) {
-            List<Product> list = ProductDAOH.getAllProducts(); // for now display all products
-            request.setAttribute("productsList", list);
+        response.setContentType("application/xml;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        try (PrintWriter out = response.getWriter()) {
+            // XML page
+            out.println("<?xml version=\"1.0\"?>");
+            out.println("<list_products>");
+
+            // get parameter
+            String keyword = request.getParameter("keyword");
+
+            if (!keyword.equals("")) {
+                // put result into a list
+                List<Product> products = ProductDAO.returnSrearchResult(keyword);
+                request.setAttribute("productsList", products);
+                for (Product p : products) {
+                    out.println("<product><![CDATA[" + p.getName() + "]]></product>");
+                }
+            } else {
+                out.println("<product><![CDATA[]]></product>");
+            }
+            out.println("</list_products>");
+            
+            request.getRequestDispatcher("ProductsList").forward(request, response);
         }
-        // Products to display on homePage    
-
-        if (request.getParameterMap().containsKey("home")) {
-            List<Product> list = ProductDAOH.getProductsWithPromo(); // for now display all products
-            request.setAttribute("productsList", list);
-        }
-        
-        // Products of a category  
-        if (request.getParameterMap().containsKey("cat")) {
-            int codeCat = Integer.parseInt(request.getParameter("cat"));
-            List<Product> list = ProductDAOH.getProductsOfDepartment(codeCat); // for now display all products
-            request.setAttribute("productsList", list);
-        }
-        
-        // Products of a department    
-        if (request.getParameterMap().containsKey("dpt")) {
-            int codeDpt = Integer.parseInt(request.getParameter("dpt"));
-            List<Product> list = ProductDAOH.getProductsOfDepartment(codeDpt); // for now display all products
-            request.setAttribute("productsList", list);
-        }
-
-
-        // Dispatch to ProductsList
-        request.getRequestDispatcher("ProductsList").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
