@@ -36,14 +36,14 @@ public class PostIt implements Serializable{
     *  Hibernate join property with PostIt Class  and ShoppingList Class.
     */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CodePI")
+    @JoinColumn(name = "CodeLC")
     private ShoppingList shoppingList;
     
     /**
     *  Hibernate join property with PostIt Class  and Product Class.
     */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CodePI")
+    @JoinColumn(name = "EANP")
     private Product product;
 
     //------------- CONSTRUCTOR ------------------
