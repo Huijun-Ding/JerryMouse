@@ -25,8 +25,7 @@ public class ClientDAO {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             /*----------------Ouverture d'une transaction---------*/
             Transaction t = session.beginTransaction();
-            Query query = session.createQuery("select new com.jms.model.Client(c.lastName,c.firstName,c.email,c.password,c.pointsFidelity) "
-                    + "from Client c "
+            Query query = session.createQuery( "from Client c "
                     + "where c.email = :email "
                     + "and c.password = :password");
             
@@ -34,18 +33,12 @@ public class ClientDAO {
             query.setParameter("email", email);
             query.setParameter("password", password);
             
-            List <Client> listClients = query.list();
-            listClients.get(0);
-            
-            if((email==null) && (password==null)){
-            throw new NullPointerException();
-            }
-            if((email!="")&&(password!=""))
-                if((email == listClients.get(0).getEmail())&&(password == listClients.get(0).getPassword()))
-                        return true;   
-
+            if (query.list().size()>0){
+                return true;   
+            }   
             return false;
-            } 
+                
+        }
     }
     
     /**
