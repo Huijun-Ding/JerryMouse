@@ -44,6 +44,20 @@ public class DisplayProductsServlet extends HttpServlet {
             List<Product> list = ProductDAOH.getProductsWithPromo(); // for now display all products
             request.setAttribute("productsList", list);
         }
+        
+        // Products to display on homePage    
+        if (request.getParameterMap().containsKey("cat")) {
+            int codeCat = Integer.parseInt(request.getParameter("cat"));
+            List<Product> list = ProductDAOH.getProductsOfDepartment(codeCat); // for now display all products
+            request.setAttribute("productsList", list);
+        }
+        
+        // Products to display on homePage    
+        if (request.getParameterMap().containsKey("dpt")) {
+            int codeDpt = Integer.parseInt(request.getParameter("dpt"));
+            List<Product> list = ProductDAOH.getProductsOfDepartment(codeDpt); // for now display all products
+            request.setAttribute("productsList", list);
+        }
 
         // Dispatch to ProductsList
         request.getRequestDispatcher("ProductsList").forward(request, response);
