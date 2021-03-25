@@ -35,7 +35,7 @@ public class Label {
     /**
     *  Hibernate join property with Produit Class and Label Class for the relationship "Posseder".
     */
-    @ManyToMany(mappedBy = "services")
+    @ManyToMany(mappedBy = "labels")
     private Set<Product> products = new HashSet(0);
 
     // Constructors.

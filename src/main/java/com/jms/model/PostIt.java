@@ -36,14 +36,14 @@ public class PostIt implements Serializable{
      * Designation: ..A REMPLIR!!!!
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CodePI")
+    @JoinColumn(name = "CodeLC")
     private ShoppingList shoppingList;
     
     /**
      * Designation: A REMPLIR!!!!
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CodePI")
+    @JoinColumn(name = "EANP")
     private Product product;
 
     //------------- Constructor ------------------

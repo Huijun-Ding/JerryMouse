@@ -1,5 +1,6 @@
 package com.jms.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -9,7 +10,7 @@ import javax.persistence.Embeddable;
  * @author carol
  */
 @Embeddable
-public class StockId {
+public class StockId implements Serializable {
 
     // --------------------- PROPERTIES ---------------------
 
