@@ -13,8 +13,8 @@
         <jsp-file>/jsp/login.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>visualiserPanierServlet</servlet-name>
-        <servlet-class>com.jms.controller.visualiserPanierServlet</servlet-class>
+        <servlet-name>checkBasketServlet</servlet-name>
+        <servlet-class>com.jms.controller.checkBasketServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>basketPage</servlet-name>
@@ -23,6 +23,10 @@
     <servlet>
         <servlet-name>searchByKeyWordServlet</servlet-name>
         <servlet-class>com.jms.controller.searchByKeyWordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlCentral</servlet-name>
+        <servlet-class>com.jms.controller.CtrlCentral</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -33,16 +37,20 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>visualiserPanierServlet</servlet-name>
-        <url-pattern>/visualiserPanierServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>basketPage</servlet-name>
         <url-pattern>/basketPage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>searchByKeyWordServlet</servlet-name>
         <url-pattern>/searchByKeyWord</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>checkBasketServlet</servlet-name>
+        <url-pattern>/checkBasketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlCentral</servlet-name>
+        <url-pattern>/CtrlCentral</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
