@@ -5,12 +5,14 @@
  */
 package com.jms.dao;
 
+import com.jms.model.Product;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.hibernate.Session;
 
 /**
  * ProductDAO Class.
@@ -50,9 +52,11 @@ public class ProductDAO {
     }
 
     /**
-     * completeSearchBarByProductName.
+     * completeSearchBarByProductName. Complete the search bar by a product name.
      *
      * @param product key word enter in search bar.
+     * 
+     * @return ArrayList<String>.
      */
     public static ArrayList<String> completeSearchBarByProductName(String product) throws ClassNotFoundException, SQLException {
         // create connection to db
@@ -83,9 +87,11 @@ public class ProductDAO {
     }
 
     /**
-     * completeSearchBarByCategory.
+     * Complete the search bar by a product name.
      *
      * @param product key word enter in search bar.
+     * 
+     * @return ArrayList<String>.
      */
     public static ArrayList<String> completeSearchBarByCategory(String product) throws ClassNotFoundException, SQLException {
         // create connection to db
@@ -112,6 +118,24 @@ public class ProductDAO {
         }
 
         return categories;
+    }
+
+     /**
+     * Complete the search bar by a product name.
+     *
+     * @param keyword key word enter in search bar.
+     * 
+     * @return a list of product.
+     */
+    public static void getProductsBySearch(String keyword) {
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            //Open a transaction
+            session.beginTransaction();
+
+            Product p = session.get(Product.class, keyword);
+
+        }
     }
 
     public static void main(String[] s) {
