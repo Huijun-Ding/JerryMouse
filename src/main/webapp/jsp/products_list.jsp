@@ -4,6 +4,7 @@
     Author     : mlk
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.jms.model.Promotion"%>
@@ -44,8 +45,8 @@
                             <%  // Properties of a product
                                 String url = product.getUrlThumbnail();
                                 String libelle = product.getName();
-                                float price = product.getUnitPrice();
-                                float priceKG = product.getKgPrice();
+                                String price = String.format("%.2f", product.getUnitPrice());
+                                String priceKG = String.format("%.2f", product.getKgPrice());
                                 String format = product.getFormat();
 
                                 // Get the conditioning of the product
@@ -92,7 +93,7 @@
                             <div class="card-body">
                                 <a href="#" class="stretched-link"></a> 
                                 <h5 class="card-title "><%= libelle%></h5>
-                                <h6 class="card-subtitle mb-2 text-muted"><% out.prinftf(priceKG) + " €/kg"%>
+                                <h6 class="card-subtitle mb-2 text-muted"><%= priceKG + " €/kg"%>
                                     <% if (format != "") {
                                             out.print(" | " + format + "");
                                         } %>
