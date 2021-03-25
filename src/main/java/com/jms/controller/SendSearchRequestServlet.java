@@ -40,6 +40,7 @@ public class SendSearchRequestServlet extends HttpServlet {
             if (!keyword.equals("")) {
                 // put result into a list
                 List<Product> products = ProductDAO.returnSrearchResult(keyword);
+                request.setAttribute("productsList", products);
                 for (Product p : products) {
                     out.println("<product><![CDATA[" + p.getName() + "]]></product>");
                 }
@@ -47,6 +48,8 @@ public class SendSearchRequestServlet extends HttpServlet {
                 out.println("<product><![CDATA[]]></product>");
             }
             out.println("</list_products>");
+            
+            request.getRequestDispatcher("ProductsList").forward(request, response);
         }
     }
 

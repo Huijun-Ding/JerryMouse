@@ -42,7 +42,7 @@ function searchProducts() {
 
     var myinput = document.getElementById("search").value;
     xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
-
+    //alert(myinput);
     xhr.onload = function ()
     {
         if (xhr.status === 200)
@@ -54,7 +54,7 @@ function searchProducts() {
                 elt.innerHTML = "";
                 for (i = 0; i < suggestions.length; i++) {
                     produit = suggestions[i].firstChild.nodeValue;
-                    alert(produit);
+                    //alert(produit);
                     elt.insertAdjacentHTML("beforeend", "<li>" + produit + "</li>");
                 }
             } else {
