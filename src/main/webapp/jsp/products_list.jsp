@@ -86,7 +86,7 @@
                         %>
                         <img class="card-img-top img-thumbnail" src="<%= url%>" alt="alt"/>
                         <div class="card-body">
-                            <a href="#" class="stretched-link"></a> 
+                            <a href="AddProductServlet?ean= <%= product.getEan() %>" class="stretched-link"></a> 
                             <h6 class="card-title "><%= libelle%></h6>
                             <!-- subtitle -->
                             <h7 class="card-subtitle mb-2 text-muted">
