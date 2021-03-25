@@ -5,7 +5,6 @@ import com.jms.dao.ClientDAO;
 import com.jms.dao.ProductDAO;
 import com.jms.dao.PromotionDAO;
 import com.jms.model.Basket;
-import com.jms.model.BasketId;
 import com.jms.model.Client;
 import com.jms.model.Product;
 import com.jms.model.ProductConditioning;
@@ -21,7 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,7 +36,8 @@ public class checkBasketServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, 
+            HttpServletResponse response)
             throws ServletException, IOException {
         try ( PrintWriter out = response.getWriter()) {
             // get un document DOM - XML
@@ -49,7 +48,8 @@ public class checkBasketServlet extends HttpServlet {
             out.println("<basket>");
 
             // ----------- TEST : CONSTANT ---------------
-            Product p = new Product("2", "pomme", "bonne pomme", "bon", "350", true, ProductNutriScore.A, ProductConditioning.LOT);
+            Product p = new Product("2", "pomme", "bonne pomme", "bon", "350",
+                    true, ProductNutriScore.A, ProductConditioning.LOT);
             Client c = new Client("Shangshang", "Zhao", "ss@gmail.com", "ss", 5);
 
             // --------------HIBERNATE ------------------
@@ -82,18 +82,20 @@ public class checkBasketServlet extends HttpServlet {
 
                 // ------- CALCUL: PRICE, POINTS... -----------
                 // calcul price unitary after promotion
-                double priceAfter = BasketDAO.calculPriceUnitaryAfterPromo(product.getUnitPrice(), percentage);
+                double priceAfter = BasketDAO.calculPriceUnitaryAfterPromo(
+                        product.getUnitPrice(), promotion.getPercentage());
 
                 // quantity of a product in basket
                 int quantityProd = productQty.get(product);
 
                 // total price of a product in basket
-                double totalPriceProduct = BasketDAO.calculPriceTotalProduct(quantityProd, priceAfter);
+                double totalPriceProduct = BasketDAO.calculPriceTotalProduct(
+                        quantityProd, priceAfter);
 
                 prices.add(totalPriceProduct);
 
                 out.println("<product>");
-                out.println("<photo>" + product.getUrlp() + "</photo>");
+                out.println("<photo>" + product.getUrlThumbnail() + "</photo>");
                 out.println("<id>" + product.getEan() + "</id>");
                 out.println("<name>" + product.getName() + "</name>");
                 out.println("<price>" + product.getUnitPrice() + "</price>");
@@ -114,7 +116,8 @@ public class checkBasketServlet extends HttpServlet {
             // get info client via hibernate
             out.println("<client>");
             out.println("<pointsGot>" + pointsGot + "</pointsGot>");
-            out.println("<pointsCumulative>" + client.getFidelityPoints() + "</pointsCumulative>");
+            out.println("<pointsCumulative>" + client.getFidelityPoints() 
+                    + "</pointsCumulative>");
             out.println("<total>" + total + "</total>");
             out.println("</client>");
             out.println("</pageBasket>");
