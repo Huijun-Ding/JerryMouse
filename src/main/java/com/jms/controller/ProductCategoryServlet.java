@@ -5,8 +5,8 @@
  */
 package com.jms.controller;
 
-import com.jms.dao.StoreDAO;
-import com.jms.model.Store;
+import com.jms.dao.ProductCategoryDAO;
+import com.jms.model.ProductCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author axelt
  */
-public class StoreServlet extends HttpServlet {
+public class ProductCategoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,23 +32,20 @@ public class StoreServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
-            String postalCode = request.getParameter("postalCode");
+            String departmentName = request.getParameter("departmentName");
 
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             out.println("<?xml version=\"1.0\"?>");
-            out.println("<stores>");
+            out.println("<productCategories>");
 
-            for (Store s : StoreDAO.getAll(postalCode)) {
-                out.println("   <store>");
-                out.println("       <name><![CDATA[" + s.getName() + "]]></name>");
-                out.println("       <street><![CDATA[" + s.getStreet() + "]]></street>");
-                out.println("       <city><![CDATA[" + s.getCity() + "]]></city>");
-                out.println("       <postalCode><![CDATA[" + s.getPostalCode() + "]]></postalCode>");
-                out.println("   </store>");
+            for (ProductCategory c : ProductCategoryDAO.getProductCategoriesByDepartment(departmentName)) {
+                out.println("   <productCategory>");
+                out.println("       <name><![CDATA[" + c.getName() + "]]></name>");
+                out.println("   </productCategory>");
             }
 
-            out.println("</stores>");
+            out.println("</productCategories>");
         }
     }
 

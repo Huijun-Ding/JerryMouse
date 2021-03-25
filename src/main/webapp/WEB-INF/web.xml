@@ -44,6 +44,14 @@
         <servlet-name>CompleteSearchBarServlet</servlet-name>
         <servlet-class>com.jms.controller.CompleteSearchBarServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DepartmentServlet</servlet-name>
+        <servlet-class>com.jms.controller.DepartmentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductCategoryServlet</servlet-name>
+        <servlet-class>com.jms.controller.ProductCategoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
@@ -63,6 +71,10 @@
     <servlet-mapping>
         <servlet-name>StoreServlet</servlet-name>
         <url-pattern>/StoreServlet</url-pattern>
+    </servlet>
+    <servlet>
+        <servlet-name>searchByKeyWordServlet</servlet-name>
+        <url-pattern>/searchByKeyWord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DisplayProductsServlet</servlet-name>
@@ -83,6 +95,18 @@
     <servlet-mapping>
         <servlet-name>CompleteSearchBarServlet</servlet-name>
         <url-pattern>/CompleteSearchBarServlet</url-pattern>
+    </servlet>
+    <servlet>
+        <servlet-name>StoreServlet</servlet-name>
+        <url-pattern>/Store</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepartmentServlet</servlet-name>
+        <url-pattern>/Department</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductCategoryServlet</servlet-name>
+        <url-pattern>/ProductCategory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
