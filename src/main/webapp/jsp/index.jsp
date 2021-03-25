@@ -67,8 +67,8 @@
                             </div>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Se connecter</a>
-                            <a class="dropdown-item" href="#">S'inscrire</a>
+                            <a class="dropdown-item" href="login.jsp">Se connecter</a>
+                            <a class="dropdown-item" href="signup.jsp">S'inscrire</a>
                         </div>
                     </div>
                     <a href="basketPage?idClient=<%out.println("1");%>" role="button" class="btn  btn-sm btn-primary">
