@@ -45,10 +45,6 @@
         <servlet-class>com.jms.controller.ProductCategoryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ConnectServlet</servlet-name>
-        <url-pattern>/connect</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
@@ -91,6 +87,10 @@
     <servlet-mapping>
         <servlet-name>ProductCategoryServlet</servlet-name>
         <url-pattern>/ProductCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConnectServlet</servlet-name>
+        <url-pattern>/connect</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
