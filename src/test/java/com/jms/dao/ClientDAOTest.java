@@ -53,44 +53,7 @@ public class ClientDAOTest {
     @AfterEach
     public void tearDown() {
     }
-
-    /**
-     * Test of method authenticate() when email and password are empty
-     */
-    @Test
-    public void testAuthenticateEmailEmptyPasswordEmpty() {
-        System.out.println("authenticate");
-        String email = "";
-        String password = "";
-        boolean result = ClientDAO.authenticate(email, password);
-        //Assert
-        assertFalse(result);  
-    }
     
-    /**
-     * Test if param email is valid
-     */
-    @Test
-    public void testAuthenticateEmailValid() {
-        System.out.println("authenticate");
-        //client.setEmail("ss@gmail.com");
-        String emailTrue = "ss@gmail.com";
-        String email = "ss@gmail.com";
-        assertEquals(emailTrue, email);
-        
-    }
-    
-    /**
-     * Test if param password is valid
-     */
-    @Test
-    public void testAuthenticatePasswordValid() {
-        System.out.println("authenticate");
-        String passwordTrue = "ss";
-        String password = "ss";
-        assertEquals(passwordTrue, password);
-        
-    }
     /**
      * Test of method authenticate() when email and password are valid
      */
@@ -98,8 +61,6 @@ public class ClientDAOTest {
     public void testAuthenticateEmailPasswordReturnTrue() {
         System.out.println("authenticate-check if email and password are equals to client email and password");
         
-        //String emailTrue = client.getEmail();
-        //String passwordTrue = client.getPassword();
         String email = "ss@gmail.com";
         String password = "ss";
         boolean result = ClientDAO.authenticate(email, password);
@@ -115,9 +76,8 @@ public class ClientDAOTest {
         System.out.println("authenticate-check if email and password are not null");
         String email = null;
         String password = null;
-        assertThrows(NullPointerException.class, ()->{
-            ClientDAO.authenticate(email, password);
-        });
+        boolean result = ClientDAO.authenticate(email, password);
+        assertFalse(result);
     }
 
 }
