@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>checkBasketServlet</servlet-name>
-        <servlet-class>com.jms.controller.checkBasketServlet</servlet-class>
+        <servlet-class>com.jms.controller.CheckBasketServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>basketPage</servlet-name>
@@ -35,6 +35,10 @@
     <servlet>
         <servlet-name>CompleteSearchBarServlet</servlet-name>
         <servlet-class>com.jms.controller.CompleteSearchBarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProductServlet</servlet-name>
+        <servlet-class>com.jms.controller.AddProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -72,9 +76,11 @@
         <servlet-name>CompleteSearchBarServlet</servlet-name>
         <url-pattern>/CompleteSearchBarServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductServlet</servlet-name>
+        <url-pattern>/AddProductServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 </web-app>
