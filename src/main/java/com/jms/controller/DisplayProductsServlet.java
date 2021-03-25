@@ -34,9 +34,14 @@ public class DisplayProductsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        // All products to display     
+        if (request.getParameterMap().containsKey("all")) {
+            List<Product> list = ProductDAOH.getAllProducts(); // for now display all products
+            request.setAttribute("productsList", list);
+        }
         // Products to display on homePage    
         if (request.getParameterMap().containsKey("home")) {
-            List<Product> list = ProductDAOH.getAllProducts(); // for now display all products
+            List<Product> list = ProductDAOH.getProductsWithPromo(); // for now display all products
             request.setAttribute("productsList", list);
         }
 

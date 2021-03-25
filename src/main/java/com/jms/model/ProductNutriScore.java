@@ -9,5 +9,6 @@ public enum ProductNutriScore {
     B,
     C,
     D,
-    E;
+    E,
+    NULL
 }
