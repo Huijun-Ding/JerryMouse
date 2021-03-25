@@ -21,7 +21,7 @@
             Les champs suivis d'un * sont obligatoires</p>
             <p class="text-danger">${requestScope.msg_error}</p>
             
-            <form action="connect" method ="GET">
+            <form action="../connect" method ="GET">
                 <div>
                     <p>Login* :</p>
                     <input type="text" id="mail" name="mail" required />
@@ -29,8 +29,8 @@
                     <input type="text" id="pw" name="password" required />    
                 </div>
                 <br>
-                <a href="connect?method=return" class="btn btn-outline-primary"> Retour vers l'accueil<a/>
-                <a href="connect?method=connection" class="btn btn-outline-primary">Se connecter</a>
+                <a href="../connect?method=return" class="btn btn-outline-primary"> Retour vers l'accueil<a/>
+                <a href="../connect?method=connection" class="btn btn-outline-primary">Se connecter</a>
 
             </form>
             
