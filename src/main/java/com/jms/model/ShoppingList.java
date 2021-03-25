@@ -41,7 +41,7 @@ public class ShoppingList implements Serializable{
     *  Hibernate join property with ShoppingList Class  and Client Class.
     */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="CodeClient")
+    @JoinColumn(name="CodeCL")
     private Client client;
     
     /**
