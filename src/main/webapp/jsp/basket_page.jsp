@@ -5,13 +5,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>My basket</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="../css/Style.css">
+        <link rel="stylesheet" type="text/css" href="css/Style.css">
     </head>
-    <body>
+    <body onload="displayBasket(), displayPoints()">
+        <script type="text/JavaScript" src="js/ScriptCheckBasket.js"></script>
         <div class="container" id="container">
             <div class="row">
                 <div class="col-2" name="en_tete">
-                    <img id="logo" src="../img/photo.png">
+                    <img id="logo" src="img/photo.png">
                 </div>
                 <div class="col-8">Store:</div>
                 <div class="col-2">
@@ -21,44 +22,47 @@
 
             <h1>My basket</h1>
 
+            <%
+                String idClient = (String) session.getAttribute("idClient");
+            %>
+            <%--<label id="idClient">1</label>--%>
+            <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
+            <%--<%=idClient%>--%>
             <form action="">
-                <div class="lst_prod" name="div_prod">
-                    <table class="table table-hover">
+                <div class="lst_prod" id="div_prod">
+                    <table class="table table-hover" id="tabProd">
                         <%
                             // loop to write products
-                            out.println("<tr><td>" + "photo" + "</td>");
-                            out.println("<td>Nom</td>");
-                            out.println("<td>Prix Unitaire</td>");
-                            out.println("<td>Qte</td>");
-                            out.println("<td>Prix Total</td>");
-                            out.println("</tr>");
+                            out.print("<tr><td>" + "photo" + "</td>");
+                            out.print("<td>Nom</td>");
+                            out.print("<td>Prix Unitaire</td>");
+                            out.print("<td>Qte</td>");
+                            out.print("<td>Prix Total</td></tr>");
                         %>
                     </table>
                 </div>
 
-                <div name="calcul">
-                    <table class="table">
+                    <div name="calcul">
+                    <table class="table"  id="points">
                         <tr>
-                            <td>Points got: <span id="gagnotte_gagne"></span></td>
-                            <td>Points cumulative: <span id="gagnotte_cumul"></span></td>
+                            <td>Points got: <span id="cagnotte_gagne"></span></td>
+                            <td>Points cumulative: <span id="cagnotte_cumul"></span></td>
                             <td>Total: <span id="total"></span></td>
                         </tr>
                     </table>
                 </div>
 
-
-
                 <div class="row">
                     <div class="col-8"></div>
                     <div class="col-2">
-                        <input class="btn btn-outline-primary" type="submit" name="valider" value="OK">
+                        <input class="btn btn-outline-primary" type="submit" id="valider" name="valider" value="OK">
                     </div>
                     <div class="col-2">
                         <button class="btn btn-outline-primary" id="retour">Return</button>
                     </div>
                 </div>
             </form>
-
         </div>
+        
     </body>
 </html>
