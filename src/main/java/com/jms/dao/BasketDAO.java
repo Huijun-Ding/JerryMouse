@@ -32,7 +32,7 @@ public class BasketDAO {
             query.setParameter("code", CodeCL);
 
             List<Basket> lstBasket = query.list();
-           // lstBasket.forEach(System.out::println);
+            lstBasket.forEach(System.out::println);
             
             t.commit(); // Commit et flush automatique de la session.
             return lstBasket;
@@ -42,13 +42,6 @@ public class BasketDAO {
     // calculer le prix avec promotion : produit sans promo?
     public static float calculPriceUnitaryAfterPromo(float price, float percentage) {
         return price * (1 - percentage);
-//        BigDecimal bdPrice = new BigDecimal(String.valueOf(price));
-//        BigDecimal bdPercentage = new BigDecimal(String.valueOf(percentage));
-//        BigDecimal res = new BigDecimal(String.valueOf("1")).subtract(bdPercentage);
-//       String s=new java.text.DecimalFormat("0.00").format(bdPrice.multiply(res).doubleValue());
-//        System.out.println(Double.valueOf(s));
-//        double d=Double.valueOf(s);
-//        return bdPrice.multiply(res).doubleValue();
     }
     
     // calculer le prix total avec promotion pour chaque produit 
@@ -65,31 +58,105 @@ public class BasketDAO {
         return sum; 
     }
     
-    // calculer points got
+    // calculate points got
     public static int calculPointsGot(float priceTotal) {
         return (int)priceTotal/10; 
+    }
+    
+    // check if a product is in basket of a client
+    public static boolean checkProductBakset(int idClient, String ean) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            
+            boolean exist = false;
+            Query query = session.createSQLQuery("select count(*) from Panier "
+                    + "where EANP = :ean "
+                    + "and codeCL = :codeCL");
+            
+            query.setParameter("codeCL", idClient);
+            query.setParameter("ean", ean);
+            int nbLine = Integer.valueOf(query.list().get(0).toString());    
+           
+            if (nbLine > 0){
+                exist = true;
+            }
+            t.commit(); // Commit et flush automatique de la session.
+            return exist;
+        }
+    }
+    
+    // add product to basket
+    public static void addProductToBasket(int idClient, String ean) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Query query = session.createSQLQuery("insert into Panier (EANP, CodeCL, qtePanier) "
+                    + "VALUES(:ean, :codeCL, 1)");
+            
+            query.setParameter("codeCL", idClient);
+            query.setParameter("ean", ean);
+            
+            System.out.println(query.executeUpdate());
+            
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
+    
+    // update a basket
+    public static int updateBasket(int idClient, String ean) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            
+            // get the quantity of product
+            Query query1 = session.createSQLQuery("SELECT qtePanier FROM Panier "
+                    + "WHERE EANP= :ean and CodeCL= :codeCL");
+            query1.setParameter("codeCL", idClient);
+            query1.setParameter("ean", ean);
+            int qtePanier = Integer.valueOf(query1.list().get(0).toString());
+            
+            // update the quantity of product
+            Query query = session.createSQLQuery("UPDATE Panier SET qtePanier= :nb "
+                    + "WHERE EANP= :ean and CodeCL= :codeCL");
+            query.setParameter("codeCL", idClient);
+            query.setParameter("ean", ean);
+            query.setParameter("nb", qtePanier + 1);
+            
+            int nb = query.executeUpdate();
+            t.commit(); // Commit et flush automatique de la session.
+            return nb;
+        }
     }
 
     public static void main(String[] args) {
         // test for method loadBasket
+//        try {
+//            System.out.println(BasketDAO.loadBasket(1).get(0)); 
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        
+//        // test for method calculPriceUnitaryAfterPromo
+//        System.out.println(BasketDAO.calculPriceUnitaryAfterPromo(2, 0.5F));
+//        
+//        // test for method calculPriceTotal
+//        Float[] d = new Float[]{1f, 2f};
+//        ArrayList<Float> prices = new ArrayList<>(Arrays.asList(d));
+//        System.out.println(BasketDAO.calculPriceTotal(prices));
+//        
+//        // test for method calculPointsGot
+//        System.out.println(BasketDAO.calculPointsGot(2f));
+        
+        // test for method addProductToBasket    
         try {
-            System.out.println(BasketDAO.loadBasket(1).get(0)); 
+//            BasketDAO.addProductToBasket(1, "P3");
+//            BasketDAO.loadBasket(1); 
+//            System.out.println(BasketDAO.checkProductBakset(1, "P3"));
+//            System.out.println(BasketDAO.checkProductBakset(1, "P4"));
+            System.out.println(BasketDAO.updateBasket(1, "P3"));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        }
-        
-        // test for method calculPriceUnitaryAfterPromo
-        System.out.println(BasketDAO.calculPriceUnitaryAfterPromo(2, 0.5F));
-        
-        // test for method calculPriceTotal
-        Float[] d = new Float[]{1f, 2f};
-        ArrayList<Float> prices = new ArrayList<>(Arrays.asList(d));
-        System.out.println(BasketDAO.calculPriceTotal(prices));
-        
-        // test for method calculPointsGot
-        System.out.println(BasketDAO.calculPointsGot(2f));
-        
-        // test double
-        System.out.println(new BigDecimal(String.valueOf("1.2")).multiply(new BigDecimal(String.valueOf("2.14"))));
+        } 
     }
 }
