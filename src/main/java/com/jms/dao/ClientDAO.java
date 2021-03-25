@@ -73,8 +73,14 @@ public class ClientDAO {
     }
     
     public static void main(String[] args) {
-        boolean res = authenticate("ss@gmail.com","ss");
-        System.out.println(res);
+     
+    
+    //create();
+    load(2);
+     boolean res = authenticate("rc@gmail.com","rm123");
+     System.out.println(res);
+    
+        
         
     }
 }
