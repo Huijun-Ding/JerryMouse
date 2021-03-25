@@ -16,10 +16,13 @@
 package com.jms.dao;
 
 import com.jms.model.Product;
+import com.jms.model.ProductConditioning;
+import com.jms.model.ProductNutriScore;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -61,7 +64,7 @@ public class ProductDAOH {
                     "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
                     + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
-                    + "FROM Product p";
+                    + "FROM Produit p ";
             list = session.createQuery(sql).list();
             return list;
         } 
@@ -84,7 +87,7 @@ public class ProductDAOH {
                     "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
                     + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
-                    + "FROM Product p "
+                    + "FROM Produit p "
                     + "WHERE p.category.id = :id";
             list = session.createQuery(sql).list();
             return list;
@@ -108,11 +111,42 @@ public class ProductDAOH {
                     "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
                     + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
-                    + "FROM Product p "
+                    + "FROM Produit p "
                     + "WHERE p.category.department.id = :id";
-            list = session.createQuery(sql).list();
+            Query query = session.createQuery(sql);
+            query.setParameter("id", id);
+            list = query.list();
             return list;
         }
     }
+    
+    /** 
+     * Gets the products currently with promotions.
+     * @return the list of the products.
+     */
+    public static List<Product> getProductsWithPromo() {
+        
+        /*----- Session opening -----*/
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            //System.out.println("--------- GET PRODUCTS CURRENTLY IN PROMOTION");
+            
+            String sql = 
+                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
+                    + "p.nutriscore, p.packaging, p.packagingQuantity, "
+                    + "p.unitPrice, p.kgPrice, p.urlThumbnail, pr.id, pr.percentage, pr.rank) "
+                    + "FROM Reduire r "
+                    + "JOIN r.product p "
+                    + "JOIN r.promotion pr "
+                    + "WHERE r.promoEndDate >= current_date "
+                    + "ORDER BY p.unitPrice";
+            Query query = session.createQuery(sql);
+            List<Product> list = query.list();
+            //session.close();
+            return list;
+        }
+    }
+    
     
 }
