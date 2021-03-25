@@ -15,6 +15,7 @@
  */
 package com.jms.dao;
 
+import com.jms.model.Client;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,11 +29,14 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ClientDAOTest {
     
+    private Client client;
+    
     public ClientDAOTest() {
     }
     
     @BeforeAll
     public static void setUpClass() {
+        
     }
     
     @AfterAll
@@ -41,6 +45,9 @@ public class ClientDAOTest {
     
     @BeforeEach
     public void setUp() {
+        client = new Client();
+        client.setEmail("ss@gmail.com");
+        client.setPassword("ss");
     }
     
     @AfterEach
@@ -48,27 +55,69 @@ public class ClientDAOTest {
     }
 
     /**
-     * Test of authenticate method, of class ClientDAO.
-     * case when email= "" and password =""
+     * Test of method authenticate() when email and password are empty
      */
     @Test
     public void testAuthenticateEmailEmptyPasswordEmpty() {
         System.out.println("authenticate");
         String email = "";
         String password = "";
-        boolean expResult = false;
         boolean result = ClientDAO.authenticate(email, password);
-        assertFalse(result);
+        //Assert
+        assertFalse(result);  
     }
     
+    /**
+     * Test if param email is valid
+     */
     @Test
-    public void testAuthenticateEmailNotEmptyPasswordNotEmpty() {
+    public void testAuthenticateEmailValid() {
         System.out.println("authenticate");
+        //client.setEmail("ss@gmail.com");
+        String emailTrue = "ss@gmail.com";
+        String email = "ss@gmail.com";
+        assertEquals(emailTrue, email);
+        
+    }
+    
+    /**
+     * Test if param password is valid
+     */
+    @Test
+    public void testAuthenticatePasswordValid() {
+        System.out.println("authenticate");
+        String passwordTrue = "ss";
+        String password = "ss";
+        assertEquals(passwordTrue, password);
+        
+    }
+    /**
+     * Test of method authenticate() when email and password are valid
+     */
+   @Test
+    public void testAuthenticateEmailPasswordReturnTrue() {
+        System.out.println("authenticate-check if email and password are equals to client email and password");
+        
+        //String emailTrue = client.getEmail();
+        //String passwordTrue = client.getPassword();
         String email = "ss@gmail.com";
         String password = "ss";
-        boolean expResult = true;
         boolean result = ClientDAO.authenticate(email, password);
         assertTrue(result);
+        
     }
     
+    /**
+     * Test of method authenticate() when email and password are null
+     */
+    @Test
+    public void testAuthenticateEmailPasswordNull() {
+        System.out.println("authenticate-check if email and password are not null");
+        String email = null;
+        String password = null;
+        assertThrows(NullPointerException.class, ()->{
+            ClientDAO.authenticate(email, password);
+        });
+    }
+
 }
