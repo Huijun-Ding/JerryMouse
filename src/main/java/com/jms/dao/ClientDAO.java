@@ -5,6 +5,10 @@
  */
 package com.jms.dao;
 import com.jms.model.Client;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 /**
  *
  * @author RAKOTOARISOA
@@ -15,24 +19,70 @@ public class ClientDAO {
      * check if entered email and entered password are right
      * @param email
      * @param password 
+     * @return true if email and password are valid else false
      */
     public static boolean authenticate(String email, String password){
-       
-        Client client = new Client();
-        /*
-        Check if email and password are not 
-        */
-        if((email!="")&&(password!="")){
-            /**
-             * check the value of client and password
-             */
-            if((email == client.getEmail())&&(password == client.getPassword())){
-                return true;
-            }else {
-                return false;
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            /*----------------Ouverture d'une transaction---------*/
+            Transaction t = session.beginTransaction();
+            Query query = session.createQuery("select new com.jms.model.Client(c.lastName,c.firstName,c.email,c.password,c.pointsFidelity) "
+                    + "from Client c "
+                    + "where c.email = :email "
+                    + "and c.password = :password");
+            
+            
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            
+            List <Client> listClients = query.list();
+            listClients.get(0);
+            
+            if((email==null) && (password==null)){
+            throw new NullPointerException();
             }
+            if((email!="")&&(password!=""))
+                if((email == listClients.get(0).getEmail())&&(password == listClients.get(0).getPassword()))
+                        return true;   
+
+            return false;
+            } 
+    }
+    
+    /**
+     * Create a new client in the database
+     */
+    public static void create(){
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            //Open a transaction
+            Transaction t = session.beginTransaction();
+            
+            Client cl1 = new Client("RAKOTO" ,"Chloé", "rc@gmail.com","rm123", 10);
+            
+            session.save(cl1);
+            
+            t.commit();
         }
-        return false;
+    }
+    /**
+     * Load client by id
+     * @param id 
+     */
+    public static void load(int id) {
+        // Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+            Client c = session.get(Client.class, id );
+            
+            System.out.println("----------Client------------");
+            System.out.println(c.getLastName()+ " " + c.getFirstName()+" "+c.getEmail()+" "+c.getFidelityPoints());
+        }
+    }
+    
+    public static void main(String[] args) {
+        boolean res = authenticate("ss@gmail.com","ss");
+        System.out.println(res);
+        
     }
 }
 
