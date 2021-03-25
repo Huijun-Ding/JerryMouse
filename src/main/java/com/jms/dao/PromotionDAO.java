@@ -23,7 +23,7 @@ public class PromotionDAO {
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            System.out.println(ean);
+            Promotion promotion = null;
             Query query = session.createSQLQuery("Select Promotion.* "
                     + "from Reduire, Promotion "
                     + "where Reduire.CodePR = Promotion.CodePR "
@@ -32,10 +32,9 @@ public class PromotionDAO {
                     + "and Reduire.EANP = :ean").addEntity(Promotion.class);
 
             query.setParameter("ean", ean);
-//            System.out.println("test");
-            System.out.println(query.list().get(0));
-            Promotion promotion = (Promotion) query.list().get(0);
-//            System.out.println("test1");
+            if (query.list().size() > 0) {
+                promotion = (Promotion) query.list().get(0);
+            }
             t.commit();
             return promotion;
         }
@@ -64,7 +63,7 @@ public class PromotionDAO {
 //    }
     public static void main(String[] args) {
         try {
-            System.out.println(PromotionDAO.searchPromotion("P1"));
+            System.out.println(PromotionDAO.searchPromotion("P3"));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
