@@ -75,6 +75,14 @@ public class ProductCategory implements Serializable {
         this.products = products;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     // ----------------------- METHODS ----------------------    
     @Override
     public String toString() {

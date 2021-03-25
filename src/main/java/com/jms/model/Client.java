@@ -94,6 +94,7 @@ public class Client implements Serializable {
     *  Hibernate join property with Order Class  and Client Class.
     */
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    @MapKeyJoinColumn(name="EANP")
     private Set<Order> orders = new HashSet(0);
     
     // -------------------- CONSTRUCTORS --------------------

@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
  *
  * @author Jerry Mouse Software.
  */
-@Entity
+@Entity(name = "Promotion")
 public class Promotion implements Serializable {
 
     // --------------------- PROPERTIES ---------------------
@@ -45,10 +45,12 @@ public class Promotion implements Serializable {
     @Column(name = "NiemePR")
     private int rank;
 
-    // -----------Relation with Reduce-----------
+    /**
+     * Hibernate join property with Promotion Class and Reduce Class.
+     */
     @OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn(name = "CodePR")
-    private Map<Product, Reduce> reduce = new HashMap<>(0);
+    @MapKeyJoinColumn(name = "EANP")
+    private Map<Product, Reduce> products = new HashMap<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
     /**
@@ -72,7 +74,7 @@ public class Promotion implements Serializable {
      *
      * @return The id property.
      */
-    public int getCode() {
+    public int getId() {
         return id;
     }
 
@@ -81,7 +83,7 @@ public class Promotion implements Serializable {
      *
      * @param id The new value to set to the property.
      */
-    public void setCode(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -90,7 +92,7 @@ public class Promotion implements Serializable {
      *
      * @return The percentage property.
      */
-    public float getPourcentage() {
+    public float getPercentage() {
         return percentage;
     }
 
@@ -99,7 +101,7 @@ public class Promotion implements Serializable {
      *
      * @param pourcentage The new value to set to the property.
      */
-    public void setPourcentage(float pourcentage) {
+    public void setPercentage(float pourcentage) {
         this.percentage = pourcentage;
     }
 
@@ -108,7 +110,7 @@ public class Promotion implements Serializable {
      *
      * @return The rank property.
      */
-    public int getNieme() {
+    public int getRank() {
         return rank;
     }
 
@@ -117,8 +119,26 @@ public class Promotion implements Serializable {
      *
      * @param rank The new value to set to the property.
      */
-    public void setNieme(int rank) {
+    public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    /**
+     * Getter for the products property.
+     *
+     * @return The products property.
+     */
+    public Map<Product, Reduce> getProducts() {
+        return products;
+    }
+
+    /**
+     * Setter for the products property.
+     *
+     * @param products The new value to set to the property.
+     */
+    public void setProducts(Map<Product, Reduce> products) {
+        this.products = products;
     }
 
     // ----------------------- METHODS ----------------------
@@ -127,8 +147,8 @@ public class Promotion implements Serializable {
      */
     @Override
     public String toString() {
-        return "Promotion{" + "code=" + id + ", pourcentage=" + percentage
-                + ", nieme=" + rank + '}';
+        return "Promotion{" + "id=" + id + ", percentage=" + percentage
+                + ", rank=" + rank + '}';
     }
 
     /**
