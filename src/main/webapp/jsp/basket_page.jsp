@@ -27,41 +27,41 @@
             %>
             <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
             <form action="">
-                <div class="lst_prod" id="div_prod">
-                    <table class="table table-hover" id="tabProd">
-                        <%
-                            // loop to write products
-                            out.print("<tr><td>" + "photo" + "</td>");
-                            out.print("<td>Nom</td>");
-                            out.print("<td>Prix Unitaire</td>");
-                            out.print("<td>Qte</td>");
-                            out.print("<td>Prix Total</td></tr>");
-                        %>
-                    </table>
-                </div>
-
-                    <div name="calcul">
-                    <table class="table" id="points">
-                        <tr>
-                            <!--<div class="col-5"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></div>-->
-                            <div class="col-2"><td>Points got: <span id="cagnotte_gagne"></span></td></div>
-                            <div class="col-3"><td>Points cumulative: <span id="cagnotte_cumul"></span></td><div>
-                            <div class="col-2"><td>Total: <span id="total"></span></td></div>                           
-                        </tr>
-                    </table>
-                </div>
-
                 <div class="row">
-                    <div class="col-8"></div>
-                    <div class="col-2">
-                        <input class="btn btn-outline-primary" type="submit" id="valider" name="valider" value="OK">
+                    <div class="col-9" id="div_prod">
+                        <table class="table table-hover" id="tabProd">
+                            <%
+                                // loop to write products
+                                out.print("<tr><td>" + "photo" + "</td>");
+                                out.print("<td>Nom</td>");
+                                out.print("<td>Prix Unitaire</td>");
+                                out.print("<td>Qte</td>");
+                                out.print("<td>Prix Total</td></tr>");
+                            %>
+                        </table>
                     </div>
-                    <div class="col-2">
-                        <button class="btn btn-outline-primary" id="retour">Return</button>
+
+                    <div class="col-3">    
+                        <div name="calcul">
+                            <table class="table" id="points">
+                                <tr><td>Points got: </td><td><span class="bold" id="cagnotte_gagne"></span></td></tr>
+                                <tr><td>Points cumulative: </td><td><span class="bold" id="cagnotte_cumul"></span></td></tr>
+                                <tr><td>Total: </td><td><span class="bold" id="total"></span></td></tr>                        
+                            </table>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <input class="btn btn-outline-primary" type="submit" id="valider" name="valider" value="OK">
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-outline-primary" id="retour">Return</button>
+                            </div>
+<!--                            <div class="col-7"></div>-->
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
-        
     </body>
 </html>
