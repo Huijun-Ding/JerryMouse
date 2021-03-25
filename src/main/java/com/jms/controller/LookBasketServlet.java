@@ -23,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.NumberFormat;
 
 /**
  *
@@ -59,7 +60,6 @@ public class LookBasketServlet extends HttpServlet {
             // ------ INFO CLIENT ------------------
             // get id of client from host page
             String idClient = request.getParameter("idClient");
-            System.out.println(idClient);
 
             // get info of client
             Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
@@ -85,16 +85,32 @@ public class LookBasketServlet extends HttpServlet {
                 Promotion promotion = PromotionDAO.searchPromotion(product.getEan());
 
                 // ------- CALCUL: PRICE, POINTS... -----------
-                // calcul price unitary after promotion
-                float priceAfter = BasketDAO.calculPriceUnitaryAfterPromo(
+                float priceAfterFloat = product.getUnitPrice();
+                String priceAfterString = "";
+                String promo = "";
+                
+                // convert to percentage
+                NumberFormat nt = NumberFormat.getPercentInstance();
+                nt.setMinimumFractionDigits(2);
+                
+                if (promotion != null){
+                    // calculate price unitary after promotion and percentage of promotion
+                    priceAfterFloat = BasketDAO.calculPriceUnitaryAfterPromo(
                         product.getUnitPrice(), promotion.getPercentage());
+                    priceAfterString = String.format("%.2f", priceAfterFloat);
+                    promo = String.valueOf(nt.format(promotion.getPercentage()));
+                }else {
+                    priceAfterString = " ";
+                    promo = " ";
+                }
+                
                 
                 // quantity of a product in basket
                 int quantityProd = productQty.get(product);
 
                 // total price of a product in basket
                 float totalPriceProduct = BasketDAO.calculPriceTotalProduct(
-                        quantityProd, priceAfter);
+                        quantityProd, priceAfterFloat);
 
                 prices.add(totalPriceProduct);
 
@@ -104,12 +120,11 @@ public class LookBasketServlet extends HttpServlet {
                 out.println("<name>" + product.getName() + "</name>");
                 out.println("<price>" + String.format("%.2f", product.getUnitPrice()) 
                         + "</price>");
-                out.println("<priceAfter>" + String.format("%.2f", priceAfter) 
-                        + "</priceAfter>");
+                out.println("<priceAfter>" + priceAfterString + "</priceAfter>");
                 out.println("<quantity>" + quantityProd + "</quantity>");
                 out.println("<totalPrice>" + String.format("%.2f", totalPriceProduct)
                         + "</totalPrice>");
-                out.println("<promotion>" + promotion.getPercentage() + "</promotion>");
+                out.println("<promotion>" + promo + "</promotion>");
                 out.println("</product>");
             }
             out.println("</basket>");
