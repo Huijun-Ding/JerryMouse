@@ -22,10 +22,14 @@ html, body {
     margin-right: 5%;
 }
 
+.bold{
+    font-weight:bold;
+    font-size: 20px;
+}
 #points{
-    width: 50%;
+    /*width: 50%;*/
     /*float: right;*/
-    margin-left: 50%;
+    /*margin-left: 50%;*/
 }
 
 .btn-outline-primary, .btn-outline-primary:active, .btn-outline-primary:visited { 
