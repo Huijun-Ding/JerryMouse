@@ -40,6 +40,7 @@ public class TestHibernateDAO {
     }
     
 
+
     public static void loadClient(int id) {
         // Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -62,6 +63,7 @@ public class TestHibernateDAO {
             
         }
     }
+
 
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/

@@ -21,8 +21,12 @@
         <jsp-file>/jsp/basket_page.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>searchByKeyWordServlet</servlet-name>
-        <servlet-class>com.jms.controller.searchByKeyWordServlet</servlet-class>
+        <servlet-name>SearchByKeyWordServlet</servlet-name>
+        <servlet-class>com.jms.controller.SearchByKeyWordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StoreServlet</servlet-name>
+        <servlet-class>com.jms.controller.StoreServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DisplayProductsServlet</servlet-name>
@@ -31,6 +35,14 @@
     <servlet>
         <servlet-name>/ProductsList</servlet-name>
         <jsp-file>/jsp/products_list.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>SendSearchRequestServlet</servlet-name>
+        <servlet-class>com.jms.controller.SendSearchRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompleteSearchBarServlet</servlet-name>
+        <servlet-class>com.jms.controller.CompleteSearchBarServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -49,8 +61,8 @@
         <url-pattern>/basketPage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>searchByKeyWordServlet</servlet-name>
-        <url-pattern>/searchByKeyWord</url-pattern>
+        <servlet-name>StoreServlet</servlet-name>
+        <url-pattern>/StoreServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DisplayProductsServlet</servlet-name>
@@ -59,6 +71,18 @@
     <servlet-mapping>
         <servlet-name>/ProductsList</servlet-name>
         <url-pattern>/ProductsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendSearchRequestServlet</servlet-name>
+        <url-pattern>/SendSearchRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchByKeyWordServlet</servlet-name>
+        <url-pattern>/SearchByKeyWord</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompleteSearchBarServlet</servlet-name>
+        <url-pattern>/CompleteSearchBarServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

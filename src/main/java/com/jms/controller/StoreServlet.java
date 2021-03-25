@@ -5,11 +5,10 @@
  */
 package com.jms.controller;
 
-import com.jms.dao.ProductDAOH;
-import com.jms.model.Product;
+import com.jms.dao.StoreDAO;
+import com.jms.model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author mlk
+ * @author axelt
  */
-public class DisplayProductsServlet extends HttpServlet {
+public class StoreServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,38 +31,23 @@ public class DisplayProductsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<?xml version='1.0' encoding='utf-8'?>");
+            out.println("<magasins>");
 
-        // All products to display     
-        if (request.getParameterMap().containsKey("all")) {
-            List<Product> list = ProductDAOH.getAllProducts(); // for now display all products
-            request.setAttribute("productsList", list);
+            String postalCode = request.getParameter("postalCode");
+
+            for(Store s : StoreDAO.getAllStores(postalCode)) {
+                out.println("   <magasin>");
+                out.println("       <nom>" + s.getName() + "</nom>");
+                out.println("       <rue>" + s.getStreet() + "</rue>");
+                out.println("       <ville>" + s.getCity() + "</ville>");
+                out.println("       <codepostal>" + s.getPostalCode() + "</codepostal>");
+                out.println("   </magasin>");
+            }
+
+            out.println("</magasins>");
         }
-        // Products to display on homePage    
-
-        if (request.getParameterMap().containsKey("home")) {
-            List<Product> list = ProductDAOH.getProductsWithPromo(); // for now display all products
-            request.setAttribute("productsList", list);
-        }
-        
-        // Products to display on homePage    
-        if (request.getParameterMap().containsKey("cat")) {
-            int codeCat = Integer.parseInt(request.getParameter("cat"));
-            List<Product> list = ProductDAOH.getProductsOfDepartment(codeCat); // for now display all products
-            request.setAttribute("productsList", list);
-        }
-        
-        // Products to display on homePage    
-        if (request.getParameterMap().containsKey("dpt")) {
-            int codeDpt = Integer.parseInt(request.getParameter("dpt"));
-            List<Product> list = ProductDAOH.getProductsOfDepartment(codeDpt); // for now display all products
-            request.setAttribute("productsList", list);
-        }
-
-
-        // Dispatch to ProductsList
-        request.getRequestDispatcher("ProductsList").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

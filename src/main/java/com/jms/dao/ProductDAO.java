@@ -5,12 +5,19 @@
  */
 package com.jms.dao;
 
+import com.jms.model.Basket;
+import com.jms.model.Product;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  * ProductDAO Class.
@@ -24,7 +31,7 @@ public class ProductDAO {
      * <b>Rule(s) : connection to datebase</b>
      */
     private static Connection cx = null;
-    private static final String URL = "jdbc:mysql://localhost:3307/db_21509053";
+    private static final String URL = "jdbc:mysql://localhost:3307/db_21509053_2";
     private static final String LOGIN = "21509053";
     private static final String PASSWORD = "Q02MI0";
 
@@ -50,9 +57,12 @@ public class ProductDAO {
     }
 
     /**
-     * completeSearchBarByProductName.
+     * completeSearchBarByProductName. Complete the search bar by a product
+     * name.
      *
      * @param product key word enter in search bar.
+     *
+     * @return ArrayList<String>.
      */
     public static ArrayList<String> completeSearchBarByProductName(String product) throws ClassNotFoundException, SQLException {
         // create connection to db
@@ -83,9 +93,11 @@ public class ProductDAO {
     }
 
     /**
-     * completeSearchBarByCategory.
+     * Complete the search bar by a product name.
      *
      * @param product key word enter in search bar.
+     *
+     * @return ArrayList<String>.
      */
     public static ArrayList<String> completeSearchBarByCategory(String product) throws ClassNotFoundException, SQLException {
         // create connection to db
@@ -114,13 +126,51 @@ public class ProductDAO {
         return categories;
     }
 
-    public static void main(String[] s) {
-        try {
-            System.out.println(ProductDAO.completeSearchBarByProductName("fr"));
-            System.out.println(ProductDAO.completeSearchBarByCategory("fr"));
+    /**
+     * Complete the search bar by a product name.
+     *
+     * @param keyword key word enter in search bar.
+     *
+     * @return List<Product>.
+     */
+    public static List<Product> returnSrearchResult(String keyword) {
 
-        } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex.getMessage());
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            Query query = session.createQuery("SELECT DISTINCT new com.jms.model.Product(p.ean, p.name, p.format, p.nutriscore, p.packaging, p.packagingQuantity, p.unitPrice, p.kgPrice, p.urlThumbnail) FROM Produit p WHERE p.category.name = :c OR p.name LIKE :p");
+
+            query.setParameter("c", keyword);
+            query.setParameter("p", "%" + keyword + "%");
+
+            List<Product> lstProducts = query.list();
+
+            for (int i = 0; i < lstProducts.size(); i++) {
+                System.out.println(lstProducts.get(i).getName());
+            }
+
+            t.commit();
+
+            return lstProducts;
         }
+    }
+
+//    public static void main(String[] s) throws ClassNotFoundException, SQLException {
+//        try {
+//        System.out.println(ProductDAO.completeSearchBarByProductName("Chocolat"));
+//        System.out.println(ProductDAO.completeSearchBarByCategory("Chocolat"));
+//
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
+    public static void main(String[] args) throws ParseException {
+        /*----- Test -----*/
+
+        ProductDAO.returnSrearchResult("glace");
+
+        /*----- Exit -----*/
+        System.exit(0);
     }
 }
