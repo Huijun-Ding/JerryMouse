@@ -22,7 +22,7 @@
     </servlet>
     <servlet>
         <servlet-name>searchByKeyWordServlet</servlet-name>
-        <servlet-class>com.jms.controller.searchByKeyWordServlet</servlet-class>
+        <servlet-class>com.jms.controller.SearchByKeyWordServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StoreServlet</servlet-name>
@@ -35,6 +35,10 @@
     <servlet>
         <servlet-name>/ProductsList</servlet-name>
         <jsp-file>/jsp/products_list.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>ReturnSearchResult</servlet-name>
+        <servlet-class>com.jms.controller.ReturnSearchResult</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -67,6 +71,10 @@
     <servlet-mapping>
         <servlet-name>/ProductsList</servlet-name>
         <url-pattern>/ProductsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReturnSearchResult</servlet-name>
+        <url-pattern>/ReturnSearchResult</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
