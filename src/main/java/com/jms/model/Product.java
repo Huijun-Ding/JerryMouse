@@ -6,6 +6,7 @@
 package com.jms.model;
 
 import java.io.Serializable;
+import static java.sql.JDBCType.NULL;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -65,7 +66,6 @@ public class Product implements Serializable {
      * Indicator of whether a product is organic or not.
      * <b>Format : boolean</b>
      */
-    
     @Column(name = "BioP")
     private boolean bio;
 
@@ -74,8 +74,8 @@ public class Product implements Serializable {
      * <b>Rule : {null, "A", "B", "C", "D", "E"}</b>
      * <b>Format : Enumeration</b>
      */
-    @Enumerated(EnumType.STRING)
     @Column(name = "NutriscoreP")
+    @Enumerated(EnumType.STRING)
     private ProductNutriScore nutriscore;
 
     /**
@@ -83,8 +83,8 @@ public class Product implements Serializable {
      * <b>Rule : {"UNITAIRE", "LOT"}</b>
      * <b>Format : Enumeration</b>
      */
-    @Enumerated(EnumType.STRING)
     @Column(name = "ConditionnementP")
+    @Enumerated(EnumType.STRING)
     private ProductConditioning packaging;
 
     /**
@@ -179,58 +179,30 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public Product(String ean, String name, String format, String nutriscore, ProductConditioning packaging, int packagingQuantity, float unitPrice, float kgPrice, String urlThumbnail) {
+    public Product(String ean, String name, String format, 
+            ProductNutriScore nutriscore, ProductConditioning packaging, 
+            int packagingQuantity, float unitPrice, float kgPrice, 
+            String urlThumbnail) {
         this.ean = ean;
         this.name = name;
         this.format = format;
-        switch (nutriscore) {
-            case "A" :
-                this.nutriscore = ProductNutriScore.A;
-                break;
-            case "B" :
-                this.nutriscore = ProductNutriScore.B;
-                break;
-            case "C" :
-                this.nutriscore = ProductNutriScore.C;
-                break;
-            case "D" :
-                this.nutriscore = ProductNutriScore.D;
-                break;
-            case "E" :
-                this.nutriscore = ProductNutriScore.E;
-                break;
-        }       
+        this.nutriscore = nutriscore;
         this.packaging = packaging;
+        if (packaging == null) this.packaging = null;
         this.packagingQuantity = packagingQuantity;
         this.unitPrice = unitPrice;
         this.kgPrice = kgPrice;
         this.urlThumbnail = urlThumbnail;
     }
-
+    
     public Product(String ean, String name, String format,
-            String nutriscore, ProductConditioning packaging,
+            ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail, int idPromotion, float percentage, int rank) {
         this.ean = ean;
         this.name = name;
         this.format = format;
-        switch (nutriscore) {
-            case "A" :
-                this.nutriscore = ProductNutriScore.A;
-                break;
-            case "B" :
-                this.nutriscore = ProductNutriScore.B;
-                break;
-            case "C" :
-                this.nutriscore = ProductNutriScore.C;
-                break;
-            case "D" :
-                this.nutriscore = ProductNutriScore.D;
-                break;
-            case "E" :
-                this.nutriscore = ProductNutriScore.E;
-                break;
-        }     
+        this.nutriscore = nutriscore;
         this.packaging = packaging;
         this.packagingQuantity = packagingQuantity;
         this.unitPrice = unitPrice;

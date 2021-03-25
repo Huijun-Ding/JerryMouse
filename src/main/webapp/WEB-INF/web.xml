@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>searchServlet</servlet-name>
-        <servlet-class>com.jms.controller.searchServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ConnectServlet</servlet-name>
         <servlet-class>com.jms.controller.ConnectServlet</servlet-class>
     </servlet>
@@ -21,10 +17,6 @@
         <jsp-file>/jsp/basket_page.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>searchByKeyWordServlet</servlet-name>
-        <servlet-class>com.jms.controller.searchByKeyWordServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>StoreServlet</servlet-name>
         <servlet-class>com.jms.controller.StoreServlet</servlet-class>
     </servlet>
@@ -36,10 +28,13 @@
         <servlet-name>/ProductsList</servlet-name>
         <jsp-file>/jsp/products_list.jsp</jsp-file>
     </servlet>
-    
     <servlet>
-        <servlet-name>CtrlCentral</servlet-name>
-        <servlet-class>com.jms.controller.CtrlCentral</servlet-class>
+        <servlet-name>SendSearchRequestServlet</servlet-name>
+        <servlet-class>com.jms.controller.SendSearchRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompleteSearchBarServlet</servlet-name>
+        <servlet-class>com.jms.controller.CompleteSearchBarServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -52,10 +47,6 @@
     <servlet-mapping>
         <servlet-name>basketPage</servlet-name>
         <url-pattern>/basketPage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>searchByKeyWordServlet</servlet-name>
-        <url-pattern>/searchByKeyWord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StoreServlet</servlet-name>
@@ -74,8 +65,12 @@
         <url-pattern>/checkBasketServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CtrlCentral</servlet-name>
-        <url-pattern>/CtrlCentral</url-pattern>
+        <servlet-name>SendSearchRequestServlet</servlet-name>
+        <url-pattern>/SendSearchRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompleteSearchBarServlet</servlet-name>
+        <url-pattern>/CompleteSearchBarServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

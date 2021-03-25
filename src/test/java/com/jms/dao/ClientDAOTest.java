@@ -15,6 +15,7 @@
  */
 package com.jms.dao;
 
+import com.jms.model.Client;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,11 +29,14 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ClientDAOTest {
     
+    private Client client;
+    
     public ClientDAOTest() {
     }
     
     @BeforeAll
     public static void setUpClass() {
+        
     }
     
     @AfterAll
@@ -46,23 +50,30 @@ public class ClientDAOTest {
     @AfterEach
     public void tearDown() {
     }
-
+    
     /**
-     * Test of authenticate method, of class ClientDAO.
-     * case when email= "" and password =""
+     * Test of method authenticate() when email and password are valid
      */
-    /*@Test
-    public void testAuthenticate() {
-        System.out.println("authenticate");
-        String email = "";
-        String password = "";
-        boolean expResult = false;
+   @Test
+    public void testAuthenticateEmailPasswordReturnTrue() {
+        System.out.println("authenticate-check if email and password are equals to client email and password");
+        String email = "rc@gmail.com";
+        String password = "rm123";
         boolean result = ClientDAO.authenticate(email, password);
-        assertEquals(expResult, result);
+        assertTrue(result);
+        
+    }
+    
+    /**
+     * Test of method authenticate() when email and password are null
+     */
+    @Test
+    public void testAuthenticateEmailPasswordNull() {
+        System.out.println("authenticate-check if email and password are not null");
+        String email = null;
+        String password = null;
+        boolean result = ClientDAO.authenticate(email, password);
+        assertFalse(result);
     }
 
-    private void assertEquals(boolean expResult, boolean result) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
-    
 }
