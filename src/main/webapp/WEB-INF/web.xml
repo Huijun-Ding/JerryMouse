@@ -21,7 +21,7 @@
         <jsp-file>/jsp/basket_page.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>searchByKeyWordServlet</servlet-name>
+        <servlet-name>SearchByKeyWordServlet</servlet-name>
         <servlet-class>com.jms.controller.SearchByKeyWordServlet</servlet-class>
     </servlet>
     <servlet>
@@ -37,8 +37,8 @@
         <jsp-file>/jsp/products_list.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>ReturnSearchResult</servlet-name>
-        <servlet-class>com.jms.controller.ReturnSearchResult</servlet-class>
+        <servlet-name>SendSearchRequestServlet</servlet-name>
+        <servlet-class>com.jms.controller.SendSearchRequestServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -57,10 +57,6 @@
         <url-pattern>/basketPage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>searchByKeyWordServlet</servlet-name>
-        <url-pattern>/searchByKeyWord</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>StoreServlet</servlet-name>
         <url-pattern>/StoreServlet</url-pattern>
     </servlet-mapping>
@@ -73,8 +69,12 @@
         <url-pattern>/ProductsList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReturnSearchResult</servlet-name>
-        <url-pattern>/ReturnSearchResult</url-pattern>
+        <servlet-name>SendSearchRequestServlet</servlet-name>
+        <url-pattern>/SendSearchRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchByKeyWordServlet</servlet-name>
+        <url-pattern>/SearchByKeyWord</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

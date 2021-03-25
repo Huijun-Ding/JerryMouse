@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.jms.controller;
 
+import com.jms.dao.ProductDAO;
+import com.jms.model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Mathi
- */
-public class ReturnSearchResult extends HttpServlet {
+public class SendSearchRequestServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,18 +25,28 @@ public class ReturnSearchResult extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
+        response.setContentType("application/xml;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ReturnSearchResult</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ReturnSearchResult at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            // XML page
+            out.println("<?xml version=\"1.0\"?>");
+            out.println("<list_products>");
+
+            // get parameter
+            String keyword = request.getParameter("keyword");
+
+            if (!keyword.equals("")) {
+                // put result into a list
+                List<Product> products = ProductDAO.returnSrearchResult(keyword);
+                for (Product p : products) {
+                    out.println("<product><![CDATA[" + p.getName() + "]]></product>");
+                }
+            } else {
+                out.println("<product><![CDATA[]]></product>");
+            }
+            out.println("</list_products>");
         }
     }
 

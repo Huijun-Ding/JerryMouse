@@ -7,7 +7,7 @@ function getSearchElement() {
     var xhr = new XMLHttpRequest();
 
     var myinput = document.getElementById("search").value;
-    xhr.open("GET", "../searchByKeyWord?product=" + myinput);
+    xhr.open("GET", "../SearchByKeyWord?product=" + myinput);
 
     xhr.onload = function ()
     {
@@ -41,8 +41,29 @@ function searchProducts() {
     var xhr = new XMLHttpRequest();
 
     var myinput = document.getElementById("search").value;
-    xhr.open("GET", "../searchByKeyWord?keyword=" + myinput);
+    xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
 
+    xhr.onload = function ()
+    {
+        if (xhr.status === 200)
+        {
+            alert(xhr.status);
+            suggestions = xhr.responseXML.getElementsByTagName("product");
+            elt = document.getElementById("products");
+            if (suggestions != null && suggestions.length != 0) {
+                elt.innerHTML = "";
+                for (i = 0; i < suggestions.length; i++) {
+                    produit = suggestions[i].firstChild.nodeValue;
+                    alert(produit);
+                    elt.insertAdjacentHTML("beforeend", "<li>" + produit + "</li>");
+                }
+            } else {
+                elt.insertAdjacentHTML("beforeend", "<li>Il n'y a pas de produit correspondant.</li>");
+            }
+        }
+    };
+
+    xhr.send();
 }
 
 /**
@@ -59,9 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
 /**
  * Launch after loading the DOM.
  */
-document.addEventListener("DOMContentLoaded", () => {
-
-    document.getElementById("bt_connect").addEventListener("click", connection);
-});
+//document.addEventListener("DOMContentLoaded", () => {
+//
+//    document.getElementById("bt_connect").addEventListener("click", connection);
+//});
 
 
