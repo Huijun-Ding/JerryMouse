@@ -38,11 +38,10 @@ public class ConnectServlet extends HttpServlet {
             String method = request.getParameter("method");
             
             //Get parameter login and password
-            String login = request.getParameter("login");
+            String mail = request.getParameter("mail");
+            System.out.println("mail:"+mail);
             String pw = request.getParameter("password");
-            
-            //Call method authenticate to check login and password
-            boolean check = ClientDAO.authenticate(login, pw);
+            System.out.println("mdp:"+pw);
             
             
             switch (method) {
@@ -51,15 +50,22 @@ public class ConnectServlet extends HttpServlet {
                     if check is true
                 */
                 case "connection":
-                    if (check == true) {
-                        //chain to index page
-                        request.getRequestDispatcher("index").forward(request, response);
-                    } else {
-                        //chain to page login and display a message error
-                        request.getRequestDispatcher("login").forward(request, response);
-                        request.setAttribute("msg_error", "Le login ou le mot de passe est incorrect!");
+                    //Call method authenticate to check login and password
+                    boolean check = ClientDAO.authenticate(mail,pw);
+                    try{
+                        if (check == true) {
+                            //chain to index page
+                            request.getRequestDispatcher("index").forward(request, response);
+                            System.out.println("true");
+                        } else {
+                            //chain to page login and display a message error
+                            request.getRequestDispatcher("login").forward(request, response);
+                            request.setAttribute("msg_error", "Le login ou le mot de passe est incorrect!");
+                            System.out.println("false");
+                        }
+                    }catch(Exception ex){
+                        request.setAttribute("error", ex.getMessage()); 
                     }
-                    
                     break;
                 /*
                 if method = return, chain to page index.jsp

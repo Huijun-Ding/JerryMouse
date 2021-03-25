@@ -22,6 +22,9 @@ public class TestHibernateDAO {
      * Programme de test.
      */
     
+    /**
+     * Create a new client in the database
+     */
     public static void createClient(){
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -36,12 +39,41 @@ public class TestHibernateDAO {
         }
     }
     
+
+
+    public static void loadClient(int id) {
+        // Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+            Client c = session.get(Client.class, id );
+            
+            System.out.println("----------Client------------");
+            System.out.println(c.getLastName()+ " " + c.getFirstName()+" "+c.getEmail()+" "+c.getFidelityPoints());
+        }
+    }
+
+
+    public static void getProductsBySearch(String keyword) {
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            //Open a transaction
+            session.beginTransaction();
+
+            Product p = session.get(Product.class, keyword);
+            
+        }
+    }
+
+
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
 
         //TestHibernateDAO.xxxxxxx();
         TestHibernateDAO.createClient();
+        //TestHibernateDAO.loadClient(1);
+
         //TestHibernateDAO.getProductsBySearch("fr");
+
 
         /*----- Exit -----*/
         System.exit(0);
