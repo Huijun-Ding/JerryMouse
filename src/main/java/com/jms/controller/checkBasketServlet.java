@@ -12,10 +12,13 @@ import com.jms.model.ProductNutriScore;
 import com.jms.model.Promotion;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +41,7 @@ public class checkBasketServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, 
             HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         try ( PrintWriter out = response.getWriter()) {
             // get un document DOM - XML
             out.println("<?xml version=\"1.0\"?>");
@@ -56,9 +59,10 @@ public class checkBasketServlet extends HttpServlet {
             // ------ INFO CLIENT ------------------
             // get id of client from host page
             String idClient = request.getParameter("idClient");
+            System.out.println(idClient);
 
             // get info of client
-            Client client = ClientDAO.searchClient(idClient);
+            Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
 
             // ------ INFO BASKET / PRODUCT CLIENT ---------
             // search basket for client
@@ -73,7 +77,7 @@ public class checkBasketServlet extends HttpServlet {
             }
 
             // a list of price for all products
-            ArrayList<Double> prices = new ArrayList<>();
+            ArrayList<Float> prices = new ArrayList<>();
 
             // loop for all products
             for (Product product : productQty.keySet()) {
@@ -82,14 +86,14 @@ public class checkBasketServlet extends HttpServlet {
 
                 // ------- CALCUL: PRICE, POINTS... -----------
                 // calcul price unitary after promotion
-                double priceAfter = BasketDAO.calculPriceUnitaryAfterPromo(
+                float priceAfter = BasketDAO.calculPriceUnitaryAfterPromo(
                         product.getUnitPrice(), promotion.getPercentage());
-
+                
                 // quantity of a product in basket
                 int quantityProd = productQty.get(product);
 
                 // total price of a product in basket
-                double totalPriceProduct = BasketDAO.calculPriceTotalProduct(
+                float totalPriceProduct = BasketDAO.calculPriceTotalProduct(
                         quantityProd, priceAfter);
 
                 prices.add(totalPriceProduct);
@@ -98,17 +102,20 @@ public class checkBasketServlet extends HttpServlet {
                 out.println("<photo>" + product.getUrlThumbnail() + "</photo>");
                 out.println("<id>" + product.getEan() + "</id>");
                 out.println("<name>" + product.getName() + "</name>");
-                out.println("<price>" + product.getUnitPrice() + "</price>");
-                out.println("<priceAfter>" + priceAfter + "</priceAfter>");
+                out.println("<price>" + String.format("%.2f", product.getUnitPrice()) 
+                        + "</price>");
+                out.println("<priceAfter>" + String.format("%.2f", priceAfter) 
+                        + "</priceAfter>");
                 out.println("<quantity>" + quantityProd + "</quantity>");
-                out.println("<totalPrice>" + totalPriceProduct + "</totalPrice>");
+                out.println("<totalPrice>" + String.format("%.2f", totalPriceProduct)
+                        + "</totalPrice>");
                 out.println("<promotion>" + promotion.getPercentage() + "</promotion>");
                 out.println("</product>");
             }
             out.println("</basket>");
             
             // calcul total price of basket
-            double total = BasketDAO.calculPriceTotal(prices);
+            float total = BasketDAO.calculPriceTotal(prices);
 
             // calculer points got
             int pointsGot = BasketDAO.calculPointsGot(total);
@@ -118,7 +125,7 @@ public class checkBasketServlet extends HttpServlet {
             out.println("<pointsGot>" + pointsGot + "</pointsGot>");
             out.println("<pointsCumulative>" + client.getFidelityPoints() 
                     + "</pointsCumulative>");
-            out.println("<total>" + total + "</total>");
+            out.println("<total>" + String.format("%.2f", total) + "</total>");
             out.println("</client>");
             out.println("</pageBasket>");
         }
@@ -136,7 +143,11 @@ public class checkBasketServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(checkBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -150,7 +161,11 @@ public class checkBasketServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(checkBasketServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
