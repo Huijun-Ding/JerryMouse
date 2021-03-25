@@ -28,7 +28,7 @@ public class TestHibernateDAO {
             //Open a transaction
             Transaction t = session.beginTransaction();
             
-            Client cl1 = new Client("Rakot", "Mia", "rm@gmail.com","rm123", 10);
+            Client cl1 = new Client("Rakot", "Mia", "rm@gmail.com", "rm123", 10);
             
             session.save(cl1);
             

@@ -19,7 +19,7 @@ public class BasketId implements Serializable {
      * Unique code identifying a customer.
      * <b>Rule(s) : > 0</b>
      */
-    @Column(name = "codeCL")
+    @Column(name = "CodeCL")
     private int id;
     /**
      * EAN (European Article Numbering): Bar code that uniquely identifies a
@@ -27,7 +27,7 @@ public class BasketId implements Serializable {
      * <b>Format : 12 or 13 digits</b>
      * <b>Maximum size : 20</b>
      */
-    @Column(name = "codeCL")
+    @Column(name = "EANP")
     private String ean;
 
     // -------------------- CONSTRUCTORS --------------------

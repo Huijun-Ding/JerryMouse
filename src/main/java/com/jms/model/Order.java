@@ -12,7 +12,10 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 
@@ -41,10 +44,31 @@ public class Order {
     /**
     *  Hibernate join property with Product Class.
     */
-    @OneToMany (mappedBy = "orders", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "order", cascade = CascadeType.ALL)
     @MapKeyJoinColumn (name = "EANP")
     private Map<Product, OrderLine> products = new HashMap<>(0);
-
+    
+    /**
+    *  Hibernate join property with Client Class.
+    */
+    @ManyToOne(fetch = FetchType.EAGER) 
+    @JoinColumn(name = "CodeCL") 
+    private Client client;
+    
+    /**
+    *  Hibernate join property with Store Class.
+    */
+    @ManyToOne(fetch = FetchType.EAGER) 
+    @JoinColumn(name = "CodeM") 
+    private Store store;
+    
+    /**
+    *  Hibernate join property with CcreneauHoraire Class.
+    */
+    @ManyToOne(fetch = FetchType.EAGER) 
+    @JoinColumn(name = "HeureDebutCR") 
+    private TimeSlot timeslot;
+    
     //-----------Constructors--------------
     public Order() {
     }
@@ -69,6 +93,38 @@ public class Order {
 
     public void setOrderName(String orderName) {
         this.orderName = orderName;
+    }
+
+    public Map<Product, OrderLine> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Map<Product, OrderLine> products) {
+        this.products = products;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public TimeSlot getTimeslot() {
+        return timeslot;
+    }
+
+    public void setTimeslot(TimeSlot timeslot) {
+        this.timeslot = timeslot;
     }
 
     //------------Methods--------------
