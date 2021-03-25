@@ -139,8 +139,8 @@ public class BasketDAO {
     }
     
     // calculer points got
-    public static double calculPointsGot(double priceTotal) {
-        return priceTotal/10; 
+    public static int calculPointsGot(double priceTotal) {
+        return (int)priceTotal/10; 
     }
 
     public static void main(String[] args) throws SQLException, Exception {
