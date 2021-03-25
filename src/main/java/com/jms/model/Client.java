@@ -80,7 +80,7 @@ public class Client implements Serializable {
     *  Hibernate join property with Store Class  and Client Class.
     */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "CodeMag")
+    @JoinColumn(name= "CodeM")
     private Store store;
     
     /**
@@ -93,7 +93,7 @@ public class Client implements Serializable {
     /**
     *  Hibernate join property with Order Class  and Client Class.
     */
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private Set<Order> orders = new HashSet(0);
     
     // -------------------- CONSTRUCTORS --------------------
