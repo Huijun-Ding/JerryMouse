@@ -35,15 +35,16 @@ public class DepartmentServlet extends HttpServlet {
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             out.println("<?xml version=\"1.0\"?>");
-            out.println("<departements>");
+            out.println("<departments>");
 
             for (Department d : DepartmentDAO.getAll()) {
-                out.println("   <departement>");
+                out.println("   <department>");
+                out.println("       <id><![CDATA[" + d.getId() + "]]></id>");
                 out.println("       <name><![CDATA[" + d.getName() + "]]></name>");
-                out.println("   </departement>");
+                out.println("   </department>");
             }
 
-            out.println("</departements>");
+            out.println("</departments>");
         }
     }
 
