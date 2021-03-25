@@ -5,7 +5,6 @@
  */
 package com.jms.dao;
 
-import com.jms.model.Basket;
 import com.jms.model.Product;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -125,6 +124,25 @@ public class ProductDAO {
 
         return categories;
     }
+    
+    /**
+     * Searche a product with its EAN
+     * @param ean
+     * @return Product
+     */
+    public static Product searchProduct(String ean) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            System.out.println(ean);
+            Query query = session.createQuery("from Produit where EANP = :code");
+
+            query.setParameter("code", ean);
+            Product product = (Product)query.list().get(0);
+            t.commit();
+            return product;
+        }
+    }
 
     /**
      * Complete the search bar by a product name.
@@ -172,5 +190,11 @@ public class ProductDAO {
 
         /*----- Exit -----*/
         System.exit(0);
+        
+        try {
+            ProductDAO.searchProduct("P1");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }

@@ -5,12 +5,14 @@ import com.jms.model.Client;
 import com.jms.model.Product;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,90 +22,8 @@ import org.hibernate.query.Query;
  *
  * @author Jerry Mouse Software.
  */
-public class BasketDAO {
-
-     /*----- Connexion -----*/
-    private static Connection cx = null;
-
-    /*----- Données de connexion -----*/
-    private static final String URL = "jdbc:mysql://localhost:3307/db_21509053";
-    private static final String LOGIN = "21509053";
-    private static final String PASSWORD = "Q02MI0";
-
-
-    /*----------*/
- /* Méthodes */
- /*----------*/
-    /**
-     * Crée la connexion avec la base de données.
-     */
-    private static void connexion() throws ClassNotFoundException, SQLException {
-        /*----- Chargement du pilote pour la BD -----*/
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("pilot ok");
-        } catch (ClassNotFoundException ex) {
-            throw new ClassNotFoundException("Exception connexion() - Pilote MySql introuvable - " + ex.getMessage());
-        }
-
-        /*----- Ouverture de la connexion -----*/
-        try {
-            BasketDAO.cx = DriverManager.getConnection(URL, LOGIN, PASSWORD);
-            System.out.println("connection ok");
-        } catch (SQLException ex) {
-            throw new SQLException("Exception connexion() - Problème de connexion à la base de données - " + ex.getMessage());
-        }
-    }
-    
-    public static <T>List<T> ResultSetToBean(ResultSet resultSet, Class beanClass) throws Exception {
-        Field[] fields = beanClass.getDeclaredFields();
-        List<T> beanList = new ArrayList<>();
-        if (resultSet != null) {
-            while (resultSet.next()) {
-                T object = (T) beanClass.newInstance();
-                for (Field field : fields) {
-                    String fieldName = field.getName();
-                    Method setField = beanClass.getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), field.getType());
-                    setField.invoke(object,resultSet.getObject(fieldName.toUpperCase()));
-                }
-                beanList.add(object);
-            }
-        }
-        return beanList;
-    }
-
-
-    public static ResultSet completeSearchBarByProductName() throws ClassNotFoundException, SQLException, Exception {
-        /*----- Création de la connexion à la base de données -----*/
-        if (BasketDAO.cx == null) {
-            BasketDAO.connexion();
-        }
-
-        /*----- Interrogation de la base -----*/
-
-        /*----- Requête SQL -----*/
-        String sql = "SELECT * FROM Produit";
-        //String sql = "SELECT LibelleP FROM Produit WHERE LibelleP LIKE ?";
-
-        /*----- Ouverture de l'espace de requête -----*/
-        try ( PreparedStatement st = BasketDAO.cx.prepareStatement(sql)) {
-            /*----- Exécution de la requête -----*/
-            
-            ResultSet rs = st.executeQuery();
-                /*----- Lecture du contenu du ResultSet -----*/
-//            List<Product> prod = ResultSetToBean(rs, Product.class);
-//            prod.forEach(System.out::println);
-            return rs;     
-            
-        } catch (SQLException ex) {
-            throw new SQLException("Exception completeSearchBarByProductName() : Problème SQL - " + ex.getMessage());
-        }
-        
-    }
-   
-    
-    // CONSULTATION PANIER
-    public static List<Basket> loadBasket(int CodeCL) {
+public class BasketDAO {    
+    public static List<Basket> loadBasket(int CodeCL) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -112,37 +32,131 @@ public class BasketDAO {
             query.setParameter("code", CodeCL);
 
             List<Basket> lstBasket = query.list();
-           // lstBasket.forEach(System.out::println);
+            lstBasket.forEach(System.out::println);
             
             t.commit(); // Commit et flush automatique de la session.
             return lstBasket;
         }
     }
     
-    public static void main(String[] args) throws SQLException, Exception {
-        if (BasketDAO.cx == null) {
-            BasketDAO.connexion();
-        }
-
-        /*----- Interrogation de la base -----*/
-
-        /*----- Requête SQL -----*/
-        String sql = "SELECT * FROM Produit";
-        //String sql = "SELECT LibelleP FROM Produit WHERE LibelleP LIKE ?";
-
-        /*----- Ouverture de l'espace de requête -----*/
-        try ( PreparedStatement st = BasketDAO.cx.prepareStatement(sql)) {
-            /*----- Exécution de la requête -----*/
-            
-            ResultSet rs = st.executeQuery();
-                /*----- Lecture du contenu du ResultSet -----*/
-//            List<Product> prod = ResultSetToBean(rs, Product.class);
-//            prod.forEach(System.out::println);
+    // calculer le prix avec promotion : produit sans promo?
+    public static float calculPriceUnitaryAfterPromo(float price, float percentage) {
+        return price * (1 - percentage);
+    }
     
-            ResultSetToBean(rs, Product.class);
-        } catch (SQLException ex) {
-            throw new SQLException("Exception completeSearchBarByProductName() : Problème SQL - " + ex.getMessage());
+    // calculer le prix total avec promotion pour chaque produit 
+    public static float calculPriceTotalProduct(int quantity, float price) {
+        return price * quantity; 
+    }
+    
+    // calculer le prix total final
+    public static float calculPriceTotal(ArrayList<Float> prices) {
+        float sum = 0f;
+        for(int i = 0; i<prices.size(); i++){
+            sum += prices.get(i);
         }
-              
+        return sum; 
+    }
+    
+    // calculate points got
+    public static int calculPointsGot(float priceTotal) {
+        return (int)priceTotal/10; 
+    }
+    
+    // check if a product is in basket of a client
+    public static boolean checkProductBakset(int idClient, String ean) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            
+            boolean exist = false;
+            Query query = session.createSQLQuery("select count(*) from Panier "
+                    + "where EANP = :ean "
+                    + "and codeCL = :codeCL");
+            
+            query.setParameter("codeCL", idClient);
+            query.setParameter("ean", ean);
+            int nbLine = Integer.valueOf(query.list().get(0).toString());    
+           
+            if (nbLine > 0){
+                exist = true;
+            }
+            t.commit(); // Commit et flush automatique de la session.
+            return exist;
+        }
+    }
+    
+    // add product to basket
+    public static void addProductToBasket(int idClient, String ean) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Query query = session.createSQLQuery("insert into Panier (EANP, CodeCL, qtePanier) "
+                    + "VALUES(:ean, :codeCL, 1)");
+            
+            query.setParameter("codeCL", idClient);
+            query.setParameter("ean", ean);
+            
+            System.out.println(query.executeUpdate());
+            
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
+    
+    // update a basket
+    public static int updateBasket(int idClient, String ean) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            
+            // get the quantity of product
+            Query query1 = session.createSQLQuery("SELECT qtePanier FROM Panier "
+                    + "WHERE EANP= :ean and CodeCL= :codeCL");
+            query1.setParameter("codeCL", idClient);
+            query1.setParameter("ean", ean);
+            int qtePanier = Integer.valueOf(query1.list().get(0).toString());
+            
+            // update the quantity of product
+            Query query = session.createSQLQuery("UPDATE Panier SET qtePanier= :nb "
+                    + "WHERE EANP= :ean and CodeCL= :codeCL");
+            query.setParameter("codeCL", idClient);
+            query.setParameter("ean", ean);
+            query.setParameter("nb", qtePanier + 1);
+            
+            int nb = query.executeUpdate();
+            t.commit(); // Commit et flush automatique de la session.
+            return nb;
+        }
+    }
+
+    public static void main(String[] args) {
+        // test for method loadBasket
+//        try {
+//            System.out.println(BasketDAO.loadBasket(1).get(0)); 
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        
+//        // test for method calculPriceUnitaryAfterPromo
+//        System.out.println(BasketDAO.calculPriceUnitaryAfterPromo(2, 0.5F));
+//        
+//        // test for method calculPriceTotal
+//        Float[] d = new Float[]{1f, 2f};
+//        ArrayList<Float> prices = new ArrayList<>(Arrays.asList(d));
+//        System.out.println(BasketDAO.calculPriceTotal(prices));
+//        
+//        // test for method calculPointsGot
+//        System.out.println(BasketDAO.calculPointsGot(2f));
+        
+        // test for method addProductToBasket    
+        try {
+//            BasketDAO.addProductToBasket(1, "P3");
+//            BasketDAO.loadBasket(1); 
+//            System.out.println(BasketDAO.checkProductBakset(1, "P3"));
+//            System.out.println(BasketDAO.checkProductBakset(1, "P4"));
+            System.out.println(BasketDAO.updateBasket(1, "P3"));
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } 
     }
 }
