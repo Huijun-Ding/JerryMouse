@@ -1,13 +1,16 @@
 package com.jms.controller;
 
 import com.jms.dao.BasketDAO;
+import com.jms.dao.PromotionDAO;
 import com.jms.model.Basket;
 import com.jms.model.BasketId;
+import com.jms.model.Client;
 import com.jms.model.Product;
 import com.jms.model.ProductConditioning;
 import com.jms.model.ProductNutriScore;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,30 +38,64 @@ public class checkBasketServlet extends HttpServlet {
 //        BasketId bid = new BasketId(1, "2");
 //        Basket b1 = new Basket(bid, 3);
 
-        HttpSession session = request.getSession(true);
-        int idClient = (int) session.getAttribute("idClient");
+//        HttpSession session = request.getSession(true);
+        String idClient = request.getParameter("idClient");
+//        int idClient = 1;
 
-        List<Basket> lstBasket = BasketDAO.loadBasket(idClient);
-
+//        List<Basket> lstBasket = BasketDAO.loadBasket(idClient);
         // chercher ensuite chaque produit par une méthode ????
-        Product p = new Product("2", "pomme", "bonne pomme", "bon", "350", true, ProductNutriScore.A, ProductConditioning.LOT, 2.5D);
+        Product p = new Product("2", "pomme", "bonne pomme", "bon", "350", true, ProductNutriScore.A, ProductConditioning.LOT);
+        Client c = new Client("Shangshang", "Zhao", "ss@gmail.com", "ss", 5);
+        
+//        float percentage = PromotionDAO.getPercentage(p.getEan());
+//        double priceAfter = BasketDAO.calculPriceUnitaryAfterPromo(p.getUnitPrice(), percentage);
+//        // faut obtenir la quantité de produit dans panier
+//        double totalPrice = BasketDAO.calculPriceTotalProduct(1, priceAfter);
+//        ArrayList<Double> prices = new ArrayList<>();
+//        prices.add(p.getUnitPrice());
+//        double total = BasketDAO.calculPriceTotal(prices);
+//        
+//        // calculer points got
+//        double pointsGot = BasketDAO.calculPointsGot(total);
+        
+        
         
         // get un document DOM - XML
         response.setContentType("application/xml;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
-        try ( PrintWriter out = response.getWriter()) {
-            out.println("<?xml version=\"1.0\"?>");
 
+        try ( PrintWriter out = response.getWriter()) {
             // loop for all products
-            
-            out.println("<produit>");
-            out.println("<nuplet id=" + p.getEan() + ">");
-            out.println("<photo>" + p.getName() + "</photo>");
-            out.println("<nom>" + p.getName() + "</nom>");
-            out.println("<prix>" + p.getUnitPrice()+ "</pays>");
-            out.println("</nuplet>");
-            out.println("</produit>");
+//            int qte = 0;
+//            for (Basket basket : lstBasket) {
+//                if (basket.getProduct().getEan().equals(p.getEan())) {
+//                    qte = basket.getQtyBasket();
+//                }
+//            }
+            out.println("<?xml version=\"1.0\"?>");
+            out.println("<pageBasket>");
+            out.println("<basket>");
+
+            // loop for all prodcut for(Product p: listProd)
+            out.println("<product>");
+            out.println("<photo>photo</photo>");
+            out.println("<id>" + p.getEan() + "</id>");
+            out.println("<name>" + p.getName() + "</name>");
+            out.println("<price>2,00</price>");
+            out.println("<priceAfter>1,00</priceAfter>");
+            out.println("<quantity>2</quantity>");
+            out.println("<totalPrice>2,00</totalPrice>");
+            out.println("<promotion>50%</promotion>");
+            out.println("</product>");
+            out.println("</basket>");
+
+            // get info client via hibernate
+            out.println("<client>");
+            out.println("<pointsGot>0,2</pointsGot>");
+            out.println("<pointsCumulative>" + c.getFidelityPoints() + "</pointsCumulative>");
+            out.println("<total>2,00</total>");
+            out.println("</client>");
+            out.println("</pageBasket>");
         }
     }
 
