@@ -124,11 +124,12 @@ public class ProductDAO {
      * @param ean
      * @return Product
      */
-    public static Product searchProduct(String ean){
+    public static Product searchProduct(String ean) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            Query query = session.createQuery("from Product where EANP = :code");
+            System.out.println(ean);
+            Query query = session.createQuery("from Produit where EANP = :code");
 
             query.setParameter("code", ean);
             Product product = (Product)query.list().get(0);
@@ -139,10 +140,8 @@ public class ProductDAO {
 
     public static void main(String[] s) {
         try {
-            System.out.println(ProductDAO.completeSearchBarByProductName("fr"));
-            System.out.println(ProductDAO.completeSearchBarByCategory("fr"));
-
-        } catch (ClassNotFoundException | SQLException ex) {
+            ProductDAO.searchProduct("P1");
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
