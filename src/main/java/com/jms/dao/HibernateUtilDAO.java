@@ -47,8 +47,8 @@ public class HibernateUtilDAO {
             configuration.addAnnotatedClass(com.jms.model.Order.class);
             configuration.addAnnotatedClass(com.jms.model.OrderLine.class);
             configuration.addAnnotatedClass(com.jms.model.OrderLineId.class);
-            configuration.addAnnotatedClass(com.jms.model.ProductConditioning.class);
-            configuration.addAnnotatedClass(com.jms.model.ProductNutriScore.class);
+            //configuration.addAnnotatedClass(com.jms.model.ProductConditioning.class);
+            //configuration.addAnnotatedClass(com.jms.model.ProductNutriScore.class);
             configuration.addAnnotatedClass(com.jms.model.Promotion.class);
             configuration.addAnnotatedClass(com.jms.model.Reduce.class);
             configuration.addAnnotatedClass(com.jms.model.ReduceID.class);
