@@ -65,10 +65,6 @@
         <url-pattern>/StoreServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>searchByKeyWordServlet</servlet-name>
-        <url-pattern>/searchByKeyWord</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DisplayProductsServlet</servlet-name>
         <url-pattern>/DisplayProducts</url-pattern>
     </servlet-mapping>
