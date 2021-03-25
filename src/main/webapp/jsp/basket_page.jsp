@@ -12,11 +12,11 @@
         <div class="container" id="container">
             <div class="row">
                 <div class="col-2" name="en_tete">
-                    <img id="logo" src="img/photo.png">
+                    <img id="logo" src="img/logo.png">
                 </div>
-                <div class="col-8">Store:</div>
+                <!--<div class="col-8">Store:</div>-->
                 <div class="col-2">
-                    <button class="btn btn-outline-primary" id="se_connecter">Login</button>
+                    <!--<button class="btn btn-outline-primary" id="se_connecter">Login</button>-->
                 </div>
             </div>
 
@@ -41,11 +41,12 @@
                 </div>
 
                     <div name="calcul">
-                    <table class="table"  id="points">
+                    <table class="table" id="points">
                         <tr>
-                            <td>Points got: <span id="cagnotte_gagne"></span></td>
-                            <td>Points cumulative: <span id="cagnotte_cumul"></span></td>
-                            <td>Total: <span id="total"></span></td>
+                            <!--<div class="col-5"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></div>-->
+                            <div class="col-2"><td>Points got: <span id="cagnotte_gagne"></span></td></div>
+                            <div class="col-3"><td>Points cumulative: <span id="cagnotte_cumul"></span></td><div>
+                            <div class="col-2"><td>Total: <span id="total"></span></td></div>                           
                         </tr>
                     </table>
                 </div>
