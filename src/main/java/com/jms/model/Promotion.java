@@ -65,6 +65,12 @@ public class Promotion implements Serializable {
         this.rank = rank;
     }
 
+    public Promotion(int id, float percentage, int rank) {
+        this.id = id;
+        this.percentage = percentage;
+        this.rank = rank;
+    }
+    
     public Promotion() {
     }
 

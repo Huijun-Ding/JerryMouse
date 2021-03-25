@@ -9,8 +9,8 @@
         <jsp-file>/jsp/login.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>visualiserPanierServlet</servlet-name>
-        <servlet-class>com.jms.controller.visualiserPanierServlet</servlet-class>
+        <servlet-name>checkBasketServlet</servlet-name>
+        <servlet-class>com.jms.controller.checkBasketServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>basketPage</servlet-name>
@@ -45,10 +45,6 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>visualiserPanierServlet</servlet-name>
-        <url-pattern>/visualiserPanierServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>basketPage</servlet-name>
         <url-pattern>/basketPage</url-pattern>
     </servlet-mapping>
@@ -63,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>/ProductsList</servlet-name>
         <url-pattern>/ProductsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>checkBasketServlet</servlet-name>
+        <url-pattern>/checkBasketServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SendSearchRequestServlet</servlet-name>
