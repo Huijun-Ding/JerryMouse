@@ -15,7 +15,7 @@
         <script src="../js/stores.js"></script>
         <script src="../js/department.js"></script>
         <script src="../js/basket.js"></script>
-        <script src="../js/quantityProduct.js"></script>
+        
     </head>
     <body>
         <header class="shadow p-3 mb-5 bg-body fixed-top">
@@ -88,8 +88,8 @@
                         <div class="d-flex flex-column">
                             <i class="fa fa-shopping-basket"></i>
                             Panier
-                            <span id='nb_products'></span>
-                            <span class="badge badge-light">4</span>
+                            <!--<span id='nb_products'></span>-->
+                            <span id="nb_products" class="badge badge-light"></span>
                             <!-- comment 
                                 Object nbProducts = session.getAttribute("nbProducts");
 //                                HttpSession session = request.getSession(true);
