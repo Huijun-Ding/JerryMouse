@@ -21,18 +21,17 @@ function getSearchElement() {
 
                     elt.innerHTML = "";
 
-                    var text = "";
                     for (i = 0; i < suggestions.length; i++) {
-                        var prod = suggestions[i].firstChild.nodeValue;
-                        text += "<li class='list-group-item' class='elements'>" + prod + "</li>";
-
-                        elt.innerHTML = text;
-
-                        var resultSize = document.getElementsByClassName("elements").length;
-                        var nodes = document.getElementsByClassName("elements");
-                        for (var i = 0; i < resultSize; i++)
-                            nodes[i].addEventListener("click", searchProductsBySuggestion(nodes[i]));
+                        prod = suggestions[i].firstChild.nodeValue;
+                        elt.insertAdjacentHTML("beforeend", "<li class='list-group-item item' value='" + prod + "'>" + prod + "</li>");
                     }
+
+//                    var items = document.getElementsByClassName("item");
+//                    for (var i = 0; i < items.length; i++) {
+//                        //console.log("items[" + i + "].addEventListener('click', searchProductsBySuggestion(" + items[i] + "))");
+//                        items[i].addEventListener('click', searchProductsBySuggestion(items[i]));
+//                    }
+
                 } else {
                     elt.style.display = "none";
                 }
@@ -52,24 +51,13 @@ function searchProducts() {
 
     var myinput = document.getElementById("search").value;
     xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
-    //alert(myinput);
+    
     xhr.onload = function ()
     {
         if (xhr.status === 200)
         {
-            alert(xhr.status);
-            suggestions = xhr.responseXML.getElementsByTagName("product");
-            elt = document.getElementById("products");
-            if (suggestions != null && suggestions.length != 0) {
-                elt.innerHTML = "";
-                for (i = 0; i < suggestions.length; i++) {
-                    produit = suggestions[i].firstChild.nodeValue;
-                    //alert(produit);
-                    elt.insertAdjacentHTML("beforeend", "<li>" + produit + "</li>");
-                }
-            } else {
-                elt.insertAdjacentHTML("beforeend", "<li>Il n'y a pas de produit correspondant.</li>");
-            }
+            document.getElementById('show_result').src="http://localhost:8080/jm/SendSearchRequestServlet?keyword=" + myinput;
+            alert("http://localhost:8080/jm/SendSearchRequestServlet?keyword=" + myinput);
         }
     };
     xhr.send();
@@ -77,29 +65,18 @@ function searchProducts() {
 
 function searchProductsBySuggestion() {
     var myinput = encodeURIComponent(this.value);
-    alert(myinput);
+    console.log(myinput + "----clicked----" + this.value);
+
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
- 
+
     xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
 
     xhr.onload = function ()
     {
         if (xhr.status === 200)
         {
-            alert(xhr.status);
-            suggestions = xhr.responseXML.getElementsByTagName("product");
-            elt = document.getElementById("products");
-            if (suggestions != null && suggestions.length != 0) {
-                elt.innerHTML = "";
-                for (i = 0; i < suggestions.length; i++) {
-                    produit = suggestions[i].firstChild.nodeValue;
 
-                    elt.insertAdjacentHTML("beforeend", "<li>" + produit + "</li>");
-                }
-            } else {
-                elt.insertAdjacentHTML("beforeend", "<li>Il n'y a pas de produit correspondant.</li>");
-            }
         }
     };
     xhr.send();
@@ -109,10 +86,9 @@ function searchProductsBySuggestion() {
  * run
  */
 document.addEventListener("DOMContentLoaded", () => {
-
+    //Glaces et desserts glacés
     document.getElementById("search").addEventListener("input", getSearchElement);
     document.getElementById("search_button").addEventListener("click", searchProducts);
-
 });
 
 

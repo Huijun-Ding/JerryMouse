@@ -31,24 +31,27 @@ public class SendSearchRequestServlet extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             // XML page
-            out.println("<?xml version=\"1.0\"?>");
-            out.println("<list_products>");
+//            out.println("<?xml version=\"1.0\"?>");
+//            out.println("<list_products>");
 
             // get parameter
             String keyword = request.getParameter("keyword");
 
-            if (!keyword.equals("")) {
-                // put result into a list
-                List<Product> products = ProductDAO.returnSrearchResult(keyword);
-                request.setAttribute("productsList", products);
-                for (Product p : products) {
-                    out.println("<product><![CDATA[" + p.getName() + "]]></product>");
-                }
-            } else {
-                out.println("<product><![CDATA[]]></product>");
-            }
-            out.println("</list_products>");
-            
+//            if (!keyword.equals("")) {
+//                // put result into a list
+//                List<Product> products = ProductDAO.returnSrearchResult(keyword);
+//
+//                for (Product p : products) {
+//                    out.println("<product><![CDATA[" + p.getName() + "]]></product>");
+//                }
+//            } else {
+//                out.println("<product><![CDATA[]]></product>");
+//            }
+//            out.println("</list_products>");
+
+            List<Product> products = ProductDAO.returnSrearchResult(keyword);
+            request.setAttribute("productsList", products);
+
             request.getRequestDispatcher("ProductsList").forward(request, response);
         }
     }
