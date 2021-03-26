@@ -49,7 +49,7 @@ public class DisplayProductsServlet extends HttpServlet {
         // Products of a category  
         if (request.getParameterMap().containsKey("cat")) {
             int codeCat = Integer.parseInt(request.getParameter("cat"));
-            List<Product> list = ProductDAOH.getProductsOfDepartment(codeCat); // for now display all products
+            List<Product> list = ProductDAOH.getProductsOfCategory(codeCat); // for now display all products
             request.setAttribute("productsList", list);
         }
         

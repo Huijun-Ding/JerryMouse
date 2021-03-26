@@ -89,7 +89,11 @@ public class ProductDAOH {
                     + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
                     + "FROM Produit p "
                     + "WHERE p.category.id = :id";
-            list = session.createQuery(sql).list();
+            
+            Query query = session.createQuery(sql);
+            query.setParameter("id", id);
+            list = query.list();
+            
             return list;
         }
     }
