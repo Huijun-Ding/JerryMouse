@@ -39,6 +39,25 @@ public class BasketDAO {
         }
     }
     
+    public static int calculNbProduct(int CodeCL) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Query query = session.createQuery("from Panier where CodeCL = :code");
+
+            query.setParameter("code", CodeCL);
+
+            List<Basket> lstBasket = query.list();
+//            lstBasket.forEach(System.out::println);
+            int nb = 0;
+                if(!lstBasket.isEmpty()){
+                    nb = lstBasket.stream().map(basket -> basket.getQtyBasket()).reduce(nb, Integer::sum);
+            }
+            t.commit(); // Commit et flush automatique de la session.
+            return nb;
+        }
+    }
+    
     // calculer le prix avec promotion : produit sans promo?
     public static float calculPriceUnitaryAfterPromo(float price, float percentage) {
         return price * (1 - percentage);
@@ -154,7 +173,8 @@ public class BasketDAO {
 //            BasketDAO.loadBasket(1); 
 //            System.out.println(BasketDAO.checkProductBakset(1, "P3"));
 //            System.out.println(BasketDAO.checkProductBakset(1, "P4"));
-            System.out.println(BasketDAO.updateBasket(1, "P3"));
+//            System.out.println(BasketDAO.updateBasket(1, "P3"));
+            System.out.println(calculNbProduct(2));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } 
