@@ -14,6 +14,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="../js/stores.js"></script>
         <script src="../js/department.js"></script>
+        <script src="../js/basket.js"></script>
     </head>
     <body>
         <header class="shadow p-3 mb-5 bg-body fixed-top">
@@ -140,7 +141,7 @@
     <div class="embed-responsive embed-responsive-16by9">
         <iframe id="view" class="embed-responsive-item" src="../DisplayProducts?home" allowfullscreen></iframe>
     </div>
-    
+
     <script type="text/JavaScript" src="../js/script.js"></script>
 </body>
 </html>
