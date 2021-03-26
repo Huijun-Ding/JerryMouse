@@ -186,7 +186,7 @@ public class ProductDAO {
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
 
-        ProductDAO.returnSrearchResult("glace");
+        ProductDAO.returnSrearchResult("Cafés");
 
         /*----- Exit -----*/
         System.exit(0);
