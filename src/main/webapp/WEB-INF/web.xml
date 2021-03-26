@@ -52,6 +52,10 @@
         <servlet-name>LookBasketServlet</servlet-name>
         <servlet-class>com.jms.controller.LookBasketServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeconnectServlet</servlet-name>
+        <servlet-class>com.jms.controller.DeconnectServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
@@ -107,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>LookBasketServlet</servlet-name>
         <url-pattern>/checkBasketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeconnectServlet</servlet-name>
+        <url-pattern>/Deconnect</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
