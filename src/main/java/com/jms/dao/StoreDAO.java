@@ -81,7 +81,7 @@ public class StoreDAO {
      * @param postalCode The postal code of the reseaching stores.
      * @return List of stores having 'postalCode' as postal code.
      */
-    public static List<Store> getAllStores(String postalCode) {
+    public static List<Store> getAll(String postalCode) {
         List<Store> stores;
 
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -89,7 +89,8 @@ public class StoreDAO {
 
             Query query = session.createQuery(
                 "FROM Magasin m "
-                + "WHERE m.postalCode LIKE :postalCode"
+                + "WHERE m.postalCode LIKE :postalCode "
+                + "ORDER BY m.name"
             );
 
             query.setParameter("postalCode", postalCode + "%");
@@ -99,10 +100,24 @@ public class StoreDAO {
 
         return stores;
     }
+    
+    public static Store get(int storeId) {
+        Store store;
 
-    public static void main(String[] args) {
-        for(Store s : StoreDAO.getAllStores("311")) {
-            System.out.println(s);
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+
+            Query query = session.createQuery(
+                "FROM Magasin m "
+                + "WHERE m.id = :storeId "
+                + "ORDER BY m.name"
+            );
+
+            query.setParameter("storeId", storeId);
+
+            store = (Store) query.list().get(0);
         }
+
+        return store;
     }
 }

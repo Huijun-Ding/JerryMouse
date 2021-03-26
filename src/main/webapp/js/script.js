@@ -12,7 +12,6 @@ function getSearchElement() {
     {
         if (xhr.status === 200)
         {
-            //alert("ok")
             if (myinput != "") {
                 suggestions = xhr.responseXML.getElementsByTagName("product");
                 elt = document.getElementById("search_result");
@@ -52,8 +51,10 @@ function searchProducts() {
     var myinput = document.getElementById("search").value;
     xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
     alert(myinput);
+
     xhr.onload = function ()
     {
+        alert("ok");
         if (xhr.status === 200)
         {
             document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;
@@ -64,8 +65,6 @@ function searchProducts() {
 
 function searchProductsBySuggestion() {
     var myinput = this.firstChild.nodeValue;
-    //console.log(myinput + "----clicked----" + this.value);
-    alert(this.firstChild.nodeValue);
 
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();

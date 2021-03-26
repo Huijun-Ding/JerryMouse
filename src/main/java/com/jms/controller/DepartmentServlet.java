@@ -5,8 +5,8 @@
  */
 package com.jms.controller;
 
-import com.jms.dao.StoreDAO;
-import com.jms.model.Store;
+import com.jms.dao.DepartmentDAO;
+import com.jms.model.Department;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author axelt
  */
-public class StoreServlet extends HttpServlet {
+public class DepartmentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,39 +32,29 @@ public class StoreServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
-            String postalCode = request.getParameter("postalCode");
-            String setStoreId = request.getParameter("setStoreId");
-
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             out.println("<?xml version=\"1.0\"?>");
-            out.println("<stores>");
-
-            if (postalCode != null && !postalCode.equals("")) {
-                for (Store s : StoreDAO.getAll(postalCode)) {
-                    out.println("   <store>");
-                    out.println("       <id><![CDATA[" + s.getId() + "]]></id>");
-                    out.println("       <name><![CDATA[" + s.getName() + "]]></name>");
-                    out.println("       <street><![CDATA[" + s.getStreet() + "]]></street>");
-                    out.println("       <city><![CDATA[" + s.getCity() + "]]></city>");
-                    out.println("       <postalCode><![CDATA[" + s.getPostalCode() + "]]></postalCode>");
-                    out.println("   </store>");
+            out.println("<departments>");
+            
+            String id = request.getParameter("id");
+                    
+            if(id != null && !id.equals("")) {
+                Department d = DepartmentDAO.get(Integer.parseInt(id));
+                out.println("   <department>");
+                out.println("       <id><![CDATA[" + d.getId() + "]]></id>");
+                out.println("       <name><![CDATA[" + d.getName() + "]]></name>");
+                out.println("   </department>");
+            } else {
+                for (Department d : DepartmentDAO.getAll()) {
+                    out.println("   <department>");
+                    out.println("       <id><![CDATA[" + d.getId() + "]]></id>");
+                    out.println("       <name><![CDATA[" + d.getName() + "]]></name>");
+                    out.println("   </department>");
                 }
-            } else if(setStoreId != null && !setStoreId.equals("")) {
-                Store s = StoreDAO.get(Integer.parseInt(setStoreId));
-                
-                out.println("   <store>");
-                out.println("       <id><![CDATA[" + s.getId() + "]]></id>");
-                out.println("       <name><![CDATA[" + s.getName() + "]]></name>");
-                out.println("       <street><![CDATA[" + s.getStreet() + "]]></street>");
-                out.println("       <city><![CDATA[" + s.getCity() + "]]></city>");
-                out.println("       <postalCode><![CDATA[" + s.getPostalCode() + "]]></postalCode>");
-                out.println("   </store>");                
-                
-                request.getSession().setAttribute("store", s);
             }
 
-            out.println("</stores>");
+            out.println("</departments>");
         }
     }
 
