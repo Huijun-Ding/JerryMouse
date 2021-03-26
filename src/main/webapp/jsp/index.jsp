@@ -42,18 +42,22 @@
                     </ul>
                 </div>
 
-                <form>
-                    <div class="input-group input-group">
-                        <input type="search" class="form-control" placeholder="Rechercher un produit ...">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-primary">
-                                <i class="fa fa-search"></i>
-                            </button>
+                <div id="search_bar">
+                    <form>
+                        <div class="input-group input-group">
+                            <input id="search" type="search" class="form-control" placeholder="Rechercher un produit ...">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary" id="search_button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                    <div id="output"><ul class="list-group" id="search_result"></ul></div>
+                </div>
+
                 <%
-                    Client client = (Client)session.getAttribute("client");
+                    Client client = (Client) session.getAttribute("client");
                     if (client != null) {
                         out.println("<div>");
                         out.println("<h3>");
@@ -71,11 +75,11 @@
                             </div>
                         </button>
                         <div class="dropdown-menu">
-                            <%if(client == null) {%>
-                                <a class="dropdown-item" href="login.jsp">Se connecter</a>
-                                <a class="dropdown-item" href="signup.jsp">S'inscrire</a>
+                            <%if (client == null) {%>
+                            <a class="dropdown-item" href="login.jsp">Se connecter</a>
+                            <a class="dropdown-item" href="signup.jsp">S'inscrire</a>
                             <%} else {%>
-                                <a class="dropdown-item" href="../Deconnect">Se d&eacute;connecter</a>
+                            <a class="dropdown-item" href="../Deconnect">Se d&eacute;connecter</a>
                             <%}%>
                         </div>
                     </div>
@@ -132,5 +136,7 @@
     <div class="embed-responsive embed-responsive-16by9">
         <iframe id="view" class="embed-responsive-item" src="../DisplayProducts?home" allowfullscreen></iframe>
     </div>
+
+    <script type="text/JavaScript" src="../js/search.js"></script>
 </body>
-</html
+</html>

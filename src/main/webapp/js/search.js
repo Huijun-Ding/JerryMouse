@@ -1,8 +1,7 @@
 /**
- * This function AJAX is use for searching a product or a category.
+ * This function AJAX will autocomplete the keyword by return a list of category or product who matche the keyword.
  */
 function getSearchElement() {
-
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
 
@@ -18,11 +17,20 @@ function getSearchElement() {
                 elt = document.getElementById("search_result");
                 if (suggestions != null && suggestions.length != 0) {
                     elt.style.display = "block";
+
                     elt.innerHTML = "";
+
                     for (i = 0; i < suggestions.length; i++) {
                         prod = suggestions[i].firstChild.nodeValue;
-                        elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + prod + "</li>");
+                        elt.insertAdjacentHTML("beforeend", "<li class='list-group-item item'>" + prod + "</li>");
                     }
+
+                    var items = document.getElementsByClassName("item");
+                    for (var i = 0; i < items.length; i++) {
+                       // console.log("items[" + i + "].addEventListener('click', searchProductsBySuggestion(" + items[i] + "))");
+                        items[i].addEventListener('click', searchProductsBySuggestion);
+                    }
+
                 } else {
                     elt.style.display = "none";
                 }
@@ -36,33 +44,46 @@ function getSearchElement() {
     xhr.send();
 }
 
+/**
+ * This function AJAX is use for searching a product or a category from the button.
+ */
 function searchProducts() {
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
 
     var myinput = document.getElementById("search").value;
     xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
-    //alert(myinput);
+    alert(myinput);
+
+    xhr.onload = function ()
+    {
+        alert("ok");
+        if (xhr.status === 200)
+        {
+            document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;
+        }
+    };
+    xhr.send();
+}
+
+/**
+ * This function AJAX is use for searching a product or a category from the clic of a item autocomplete.
+ */
+function searchProductsBySuggestion() {
+    var myinput = this.firstChild.nodeValue;
+
+    // Objet XMLHttpRequest.
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
+
     xhr.onload = function ()
     {
         if (xhr.status === 200)
         {
-            alert(xhr.status);
-            suggestions = xhr.responseXML.getElementsByTagName("product");
-            elt = document.getElementById("products");
-            if (suggestions != null && suggestions.length != 0) {
-                elt.innerHTML = "";
-                for (i = 0; i < suggestions.length; i++) {
-                    produit = suggestions[i].firstChild.nodeValue;
-                    //alert(produit);
-                    elt.insertAdjacentHTML("beforeend", "<li>" + produit + "</li>");
-                }
-            } else {
-                elt.insertAdjacentHTML("beforeend", "<li>Il n'y a pas de produit correspondant.</li>");
-            }
+            document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;
         }
     };
-
     xhr.send();
 }
 
@@ -70,10 +91,9 @@ function searchProducts() {
  * run
  */
 document.addEventListener("DOMContentLoaded", () => {
-
+    //test: Glaces et desserts glacés
     document.getElementById("search").addEventListener("input", getSearchElement);
     document.getElementById("search_button").addEventListener("click", searchProducts);
-
 });
 
 
@@ -84,5 +104,3 @@ document.addEventListener("DOMContentLoaded", () => {
 //
 //    document.getElementById("bt_connect").addEventListener("click", connection);
 //});
-
-
