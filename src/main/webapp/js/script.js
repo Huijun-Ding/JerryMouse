@@ -2,7 +2,6 @@
  * This function AJAX is use for searching a product or a category.
  */
 function getSearchElement() {
-
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
 
@@ -13,6 +12,7 @@ function getSearchElement() {
     {
         if (xhr.status === 200)
         {
+            //alert("ok")
             if (myinput != "") {
                 suggestions = xhr.responseXML.getElementsByTagName("product");
                 elt = document.getElementById("search_result");
@@ -23,14 +23,14 @@ function getSearchElement() {
 
                     for (i = 0; i < suggestions.length; i++) {
                         prod = suggestions[i].firstChild.nodeValue;
-                        elt.insertAdjacentHTML("beforeend", "<li class='list-group-item item' value='" + prod + "'>" + prod + "</li>");
+                        elt.insertAdjacentHTML("beforeend", "<li class='list-group-item item'>" + prod + "</li>");
                     }
 
-//                    var items = document.getElementsByClassName("item");
-//                    for (var i = 0; i < items.length; i++) {
-//                        //console.log("items[" + i + "].addEventListener('click', searchProductsBySuggestion(" + items[i] + "))");
-//                        items[i].addEventListener('click', searchProductsBySuggestion(items[i]));
-//                    }
+                    var items = document.getElementsByClassName("item");
+                    for (var i = 0; i < items.length; i++) {
+                       // console.log("items[" + i + "].addEventListener('click', searchProductsBySuggestion(" + items[i] + "))");
+                        items[i].addEventListener('click', searchProductsBySuggestion);
+                    }
 
                 } else {
                     elt.style.display = "none";
@@ -51,24 +51,23 @@ function searchProducts() {
 
     var myinput = document.getElementById("search").value;
     xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
-    alert("3");
-    //document.getElementById('show_result').src = "http://localhost:8080/jm/SendSearchRequestServlet?keyword=Glaces%20et%20desserts%20glac%C3%A9s";
 
     xhr.onload = function ()
     {
-        alert("1");
         if (xhr.status === 200)
         {
-            document.getElementById('show_result').src = "http://localhost:8080/jm/SendSearchRequestServlet?keyword=Glaces%20et%20desserts%20glac%C3%A9s";
-            alert("2");
+            alert("get");
+            document.getElementById('show_result').src = "http://localhost:8080/jm/SendSearchRequestServlet?keyword=" + myinput;
+            alert(xhr.status);
         }
     };
     xhr.send();
 }
 
 function searchProductsBySuggestion() {
-    var myinput = encodeURIComponent(this.value);
-    console.log(myinput + "----clicked----" + this.value);
+    var myinput = this.firstChild.nodeValue;
+    //console.log(myinput + "----clicked----" + this.value);
+    alert(this.firstChild.nodeValue);
 
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
@@ -79,7 +78,7 @@ function searchProductsBySuggestion() {
     {
         if (xhr.status === 200)
         {
-
+            document.getElementById('show_result').src = "http://localhost:8080/jm/SendSearchRequestServlet?keyword=" + myinput;
         }
     };
     xhr.send();
@@ -89,7 +88,7 @@ function searchProductsBySuggestion() {
  * run
  */
 document.addEventListener("DOMContentLoaded", () => {
-    //Glaces et desserts glacés
+    //test: Glaces et desserts glacés
     document.getElementById("search").addEventListener("input", getSearchElement);
     document.getElementById("search_button").addEventListener("click", searchProducts);
 });

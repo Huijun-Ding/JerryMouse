@@ -26,10 +26,8 @@ public class SendSearchRequestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("application/xml;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
-        try (PrintWriter out = response.getWriter()) {
+//        try (PrintWriter out = response.getWriter()) {
             // XML page
 //            out.println("<?xml version=\"1.0\"?>");
 //            out.println("<list_products>");
@@ -53,7 +51,7 @@ public class SendSearchRequestServlet extends HttpServlet {
             request.setAttribute("productsList", products);
 
             request.getRequestDispatcher("ProductsList").forward(request, response);
-        }
+        //}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
