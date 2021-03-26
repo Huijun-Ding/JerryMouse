@@ -45,11 +45,12 @@ public class ConnectServlet extends HttpServlet {
                 //Call method authenticate to check login and password
                 boolean check = ClientDAO.authenticate(mail, pw);
                 if (check == true) {
-                    //chain to index page
-                    request.getRequestDispatcher("index").forward(request, response);
                     Client client = ClientDAO.getByEmailPassword(mail, pw);
                     //Put the client object in the session
                     session.setAttribute("client", client);
+                    
+                    //chain to index page
+                    response.sendRedirect("jsp/index.jsp");
                 } else {
                     //chain to page login and display a message error
                     request.getRequestDispatcher("login").forward(request, response);
