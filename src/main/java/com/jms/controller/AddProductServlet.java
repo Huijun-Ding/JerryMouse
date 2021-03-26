@@ -32,6 +32,7 @@ public class AddProductServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         Client client = (Client)session.getAttribute("client");
+        session.setAttribute("client", client);
         
         ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
         request.setAttribute("productsList", list);
@@ -60,7 +61,7 @@ public class AddProductServlet extends HttpServlet {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } 
-        request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
+        request.getRequestDispatcher("DisplayProducts?home").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
