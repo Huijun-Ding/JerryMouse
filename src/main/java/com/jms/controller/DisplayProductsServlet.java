@@ -39,6 +39,16 @@ public class DisplayProductsServlet extends HttpServlet {
             List<Product> list = ProductDAOH.getAllProducts(); // for now display all products
             request.setAttribute("productsList", list);
         }
+        
+        // All products to display     
+        if (request.getParameterMap().containsKey("allData")) {
+            List<Product> list = ProductDAOH.getAllProducts(); // for now display all products
+            for (Product product : list) {
+                product = ProductDAOH.getAll(product);
+            }
+            request.setAttribute("productsList", list);
+        }
+        
         // Products to display on homePage    
 
         if (request.getParameterMap().containsKey("home")) {
