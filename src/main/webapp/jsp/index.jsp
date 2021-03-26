@@ -70,11 +70,20 @@
                             </div>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="login.jsp">Se connecter</a>
-                            <a class="dropdown-item" href="signup.jsp">S'inscrire</a>
+                            <%if(client == null) {%>
+                                <a class="dropdown-item" href="login.jsp">Se connecter</a>
+                                <a class="dropdown-item" href="signup.jsp">S'inscrire</a>
+                            <%} else {%>
+                                <a class="dropdown-item" href="../Deconnect">Se d&eacute;connecter</a>
+                            <%}%>
                         </div>
                     </div>
-                    <a href="basketPage?idClient=<%out.println("1");%>" role="button" class="btn  btn-sm btn-primary">
+                   <%if(client != null) {%>
+                    <a href="basketPage?idClient=<%out.println(client.getCode());%>" role="button" class="btn  btn-sm btn-primary">
+                   <%} else {%>
+                   
+                    <a href="basketPage" role="button" class="btn  btn-sm btn-primary">
+                   <%}%>
                         <div class="d-flex flex-column">
                             <i class="fa fa-shopping-basket"></i>
                             Panier
