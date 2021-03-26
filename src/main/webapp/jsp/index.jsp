@@ -47,7 +47,7 @@
                         <div class="input-group input-group">
                             <input id="search" type="search" class="form-control" placeholder="Rechercher un produit ...">
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary" id="search_button">
+                                <button type="button" class="btn btn-primary" id="search_button">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
