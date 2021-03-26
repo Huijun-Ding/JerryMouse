@@ -8,8 +8,13 @@ html, body {
     height: 45px;
 }
 
+#stores_list {
+    padding: 0px;
+}
+
 #rayon_categorie_navbar {
-    margin-top: 120px;
+    margin-top: 140px;
+    padding-left: 50px;
 }
 
 #container {
