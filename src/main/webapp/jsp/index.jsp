@@ -14,6 +14,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="../js/stores.js"></script>
         <script src="../js/department.js"></script>
+        <script src="../js/basket.js"></script>
     </head>
     <body>
         <header class="shadow p-3 mb-5 bg-body fixed-top">
@@ -78,17 +79,12 @@
                             <%}%>
                         </div>
                     </div>
-                   <%if(client != null) {%>
-                    <a href="basketPage?idClient=<%out.println(client.getCode());%>" role="button" class="btn  btn-sm btn-primary">
-                   <%} else {%>
-                   
-                    <a href="basketPage" role="button" class="btn  btn-sm btn-primary">
-                   <%}%>
+                    <button id="basket_button" role="button" class="btn  btn-sm btn-primary">
                         <div class="d-flex flex-column">
                             <i class="fa fa-shopping-basket"></i>
                             Panier
                         </div>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
