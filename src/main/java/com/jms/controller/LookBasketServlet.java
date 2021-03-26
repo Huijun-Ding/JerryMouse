@@ -10,6 +10,7 @@ import com.jms.model.Product;
 import com.jms.model.ProductConditioning;
 import com.jms.model.ProductNutriScore;
 import com.jms.model.Promotion;
+import com.jms.model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.NumberFormat;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,6 +45,8 @@ public class LookBasketServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, 
             HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession(true);
+        
         try ( PrintWriter out = response.getWriter()) {
             // get un document DOM - XML
             out.println("<?xml version=\"1.0\"?>");
@@ -55,18 +59,18 @@ public class LookBasketServlet extends HttpServlet {
             Product p = new Product("2", "pomme", "bonne pomme", "bon", "350",
                     true, ProductNutriScore.A, ProductConditioning.LOT);
             Client c = new Client("Shangshang", "Zhao", "ss@gmail.com", "ss", 5);
-
-            // --------------HIBERNATE ------------------
+            
+            
             // ------ INFO CLIENT ------------------
             // get id of client from host page
-            String idClient = request.getParameter("idClient");
-
+//            String idClient = request.getParameter("idClient");
             // get info of client
-            Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
-
+//            Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
+            Client client = (Client) session.getAttribute("client");
+            
             // ------ INFO BASKET / PRODUCT CLIENT ---------
             // search basket for client
-            List<Basket> lstBasket = BasketDAO.loadBasket(Integer.parseInt(idClient));
+            List<Basket> lstBasket = BasketDAO.loadBasket(client.getCode());
 
             // search products in basket and add to a list
             String eanp = "";
