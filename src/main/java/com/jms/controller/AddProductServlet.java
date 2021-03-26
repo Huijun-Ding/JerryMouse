@@ -38,6 +38,7 @@ public class AddProductServlet extends HttpServlet {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } 
+        request.getRequestDispatcher("#").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

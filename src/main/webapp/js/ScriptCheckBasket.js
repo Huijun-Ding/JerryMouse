@@ -15,7 +15,6 @@ function displayBasket() {
 
             var i;
             product = xhr.responseXML.getElementsByTagName("product");
-            alert(product.length);
             for (i = 0; i < product.length; i++) {
                 productLine = product[i];
 
@@ -27,11 +26,18 @@ function displayBasket() {
                 totalPrice = productLine.getElementsByTagName("totalPrice")[0].firstChild.nodeValue;
                 promotion = productLine.getElementsByTagName("promotion")[0].firstChild.nodeValue;
 
-                const rows = "<tr><td><img src='" + photo + "' class='img-thumbnail'></td><td>" 
+                if(priceAfter !== " "){
+                    priceAfter += "&#8364;";
+                    price = "<span class='text-decoration-line-through'>" + price + "</span>";
+                }else{
+                    price = "<span>" + price + "</span>";
+                }
+                
+                const rows = "<tr><td><img src='" + photo + "' class='prodPhoto'></td><td>" 
                         + name + "</td><td>" 
-                        + price + "</br>" + priceAfter + "</td><td>" 
+                        + price + "&#8364;</br>" + priceAfter + "</td><td>" 
                         + quantity + "</td><td>" 
-                        + totalPrice + "</br>" + promotion + "</td></tr>"
+                        + totalPrice + "&#8364;</br>" + promotion + "</td></tr>"
                         ;
                 tabProd.insertAdjacentHTML('beforeend', rows);
             }
@@ -66,7 +72,7 @@ function displayPoints() {
 
             cagnotte_gagne.insertAdjacentHTML('beforeend', pointsGot);
             cagnotte_cumul.insertAdjacentHTML('beforeend', pointsCumulative);
-            totalSpan.insertAdjacentHTML('beforeend', total);
+            totalSpan.insertAdjacentHTML('beforeend', total + "&#8364;");
         }
     };
     xhr.send();
