@@ -36,7 +36,7 @@ function displayBasket() {
                 
                 const rows = "<tr><td><img src='" + photo + "' class='prodPhoto'></td><td>" 
                         + name + "</br>" +"<span class='card-subtitle mb-2 text-muted'>"+ format+"</span>" + "</td><td>" 
-                        + price + "&#8364;</br>" + priceAfter + "</td><td>" 
+                        + price + "&#8364;</br>" + "<span class='priceAfter'>" + priceAfter + "</span></td><td>" 
                         + quantity + "</td><td>" 
                         + totalPrice + "&#8364;</br>" + promotion + "</td></tr>"
                         ;
