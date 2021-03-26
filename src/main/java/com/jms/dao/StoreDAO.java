@@ -89,7 +89,8 @@ public class StoreDAO {
 
             Query query = session.createQuery(
                 "FROM Magasin m "
-                + "WHERE m.postalCode LIKE :postalCode"
+                + "WHERE m.postalCode LIKE :postalCode "
+                + "ORDER BY m.name"
             );
 
             query.setParameter("postalCode", postalCode + "%");
@@ -98,5 +99,25 @@ public class StoreDAO {
         }
 
         return stores;
+    }
+    
+    public static Store get(int storeId) {
+        Store store;
+
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+
+            Query query = session.createQuery(
+                "FROM Magasin m "
+                + "WHERE m.id = :storeId "
+                + "ORDER BY m.name"
+            );
+
+            query.setParameter("storeId", storeId);
+
+            store = (Store) query.list().get(0);
+        }
+
+        return store;
     }
 }

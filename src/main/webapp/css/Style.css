@@ -7,15 +7,34 @@ html, body {
     width: 70px;
     height: 45px;
 }
+.prodPhoto{
+    width: 100px;
+    height: 100px;
+}
+
+#stores_list {
+    padding: 0px;
+}
 
 #rayon_categorie_navbar {
-    margin-top: 120px;
+    margin-top: 140px;
+    padding-left: 50px;
 }
 
 #container {
     margin-top: 1.5em;
     margin-left: 5%;
     margin-right: 5%;
+}
+
+.bold{
+    font-weight:bold;
+    font-size: 20px;
+}
+#points{
+    /*width: 50%;*/
+    /*float: right;*/
+    /*margin-left: 50%;*/
 }
 
 .btn-outline-primary, .btn-outline-primary:active, .btn-outline-primary:visited { 

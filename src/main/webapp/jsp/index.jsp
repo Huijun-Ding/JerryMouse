@@ -12,7 +12,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="../js/search_stores.js"></script>
+        <script src="../js/stores.js"></script>
+        <script src="../js/department.js"></script>
     </head>
     <body>
         <header class="shadow p-3 mb-5 bg-body fixed-top">
@@ -21,35 +22,27 @@
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-1 text-decoration-none">
                         <img id="logo" src="../img/logo_small.png" alt="" class="d-inline-block align-text-top rounded">
                     </a>
-                    <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle border-0" data-toggle="dropdown">
-                        <i class="fa fa-shopping-bag"></i> Toulouse
+                    <button id="store_button" type="button" class="btn btn-sm btn-outline-primary dropdown-toggle border-0" data-toggle="dropdown">
+                        <i class="fa fa-shopping-bag"></i> <span id="store_name">Choisissez un magasin</span>
                     </button>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item">
-                            <i class="fas fa-store-alt"></i> Carrefour Market Toulouse Compans
+                            <span id="store_street"></span>
                         </li>
                         <li class="dropdown-item">
-                            <i class="fa fa-map-pin"></i> 3, Espl. Compans Caffarelli
-                        </li>
-                        <li class="dropdown-item">
-                            <i class="fa fa-map-signs"></i> Toulouse
-                        </li>
-                        <li class="dropdown-item">
-                            <i class="fa fa-envelope-open"></i> 31400
+                            <span id="store_city"></span>
                         </li>
                         <li><hr class="dropdown-divider"></li>
-                        <li class="dropdown-item">
-                            Changer de magasin : 
-                            <input id="search_stores" type="search" class="form-control" placeholder="Saisir le code postal ici ...">
-                        </li>
-                        <li class="dropdown-item"">
-                            <div id="stores_list" class="accordion"></div>
+                        <li class="dropdown-item text-center">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#search_stores_modal">
+                                Changer de magasin
+                            </button>
                         </li>
                     </ul>
                 </div>
 
                 <form>
-                    <div class="input-group input-group-sm">
+                    <div class="input-group input-group">
                         <input type="search" class="form-control" placeholder="Rechercher un produit ...">
                         <div class="input-group-append">
                             <button type="button" class="btn btn-primary">
@@ -92,30 +85,47 @@
         </div>
     </header>
 
-    <ul id="rayon_categorie_navbar" class="nav nav-tabs nav-justified">
-        <li class="nav-item">
-            <button type="button" class="nav-link active dropdown-toggle" data-toggle="dropdown">
-                Rayon
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Rayon 1</a>
-                <a class="dropdown-item" href="#">Rayon 2</a>
+
+    <div id="rayon_categorie_navbar">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item btn-group">
+                    <button id="departmentButton" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
+                    </button>
+                    <div id="departments_list" class="dropdown-menu dropdown-menu-dark"></div>
+                </li>
+                <li id="category" class="breadcrumb-item btn-group" aria-current="page">
+                    <button id="categoryButton" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
+                    </button>
+                    <div id="productCategories_list" class="dropdown-menu dropdown-menu-dark"></div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="modal" id="search_stores_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Changer de magasin</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <input id="search_stores" type="search" class="form-control" placeholder="Saisir le code postal ici ...">
+                    <ul id="stores_list"></ul>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                </div>
             </div>
-        </li>
-        <li class="nav-item">
-            <button type="button" class="nav-link active dropdown-toggle" data-toggle="dropdown">
-                Catégorie
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Catégorie 1</a>
-                <a class="dropdown-item" href="#">Catégorie 2</a>
-            </div>
-        </li>
-    </ul>
+        </div>
+    </div>
 
     <!-- 16:9 aspect ratio -->
     <div class="embed-responsive embed-responsive-16by9">
         <iframe id="view" class="embed-responsive-item" src="../DisplayProducts?home" allowfullscreen></iframe>
     </div>
 </body>
-</html>
+</html

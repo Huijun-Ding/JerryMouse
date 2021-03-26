@@ -20,9 +20,9 @@ public class DepartmentDAO {
     // ----------------------- METHODS ----------------------
 
     public static void initialize() {
-        
+
     }
-    
+
     /**
      * Get all departments from database.
      * @return All departments from database.
@@ -35,5 +35,24 @@ public class DepartmentDAO {
                 + "FROM Rayon r "
                 + "ORDER BY r.name").list();
         }
+    }
+
+    public static Department get(int id) {
+        Department d;
+        
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+
+            Query query = session.createQuery(""
+                + "FROM Rayon r "
+                + "WHERE r.id = :id "
+                + "ORDER BY r.name ");
+            
+            query.setParameter("id", id);
+            
+            d = (Department) query.list().get(0);
+        }
+        
+        return d;
     }
 }

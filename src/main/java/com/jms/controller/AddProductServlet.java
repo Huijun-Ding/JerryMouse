@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.jms.controller;
 
-import com.jms.dao.ProductCategoryDAO;
-import com.jms.model.ProductCategory;
+import com.jms.dao.BasketDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author axelt
+ * @author Jerry Mouse Software.
  */
-public class ProductCategoryServlet extends HttpServlet {
+public class AddProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,23 +25,20 @@ public class ProductCategoryServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
-            int departmentId = Integer.parseInt(request.getParameter("departmentId"));
-
-            response.setContentType("application/xml;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            out.println("<?xml version=\"1.0\"?>");
-            out.println("<productCategories>");
-
-            for (ProductCategory c : ProductCategoryDAO.getProductCategoriesByDepartmentId(departmentId)) {
-                out.println("   <productCategory>");
-                out.println("       <id><![CDATA[" + c.getId() + "]]></id>");
-                out.println("       <name><![CDATA[" + c.getName() + "]]></name>");
-                out.println("   </productCategory>");
+        int idClient = Integer.parseInt(request.getParameter("idClient"));
+//        int idClient = 1;
+        String ean = request.getParameter("ean");
+        
+        try {
+            if (BasketDAO.checkProductBakset(idClient, ean)){
+                BasketDAO.updateBasket(idClient, ean);
+            }else{
+                BasketDAO.addProductToBasket(idClient, ean);
             }
-
-            out.println("</productCategories>");
-        }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } 
+        request.getRequestDispatcher("#").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

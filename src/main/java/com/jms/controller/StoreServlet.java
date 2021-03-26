@@ -33,19 +33,35 @@ public class StoreServlet extends HttpServlet {
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
             String postalCode = request.getParameter("postalCode");
+            String setStoreId = request.getParameter("setStoreId");
 
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             out.println("<?xml version=\"1.0\"?>");
             out.println("<stores>");
 
-            for (Store s : StoreDAO.getAll(postalCode)) {
+            if (postalCode != null && !postalCode.equals("")) {
+                for (Store s : StoreDAO.getAll(postalCode)) {
+                    out.println("   <store>");
+                    out.println("       <id><![CDATA[" + s.getId() + "]]></id>");
+                    out.println("       <name><![CDATA[" + s.getName() + "]]></name>");
+                    out.println("       <street><![CDATA[" + s.getStreet() + "]]></street>");
+                    out.println("       <city><![CDATA[" + s.getCity() + "]]></city>");
+                    out.println("       <postalCode><![CDATA[" + s.getPostalCode() + "]]></postalCode>");
+                    out.println("   </store>");
+                }
+            } else if(setStoreId != null && !setStoreId.equals("")) {
+                Store s = StoreDAO.get(Integer.parseInt(setStoreId));
+                
                 out.println("   <store>");
+                out.println("       <id><![CDATA[" + s.getId() + "]]></id>");
                 out.println("       <name><![CDATA[" + s.getName() + "]]></name>");
                 out.println("       <street><![CDATA[" + s.getStreet() + "]]></street>");
                 out.println("       <city><![CDATA[" + s.getCity() + "]]></city>");
                 out.println("       <postalCode><![CDATA[" + s.getPostalCode() + "]]></postalCode>");
-                out.println("   </store>");
+                out.println("   </store>");                
+                
+                request.getSession().setAttribute("store", s);
             }
 
             out.println("</stores>");

@@ -35,24 +35,29 @@ public class ProductCategoryDAO {
         }
     }
     
-    public static List<ProductCategory> getProductCategoriesByDepartment(String department) {
+    public static List<ProductCategory> getProductCategoriesByDepartmentId(int departmentId) {
         List<ProductCategory> categories;
 
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
 
             Query query = session.createQuery(
-                  "SELECT new com.jms.model.ProductCategory(c.name) "
-                + "FROM CategorieProduit c, Rayon r "
-                + "c.department.id = r.id "
-                + "WHERE m.name LIKE :department"
+                  "FROM CategorieProduit c "
+                + "WHERE c.department.id = :departmentId "
+                + "ORDER BY c.name"
             );
 
-            query.setParameter("department", department + "%");
+            query.setParameter("departmentId", departmentId);
 
             categories = query.list();
         }
 
         return categories;
+    }
+    
+    public static void main(String[] args) {
+        for(ProductCategory c : getProductCategoriesByDepartmentId(1)) {
+            System.out.println(c);
+        }
     }
 }
