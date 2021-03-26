@@ -59,8 +59,8 @@
                     <div class="col-3">    
                         <div name="calcul">
                             <table class="table" id="points">
-                                <tr><td>Points got: </td><td><span class="bold" id="cagnotte_gagne"></span></td></tr>
-                                <tr><td>Points cumulative: </td><td><span class="bold" id="cagnotte_cumul"></span></td></tr>
+                                <tr><td>Points acquis: </td><td><span class="bold" id="cagnotte_gagne"></span></td></tr>
+                                <tr><td>Points cumulatifs: </td><td><span class="bold" id="cagnotte_cumul"></span></td></tr>
                                 <tr><td>Total: </td><td><span class="bold" id="total"></span></td></tr>                        
                             </table>
                         </div>
