@@ -57,6 +57,12 @@ public class OrderLine {
         this.product = product;
     }
 
+    public OrderLine(int quantity, Order order, Product product) {
+        this.quantity = quantity;
+        this.order = order;
+        this.product = product;
+    }
+    
     // ----------------- GETTERS & SETTERS ------------------
     public OrderLineId getId() {
         return id;
