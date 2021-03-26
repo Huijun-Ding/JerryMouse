@@ -1,3 +1,5 @@
+<%@page import="com.jms.model.Store"%>
+<%@page import="com.jms.model.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +16,7 @@
                 <div class="col-2" name="en_tete">
                     <img id="logo" src="img/logo.png">
                 </div>
-                <!--<div class="col-8">Store:</div>-->
+                <div class="col-8">Store:<span id="store"></span></div>
                 <div class="col-2">
                     <!--<button class="btn btn-outline-primary" id="se_connecter">Login</button>-->
                 </div>
@@ -23,7 +25,20 @@
             <h1>My basket</h1>
 
             <%
-                String idClient = request.getParameter("idClient");
+                
+                Client client = (Client)session.getAttribute("client");
+                int idClient = 1;
+                if(client == null){
+                    response.sendRedirect("jsp/login.jsp");
+
+                }else {
+                    idClient = client.getCode();
+
+                }
+                session.setAttribute("client", client);
+                
+                Store store = (Store)session.getAttribute("store");
+                session.setAttribute("store", store);
             %>
             <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
             <form action="">
