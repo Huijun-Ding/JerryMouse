@@ -14,9 +14,9 @@
         <div class="container" id="container">
             <div class="row">
                 <div class="col-2" name="en_tete">
-                    <img id="logo" src="img/logo.png">
+                    <!--<img id="logo" src="img/logo.png">-->
                 </div>
-                <div class="col-8">Store:<span id="store"></span></div>
+                <!--<div class="col-8">Store:(<span id="store"></span>)</div>-->
                 <div class="col-2">
                     <!--<button class="btn btn-outline-primary" id="se_connecter">Login</button>-->
                 </div>
