@@ -55,21 +55,11 @@ html, body {
     background-color: #6610f2 !important;
 }
 
-/*.box {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	display: none;
-	width: 198px; BUG : Si le texte est plus long il déborde. A corriger en css ! 
-        width: 100%;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #6610f2;
-	margin-top: 1px;
-	padding: 2px;
-}*/
+#output, #search_result, .item {
+    z-index: 7;
+}
 
 #view {
-    overflow: hidden;
-    height: 1000px;
+    overflow-y: hidden;
     width: 100%;
 }
