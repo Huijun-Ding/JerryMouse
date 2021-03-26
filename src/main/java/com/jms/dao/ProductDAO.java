@@ -30,13 +30,13 @@ public class ProductDAO {
      * <b>Rule(s) : connection to datebase</b>
      */
     private static Connection cx = null;
-    private static final String URL = "jdbc:mysql://localhost:3306/jm";
-    private static final String LOGIN = "root";
-    private static final String PASSWORD = "";
+//    private static final String URL = "jdbc:mysql://localhost:3306/jm";
+//    private static final String LOGIN = "root";
+//    private static final String PASSWORD = "";
 
-//    private static final String URL = "jdbc:mysql://localhost:3307/db_21509053_2";
-//    private static final String LOGIN = "21509053";
-//    private static final String PASSWORD = "Q02MI0";
+    private static final String URL = "jdbc:mysql://localhost:3307/db_21509053_2";
+    private static final String LOGIN = "21509053";
+    private static final String PASSWORD = "Q02MI0";
 
     //------------Methods--------------
     /**
