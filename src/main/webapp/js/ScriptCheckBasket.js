@@ -78,5 +78,3 @@ function displayPoints() {
     };
     xhr.send();
 }
-
-
