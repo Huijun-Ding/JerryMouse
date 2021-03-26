@@ -5,12 +5,16 @@
  */
 package com.jms.controller;
 
+import com.jms.model.Client;
+import com.jms.model.Store;
+import com.jms.model.TimeSlot;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,6 +34,24 @@ public class ValidateServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession session = request.getSession();
+        
+        // Get the client
+        if (session.getAttribute("client") != null ) {
+            Client client = (Client) session.getAttribute("client");
+        }
+        
+        // Get the store
+        if (session.getAttribute("store") != null ) {
+            Store store = (Store) session.getAttribute("store");
+        }
+        
+        // Get the timeslot        
+        if (session.getAttribute("timeslot") != null ) {
+            TimeSlot timeslot = (TimeSlot) session.getAttribute("timeslot");
+        }
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
