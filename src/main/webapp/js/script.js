@@ -51,14 +51,12 @@ function searchProducts() {
 
     var myinput = document.getElementById("search").value;
     xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
-
+    alert(myinput);
     xhr.onload = function ()
     {
         if (xhr.status === 200)
         {
-            alert("get");
-            document.getElementById('show_result').src = "http://localhost:8080/jm/SendSearchRequestServlet?keyword=" + myinput;
-            alert(xhr.status);
+            document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;
         }
     };
     xhr.send();
@@ -78,7 +76,7 @@ function searchProductsBySuggestion() {
     {
         if (xhr.status === 200)
         {
-            document.getElementById('show_result').src = "http://localhost:8080/jm/SendSearchRequestServlet?keyword=" + myinput;
+            document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;
         }
     };
     xhr.send();
