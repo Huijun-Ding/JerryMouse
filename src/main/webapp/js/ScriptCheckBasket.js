@@ -20,12 +20,14 @@ function displayBasket() {
 
                 photo = productLine.getElementsByTagName("photo")[0].firstChild.nodeValue;
                 name = productLine.getElementsByTagName("name")[0].firstChild.nodeValue;
+                format = productLine.getElementsByTagName("format")[0].firstChild.nodeValue;
+                alert(format);
                 price = productLine.getElementsByTagName("price")[0].firstChild.nodeValue;
                 priceAfter = productLine.getElementsByTagName("priceAfter")[0].firstChild.nodeValue;
                 quantity = productLine.getElementsByTagName("quantity")[0].firstChild.nodeValue;
                 totalPrice = productLine.getElementsByTagName("totalPrice")[0].firstChild.nodeValue;
                 promotion = productLine.getElementsByTagName("promotion")[0].firstChild.nodeValue;
-
+                
                 if(priceAfter !== " "){
                     priceAfter += "&#8364;";
                     price = "<span class='text-decoration-line-through'>" + price + "</span>";
@@ -34,7 +36,7 @@ function displayBasket() {
                 }
                 
                 const rows = "<tr><td><img src='" + photo + "' class='prodPhoto'></td><td>" 
-                        + name + "</td><td>" 
+                        + name + "</br>" + format + "</td><td>" 
                         + price + "&#8364;</br>" + priceAfter + "</td><td>" 
                         + quantity + "</td><td>" 
                         + totalPrice + "&#8364;</br>" + promotion + "</td></tr>"

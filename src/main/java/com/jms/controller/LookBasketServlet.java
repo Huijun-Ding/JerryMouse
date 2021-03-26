@@ -103,8 +103,7 @@ public class LookBasketServlet extends HttpServlet {
                     priceAfterString = " ";
                     promo = " ";
                 }
-                
-                
+             
                 // quantity of a product in basket
                 int quantityProd = productQty.get(product);
 
@@ -118,6 +117,7 @@ public class LookBasketServlet extends HttpServlet {
                 out.println("<photo>" + product.getUrlThumbnail() + "</photo>");
                 out.println("<id>" + product.getEan() + "</id>");
                 out.println("<name>" + product.getName() + "</name>");
+                out.println("<format>" + product.getFormat() + "</format>");
                 out.println("<price>" + String.format("%.2f", product.getUnitPrice()) 
                         + "</price>");
                 out.println("<priceAfter>" + priceAfterString + "</priceAfter>");
