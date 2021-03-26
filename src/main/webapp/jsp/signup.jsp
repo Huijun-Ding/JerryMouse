@@ -39,7 +39,7 @@
             </div>
             <br>
             <a href="index.jsp" class="btn btn-outline-primary">Annuler</a>
-            <input type="submit" class="btn btn-outline-primary">S'inscrire</a>
+            <input type="submit" class="btn btn-outline-primary" vlaue="S'inscrire">
         </form>
     </body>
 </html>
