@@ -5,6 +5,7 @@
  */
 package com.jms.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -13,6 +14,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,6 +35,7 @@ public class Order {
      * The unique identity of a order.
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CodeCD")
     private int orderId;
     
@@ -39,7 +43,7 @@ public class Order {
      * The date of order.
      */
     @Column(name = "DateCD")
-    private String orderName;
+    private Date orderDate;
     
     /**
     *  Hibernate join property with Product Class.
@@ -73,26 +77,37 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderId, String orderName) {
+    public Order(int orderId, Date orderDate) {
         this.orderId = orderId;
-        this.orderName = orderName;
+        this.orderDate = orderDate;
     }
+
+    public Order(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+    
+    public Order(Date orderDate, Store store, TimeSlot timeslot) {
+        this.orderDate = orderDate;
+        this.store = store;
+        this.timeslot = timeslot;
+    }
+    
 
     //-----------Getters and setters----------------
     public int getOrderId() {
         return orderId;
     }
 
-    public String getOrderName() {
-        return orderName;
+    public Date getOrderDate() {
+        return orderDate;
     }
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public Map<Product, OrderLine> getProducts() {
@@ -155,7 +170,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", orderName=" + orderName + '}';
+        return "Order{" + "orderId=" + orderId + ", orderName=" + orderDate + '}';
     }
 
 }
