@@ -4,6 +4,7 @@
     Author     : mlk
 --%>
 
+<%@page import="com.jms.model.Client"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
@@ -33,6 +34,9 @@
             <h1>Liste des produits</h1>
             <%
                 ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
+                request.setAttribute("productsList", list);
+                Client client = (Client)session.getAttribute("client");
+                session.setAttribute("client", client);
                 //int nb_product = 5; // number of products to display    
 
             %> 
@@ -86,7 +90,7 @@
                         %>
                         <img class="card-img-top img-thumbnail" src="<%= url%>" alt="alt"/>
                         <div class="card-body">
-                            <a href="AddProductServlet?ean=<%= product.getEan() %>" class="stretched-link"></a> 
+                            <a href="AddProductServlet?ean=<%= product.getEan() %>" class="stretched-link" onclick="displayNbProduct()"></a> 
                             <h6 class="card-title "><%= libelle%></h6>
                             <!-- subtitle -->
                             <h7 class="card-subtitle mb-2 text-muted">
