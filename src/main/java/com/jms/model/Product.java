@@ -210,6 +210,24 @@ public class Product implements Serializable {
         this.urlThumbnail = urlThumbnail;
         this.promotions.put(new Promotion(percentage, rank), new Reduce());
     }
+    
+    public Product(String ean, String name, String format,
+            ProductNutriScore nutriscore, ProductConditioning packaging,
+            int packagingQuantity, float unitPrice, float kgPrice,
+            String urlThumbnail, int idPromotion, float percentage, int rank, 
+            Set<Label> labels) {
+        this.ean = ean;
+        this.name = name;
+        this.format = format;
+        this.nutriscore = nutriscore;
+        this.packaging = packaging;
+        this.packagingQuantity = packagingQuantity;
+        this.unitPrice = unitPrice;
+        this.kgPrice = kgPrice;
+        this.urlThumbnail = urlThumbnail;
+        this.promotions.put(new Promotion(percentage, rank), new Reduce());
+        this.labels = labels;
+    }
 
     // ----------------- GETTERS & SETTERS ------------------
     public String getEan() {

@@ -60,7 +60,6 @@ html, body {
 }
 
 #view {
-    overflow: hidden;
-    height: 1000px;
+    overflow-y: hidden;
     width: 100%;
 }
