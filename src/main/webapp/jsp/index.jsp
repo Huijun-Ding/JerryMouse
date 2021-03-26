@@ -1,3 +1,4 @@
+<%@page import="com.jms.model.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -57,7 +58,16 @@
                         </div>
                     </div>
                 </form>
-
+                <%
+                    Client client = (Client)session.getAttribute("client");
+                    if (client != null) {
+                        out.println("<div>");
+                        out.println("<h3>");
+                        out.println("Bonjour " + client.getFirstName());
+                        out.println("</h3>");
+                        out.println("</div>");
+                    }
+                %>
                 <div class="btn-group ms-3">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-toggle="dropdown">
