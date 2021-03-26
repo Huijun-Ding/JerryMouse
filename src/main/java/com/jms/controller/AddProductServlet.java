@@ -1,12 +1,17 @@
 package com.jms.controller;
 
 import com.jms.dao.BasketDAO;
+import com.jms.model.Client;
+import com.jms.model.Product;
 import java.io.IOException;
+import static java.lang.System.out;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,11 +30,28 @@ public class AddProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int idClient = Integer.parseInt(request.getParameter("idClient"));
+        HttpSession session = request.getSession(true);
+        Client client = (Client)session.getAttribute("client");
+        
+        ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
+        request.setAttribute("productsList", list);
+        
+        int idClient = client.getCode();
+//        int idClient = Integer.parseInt(request.getParameter("idClient"));
 //        int idClient = 1;
         String ean = request.getParameter("ean");
         
         try {
+            // check nb products in basket
+            int nb = BasketDAO.calculNbProduct(idClient);
+//            session.setAttribute("nbProducts", nb);
+            
+            out.println("<?xml version=\"1.0\"?>");
+            response.setContentType("application/xml;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            out.println("<nbProducts>" + nb + "</nbProducts>");
+            
+            // add product in basket
             if (BasketDAO.checkProductBakset(idClient, ean)){
                 BasketDAO.updateBasket(idClient, ean);
             }else{
@@ -38,7 +60,7 @@ public class AddProductServlet extends HttpServlet {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } 
-        request.getRequestDispatcher("#").forward(request, response);
+        request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
