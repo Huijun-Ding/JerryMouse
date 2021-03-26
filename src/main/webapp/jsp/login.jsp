@@ -18,20 +18,22 @@
             <h1>Connexion</h1>
         
             <p>Veuillez entrer votre login et votre mot de passe <br>
-            Les champs suivis d'un * sont obligatoires</p>
-            <p class="text-danger">${requestScope.msg_error}</p>
+            Les champs suivis d'un '*' sont obligatoires.</p>
+            <p class="text-danger">
+                <% if(request.getAttribute("msg_error") != null)
+                    out.println(request.getAttribute("msg_error"));%>
+            </p>
             
-            <form action="../connect" method ="GET">
+            <form action="../Connect" method ="POST">
                 <div>
-                    <p>Login* :</p>
-                    <input type="text" id="mail" name="mail" required />
-                    <p>Mot de passe*: </p>
-                    <input type="text" id="pw" name="password" required />    
+                    <p>Login * :</p>
+                    <input type="email" id="mail" name="mail"  required />
+                    <p>Mot de passe *: </p>
+                    <input type="password" id="pw" name="password" required />    
                 </div>
                 <br>
-                <a href="../connect?method=return" class="btn btn-outline-primary"> Retour vers l'accueil<a/>
-                <a href="../connect?method=connection" class="btn btn-outline-primary">Se connecter</a>
-
+                <a href="index.jsp" class="btn btn-outline-primary"> Retour vers l'accueil</a>
+                <input type="submit" class="btn btn-outline-primary"/>
             </form>
             
         </div>

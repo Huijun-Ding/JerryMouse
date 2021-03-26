@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>ConnectServlet</servlet-name>
-        <servlet-class>com.jms.controller.ConnectServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Login</servlet-name>
         <jsp-file>/jsp/login.jsp</jsp-file>
     </servlet>
@@ -41,12 +37,24 @@
         <servlet-class>com.jms.controller.ProductCategoryServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ConnectServlet</servlet-name>
+        <servlet-class>com.jms.controller.ConnectServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Index</servlet-name>
+        <jsp-file>/jsp/index.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>AddProductServlet</servlet-name>
         <servlet-class>com.jms.controller.AddProductServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LookBasketServlet</servlet-name>
         <servlet-class>com.jms.controller.LookBasketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeconnectServlet</servlet-name>
+        <servlet-class>com.jms.controller.DeconnectServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -89,12 +97,24 @@
         <url-pattern>/ProductCategory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ConnectServlet</servlet-name>
+        <url-pattern>/Connect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/AddProductServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LookBasketServlet</servlet-name>
         <url-pattern>/checkBasketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeconnectServlet</servlet-name>
+        <url-pattern>/Deconnect</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

@@ -45,6 +45,29 @@ public class ClientDAO {
     }
 
     /**
+     * Get the object client by the email and the password
+     * @param email
+     * @param password
+     * @return 
+     */
+    public static Client getByEmailPassword(String email, String password){
+        Client client;
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            /*----------------Ouverture d'une transaction---------*/
+            Transaction t = session.beginTransaction();
+            Query query = session.createQuery( "from Client c "
+                    + "where c.email = :email "
+                    + "and c.password = :password");
+            
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            List <Client> lstClients = query.list(); 
+            client = lstClients.get(0);
+        } 
+        return client; 
+    }
+    
+    /**
      * Create a new client in the database
      */
     public static void create() {
@@ -77,7 +100,6 @@ public class ClientDAO {
         }
     }
 
-
     /**
      * Search a client with client's id
      *
@@ -105,6 +127,5 @@ public class ClientDAO {
         load(2);
         boolean res = authenticate("rc@gmail.com", "rm123");
         System.out.println(res);
-
     }
 }
