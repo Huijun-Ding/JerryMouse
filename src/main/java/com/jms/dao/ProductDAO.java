@@ -30,6 +30,10 @@ public class ProductDAO {
      * <b>Rule(s) : connection to datebase</b>
      */
     private static Connection cx = null;
+//    private static final String URL = "jdbc:mysql://localhost:3306/jm";
+//    private static final String LOGIN = "root";
+//    private static final String PASSWORD = "";
+
     private static final String URL = "jdbc:mysql://localhost:3307/db_21509053_2";
     private static final String LOGIN = "21509053";
     private static final String PASSWORD = "Q02MI0";
@@ -124,21 +128,22 @@ public class ProductDAO {
 
         return categories;
     }
-    
+
     /**
      * Searche a product with its EAN
+     *
      * @param ean
      * @return Product
      */
-    public static Product searchProduct(String ean) throws SQLException{
+    public static Product searchProduct(String ean) throws SQLException {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             System.out.println(ean);
             Query query = session.createQuery("from Produit where EANP = :code");
 
             query.setParameter("code", ean);
-            Product product = (Product)query.list().get(0);
+            Product product = (Product) query.list().get(0);
             t.commit();
             return product;
         }
@@ -190,7 +195,7 @@ public class ProductDAO {
 
         /*----- Exit -----*/
         System.exit(0);
-        
+
         try {
             ProductDAO.searchProduct("P1");
         } catch (SQLException ex) {

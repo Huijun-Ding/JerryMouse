@@ -20,7 +20,7 @@
         <header class="shadow p-3 mb-5 bg-body fixed-top">
             <div class="d-flex flex-wrap align-items-center justify-content-around">
                 <div class="d-flex flex-column align-items-center justify-content-center">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-1 text-decoration-none">
+                    <a href="/jm/jsp/index.jsp" class="d-flex align-items-center mb-2 mb-lg-1 text-decoration-none">
                         <img id="logo" src="../img/logo_small.png" alt="" class="d-inline-block align-text-top rounded">
                     </a>
                     <button id="store_button" type="button" class="btn btn-sm btn-outline-primary dropdown-toggle border-0" data-toggle="dropdown">
@@ -133,9 +133,7 @@
     </div>
 
     <!-- 16:9 aspect ratio -->
-    <div class="embed-responsive embed-responsive-16by9">
-        <iframe id="view" class="embed-responsive-item" src="../DisplayProducts?home" allowfullscreen></iframe>
-    </div>
+    <iframe id="view" class="h-100 d-inline-block w-100" src="../DisplayProducts?home" allowfullscreen></iframe>
 
     <script type="text/JavaScript" src="../js/search.js"></script>
 </body>

@@ -7,6 +7,9 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3307/db_21509053_2</property>
     <property name="hibernate.connection.username">21509053</property>
     <property name="hibernate.connection.password">Q02MI0</property>
+<!--    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jm</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password"></property>-->
 
     <!-- Parseur HQL -->
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
