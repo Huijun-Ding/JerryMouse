@@ -133,9 +133,7 @@
     </div>
 
     <!-- 16:9 aspect ratio -->
-    <div class="embed-responsive embed-responsive-16by9">
-        <iframe id="view" class="embed-responsive-item" src="../DisplayProducts?home" allowfullscreen></iframe>
-    </div>
+    <iframe id="view" class="h-100 d-inline-block w-100" src="../DisplayProducts?home" allowfullscreen></iframe>
 
     <script type="text/JavaScript" src="../js/search.js"></script>
 </body>
