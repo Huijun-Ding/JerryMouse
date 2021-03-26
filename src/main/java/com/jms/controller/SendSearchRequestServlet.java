@@ -26,31 +26,12 @@ public class SendSearchRequestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("application/xml;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        try (PrintWriter out = response.getWriter()) {
-            // XML page
-            out.println("<?xml version=\"1.0\"?>");
-            out.println("<list_products>");
-
-            // get parameter
             String keyword = request.getParameter("keyword");
 
-            if (!keyword.equals("")) {
-                // put result into a list
-                List<Product> products = ProductDAO.returnSrearchResult(keyword);
-                request.setAttribute("productsList", products);
-                for (Product p : products) {
-                    out.println("<product><![CDATA[" + p.getName() + "]]></product>");
-                }
-            } else {
-                out.println("<product><![CDATA[]]></product>");
-            }
-            out.println("</list_products>");
-            
+            List<Product> products = ProductDAO.returnSrearchResult(keyword);
+            request.setAttribute("productsList", products);
+
             request.getRequestDispatcher("ProductsList").forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
