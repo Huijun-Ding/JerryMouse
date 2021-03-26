@@ -59,6 +59,7 @@ function searchProducts() {
         if (xhr.status === 200)
         {
             document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;
+            elt.innerHTML = "";
         }
     };
     xhr.send();
@@ -80,6 +81,7 @@ function searchProductsBySuggestion() {
         if (xhr.status === 200)
         {
             document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;
+            document.getElementById("search_result").innerHTML = "";
         }
     };
     xhr.send();
