@@ -53,11 +53,9 @@ function searchProducts() {
 
     var myinput = document.getElementById("search").value;
     xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
-    alert(myinput);
 
     xhr.onload = function ()
     {
-        alert("ok");
         if (xhr.status === 200)
         {
             document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;

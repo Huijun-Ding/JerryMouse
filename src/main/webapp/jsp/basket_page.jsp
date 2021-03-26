@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <h1>My basket</h1>
+            <h1>MON PANIER</h1>
 
             <%
                 
