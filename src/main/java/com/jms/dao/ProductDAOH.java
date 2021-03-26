@@ -43,8 +43,24 @@ public class ProductDAOH {
 
             //System.out.println("--------- GET ONE PRODUCT FROM ID ");
             Product prod = session.get(Product.class, id);
-            System.out.println(prod);
+            //System.out.println(prod);
+        }
+    }
+    
+    /**
+     * Gets all the information of a product from its EAN.
+     *
+     * @param id the ean of the product.
+     */
+    public static Product getAll(Product prod) {
+        /*----- Session opening -----*/
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
 
+            //System.out.println("--------- GET ONE PRODUCT FROM ID ");
+            prod = session.get(Product.class, prod.getEan());
+            //System.out.println(prod);
+            return prod;
         }
     }
 
@@ -64,11 +80,34 @@ public class ProductDAOH {
                     "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
                     + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
-                    + "FROM Produit p ";
+                    + "FROM Produit p LEFT OUTER JOIN p.labels l ";
             list = session.createQuery(sql).list();
             return list;
         } 
     }
+    
+    /**
+     * Gets all the products in the catalog.
+     * @return the list of the products.
+     */
+    public static List<Product> getAllProductsWithAllInfo() {
+        List<Product> list;
+        /*----- Session opening -----*/
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            //System.out.println("--------- GET ALL PRODUCTS ");
+            
+            String sql = 
+                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
+                    + "p.nutriscore, p.packaging, p.packagingQuantity, "
+                    + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
+                    + "FROM Produit p LEFT OUTER JOIN p.labels l ";
+            list = session.createQuery(sql).list();
+            return list;
+        } 
+    }
+    
     
     /**
      * Gets the products of a category from its id.
@@ -139,10 +178,12 @@ public class ProductDAOH {
             String sql = 
                     "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
-                    + "p.unitPrice, p.kgPrice, p.urlThumbnail, pr.id, pr.percentage, pr.rank) "
+                    + "p.unitPrice, p.kgPrice, p.urlThumbnail, "
+                    + "pr.id, pr.percentage, pr.rank) "
                     + "FROM Reduire r "
                     + "JOIN r.product p "
                     + "JOIN r.promotion pr "
+                    + "LEFT OUTER JOIN p.labels "
                     + "WHERE r.promoEndDate >= current_date "
                     + "ORDER BY p.unitPrice";
             Query query = session.createQuery(sql);
@@ -152,5 +193,30 @@ public class ProductDAOH {
         }
     }
     
+    public static List<Product> getLabelsOfProducts(List<Product> list) {
+        /*----- Session opening -----*/
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            //System.out.println("--------- GET PRODUCTS CURRENTLY IN PROMOTION");
+            
+            String sql = 
+                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
+                    + "p.nutriscore, p.packaging, p.packagingQuantity, "
+                    + "p.unitPrice, p.kgPrice, p.urlThumbnail, "
+                    + "pr.id, pr.percentage, pr.rank) "
+                    + "FROM Reduire r "
+                    + "JOIN r.product p "
+                    + "JOIN r.promotion pr "
+                    + "LEFT OUTER JOIN p.labels "
+                    + "WHERE r.promoEndDate >= current_date "
+                    + "ORDER BY p.unitPrice";
+            Query query = session.createQuery(sql);
+            
+            List<Product> listLabel = query.list();
+            //session.close();
+            return list;
+        }
+    }
     
 }
