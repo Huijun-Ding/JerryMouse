@@ -1,5 +1,5 @@
 /**
- * This function AJAX is use for searching a product or a category.
+ * This function AJAX will autocomplete the keyword by return a list of category or product who matche the keyword.
  */
 function getSearchElement() {
     // Objet XMLHttpRequest.
@@ -44,6 +44,9 @@ function getSearchElement() {
     xhr.send();
 }
 
+/**
+ * This function AJAX is use for searching a product or a category from the button.
+ */
 function searchProducts() {
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
@@ -63,6 +66,9 @@ function searchProducts() {
     xhr.send();
 }
 
+/**
+ * This function AJAX is use for searching a product or a category from the clic of a item autocomplete.
+ */
 function searchProductsBySuggestion() {
     var myinput = this.firstChild.nodeValue;
 

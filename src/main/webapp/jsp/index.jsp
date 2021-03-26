@@ -83,17 +83,12 @@
                             <%}%>
                         </div>
                     </div>
-                    <%if (client != null) {%>
-                    <a href="basketPage?idClient=<%out.println(client.getCode());%>" role="button" class="btn  btn-sm btn-primary">
-                        <%} else {%>
-
-                        <a href="basketPage" role="button" class="btn  btn-sm btn-primary">
-                            <%}%>
-                            <div class="d-flex flex-column">
-                                <i class="fa fa-shopping-basket"></i>
-                                Panier
-                            </div>
-                        </a>
+                    <button id="basket_button" role="button" class="btn  btn-sm btn-primary">
+                        <div class="d-flex flex-column">
+                            <i class="fa fa-shopping-basket"></i>
+                            Panier
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -142,6 +137,6 @@
         <iframe id="view" class="embed-responsive-item" src="../DisplayProducts?home" allowfullscreen></iframe>
     </div>
 
-    <script type="text/JavaScript" src="../js/script.js"></script>
+    <script type="text/JavaScript" src="../js/search.js"></script>
 </body>
 </html>
