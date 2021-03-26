@@ -51,13 +51,16 @@ function searchProducts() {
 
     var myinput = document.getElementById("search").value;
     xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
-    
+    alert("3");
+    //document.getElementById('show_result').src = "http://localhost:8080/jm/SendSearchRequestServlet?keyword=Glaces%20et%20desserts%20glac%C3%A9s";
+
     xhr.onload = function ()
     {
+        alert("1");
         if (xhr.status === 200)
         {
-            document.getElementById('show_result').src="http://localhost:8080/jm/SendSearchRequestServlet?keyword=" + myinput;
-            alert("http://localhost:8080/jm/SendSearchRequestServlet?keyword=" + myinput);
+            document.getElementById('show_result').src = "http://localhost:8080/jm/SendSearchRequestServlet?keyword=Glaces%20et%20desserts%20glac%C3%A9s";
+            alert("2");
         }
     };
     xhr.send();
