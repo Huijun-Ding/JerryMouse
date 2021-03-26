@@ -21,7 +21,6 @@ function displayBasket() {
                 photo = productLine.getElementsByTagName("photo")[0].firstChild.nodeValue;
                 name = productLine.getElementsByTagName("name")[0].firstChild.nodeValue;
                 format = productLine.getElementsByTagName("format")[0].firstChild.nodeValue;
-                alert(format);
                 price = productLine.getElementsByTagName("price")[0].firstChild.nodeValue;
                 priceAfter = productLine.getElementsByTagName("priceAfter")[0].firstChild.nodeValue;
                 quantity = productLine.getElementsByTagName("quantity")[0].firstChild.nodeValue;
