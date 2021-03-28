@@ -17,7 +17,7 @@ function displayNbProduct(){
             
             for (i = 0; i < product.length; i++) {
                 productLine = product[i];
-                nb = productLine[0].firstChild.nodeValue;
+                nb = productLine[i].firstChild.nodeValue;
                 alert(nb);
                 nb_products.insertAdjacentHTML('beforeend', nb);
             }    
@@ -30,5 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("addProduct").addEventListener("click", displayNbProduct);
 });
 
+window.onload = function () {
+    document.getElementById("addProduct").onclick = function () {
+        alert("1");
+    };
+};
 
 
