@@ -25,19 +25,12 @@
             <h1>Mon panier</h1>
 
             <%
-                
-                Client client = (Client)session.getAttribute("client");
+
+                Client client = (Client) session.getAttribute("client");
                 int idClient = 1;
-                if(client == null){
-                    response.sendRedirect("jsp/login.jsp");
-
-                }else {
-                    idClient = client.getCode();
-
-                }
+                idClient = client.getCode();
                 session.setAttribute("client", client);
-                
-                Store store = (Store)session.getAttribute("store");
+                Store store = (Store) session.getAttribute("store");
                 session.setAttribute("store", store);
             %>
             <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
@@ -73,7 +66,7 @@
                             <div class="col-6">
                                 <button class="btn btn-outline-primary" id="retour">Retour</button>
                             </div>
-<!--                            <div class="col-7"></div>-->
+                            <!--                            <div class="col-7"></div>-->
                         </div>
                     </div>
                 </div>
