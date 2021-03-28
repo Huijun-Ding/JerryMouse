@@ -2,6 +2,7 @@ package com.jms.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 
@@ -18,6 +19,7 @@ public class BasketId implements Serializable {
      * Unique code identifying a customer.
      * <b>Rule(s) : > 0</b>
      */
+    @Column(name = "CodeCL")
     private int id;
     /**
      * EAN (European Article Numbering): Bar code that uniquely identifies a
@@ -25,7 +27,8 @@ public class BasketId implements Serializable {
      * <b>Format : 12 or 13 digits</b>
      * <b>Maximum size : 20</b>
      */
-    private String eanp;
+    @Column(name = "EANP")
+    private String ean;
 
     // -------------------- CONSTRUCTORS --------------------
     public BasketId() {
@@ -35,12 +38,12 @@ public class BasketId implements Serializable {
      * A constructor of the BasketId Class.
      *
      * @param id Unique code identifying a customer.
-     * @param eanp EAN (European Article Numbering): Bar code that uniquely
+     * @param ean EAN (European Article Numbering): Bar code that uniquely
      * identifies a product.
      */
-    public BasketId(int id, String eanp) {
+    public BasketId(int id, String ean) {
         this.id = id;
-        this.eanp = eanp;
+        this.ean = ean;
     }
 
     // ----------------- GETTERS & SETTERS ------------------
@@ -63,21 +66,21 @@ public class BasketId implements Serializable {
     }
 
     /**
-     * Getter for the eanp property.
+     * Getter for the ean property.
      *
-     * @return The eanp property.
+     * @return The ean property.
      */
-    public String getEanp() {
-        return eanp;
+    public String getEan() {
+        return ean;
     }
 
     /**
-     * Setter for the eanp property.
+     * Setter for the ean property.
      *
-     * @param eanp The new value to set to the property.
+     * @param ean The new value to set to the property.
      */
-    public void setEanp(String eanp) {
-        this.eanp = eanp;
+    public void setEan(String ean) {
+        this.ean = ean;
     }
 
     // ----------------------- METHODS ------------------------
@@ -86,7 +89,7 @@ public class BasketId implements Serializable {
      */
     @Override
     public String toString() {
-        return "BasketId{" + "id=" + id + ", ean=" + eanp + '}';
+        return "BasketId{" + "id=" + id + ", ean=" + ean + '}';
     }
 
     /**
@@ -97,7 +100,7 @@ public class BasketId implements Serializable {
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + this.id;
-        hash = 59 * hash + Objects.hashCode(this.eanp);
+        hash = 59 * hash + Objects.hashCode(this.ean);
         return hash;
     }
 
@@ -122,7 +125,7 @@ public class BasketId implements Serializable {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.eanp, other.eanp)) {
+        if (!Objects.equals(this.ean, other.ean)) {
             return false;
         }
         return true;

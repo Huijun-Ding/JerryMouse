@@ -1,23 +1,52 @@
 html, body {
     font-family: Arial, sans-serif;
     height: 100%;
-    margin-top: 2%;
 }
 
 #logo{
-    width:100px;
-    height: 100px;
+    width: 70px;
+    height: 45px;
 }
+.prodPhoto{
+    width: 50px;
+    height: 50px;
+}
+
+#stores_list {
+    padding: 0px;
+}
+
+#rayon_categorie_navbar {
+    margin-top: 140px;
+    padding-left: 50px;
+}
+
 #container {
     margin-top: 1.5em;
     margin-left: 5%;
     margin-right: 5%;
 }
 
+.priceAfter{
+    color:red;
+    font-size: 17px;
+}
+
+.bold{
+    font-weight:bold;
+    font-size: 20px;
+}
+#points{
+    /*width: 50%;*/
+    /*float: right;*/
+    /*margin-left: 50%;*/
+}
+
 .btn-outline-primary, .btn-outline-primary:active, .btn-outline-primary:visited { 
     color:#6610f2 !important;
     border-color: #6610f2 !important;
 }
+
 .btn-outline-primary:hover {
     border-color: #6610f2 !important;
     background-color: #6610f2 !important;
@@ -31,17 +60,11 @@ html, body {
     background-color: #6610f2 !important;
 }
 
-/*.box {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	display: none;
-	width: 198px; BUG : Si le texte est plus long il déborde. A corriger en css ! 
-        width: 100%;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #6610f2;
-	margin-top: 1px;
-	padding: 2px;
-}*/
+#output, #search_result, .item {
+    z-index: 7;
+}
 
-
+#view {
+    overflow-y: hidden;
+    width: 100%;
+}

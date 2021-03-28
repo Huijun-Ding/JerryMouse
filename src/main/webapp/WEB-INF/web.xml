@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>searchServlet</servlet-name>
-        <servlet-class>com.jms.controller.searchServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ConnectServlet</servlet-name>
         <servlet-class>com.jms.controller.ConnectServlet</servlet-class>
     </servlet>
@@ -13,16 +9,60 @@
         <jsp-file>/jsp/login.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>visualiserPanierServlet</servlet-name>
-        <servlet-class>com.jms.controller.visualiserPanierServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>basketPage</servlet-name>
         <jsp-file>/jsp/basket_page.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>searchByKeyWordServlet</servlet-name>
-        <servlet-class>com.jms.controller.searchByKeyWordServlet</servlet-class>
+        <servlet-name>StoreServlet</servlet-name>
+        <servlet-class>com.jms.controller.StoreServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayProductsServlet</servlet-name>
+        <servlet-class>com.jms.controller.DisplayProductsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>/ProductsList</servlet-name>
+        <jsp-file>/jsp/products_list.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>SendSearchRequestServlet</servlet-name>
+        <servlet-class>com.jms.controller.SendSearchRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompleteSearchBarServlet</servlet-name>
+        <servlet-class>com.jms.controller.CompleteSearchBarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DepartmentServlet</servlet-name>
+        <servlet-class>com.jms.controller.DepartmentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductCategoryServlet</servlet-name>
+        <servlet-class>com.jms.controller.ProductCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConnectServlet</servlet-name>
+        <servlet-class>com.jms.controller.ConnectServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Index</servlet-name>
+        <jsp-file>/jsp/index.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProductServlet</servlet-name>
+        <servlet-class>com.jms.controller.AddProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LookBasketServlet</servlet-name>
+        <servlet-class>com.jms.controller.LookBasketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeconnectServlet</servlet-name>
+        <servlet-class>com.jms.controller.DeconnectServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckLogin</servlet-name>
+        <servlet-class>com.jms.controller.CheckLogin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -33,20 +73,62 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>visualiserPanierServlet</servlet-name>
-        <url-pattern>/visualiserPanierServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>basketPage</servlet-name>
         <url-pattern>/basketPage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>searchByKeyWordServlet</servlet-name>
-        <url-pattern>/searchByKeyWord</url-pattern>
+        <servlet-name>DisplayProductsServlet</servlet-name>
+        <url-pattern>/DisplayProducts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>/ProductsList</servlet-name>
+        <url-pattern>/ProductsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendSearchRequestServlet</servlet-name>
+        <url-pattern>/SendSearchRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompleteSearchBarServlet</servlet-name>
+        <url-pattern>/CompleteSearchBarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StoreServlet</servlet-name>
+        <url-pattern>/Store</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepartmentServlet</servlet-name>
+        <url-pattern>/Department</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductCategoryServlet</servlet-name>
+        <url-pattern>/ProductCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConnectServlet</servlet-name>
+        <url-pattern>/Connect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductServlet</servlet-name>
+        <url-pattern>/AddProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LookBasketServlet</servlet-name>
+        <url-pattern>/checkBasketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeconnectServlet</servlet-name>
+        <url-pattern>/Deconnect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckLogin</servlet-name>
+        <url-pattern>/CheckLogin</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 </web-app>

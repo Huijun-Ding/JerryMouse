@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 @Entity(name = "PostIt")
 public class PostIt implements Serializable{
 
-    //------------- Properties ------------------
+    //------------- PROPERTIES ------------------
     /**
      * Designation: Unique code identifying a post-it
      */
@@ -33,27 +33,34 @@ public class PostIt implements Serializable{
     private String wording;
     
     /**
-     * Designation: ..A REMPLIR!!!!
-     */
+    *  Hibernate join property with PostIt Class  and ShoppingList Class.
+    */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CodePI")
+    @JoinColumn(name = "CodeLC")
     private ShoppingList shoppingList;
     
     /**
-     * Designation: A REMPLIR!!!!
-     */
+    *  Hibernate join property with PostIt Class  and Product Class.
+    */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CodePI")
+    @JoinColumn(name = "EANP")
     private Product product;
 
-    //------------- Constructor ------------------
+    //------------- CONSTRUCTOR ------------------
+    /**
+    * A constructor of the PostIt Class.
+    */
     public PostIt() {
     }
-
+    
+    /**
+    * A constructor of the PostIt Class.
+    * @param wording Label of a post-it.
+    */
     public PostIt(String wording) {
         this.wording = wording;
     }
-    //------------ Getter & Setters --------------
+    //------------ GETTERS&SETTERS --------------
 
     /**
      * Getter for the property code.
@@ -86,8 +93,41 @@ public class PostIt implements Serializable{
     public void setWording(String wording) {
         this.wording = wording;
     }
+    
+    /**
+     * Getter for the object shoppingList.
+     * @return the shoppingList object. 
+     */
+    public ShoppingList getShoppingList() {
+        return shoppingList;
+    }
+    
+    /**
+     * Setter for the Object shoppingList.
+     * @param shoppingList The new value to set to the property.
+     */
+    public void setShoppingList(ShoppingList shoppingList) {
+        this.shoppingList = shoppingList;
+    }
 
-    //------------ Methods --------------
+    /**
+     * Getter for the object product.
+     * @return the product property. 
+     */
+    public Product getProduct() {
+        return product;
+    }
+    
+    /**
+     * Setter for the object product.
+     * @param product The new value to set to the property.
+     */
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
+    
+    //------------ METHODS --------------
     /**
      * Method which converts the current object into a String object.
      */

@@ -2,6 +2,7 @@ package com.jms.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -20,24 +21,26 @@ public class ReduceID implements Serializable {
      * <b>Format : 12 or 13 digits</b>
      * <b>Maximum size : 20</b>
      */
-    private String eanp;
+    @Column(name = "EANP")
+    private String ean;
 
     /**
      * Unique code identifying a promotion.
      * <b>Rule(s) : > 0</b>
      */
+    @Column(name = "CodePR")
     private int id;
 
     // -------------------- CONSTRUCTORS --------------------
     /**
      * A constructor of the ReduceID Class.
      *
-     * @param eanp EAN (European Article Numbering): Bar code that uniquely
+     * @param ean EAN (European Article Numbering): Bar code that uniquely
      * identifies a product.
      * @param id Unique code identifying a promotion.
      */
-    public ReduceID(String eanp, int id) {
-        this.eanp = eanp;
+    public ReduceID(String ean, int id) {
+        this.ean = ean;
         this.id = id;
     }
 
@@ -46,21 +49,21 @@ public class ReduceID implements Serializable {
 
     // ----------------- GETTERS & SETTERS ------------------
     /**
-     * Getter for the eanp property.
+     * Getter for the ean property.
      *
-     * @return The eanp property.
+     * @return The ean property.
      */
-    public String getEanp() {
-        return eanp;
+    public String getEan() {
+        return ean;
     }
 
     /**
-     * Setter for the eanp property.
+     * Setter for the ean property.
      *
-     * @param eanp The new value to set to the property.
+     * @param ean The new value to set to the property.
      */
-    public void setEanp(String eanp) {
-        this.eanp = eanp;
+    public void setEan(String ean) {
+        this.ean = ean;
     }
 
     /**
@@ -87,7 +90,7 @@ public class ReduceID implements Serializable {
      */
     @Override
     public String toString() {
-        return "ReduceID{" + "ean=" + eanp + ", id=" + id + '}';
+        return "ReduceID{" + "ean=" + ean + ", id=" + id + '}';
     }
 
     /**
@@ -98,7 +101,7 @@ public class ReduceID implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.eanp);
+        hash = 79 * hash + Objects.hashCode(this.ean);
         hash = 79 * hash + this.id;
         return hash;
     }
@@ -124,7 +127,7 @@ public class ReduceID implements Serializable {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.eanp, other.eanp)) {
+        if (!Objects.equals(this.ean, other.ean)) {
             return false;
         }
         return true;

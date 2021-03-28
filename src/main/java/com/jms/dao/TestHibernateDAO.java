@@ -6,7 +6,9 @@
 package com.jms.dao;
 
 import com.jms.model.Client;
+import com.jms.model.Product;
 import java.text.ParseException;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -20,24 +22,58 @@ public class TestHibernateDAO {
      * Programme de test.
      */
     
+    /**
+     * Create a new client in the database
+     */
     public static void createClient(){
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
             
-            Client cl1 = new Client("Rakot", "Mia", "rm@gmail.com","rm123", 10);
+            Client cl1 = new Client("Rakot", "Mia", "rm@gmail.com", "rm123", 10);
             
             session.save(cl1);
             
             t.commit();
         }
     }
+    
+
+
+    public static void loadClient(int id) {
+        // Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+            Client c = session.get(Client.class, id );
+            
+            System.out.println("----------Client------------");
+            System.out.println(c.getLastName()+ " " + c.getFirstName()+" "+c.getEmail()+" "+c.getFidelityPoints());
+        }
+    }
+
+
+    public static void getProductsBySearch(String keyword) {
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            //Open a transaction
+            session.beginTransaction();
+
+            Product p = session.get(Product.class, keyword);
+            
+        }
+    }
+
+
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
 
         //TestHibernateDAO.xxxxxxx();
         TestHibernateDAO.createClient();
+        //TestHibernateDAO.loadClient(1);
+
+        //TestHibernateDAO.getProductsBySearch("fr");
+
 
         /*----- Exit -----*/
         System.exit(0);

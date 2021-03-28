@@ -13,10 +13,13 @@ import javax.persistence.ManyToOne;
  *
  * @author Jerry Mouse Software.
  */
-@Entity
+@Entity(name = "Panier")
 public class Basket implements Serializable {
     // --------------------- PROPERTIES ---------------------
 
+    /**
+     * Key of basket.
+     */
     @EmbeddedId
     private BasketId basketId;
     /**
@@ -28,11 +31,17 @@ public class Basket implements Serializable {
     private int qtyBasket;
 
     //-----------Relation with Product--------------
+    /**
+     * Hibernate join property with Basket Class and Product Class.
+     */
     @ManyToOne
     @JoinColumn(name = "EANP", insertable = false, updatable = false)
     private Product product;
 
     //-----------Relation with Client--------------
+    /**
+     * Hibernate join property with Basket Class and Client Class.
+     */
     @ManyToOne
     @JoinColumn(name = "CodeCL", insertable = false, updatable = false)
     private Client client;
@@ -43,6 +52,7 @@ public class Basket implements Serializable {
 
     /**
      * A constructor of the Basket Class.
+     *
      * @param basketId id of basket.
      * @param qtyBasket Quantity of a product in a given customer's cart.
      */
@@ -54,6 +64,7 @@ public class Basket implements Serializable {
     // ----------------- GETTERS & SETTERS ------------------
     /**
      * Getter for the basketId property.
+     *
      * @return The basketId property.
      */
     public BasketId getBasketId() {
@@ -62,53 +73,61 @@ public class Basket implements Serializable {
 
     /**
      * Setter for the basketId property.
+     *
      * @param basketId The new value to set to the property.
      */
-
     public void setBasketId(BasketId basketId) {
         this.basketId = basketId;
     }
 
     /**
      * Getter for the qtyBasket property.
+     *
      * @return The qtyBasket property.
      */
-
     public int getQtyBasket() {
         return qtyBasket;
     }
 
     /**
      * Setter for the qtyBasket property.
+     *
      * @param qtyBasket The new value to set to the property.
      */
-
     public void setQtyBasket(int qtyBasket) {
         this.qtyBasket = qtyBasket;
     }
+
     /**
      * Getter for the product property.
+     *
      * @return The product property.
      */
     public Product getProduct() {
         return product;
     }
+
     /**
      * Setter for the product property.
+     *
      * @param product The new value to set to the property.
      */
     public void setProduct(Product product) {
         this.product = product;
     }
+
     /**
      * Getter for the client property.
+     *
      * @return The client property.
      */
     public Client getClient() {
         return client;
     }
+
     /**
      * Setter for the client property.
+     *
      * @param client The new value to set to the property.
      */
     public void setClient(Client client) {
@@ -130,7 +149,6 @@ public class Basket implements Serializable {
      *
      * @return The hash code of the current object id.
      */
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -140,10 +158,10 @@ public class Basket implements Serializable {
 
     /**
      * Method which compares the current object with another one.
+     *
      * @param obj The object to compare with.
      * @return <b>True</b> if both objects are equals, <b>False</b> else.
      */
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

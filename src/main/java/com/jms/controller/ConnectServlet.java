@@ -6,17 +6,18 @@
 package com.jms.controller;
 
 import com.jms.dao.ClientDAO;
+import com.jms.model.Client;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Class ConnectServlet
- *
- * @author Jerry Mouse Software.
+ * @author Jerry Mouse Software
  */
 public class ConnectServlet extends HttpServlet {
 
@@ -33,44 +34,32 @@ public class ConnectServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            //Get parameter method
-            String method = request.getParameter("method");
-            
             //Get parameter login and password
-            String login = request.getParameter("login");
+            String mail = request.getParameter("mail");
             String pw = request.getParameter("password");
             
-            //Call method authenticate to check login and password
-            boolean check = ClientDAO.authenticate(login, pw);
+            //Get the session
+            HttpSession session = request.getSession(true);
             
-            
-            switch (method) {
-                /*
-                if method = connection, check the login and password and get the connection
-                    if check is true
-                */
-                case "connection":
-                    if (check == true) {
-                        //chain to index page
-                        request.getRequestDispatcher("index").forward(request, response);
-                    } else {
-                        //chain to page login and display a message error
-                        request.getRequestDispatcher("login").forward(request, response);
-                        request.setAttribute("msg_error", "Le login ou le mot de passe est incorrect!");
-                    }
+            try {
+                //Call method authenticate to check login and password
+                boolean check = ClientDAO.authenticate(mail, pw);
+                if (check == true) {
+                    Client client = ClientDAO.getByEmailPassword(mail, pw);
+                    //Put the client object in the session
+                    session.setAttribute("client", client);
                     
-                    break;
-                /*
-                if method = return, chain to page index.jsp
-                */
-                case "return":
-                    //chain to page index page
-                    request.getRequestDispatcher("index").forward(request, response);
+                    //chain to index page
+                    response.sendRedirect("jsp/index.jsp");
+                } else {
+                    //chain to page login and display a message error
+                    request.setAttribute("msg_error", "Le login ou le mot de passe est incorrect!");
+                    request.getRequestDispatcher("login").forward(request, response);
                     
-                    break;
+                }
+            } catch (Exception ex) {
+                request.setAttribute("error", ex.getMessage());
             }
-
         }
     }
 

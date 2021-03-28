@@ -1,7 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.jms.controller;
 
+import com.jms.dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Jerry Mouse Software.
+ * @author Mathi
  */
-public class visualiserPanierServlet extends HttpServlet {
+public class CompleteSearchBarServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -24,18 +32,43 @@ public class visualiserPanierServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet visualiserPanierServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet visualiserPanierServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        response.setContentType("application/xml;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        try (PrintWriter out = response.getWriter()) {
+            // XML page
+            out.println("<?xml version=\"1.0\"?>");
+            out.println("<list_products>");
+
+            // get parameter
+            String product = request.getParameter("product");
+            System.out.println("product");
+            if (!product.equals("")) {
+                try {
+                    // put result into a list
+                    ArrayList<String> categories = ProductDAO.completeSearchBarByCategory(product);
+
+                    for (String c : categories) {
+                        out.println("<product><![CDATA[" + c + "]]></product>");
+                    }
+                } catch (ClassNotFoundException | SQLException ex) {
+                    out.println("<product>Erreur - " + ex.getMessage() + "</product>");
+                }
+
+                try {
+                    // put result into a list
+                    ArrayList<String> products = ProductDAO.completeSearchBarByProductName(product);
+
+                    for (String p : products) {
+                        out.println("<product><![CDATA[" + p + "]]></product>");
+                    }
+                } catch (ClassNotFoundException | SQLException ex) {
+                    out.println("<product>Erreur - " + ex.getMessage() + "</product>");
+                }
+            } else {
+                out.println("<product><![CDATA[]]></product>");
+            }
+            out.println("</list_products>");
         }
     }
 

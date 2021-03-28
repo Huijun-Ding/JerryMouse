@@ -9,17 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        
         <title>Inscription</title>
     </head>
     <body>
         <h1>Inscription</h1>
-        <div id="infoInscription">
+        <div id="infoInscription" class="">
             <p>Veuillez saisir les informations demandées<br>
             Les champs suivis d'un * sont obligatoires</p>
         </div>
         
-        <form action="action" method="">
-            <div>
+        <form action="" method="GET">
+            <div class="container">
                 <p>Nom* :</p>
                 <input type ="text" name="lastNameClient"/>
                 <p>Prénom* :</p>
@@ -35,9 +37,9 @@
                 <p>Confirmation du mot de passe* : </p>
                 <input type ="text" name ="confPasswordCreated"/>
             </div>
-            
-            <input type="submit" value="Annuler"/>
-            <input type="submit" value="S'inscrire"/>
+            <br>
+            <a href="index.jsp" class="btn btn-outline-primary">Annuler</a>
+            <input type="submit" class="btn btn-outline-primary" vlaue="S'inscrire">
         </form>
     </body>
 </html>
