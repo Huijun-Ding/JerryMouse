@@ -12,28 +12,14 @@
     <body onload="displayBasket(), displayPoints()">
         <script type="text/JavaScript" src="js/ScriptCheckBasket.js"></script>
         <div class="container" id="container">
-            <div class="row">
-                <div class="col-2" name="en_tete">
-                    <!--<img id="logo" src="img/logo.png">-->
-                </div>
-                <!--<div class="col-8">Store:(<span id="store"></span>)</div>-->
-                <div class="col-2">
-                    <!--<button class="btn btn-outline-primary" id="se_connecter">Login</button>-->
-                </div>
-            </div>
-
             <h1>Mon panier</h1>
-
-            <%
-                
+            <%                
                 Client client = (Client)session.getAttribute("client");
                 int idClient = 1;
                 if(client == null){
                     response.sendRedirect("jsp/login.jsp");
-
                 }else {
                     idClient = client.getCode();
-
                 }
                 session.setAttribute("client", client);
                 
@@ -73,7 +59,6 @@
                             <div class="col-6">
                                 <a class="btn btn-outline-primary" id="retour" href="DisplayProducts?home">Retour</a>
                             </div>
-<!--                            <div class="col-7"></div>-->
                         </div>
                     </div>
                 </div>
