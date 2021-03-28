@@ -12,16 +12,6 @@
     <body onload="displayBasket(), displayPoints()">
         <script type="text/JavaScript" src="js/ScriptCheckBasket.js"></script>
         <div class="container" id="container">
-            <div class="row">
-                <div class="col-2" name="en_tete">
-                    <!--<img id="logo" src="img/logo.png">-->
-                </div>
-                <!--<div class="col-8">Store:(<span id="store"></span>)</div>-->
-                <div class="col-2">
-                    <!--<button class="btn btn-outline-primary" id="se_connecter">Login</button>-->
-                </div>
-            </div>
-
             <h1>Mon panier</h1>
 
             <%
@@ -64,9 +54,8 @@
                                 <input class="btn btn-outline-primary" type="submit" id="valider" name="valider" value="Valider">
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-outline-primary" id="retour">Retour</button>
+                                <a class="btn btn-outline-primary" id="retour" href="DisplayProducts?home">Retour</a>
                             </div>
-                            <!--                            <div class="col-7"></div>-->
                         </div>
                     </div>
                 </div>

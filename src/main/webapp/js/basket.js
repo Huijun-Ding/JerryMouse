@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 function displayStore() {
-    alert("test1");
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
 
@@ -18,9 +17,8 @@ function displayStore() {
         if (xhr.status === 200)
         {
             // Elément html que l'on va mettre à jour.
-            alert("test2");
             var idClients = xhr.responseXML.getElementsByTagName("idClient");
-            if (idClients[0].firstChild.nodeValue == "no") {
+            if (idClients[0].firstChild.nodeValue === "no") {
                 window.location.href = "../login";
                 
             } else {

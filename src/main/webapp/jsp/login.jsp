@@ -24,7 +24,7 @@
                         out.println(request.getAttribute("msg_error"));%>
             </p>
 
-            <form action="../Connect" method ="POST">
+            <form action="Connect" method ="POST">
                 <div>
                     <p>Login * :</p>
                     <input type="email" id="mail" name="mail"  required />
