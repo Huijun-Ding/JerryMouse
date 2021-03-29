@@ -21,7 +21,6 @@ html, body {
 }
 
 #rayon_categorie_navbar {
-    margin-top: 140px;
     padding-left: 50px;
 }
 
@@ -73,3 +72,20 @@ html, body {
     width: 100%;
 }
 
+@media only screen and (min-width: 758px) {
+    #rayon_categorie_navbar {
+        margin-top: 145px;
+    }
+}
+
+@media only screen and (max-width: 758px) and (min-width: 513px)  {
+    #rayon_categorie_navbar {
+        margin-top: 210px;
+    }
+}
+
+@media only screen and (max-width: 513px) {
+    #rayon_categorie_navbar {
+        margin-top: 250px;
+    }
+}

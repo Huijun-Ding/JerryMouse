@@ -1,5 +1,12 @@
+<%@page import="com.jms.util.DateUtil"%>
+<%@page import="com.jms.model.Have"%>
+<%@page import="com.jms.model.TimeSlot"%>
+<%@page import="com.jms.model.Store"%>
 <%@page import="com.jms.model.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%Store s = (Store) request.getSession().getAttribute("store");%>
+<%Have h = (Have) request.getSession().getAttribute("have");%>
 
 <header class="shadow p-3 mb-5 bg-body fixed-top">
     <div class="d-flex flex-wrap align-items-center justify-content-around">
@@ -8,16 +15,37 @@
                 <img id="logo" src="img/logo_small.png" alt="" class="d-inline-block align-text-top rounded">
             </a>
             <button id="store_button" type="button" class="btn btn-sm btn-outline-primary dropdown-toggle border-0" data-toggle="dropdown">
-                <i class="fa fa-shopping-bag"></i> <span id="store_name">Choisissez un magasin</span>
+                <i class="fa fa-shopping-bag"></i>
+                <span id="store_name">
+                    <%
+                        if(s != null) out.print(s.getName());
+                        else out.print("Choisir un magasin");
+                    %>
+                </span>
+            </button>
+            <button id="time_slot_button" type="button"
+                    class="<%if(s == null) out.print("d-none");%>
+                    btn btn-sm btn-outline-primary dropdown-toggle border-0" data-toggle="dropdown">
+                <i class="fa fa-shopping-bag"></i>
+                <span id="time_slot_name">
+                    <%
+                        if(h != null) out.print(DateUtil.dateOfHaveObject(h));
+                        else out.print("Choisir un créneau");
+                    %>
+                </span>
             </button>
             <ul class="dropdown-menu">
-                <li class="dropdown-item">
-                    <span id="store_street"></span>
+                <li class="<%if(s == null) out.print("d-none");%> dropdown-item disabled">
+                    <span id="store_street">
+                    <%if(s != null) out.print(s.getStreet());%>
+                    </span>
                 </li>
-                <li class="dropdown-item">
-                    <span id="store_city"></span>
+                <li class="<%if(s == null) out.print("d-none");%> dropdown-item disabled">
+                    <span id="store_city">
+                    <%if(s != null) out.print(s.getPostalCode() + " " + s.getCity());%>
+                    </span>
                 </li>
-                <li><hr class="dropdown-divider"></li>
+                <li><hr class="<%if(s == null) out.print("d-none");%> dropdown-divider"></li>
                 <li class="dropdown-item text-center">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#search_stores_modal">
                         Changer de magasin
@@ -42,24 +70,21 @@
 
         <%
             Client client = (Client) session.getAttribute("client");
-            session.setAttribute("client", client);
-                Store store = (Store) session.getAttribute("store");
-                session.setAttribute("store", store);
-            if (client != null) {
-                out.println("<div>");
-                out.println("<h3>");
-                out.println("Bonjour " + client.getFirstName());
-                out.println("</h3>");
-                out.println("</div>");
-            }
+            int idClient = (client != null) ? client.getCode() : 0;
+            String initial = (client != null) ? client.getFirstName().toUpperCase().substring(0,1) + client.getLastName().toUpperCase().substring(0,1) : null;
         %>
-        <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=client.getCode()%>'></input>
+        <input type = 'hidden' id = 'idClient' name = 'value' value = '<%out.print(idClient);%>'></input>
         <div class="btn-group ms-3">
             <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-toggle="dropdown">
                     <div class="d-flex flex-column">
                         <i class='far fa-id-badge'></i>
-                        Compte
+                        <%
+                            if(client != null)
+                                out.print(initial);
+                            else
+                                out.print("Compte");
+                        %>
                     </div>
                 </button>
                 <div class="dropdown-menu">
