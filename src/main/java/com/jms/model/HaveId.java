@@ -19,7 +19,7 @@ public class HaveId implements Serializable {
      * Hibernate join property with TimeSlot Class.
      */
     @Column(name = "HeureDebutCR")
-    private Date startTime;
+    private String startTime;
 
     /**
      * Hibernate join property with Store Class.
@@ -40,7 +40,7 @@ public class HaveId implements Serializable {
      * @param startTime Start time of a time slot.
      * @param storeId Unique code identifying a store.
      */
-    public HaveId(Date startTime, int storeId) {
+    public HaveId(String startTime, int storeId) {
         this.startTime = startTime;
         this.storeId = storeId;
     }
@@ -51,7 +51,7 @@ public class HaveId implements Serializable {
      * Getter for the startTime property.
      * @return The startTime property.
      */
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
     
@@ -59,7 +59,7 @@ public class HaveId implements Serializable {
      * Setter for the startTime property.
      * @param startTime The new value to set to the property.
      */
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
     
