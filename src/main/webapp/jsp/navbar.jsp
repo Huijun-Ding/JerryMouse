@@ -96,7 +96,7 @@
                     <%}%>
                 </div>
             </div>
-            <button id="basket_button" role="button" class="btn  btn-sm btn-primary">
+            <button id="basket_button" role="button" class="btn btn-outline-primary">
                 <div class="d-flex flex-column">
                     <i class="fa fa-shopping-basket"></i>
                     Panier
@@ -113,12 +113,15 @@
                 </div>
             </button>
 
-            <button id="shopping_list_button" role="button" class="btn  btn-sm btn-primary">
+            <%if (client != null) {%>
+            <button id="shopping_list_button" role="button" class="btn btn-sm btn-outline-primary">
                 <div class="d-flex flex-column">
                     <i class="far fa-list-alt"></i>
                     Liste de courses
                 </div>
-            </button>                       
+            </button> 
+            <%}%>
+            
         </div>
     </div>
 </header>

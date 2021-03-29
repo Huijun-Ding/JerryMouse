@@ -22,14 +22,14 @@
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item btn-group">
-                        <button id="departmentButton" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
+                        <button id="departmentButton" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                         </button>
-                        <div id="departments_list" class="dropdown-menu dropdown-menu-dark"></div>
+                        <div id="departments_list" class="dropdown-menu"></div>
                     </li>
                     <li id="category" class="breadcrumb-item btn-group" aria-current="page">
-                        <button id="categoryButton" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
+                        <button id="categoryButton" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                         </button>
-                        <div id="productCategories_list" class="dropdown-menu dropdown-menu-dark"></div>
+                        <div id="productCategories_list" class="dropdown-menu"></div>
                     </li>
                 </ol>
             </nav>
