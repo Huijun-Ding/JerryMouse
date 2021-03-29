@@ -3,3 +3,4 @@ nb-configuration.xml
 target/*
 /nbproject/
 src/main/resources/hibernate.cfg.xml
+src/main/resources/hibernate.cfg.xml
