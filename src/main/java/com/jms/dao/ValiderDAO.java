@@ -48,8 +48,8 @@ public class ValiderDAO {
 
             // Create new order with current date
             Date date = new Date();
-            String dateS = DF.format(date);
-            Order order = new Order(DF.parse(dateS));
+            //String dateS = DF.format(date);
+            Order order = new Order(date);
 
             // Register the store of the order
             order.setStore(store);
