@@ -1,3 +1,4 @@
+<%@page import="com.jms.model.Store"%>
 <%@page import="com.jms.model.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -8,14 +9,32 @@
                 <img id="logo" src="../img/logo_small.png" alt="" class="d-inline-block align-text-top rounded">
             </a>
             <button id="store_button" type="button" class="btn btn-sm btn-outline-primary dropdown-toggle border-0" data-toggle="dropdown">
-                <i class="fa fa-shopping-bag"></i> <span id="store_name">Choisissez un magasin</span>
+                <i class="fa fa-shopping-bag"></i>
+                <span id="store_name">
+                    <%
+                        String name, street, city, postalCode;
+                        Store s = (Store) request.getSession().getAttribute("store");
+                        if(s != null) {
+                            name = s.getName();
+                            street = s.getStreet();
+                            city = s.getCity();
+                            postalCode = s.getPostalCode();
+                        } else {
+                            name = "Choisissez un magasin";
+                            street = "Rue";
+                            city = "Ville";
+                            postalCode = "Code Postal";
+                        }
+                        out.print(name);
+                    %>
+                </span>
             </button>
             <ul class="dropdown-menu">
                 <li class="dropdown-item">
-                    <span id="store_street"></span>
+                    <span id="store_street"><%out.print(street);%></span>
                 </li>
                 <li class="dropdown-item">
-                    <span id="store_city"></span>
+                    <span id="store_city"><%out.print(postalCode + " " + city);%></span>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li class="dropdown-item text-center">
