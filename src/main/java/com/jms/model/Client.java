@@ -7,6 +7,7 @@ package com.jms.model;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -95,7 +96,7 @@ public class Client implements Serializable {
     */
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name="EANP")
-    private Set<Order> orders = new HashSet(0);
+    private ArrayList<Order> orders = new ArrayList<>();
     
     // -------------------- CONSTRUCTORS --------------------
     /**
@@ -278,7 +279,7 @@ public class Client implements Serializable {
      * Getter for the Set orders.
      * @return the orders Set.
      */
-    public Set<Order> getOrders() {
+    public ArrayList<Order> getOrders() {
         return orders;
     }
     
@@ -286,7 +287,7 @@ public class Client implements Serializable {
      * Setter for the property orders.
      * @param orders The new value to set to the property.
      */
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(ArrayList<Order> orders) {
         this.orders = orders;
     }
     
