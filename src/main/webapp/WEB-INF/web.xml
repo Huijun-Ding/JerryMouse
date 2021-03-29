@@ -68,6 +68,10 @@
         <servlet-name>navbar</servlet-name>
         <jsp-file>/jsp/navbar.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>confirmation_order</servlet-name>
+        <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>navbar</servlet-name>
         <url-pattern>/navbar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>confirmation_order</servlet-name>
+        <url-pattern>/confirmation_order</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
