@@ -6,6 +6,7 @@
 package com.jms.dao;
 
 import com.jms.model.Client;
+import com.jms.model.Have;
 import com.jms.model.Store;
 import com.jms.model.TimeSlot;
 import java.text.Format;
@@ -22,16 +23,21 @@ public class TestHibernateValiderDAO {
     public static void main(String[] args) throws ParseException {
         
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         
         
         //-------- TEST TO UPDATE ONE PRODUCT
         System.out.println("----- TEST TO REGISTER AN ORDER");
         Client client = ClientDAO.searchClient(2);
         Store store = StoreDAO.get(22);
-        Date startTime = sdf.parse("09:00");
-        Date endTime = sdf.parse("09:30");
+        String startTime = "09:00";
+        String endTime = "09:30";
         TimeSlot timeslot = new TimeSlot(startTime, endTime);
-        ValiderDAO.registerBasket(client, store, timeslot);
+        Have haveTS = new Have();
+        haveTS.setTimeSlot(timeslot);
+        Date date = new Date();
+        haveTS.setDate(df.parse("01-04-2021"));
+        ValiderDAO.registerBasket(client, store, haveTS);
         
         System.out.println("Client : " + client);
         
