@@ -2,3 +2,4 @@ nb-configuration.xml
 .DS_Store
 target/*
 /nbproject/
+src/main/resources/hibernate.cfg.xml
