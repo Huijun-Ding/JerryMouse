@@ -19,15 +19,13 @@
             <h1>Mon panier</h1>
 
             <%
-
                 Client client = (Client) session.getAttribute("client");
-//                int idClient = 1;
-//                idClient = client.getCode();
+                int idClient = (client != null) ? client.getCode() : 0;
                 session.setAttribute("client", client);
                 Store store = (Store) session.getAttribute("store");
                 session.setAttribute("store", store);
             %>
-            <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=client.getCode()%>'></input>
+            <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
             <form action="">
                 <div class="row">
                     <div class="col-8" id="div_prod">
