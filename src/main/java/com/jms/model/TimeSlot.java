@@ -3,8 +3,10 @@ package com.jms.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,9 +54,8 @@ public class TimeSlot implements Serializable {
     /**
      * Hibernate join property with Order Class.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CodeCD")
-    private Order order = new Order();
+    @OneToMany(mappedBy = "timeSlot",fetch = FetchType.LAZY)
+    private Set<Order> orders = new HashSet<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
 
