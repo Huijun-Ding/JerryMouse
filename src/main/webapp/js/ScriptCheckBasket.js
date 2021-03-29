@@ -40,7 +40,7 @@ function displayBasket() {
 //                        + quantity + "</td><td>" 
 //                        + "<input type='number' placeholder='multiple of 1' step='1' min='1' max='100' vlaue='" + quantity + "></td><td>"  
                         + "<input type='button' name='minus' value='-' onclick='#'>"
-                        + "<input type='text' name='quantity' id='quantity' value='" + quantity + "'>"
+                        + "<input type='text' class='quantity' name='quantity' value='" + quantity + "'>"
                         + "<input type='button' name='plus' value='+' onclick='#'>"
                         + totalPrice + "&#8364;</td></tr>";
                 tabProd.insertAdjacentHTML('beforeend', rows);
