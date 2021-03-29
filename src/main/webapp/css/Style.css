@@ -12,6 +12,10 @@ html, body {
     height: 50px;
 }
 
+#quantity{
+    width: 30px;
+}
+
 #stores_list {
     padding: 0px;
 }
