@@ -5,6 +5,7 @@
  */
 package com.jms.util;
 
+import com.jms.model.Have;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,6 +17,10 @@ import java.util.Date;
 public class DateUtil {
 
     public static SimpleDateFormat ALL_DATE_IN_LETTERS = new SimpleDateFormat("EEE dd MMM yyyy");
+    
+    public static String allDateInLetters(Date date) {
+        return ALL_DATE_IN_LETTERS.format(date);
+    }
     
     public static String dateOfToday() {
         Date date = new Date();  
@@ -42,6 +47,17 @@ public class DateUtil {
         }
 
         return d;
+    }
+
+    /**
+     * Convert a have object into a string value.
+     * @param h Have Object to convert.
+     * @return String value representing the have object parameter.
+     */
+    public static String dateOfHaveObject(Have h) {
+        return allDateInLetters(h.getDate()) + " | "
+                + h.getTimeSlot().getStartTime() + " - "
+                + h.getTimeSlot().getEndTime();
     }
 
     public static void main(String[] args) {
