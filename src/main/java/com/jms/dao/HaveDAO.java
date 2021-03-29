@@ -6,7 +6,8 @@
 package com.jms.dao;
 
 import com.jms.model.Have;
-import com.jms.model.TimeSlot;
+import com.jms.model.HaveId;
+import com.jms.util.DateUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,13 +28,14 @@ public class HaveDAO {
     /**
      * 
      */
-    public static void create(String timeSlot) throws ParseException {
+    public static void create(String startTime, int storeId, int capacity, String date) throws ParseException  {
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
             
-            Have d = new Have(DF.parse(timeSlot));
+            HaveId haveId = new HaveId(startTime, storeId);
+            Have d = new Have(haveId, capacity, DF.parse(date));
 
             session.save(d);
 
@@ -43,13 +45,30 @@ public class HaveDAO {
    
     
      public static void initialize() throws ParseException {
-        //Open a session
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
-            //Open a transaction
-            Transaction t = session.beginTransaction();
+        
+                        
+            int minCapacite = 5;
+            int maxCapacite = 20;
+            int range = maxCapacite - minCapacite + 1;
             
-            t.commit();
-        }
+            for(Date d : DateUtil.nextDays(4)) {
+                for(int storeId = 1 ; storeId <= 43 ; storeId++) {
+                    int hour = 7;
+                    String minutes = "30";
+                    
+                    while(hour < 21) {
+                        int capacity = (int)(Math.random() * range) + minCapacite;
+                        
+                        String hoursMinutes = (hour < 10) ? "0" + hour + ":" + minutes : "" + hour + ":" + minutes;
+                                                
+                        if(minutes.equals("30")) hour++;
+                        minutes = (minutes.equals("00")) ? "30" : "00";
+                        
+                        create(hoursMinutes, storeId, capacity, DateUtil.yearMonthDayFormat(d));
+                    }
+                }
+            }
+          
      }
     /**
      * 
@@ -75,4 +94,7 @@ public class HaveDAO {
         }
     } 
      
+    public static void main (String[] args) throws ParseException {
+        initialize();
+    }
 }
