@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : 22 mars 2021, 15:13:58
-    Author     : RAKOTOARISOA
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +13,7 @@
     <body>
 
 
-        <form action="../Connect" method ="POST" class="signin">
+        <form action="Connect" method ="POST" class="signin">
             <div class ="container">
                 <h1>Connexion</h1>
                     <p>Veuillez entrer votre login et votre mot de passe .<br>
@@ -40,9 +34,9 @@
 
                 </div>
                 <br>
-                <a href="index.jsp" class="btn btn-outline-primary"> Retour vers l'accueil</a>
-                <button type="submit" class="btn btn-outline-primary">Se connecter</button>
-        </form>
+                <a href="index" class="btn btn-outline-primary"> Retour vers l'accueil</a>
+                <input type="submit" class="btn btn-outline-primary"/>
+            </form>
 
     </div>
 </body>
