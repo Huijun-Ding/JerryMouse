@@ -51,10 +51,12 @@ public class ConnectServlet extends HttpServlet {
                     
                     //chain to index page
                     response.sendRedirect("jsp/index.jsp");
-                } else {
+                } else if(check == false){
                     //chain to page login and display a message error
-                    request.getRequestDispatcher("login").forward(request, response);
-                    request.setAttribute("msg_error", "Le login ou le mot de passe est incorrect!");
+                    String msg = "Le login ou le mot de passe est incorrect!";
+                    request.setAttribute("msg_error", msg );
+                    request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+                    
                     
                 }
             } catch (Exception ex) {
