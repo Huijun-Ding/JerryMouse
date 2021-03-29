@@ -58,7 +58,7 @@
                                 <input class="btn btn-outline-primary" type="submit" id="valider" name="valider" value="Valider">
                             </div>
                             <div class="col-6">
-                                <a class="btn btn-outline-primary" id="retour" href="DisplayProducts?home">Retour</a>
+                                <a class="btn btn-outline-primary" id="retour" href="index">Retour</a>
                             </div>
                         </div>
                     </div>
