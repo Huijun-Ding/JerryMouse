@@ -1,12 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.jms.controller;
 
-import com.jms.dao.BasketDAO;
 import com.jms.model.Client;
-import com.jms.model.Product;
+import com.jms.model.Store;
 import java.io.IOException;
-import static java.lang.System.out;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Jerry Mouse Software.
  */
-public class AddProductServlet extends HttpServlet {
+public class CheckLogin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,38 +33,23 @@ public class AddProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        Client client = (Client)session.getAttribute("client");
-        session.setAttribute("client", client);
-        
-        ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
-        request.setAttribute("productsList", list);
-        
-        int idClient = client.getCode();
-//        int idClient = Integer.parseInt(request.getParameter("idClient"));
-//        int idClient = 1;
-        String ean = request.getParameter("ean");
-        
-        try {
-            // check nb products in basket
-            int nb = BasketDAO.calculNbProduct(idClient);
-//            session.setAttribute("nbProducts", nb);
-            
+        HttpSession session = request.getSession();
+        Client client = (Client) session.getAttribute("client");
+        response.setContentType("application/xml;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
             out.println("<?xml version=\"1.0\"?>");
-            response.setContentType("application/xml;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            out.println("<nbProducts>" + nb + "</nbProducts>");
-            
-            // add product in basket
-            if (BasketDAO.checkProductBakset(idClient, ean)){
-                BasketDAO.updateBasket(idClient, ean);
-            }else{
-                BasketDAO.addProductToBasket(idClient, ean);
+            if (client == null) {
+                out.println("<idClient>" + "no" + "</idClient>");
+
+            } else {
+                out.println("<idClient>" + client.getCode() + "</idClient>");
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } 
-        request.getRequestDispatcher("DisplayProducts?home").forward(request, response);
+        } catch (Exception ex) {
+
+            request.setAttribute("msg_erreur", ex.getMessage());
+            request.getRequestDispatcher("login").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

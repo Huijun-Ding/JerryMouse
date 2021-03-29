@@ -15,12 +15,13 @@
         <script src="../js/stores.js"></script>
         <script src="../js/department.js"></script>
         <script src="../js/basket.js"></script>
+
     </head>
     <body>
         <header class="shadow p-3 mb-5 bg-body fixed-top">
             <div class="d-flex flex-wrap align-items-center justify-content-around">
                 <div class="d-flex flex-column align-items-center justify-content-center">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-1 text-decoration-none">
+                    <a href="/jm/jsp/index.jsp" class="d-flex align-items-center mb-2 mb-lg-1 text-decoration-none">
                         <img id="logo" src="../img/logo_small.png" alt="" class="d-inline-block align-text-top rounded">
                     </a>
                     <button id="store_button" type="button" class="btn btn-sm btn-outline-primary dropdown-toggle border-0" data-toggle="dropdown">
@@ -47,7 +48,7 @@
                         <div class="input-group input-group">
                             <input id="search" type="search" class="form-control" placeholder="Rechercher un produit ...">
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary" id="search_button">
+                                <button type="button" class="btn btn-primary" id="search_button">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
@@ -87,6 +88,16 @@
                         <div class="d-flex flex-column">
                             <i class="fa fa-shopping-basket"></i>
                             Panier
+                            <!--<span id='nb_products'></span>-->
+                            <span id="nb_products" class="badge badge-light"></span>
+                            <!-- comment 
+                                Object nbProducts = session.getAttribute("nbProducts");
+//                                HttpSession session = request.getSession(true);
+                                 if (nbProducts != null) {
+                                    out.println("<span id='nb_product'>" + (int)nbProducts + "</span>");
+                                }
+                            -->
+
                         </div>
                     </button>
                 </div>
@@ -133,9 +144,7 @@
     </div>
 
     <!-- 16:9 aspect ratio -->
-    <div class="embed-responsive embed-responsive-16by9">
-        <iframe id="view" class="embed-responsive-item" src="../DisplayProducts?home" allowfullscreen></iframe>
-    </div>
+    <iframe id="view" class="h-100 d-inline-block w-100" src="../DisplayProducts?home" allowfullscreen></iframe>
 
     <script type="text/JavaScript" src="../js/search.js"></script>
 </body>

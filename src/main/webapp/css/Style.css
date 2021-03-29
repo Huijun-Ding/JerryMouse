@@ -8,8 +8,8 @@ html, body {
     height: 45px;
 }
 .prodPhoto{
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
 }
 
 #stores_list {
@@ -25,6 +25,11 @@ html, body {
     margin-top: 1.5em;
     margin-left: 5%;
     margin-right: 5%;
+}
+
+.priceAfter{
+    color:red;
+    font-size: 17px;
 }
 
 .bold{
@@ -60,7 +65,6 @@ html, body {
 }
 
 #view {
-    overflow: hidden;
-    height: 1000px;
+    overflow-y: hidden;
     width: 100%;
 }
