@@ -1,3 +1,4 @@
+<%@page import="com.jms.model.Have"%>
 <%@page import="com.jms.model.Store"%>
 <%@page import="com.jms.model.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -8,8 +9,6 @@
         <title>Mon panier</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/Style.css">
-        <script type="text/JavaScript" src="js/ScriptCheckBasket.js"></script>
-        <script src="js/basket.js"></script>
     </head>
     <body onload="displayBasket(), displayPoints()">
         
@@ -24,6 +23,8 @@
                 session.setAttribute("client", client);
                 Store store = (Store) session.getAttribute("store");
                 session.setAttribute("store", store);
+                Have h = (Have) request.getSession().getAttribute("have");
+                session.setAttribute("have", h);
             %>
             <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
             <form action="">
@@ -51,14 +52,14 @@
                             </table>
                         </div>
                         
-                        <div class="msg_error">${requestScope.msg_error}</div>
+                        <div class="msg_error" id="msg_error"></div>
                         
                         <div class="row">
                             <div class="col-6">
-                                <input class="btn btn-outline-primary" type="submit" id="valider" name="valider" value="Valider">
+                                <boutton class="btn btn-outline-primary" id="valider" name="valider">Valider</boutton>
                             </div>
                             <div class="col-6">
-                                <a class="btn btn-outline-primary" id="retour" href="index">Retour</a>
+                                <a class="btn btn-outline-primary" href="index">Retour</a>
                             </div>
                         </div>
                     </div>
@@ -66,4 +67,7 @@
             </form>
         </div>
     </body>
+    <script src="js/ScriptCheckBasket.js"></script>
+    <script src="js/basket.js"></script>
+    <script src="js/valider.js"></script>
 </html>
