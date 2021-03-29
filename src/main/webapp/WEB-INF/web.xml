@@ -166,7 +166,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>confirmation_order</servlet-name>
-        <url-pattern>/confirmation_order</url-pattern>
+        <url-pattern>/confirmationOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
