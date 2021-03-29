@@ -29,10 +29,10 @@
                     btn btn-sm btn-outline-primary border-0" data-toggle="modal" data-target="#search_time_slots_modal">
                 <i class="fa fa-calendar-alt"></i>
                 <span id="time_slot_name">
-                    <%
-                        if(h != null) out.print(DateUtil.dateOfHaveObject(h));
-                        else out.print("Choisir un créneau");
-                    %>
+                <%
+                    if(h != null && h.getTimeSlot().getStartTime() != null) out.print(DateUtil.dateOfHaveObject(h));
+                    else out.print("Choisir un créneau");
+                %>
                 </span>
             </button>
             <ul class="dropdown-menu">
