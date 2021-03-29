@@ -5,6 +5,9 @@
  */
 package com.jms.controller;
 
+import com.jms.dao.ClientDAO;
+import com.jms.dao.HaveDAO;
+import com.jms.dao.StoreDAO;
 import com.jms.dao.ValiderDAO;
 import com.jms.model.Client;
 import com.jms.model.Have;
@@ -13,6 +16,10 @@ import com.jms.model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,10 +48,24 @@ public class ValidateServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         // Get the information of order
-        Client client = (Client) session.getAttribute("client");
-        Store store = (Store) session.getAttribute("store");
-        Have have = (Have) session.getAttribute("have");
-
+        String idClient = request.getParameter("idClient");
+        int idStore = Integer.parseInt(request.getParameter("idStore"));
+        String startTime = request.getParameter("startTime");
+        String format = "yyyy-MM-dd";
+        SimpleDateFormat DF = new SimpleDateFormat(format);
+        
+        Date date;
+        Have have = null;
+        try {
+            date = DF.parse(request.getParameter("date"));
+            have = HaveDAO.getHave(idStore, date, startTime);
+        } catch (ParseException ex) {
+            Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
+        Store store = StoreDAO.get(idStore);
+        
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
