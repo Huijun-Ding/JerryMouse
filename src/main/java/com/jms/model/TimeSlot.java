@@ -54,7 +54,7 @@ public class TimeSlot implements Serializable {
     /**
      * Hibernate join property with Order Class.
      */
-    @OneToMany(mappedBy = "timeSlot",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "timeslot",fetch = FetchType.LAZY)
     private Set<Order> orders = new HashSet<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
@@ -123,6 +123,16 @@ public class TimeSlot implements Serializable {
     public void setStores(Map<Store, Have> stores) {
         this.stores = stores;
     }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+    
+    
 
     // ----------------------- METHODS ----------------------
 
