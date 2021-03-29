@@ -34,7 +34,7 @@
                 </ol>
             </nav>
         </div>
-
+  
         <!-- 16:9 aspect ratio -->
         <iframe id="view" class="h-100 d-inline-block w-100" src="DisplayProducts?home" allowfullscreen></iframe>
 
