@@ -12,7 +12,8 @@ import com.jms.model.OrderLine;
 import com.jms.model.Product;
 import com.jms.model.Store;
 import com.jms.model.TimeSlot;
-import java.sql.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -22,16 +23,22 @@ import org.hibernate.Transaction;
  * @author mlk
  */
 public class ValiderDAO {
+    /**
+     * 
+     */
+    private static SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
     
     /**
      * Register a basket in DB of a client with the store and timeslot.
      */
     public static void registerBasket(Client client, Store store, TimeSlot timeslot) {
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtilDAO.getSessionFactory().openSession()) {
             Transaction t = session.beginTransaction();
             
-            // Create new order
-            Order order = new Order(); // mettre la date d'aujourd'hui
+            // Create new order with current date
+            Date date = new Date();
+            DF.format(date);
+            Order order = new Order(date);
             
             // Register the store of the order
             order.setStore(store);
@@ -49,6 +56,7 @@ public class ValiderDAO {
             client.getOrders().add(order);
             
             // Update in DB
+            session.save(order);
             session.update(client);
             
             // Close session
