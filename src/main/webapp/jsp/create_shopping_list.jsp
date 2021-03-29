@@ -12,37 +12,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="../js/stores.js"></script>
-        <script src="../js/department.js"></script>
-        <script src="../js/basket.js"></script>
-
     </head>
     <body>
         <jsp:include page="navbar.jsp" flush="true"/>
 
-        <div class="modal" id="search_stores_modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Changer de magasin</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <div class="modal-body">
-                        <input id="search_stores" type="search" class="form-control" placeholder="Saisir le code postal ici ...">
-                        <ul id="stores_list"></ul>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="container" id="rayon_categorie_navbar">
-            <h1>Créer ma nouvelle liste de courses</h1>
-
+            <h2>Créer ma nouvelle liste de courses</h2>
+            <br>
             <form>
                 <div class="mb-3">
                     <label for="name_shopping_list" class="form-label">Nom de la liste</label>
@@ -54,6 +30,6 @@
             </form>
         </div>
 
-        <script type="text/JavaScript" src="../js/search.js"></script>
+        <script type="text/JavaScript" src="../js/shoppingList.js"></script>
     </body>
 </html>
