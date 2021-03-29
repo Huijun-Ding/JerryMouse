@@ -78,6 +78,14 @@ public class Order {
         this.orderName = orderName;
     }
 
+    public Order(String orderName, Client client, Store store, TimeSlot timeslot) {
+        this.orderName = orderName;
+        this.client = client;
+        this.store = store;
+        this.timeslot = timeslot;
+    }
+    
+
     //-----------Getters and setters----------------
     public int getOrderId() {
         return orderId;
