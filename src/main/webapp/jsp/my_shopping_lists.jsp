@@ -12,24 +12,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
     </head>
     <body>
         <jsp:include page="navbar" flush="true"/>
-
+        
         <div class="container" id="rayon_categorie_navbar">
-            <h2>Créer ma nouvelle liste de courses</h2>
-            <br>
-            <form>
-                <div class="mb-3">
-                    <label for="name_shopping_list" class="form-label">Nom de la liste</label>
-
-                    <input type="text" class="form-control w-25 p-3 h-25" id="name_shopping_list" aria-describedby="nameHelp" width="50">
-                    <div id="nameHelp" class="form-text">Veuillez saisir un nom personnalisé pour votre nouvelle liste de course.</div>
-                </div>
-                <div><button type="button" class="btn btn-primary">Créer</button></div>
-            </form>
+            <h2>Mes listes de courses</h2>
         </div>
-
-        <script type="text/JavaScript" src="js/shoppingList.js"></script>
+        
+        <script src="js/shoppingList.js"></script>
     </body>
 </html>

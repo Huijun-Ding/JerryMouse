@@ -7,7 +7,7 @@ function getProductCategoriesByDepartmentId(departmentId) {
     var xhr = new XMLHttpRequest();
 
     var param = "departmentId=" + departmentId;
-    var url = "../ProductCategory?" + param;
+    var url = "ProductCategory?" + param;
 
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -54,7 +54,7 @@ function getProductCategoriesByDepartmentId(departmentId) {
 function getDepartments() {
     var xhr = new XMLHttpRequest();
 
-    var url = "../Department";
+    var url = "Department";
 
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -114,7 +114,7 @@ function changeDepartment(departmentId) {
 
     // Requête au serveur avec les paramètres éventuels.
     var param = "id=" + encodeURIComponent(departmentId);
-    var url = "../Department" + "?" + param;
+    var url = "Department" + "?" + param;
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -138,15 +138,15 @@ function changeDepartment(departmentId) {
 }
 
 function setViewOnHome() {
-    document.getElementById("view").src = "../DisplayProducts?home";
+    document.getElementById("view").src = "DisplayProducts?home";
 }
 
 function setViewOnDepartment(departmentId) {
-    document.getElementById("view").src = "../DisplayProducts?dpt=" + departmentId;
+    document.getElementById("view").src = "DisplayProducts?dpt=" + departmentId;
 }
 
 function setViewOnCategory(productCategoryId) {
-    document.getElementById("view").src = "../DisplayProducts?cat=" + productCategoryId;
+    document.getElementById("view").src = "DisplayProducts?cat=" + productCategoryId;
 }
 
 /**
