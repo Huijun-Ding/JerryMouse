@@ -50,7 +50,9 @@
                                 <tr><td>Total: </td><td><span class="bold" id="total"></span></td></tr>                        
                             </table>
                         </div>
-
+                        
+                        <div class="msg_error">${requestScope.msg_error}</div>
+                        
                         <div class="row">
                             <div class="col-6">
                                 <input class="btn btn-outline-primary" type="submit" id="valider" name="valider" value="Valider">
