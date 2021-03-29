@@ -21,6 +21,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The class Order represents a order that ordered by a client which includ
@@ -44,12 +46,14 @@ public class Order {
      * The date of order.
      */
     @Column(name = "DateCD")
+    @Temporal (TemporalType.DATE)
     private Date orderDate;
 
     /**
      * The date when the order is to be picked up by the client.
      */
     @Column(name = "DateRetrait")
+    @Temporal (TemporalType.DATE)
     private Date pickupDate;
 
     /**
