@@ -1,6 +1,7 @@
+<%@page import="com.jms.model.Store"%>
 <%@page import="com.jms.model.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<script src="../js/basket.js"></script>
 <header class="shadow p-3 mb-5 bg-body fixed-top">
     <div class="d-flex flex-wrap align-items-center justify-content-around">
         <div class="d-flex flex-column align-items-center justify-content-center">
@@ -42,6 +43,10 @@
 
         <%
             Client client = (Client) session.getAttribute("client");
+            session.setAttribute("client", client);
+            Store store = (Store) session.getAttribute("store");
+            session.setAttribute("store", store);
+            
             if (client != null) {
                 out.println("<div>");
                 out.println("<h3>");
