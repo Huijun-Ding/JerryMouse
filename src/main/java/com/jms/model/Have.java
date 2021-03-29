@@ -77,6 +77,10 @@ public class Have implements Serializable {
         this.date = date;
     }
 
+    public Have(Date parse) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     // ----------------- GETTERS & SETTERS ------------------
 
     /**
