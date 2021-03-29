@@ -61,6 +61,14 @@
         <servlet-class>com.jms.controller.DeconnectServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ValidateServlet</servlet-name>
+        <servlet-class>com.jms.controller.ValidateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChooseTimeSlotServlet</servlet-name>
+        <servlet-class>com.jms.controller.ChooseTimeSlotServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CheckLogin</servlet-name>
         <servlet-class>com.jms.controller.CheckLogin</servlet-class>
     </servlet>
@@ -71,6 +79,10 @@
     <servlet>
         <servlet-name>confirmation_order</servlet-name>
         <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>SendEmail</servlet-name>
+        <servlet-class>com.jms.controller.SendEmail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -133,12 +145,24 @@
         <url-pattern>/Deconnect</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ValidateServlet</servlet-name>
+        <url-pattern>/Validate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChooseTimeSlotServlet</servlet-name>
+        <url-pattern>/ChooseTimeSlot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CheckLogin</servlet-name>
         <url-pattern>/CheckLogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>navbar</servlet-name>
         <url-pattern>/navbar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendEmail</servlet-name>
+        <url-pattern>/SendEmail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>confirmation_order</servlet-name>
