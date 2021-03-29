@@ -32,7 +32,7 @@
                     <input type="password" id="pw" name="password" required />    
                 </div>
                 <br>
-                <a href="index.jsp" class="btn btn-outline-primary"> Retour vers l'accueil</a>
+                <a href="index" class="btn btn-outline-primary"> Retour vers l'accueil</a>
                 <input type="submit" class="btn btn-outline-primary"/>
             </form>
 

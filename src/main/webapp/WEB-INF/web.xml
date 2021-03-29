@@ -64,6 +64,10 @@
         <servlet-name>CheckLogin</servlet-name>
         <servlet-class>com.jms.controller.CheckLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>navbar</servlet-name>
+        <jsp-file>/jsp/navbar.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>CheckLogin</servlet-name>
         <url-pattern>/CheckLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>navbar</servlet-name>
+        <url-pattern>/navbar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

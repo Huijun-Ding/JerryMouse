@@ -6,7 +6,7 @@ function getSearchElement() {
     var xhr = new XMLHttpRequest();
 
     var myinput = document.getElementById("search").value;
-    xhr.open("GET", "../CompleteSearchBarServlet?product=" + myinput);
+    xhr.open("GET", "CompleteSearchBarServlet?product=" + myinput);
 
     xhr.onload = function ()
     {
@@ -52,13 +52,13 @@ function searchProducts() {
     var xhr = new XMLHttpRequest();
 
     var myinput = document.getElementById("search").value;
-    xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
+    xhr.open("GET", "SendSearchRequestServlet?keyword=" + myinput);
 
     xhr.onload = function ()
     {
         if (xhr.status === 200)
         {
-            document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;
+            document.getElementById('view').src = "SendSearchRequestServlet?keyword=" + myinput;
             elt.innerHTML = "";
         }
     };
@@ -74,13 +74,13 @@ function searchProductsBySuggestion() {
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
 
-    xhr.open("GET", "../SendSearchRequestServlet?keyword=" + myinput);
+    xhr.open("GET", "SendSearchRequestServlet?keyword=" + myinput);
 
     xhr.onload = function ()
     {
         if (xhr.status === 200)
         {
-            document.getElementById('view').src = "../SendSearchRequestServlet?keyword=" + myinput;
+            document.getElementById('view').src = "SendSearchRequestServlet?keyword=" + myinput;
             document.getElementById("search_result").innerHTML = "";
         }
     };
