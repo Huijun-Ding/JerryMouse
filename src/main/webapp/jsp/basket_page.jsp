@@ -8,22 +8,26 @@
         <title>Mon panier</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/Style.css">
+        <script type="text/JavaScript" src="js/ScriptCheckBasket.js"></script>
+        <script src="js/basket.js"></script>
     </head>
     <body onload="displayBasket(), displayPoints()">
-        <script type="text/JavaScript" src="js/ScriptCheckBasket.js"></script>
-        <div class="container" id="container">
+        
+        <jsp:include page="navbar" flush="true"/>
+        
+        <div class="container" id="rayon_categorie_navbar">
             <h1>Mon panier</h1>
 
             <%
 
                 Client client = (Client) session.getAttribute("client");
-                int idClient = 1;
-                idClient = client.getCode();
+//                int idClient = 1;
+//                idClient = client.getCode();
                 session.setAttribute("client", client);
                 Store store = (Store) session.getAttribute("store");
                 session.setAttribute("store", store);
             %>
-            <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
+            <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=client.getCode()%>'></input>
             <form action="">
                 <div class="row">
                     <div class="col-8" id="div_prod">
