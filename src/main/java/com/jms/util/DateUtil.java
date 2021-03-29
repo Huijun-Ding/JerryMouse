@@ -30,13 +30,14 @@ public class DateUtil {
     }
 
     public static Date[] nextDays(int n) {
-        Date[] d = new Date[n + 1];
+        Date[] d = new Date[n];
         
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
+        c.add(Calendar.DATE, 1);
 
-        for(int i = 0 ; i <= n ; i++) {
-            d[i] = c.getTime();
+        for(int i = 0 ; i < n ; i++) {
+            d[i] = c.getTime(); 
             c.add(Calendar.DATE, 1);
         }
 
