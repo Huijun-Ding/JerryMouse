@@ -61,6 +61,7 @@ public class OrderLine {
         this.quantity = quantity;
         this.order = order;
         this.product = product;
+        this.id = new OrderLineId(product.getEan(), order.getOrderId());
     }
     
     // ----------------- GETTERS & SETTERS ------------------
