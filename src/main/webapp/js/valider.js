@@ -4,7 +4,26 @@
  * and open the template in the editor.
  */
 
+/**
+ * This function is to validate a basket.
+ */
+function validate() {
+    //var myinput = this.firstChild.nodeValue;
 
+    // Objet XMLHttpRequest.
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", "../Validate");
+
+    xhr.onload = function ()
+    {
+        if (xhr.status === 200)
+        {
+            
+        }
+    };
+    xhr.send();
+}
 
 /**
  * run
