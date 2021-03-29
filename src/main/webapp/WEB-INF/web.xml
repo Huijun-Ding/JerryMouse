@@ -129,6 +129,8 @@
     <servlet-mapping>
         <servlet-name>ChooseTimeSlotServlet</servlet-name>
         <url-pattern>/ChooseTimeSlot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CheckLogin</servlet-name>
         <url-pattern>/CheckLogin</url-pattern>
     </servlet-mapping>
