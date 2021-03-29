@@ -1,3 +1,4 @@
+<%@page import="com.jms.model.Order"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,7 +7,14 @@
         <title>Confirmation Commande</title>
     </head>
     <body>
+        
         <h1>Merci Chlo&eacute;</h1>
-        <p>Votre commande <span>#</span></p>
+        
+        <%
+            Order order = (Order)session.getAttribute("order");
+        %>
+        <p>Votre commande num&eacute;ro 
+            <span id="num_order"><%=order.getOrderId()%></span> 
+            est bien &eacute;t&eacute; enregistr&eacute;e !</p>
     </body>
 </html>
