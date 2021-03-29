@@ -34,9 +34,9 @@ public class ProductDAO {
 //    private static final String LOGIN = "root";
 //    private static final String PASSWORD = "";
 
-    private static final String URL = "jdbc:mysql://localhost:3307/db_21509053_2";
-    private static final String LOGIN = "21509053";
-    private static final String PASSWORD = "Q02MI0";
+    private static final String URL = "jdbc:mysql://sql4.freemysqlhosting.net:3306/sql4402068";
+    private static final String LOGIN = "sql4402068";
+    private static final String PASSWORD = "Act8WQ5TtL";
 
     //------------Methods--------------
     /**
