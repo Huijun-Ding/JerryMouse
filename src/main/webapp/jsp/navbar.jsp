@@ -11,8 +11,8 @@
 <header class="shadow p-3 mb-5 bg-body fixed-top">
     <div class="d-flex flex-wrap align-items-center justify-content-around">
         <div class="d-flex flex-column align-items-center justify-content-center">
-            <a href="/jm/jsp/index.jsp" class="d-flex align-items-center mb-2 mb-lg-1 text-decoration-none">
-                <img id="logo" src="../img/logo_small.png" alt="" class="d-inline-block align-text-top rounded">
+            <a href="index" class="d-flex align-items-center mb-2 mb-lg-1 text-decoration-none">
+                <img id="logo" src="img/logo_small.png" alt="" class="d-inline-block align-text-top rounded">
             </a>
             <button id="store_button" type="button" class="btn btn-sm btn-outline-primary dropdown-toggle border-0" data-toggle="dropdown">
                 <i class="fa fa-shopping-bag"></i>
@@ -70,28 +70,29 @@
 
         <%
             Client client = (Client) session.getAttribute("client");
-            if (client != null) {
-                out.println("<div>");
-                out.println("<h3>");
-                out.println("Bonjour " + client.getFirstName());
-                out.println("</h3>");
-                out.println("</div>");
-            }
+            int idClient = (client != null) ? client.getCode() : 0;
+            String initial = (client != null) ? client.getFirstName().toUpperCase().substring(0,1) + client.getLastName().toUpperCase().substring(0,1) : null;
         %>
+        <input type = 'hidden' id = 'idClient' name = 'value' value = '<%out.print(idClient);%>'></input>
         <div class="btn-group ms-3">
             <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-toggle="dropdown">
                     <div class="d-flex flex-column">
                         <i class='far fa-id-badge'></i>
-                        Compte
+                        <%
+                            if(client != null)
+                                out.print(initial);
+                            else
+                                out.print("Compte");
+                        %>
                     </div>
                 </button>
                 <div class="dropdown-menu">
                     <%if (client == null) {%>
-                    <a class="dropdown-item" href="login.jsp">Se connecter</a>
-                    <a class="dropdown-item" href="signup.jsp">S'inscrire</a>
+                    <a class="dropdown-item" href="login">Se connecter</a>
+                    <a class="dropdown-item" href="signup">S'inscrire</a>
                     <%} else {%>
-                    <a class="dropdown-item" href="../Deconnect">Se d&eacute;connecter</a>
+                    <a class="dropdown-item" href="Deconnect">Se d&eacute;connecter</a>
                     <%}%>
                 </div>
             </div>
