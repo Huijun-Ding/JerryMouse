@@ -63,6 +63,8 @@
     <servlet>
         <servlet-name>ChooseTimeSlotServlet</servlet-name>
         <servlet-class>com.jms.controller.ChooseTimeSlotServlet</servlet-class>
+        <servlet-name>CheckLogin</servlet-name>
+        <servlet-class>com.jms.controller.CheckLogin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
@@ -127,6 +129,8 @@
     <servlet-mapping>
         <servlet-name>ChooseTimeSlotServlet</servlet-name>
         <url-pattern>/ChooseTimeSlot</url-pattern>
+        <servlet-name>CheckLogin</servlet-name>
+        <url-pattern>/CheckLogin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

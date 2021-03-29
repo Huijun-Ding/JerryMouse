@@ -15,7 +15,7 @@
         <script src="../js/stores.js"></script>
         <script src="../js/department.js"></script>
         <script src="../js/basket.js"></script>
-        
+
     </head>
     <body>
         <header class="shadow p-3 mb-5 bg-body fixed-top">
@@ -48,7 +48,7 @@
                         <div class="input-group input-group">
                             <input id="search" type="search" class="form-control" placeholder="Rechercher un produit ...">
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary" id="search_button">
+                                <button type="button" class="btn btn-primary" id="search_button">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
@@ -97,7 +97,7 @@
                                     out.println("<span id='nb_product'>" + (int)nbProducts + "</span>");
                                 }
                             -->
-                            
+
                         </div>
                     </button>
                 </div>

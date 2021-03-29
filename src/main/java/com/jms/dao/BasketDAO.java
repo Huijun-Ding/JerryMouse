@@ -63,6 +63,11 @@ public class BasketDAO {
         return price * (1 - percentage);
     }
     
+    // calculer le montant de reduction d'un produit
+    public static float calculMontReductionProduit(float price, float percentage) {
+        return price * percentage;
+    }
+
     // calculer le prix total avec promotion pour chaque produit 
     public static float calculPriceTotalProduct(int quantity, float price) {
         return price * quantity; 

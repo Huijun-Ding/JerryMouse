@@ -22,16 +22,14 @@
         <form action="../Connect" method ="POST" class="signin">
             <div class ="container">
                 <h1>Connexion</h1>
-
-                <blockquote class="blockquote">
                     <p>Veuillez entrer votre login et votre mot de passe .<br>
                         Les champs suivis d'un '*' sont obligatoires.</p>
                     <p class="text-danger">
                         <% if (request.getAttribute("msg_error") != null)
                                 out.println(request.getAttribute("msg_error"));%>
                     </p>
-                </blockquote>
                 <div class="form-group">
+
                     <p>Login * :</p>
                     <input type="email" id="mail" name="mail" placeholder=" Votre adresse email"  required>
 
@@ -48,4 +46,5 @@
 
     </div>
 </body>
+
 </html>

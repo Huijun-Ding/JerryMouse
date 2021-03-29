@@ -5,10 +5,11 @@
  */
 package com.jms.controller;
 
-import com.jms.dao.ClientDAO;
 import com.jms.model.Client;
+import com.jms.model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Class ConnectServlet
- * @author Jerry Mouse Software
+ *
+ * @author Jerry Mouse Software.
  */
-public class ConnectServlet extends HttpServlet {
+public class CheckLogin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,35 +33,22 @@ public class ConnectServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            //Get parameter login and password
-            String mail = request.getParameter("mail");
-            String pw = request.getParameter("password");
-            
-            //Get the session
-            HttpSession session = request.getSession(true);
-            
-            try {
-                //Call method authenticate to check login and password
-                boolean check = ClientDAO.authenticate(mail, pw);
-                if (check == true) {
-                    Client client = ClientDAO.getByEmailPassword(mail, pw);
-                    //Put the client object in the session
-                    session.setAttribute("client", client);
-                    
-                    //chain to index page
-                    response.sendRedirect("jsp/index.jsp");
-                } else if(check == false){
-                    //chain to page login and display a message error
+        HttpSession session = request.getSession();
+        Client client = (Client) session.getAttribute("client");
+        response.setContentType("application/xml;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            out.println("<?xml version=\"1.0\"?>");
+            if (client == null) {
+                out.println("<idClient>" + "no" + "</idClient>");
 
-                    request.setAttribute("msg_error", "Le login ou le mot de passe est incorrect!");
-                    request.getRequestDispatcher("login").forward(request, response);
-                    
-                }
-            } catch (Exception ex) {
-                request.setAttribute("error", ex.getMessage());
+            } else {
+                out.println("<idClient>" + client.getCode() + "</idClient>");
             }
+        } catch (Exception ex) {
+
+            request.setAttribute("msg_erreur", ex.getMessage());
+            request.getRequestDispatcher("login").forward(request, response);
         }
     }
 
