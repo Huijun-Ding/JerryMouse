@@ -110,11 +110,7 @@ public class TimeSlotDAO {
         
         //TimeSlotDAO.initialize();
         
-        String format = "dd/MM/yy H:mm:ss";
-        String day = "dd";
-        SimpleDateFormat formater = new SimpleDateFormat( format );
-        SimpleDateFormat jour = new SimpleDateFormat( day );
-        Date date = new Date();
+        
         
     }
 }
