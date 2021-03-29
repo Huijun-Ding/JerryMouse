@@ -23,10 +23,15 @@ import org.hibernate.query.Query;
 public class HaveIdDAO {
     
     /*----- Date Format -----*/
-    private static String format = "dd/MM/yyyy";
+    private static String format = "hh:mm";
     private static final SimpleDateFormat DF = new SimpleDateFormat(format);
     
-    
+    /**
+     *  
+     * @param startTime
+     * @param storeId
+     * @throws ParseException 
+     */
     public static void create(String startTime, int storeId) throws ParseException {
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -42,34 +47,9 @@ public class HaveIdDAO {
         }
     }
     
-    /**
-     * 
-     * @param storeId
-     * @param datePickUp
-     * @return
-     * @throws ParseException 
-     */
-    public static List<TimeSlot> getTimeSlotsByStoreId(int storeId, Date datePickUp) throws ParseException {
-        //Open a session
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
-            //Open a transaction
-            Transaction t = session.beginTransaction();
 
-            Query query = session.createQuery("select new TimeSlot(c.startTime, c.endTime) "
-                    + "from CreneauHoraire c , Avoir h"
-                    + "where h.timeSlot.startTime = c.startTime "
-                    + "and h.store.id = :storeId "
-                    + "and h.date = :datePickUp");
-
-            query.setParameter("storeId", storeId);
-            query.setParameter("datePickUp", datePickUp);
-            
-            return query.list();
-        }
-    }
     
     public static void main (String[] args) throws ParseException{
         
-        HaveIdDAO.getTimeSlotsByStoreId(22, DF.parse("26/03/2021"));
     }
 }
