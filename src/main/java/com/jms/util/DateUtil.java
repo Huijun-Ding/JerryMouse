@@ -28,30 +28,27 @@ public class DateUtil {
         String time = sdf.format(date);
         return time.toUpperCase().substring(0,1) + time.substring(1);
     }
-    
-    public static Date[] fourNextDays() {
-        Date[] d = new Date[4];
+
+    public static Date[] nextDays(int n) {
+        Date[] d = new Date[n + 1];
         
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
-        
-        d[0] = c.getTime();
-        c.add(Calendar.DATE, 1);
-        d[1] = c.getTime();
-        c.add(Calendar.DATE, 1);
-        d[2] = c.getTime();
-        c.add(Calendar.DATE, 1);
-        d[3] = c.getTime();
-        c.add(Calendar.DATE, 1);
-        
+
+        for(int i = 0 ; i <= n ; i++) {
+            d[i] = c.getTime();
+            c.add(Calendar.DATE, 1);
+        }
+
         return d;
     }
-    
+
     public static void main(String[] args) {
         System.out.println(dateOfToday());
         System.out.println(monthOfToday());
         
-        for(Date d : fourNextDays())
-            System.out.println(ALL_DATE_IN_LETTERS.format(d));
+        int i = 0;
+        for(Date d : nextDays(20))
+            System.out.println((i++) + " : " + ALL_DATE_IN_LETTERS.format(d));
     }
 }
