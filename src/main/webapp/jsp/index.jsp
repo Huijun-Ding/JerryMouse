@@ -15,7 +15,7 @@
         <script src="../js/stores.js"></script>
         <script src="../js/department.js"></script>
         <script src="../js/basket.js"></script>
-        
+
     </head>
     <body>
         <header class="shadow p-3 mb-5 bg-body fixed-top">
@@ -97,7 +97,7 @@
                                     out.println("<span id='nb_product'>" + (int)nbProducts + "</span>");
                                 }
                             -->
-                            
+
                         </div>
                     </button>
                 </div>
