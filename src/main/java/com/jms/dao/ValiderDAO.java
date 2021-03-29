@@ -5,9 +5,7 @@
  */
 package com.jms.dao;
 
-import com.jms.model.Basket;
 import com.jms.model.Client;
-import com.jms.model.Have;
 import com.jms.model.Order;
 import com.jms.model.OrderLine;
 import com.jms.model.Product;
@@ -16,7 +14,6 @@ import com.jms.model.TimeSlot;
 import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -36,10 +33,9 @@ public class ValiderDAO {
      *
      * @param client the client making an order.
      * @param store the store where to pick the order.
-     * @param haveTS the object containing the date and the timeslot to pick up
-     * the order.
+     * @param timeslot the object containing the timeslot to pick up the order.
      */
-    public static void registerBasket(Client client, Store store, Have haveTS) throws ParseException {
+    public static void registerBasket(Client client, Store store, TimeSlot timeslot) throws ParseException {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
@@ -58,8 +54,8 @@ public class ValiderDAO {
             order.setClient(client);
 
             // Register the date and the timeslot to pick up the order
-            order.setTimeslot(haveTS.getTimeSlot());
-            order.setPickupDate(haveTS.getDate());
+            order.setTimeslot(timeslot);
+            order.setPickupDate(new Date());
 
             // Save the order in DB
             session.save(order);
@@ -85,5 +81,5 @@ public class ValiderDAO {
             session.close();
         }
     }
-
-}
+    
+        }
