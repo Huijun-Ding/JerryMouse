@@ -19,7 +19,7 @@ public class HaveId implements Serializable {
      * Hibernate join property with TimeSlot Class.
      */
     @Column(name = "HeureDebutCR")
-    private Date startTime;
+    private String startTime;
 
     /**
      * Hibernate join property with Store Class.
