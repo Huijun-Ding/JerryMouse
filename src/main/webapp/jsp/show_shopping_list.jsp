@@ -18,29 +18,24 @@
 
     </head>
     <body>
+        <jsp:include page="navbar.jsp" flush="true"/>
 
-    <jsp:include page="navbar.jsp" flush="true"/>
 
-    <div id="rayon_categorie_navbar">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item btn-group">
-                    <button id="departmentButton" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
-                    </button>
-                    <div id="departments_list" class="dropdown-menu dropdown-menu-dark"></div>
-                </li>
-                <li id="category" class="breadcrumb-item btn-group" aria-current="page">
-                    <button id="categoryButton" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
-                    </button>
-                    <div id="productCategories_list" class="dropdown-menu dropdown-menu-dark"></div>
-                </li>
-            </ol>
-        </nav>
-    </div>
 
-    <!-- 16:9 aspect ratio -->
-    <iframe id="view" class="h-100 d-inline-block w-100" src="../DisplayProducts?home" allowfullscreen></iframe>
+        <div class="container" id="rayon_categorie_navbar">
+            <h1>Créer ma nouvelle liste de courses</h1>
 
-    <script type="text/JavaScript" src="../js/search.js"></script>
-</body>
+            <form>
+                <div class="mb-3">
+                    <label for="name_shopping_list" class="form-label">Nom de la liste</label>
+
+                    <input type="text" class="form-control w-25 p-3 h-25" id="name_shopping_list" aria-describedby="nameHelp" width="50">
+                    <div id="nameHelp" class="form-text">Veuillez saisir un nom personnalisé pour votre nouvelle liste de course.</div>
+                </div>
+                <div><button type="button" class="btn btn-primary">Créer</button></div>
+            </form>
+        </div>
+
+        <script type="text/JavaScript" src="../js/search.js"></script>
+    </body>
 </html>
