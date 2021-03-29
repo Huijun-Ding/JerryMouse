@@ -32,7 +32,7 @@
                         <div id="productCategories_list" class="dropdown-menu"></div>
                     </li>
                 </ol>
-            </nav>
+            </nav>   
         </div>
   
         <!-- 16:9 aspect ratio -->
