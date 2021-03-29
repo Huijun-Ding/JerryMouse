@@ -23,14 +23,15 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 
 /**
- * The class Order represents a order that ordered by a client which includ multiple order lines.
+ * The class Order represents a order that ordered by a client which includ
+ * multiple order lines.
+ *
  * @author Jerry Mouse Software
  */
 @Entity(name = "Commande")
 public class Order {
 
     //-----------Properties----------------
-    
     /**
      * The unique identity of a order.
      */
@@ -38,41 +39,47 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CodeCD")
     private int orderId;
-    
+
     /**
      * The date of order.
      */
     @Column(name = "DateCD")
     private Date orderDate;
-    
+
     /**
-    *  Hibernate join property with Product Class.
-    */
-    @OneToMany (mappedBy = "order", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn (name = "EANP")
+     * The date when the order is to be picked up by the client.
+     */
+    @Column(name = "DateRetrait")
+    private Date pickupDate;
+
+    /**
+     * Hibernate join property with Product Class.
+     */
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "EANP")
     private Map<Product, OrderLine> products = new HashMap<>(0);
-    
+
     /**
-    *  Hibernate join property with Client Class.
-    */
-    @ManyToOne(fetch = FetchType.EAGER) 
-    @JoinColumn(name = "CodeCL") 
+     * Hibernate join property with Client Class.
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CodeCL")
     private Client client;
-    
+
     /**
-    *  Hibernate join property with Store Class.
-    */
-    @ManyToOne(fetch = FetchType.EAGER) 
-    @JoinColumn(name = "CodeM") 
+     * Hibernate join property with Store Class.
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CodeM")
     private Store store;
-    
+
     /**
-    *  Hibernate join property with CcreneauHoraire Class.
-    */
-    @ManyToOne(fetch = FetchType.EAGER) 
-    @JoinColumn(name = "HeureDebutCR") 
+     * Hibernate join property with CcreneauHoraire Class.
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "HeureDebutCR")
     private TimeSlot timeslot;
-    
+
     //-----------Constructors--------------
     public Order() {
     }
@@ -85,13 +92,12 @@ public class Order {
     public Order(Date orderDate) {
         this.orderDate = orderDate;
     }
-    
+
     public Order(Date orderDate, Store store, TimeSlot timeslot) {
         this.orderDate = orderDate;
         this.store = store;
         this.timeslot = timeslot;
     }
-    
 
     //-----------Getters and setters----------------
     public int getOrderId() {
@@ -108,6 +114,14 @@ public class Order {
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public Date getPickupDate() {
+        return pickupDate;
+    }
+
+    public void setPickupDate(Date pickupDate) {
+        this.pickupDate = pickupDate;
     }
 
     public Map<Product, OrderLine> getProducts() {
@@ -170,7 +184,10 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", orderName=" + orderDate + '}';
+        return "Order{" + "orderId=" + orderId + ", orderDate=" + orderDate 
+                + ", pickupDate=" + pickupDate + ", products=" + products 
+                + ", client=" + client + ", store=" + store 
+                + ", timeslot=" + timeslot + '}';
     }
 
 }
