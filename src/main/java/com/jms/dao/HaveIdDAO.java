@@ -38,11 +38,11 @@ public class HaveIdDAO {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
-            
-           
+          
             HaveId d = new HaveId(startTime,storeId, DF.parse(date));
 
             session.save(d);
+
 
             t.commit();
         }

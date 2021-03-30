@@ -73,6 +73,14 @@
         <jsp-file>/jsp/navbar.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>confirmation_order</servlet-name>
+        <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>SendEmail</servlet-name>
+        <servlet-class>com.jms.controller.SendEmail</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MyShoppinglLists</servlet-name>
         <jsp-file>/jsp/my_shopping_lists.jsp</jsp-file>
     </servlet>
@@ -91,6 +99,10 @@
     <servlet>
         <servlet-name>SendEmailServlet</servlet-name>
         <servlet-class>com.jms.controller.SendEmailServlet</servlet-class>
+    </servlet>
+        <servlet>
+        <servlet-name>DisplayAllShoppingLists</servlet-name>
+        <servlet-class>com.jms.controller.DisplayAllShoppingListsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -184,6 +196,10 @@
     <servlet-mapping>
         <servlet-name>SendEmailServlet</servlet-name>
         <url-pattern>/SendEmailServlet</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>DisplayAllShoppingLists</servlet-name>
+        <url-pattern>/DisplayAllShoppingLists</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

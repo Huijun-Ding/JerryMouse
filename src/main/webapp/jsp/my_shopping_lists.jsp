@@ -12,15 +12,20 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        
     </head>
-    <body>
+    <body id="page">
         <jsp:include page="navbar" flush="true"/>
-        
+
         <div class="container" id="rayon_categorie_navbar">
             <h2>Mes listes de courses</h2>
+
+            <br>
+            <div class="list-group" id="my_lists"></div>
+
+            <br>
+            <div><button type="button" class="btn btn-primary" id="add_new_sl">Créer une nouvelle shopping liste</button></div>
         </div>
-        
-        <script src="js/shoppingList.js"></script>
+
+        <script src="js/allShoppingLists.js"></script>
     </body>
 </html>
