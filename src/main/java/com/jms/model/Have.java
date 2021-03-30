@@ -1,6 +1,7 @@
 package com.jms.model;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -36,14 +37,7 @@ public class Have implements Serializable {
     @Column(name = "CapaciteCR")
     private int capacity;
 
-    /**
-     * Date of a time slot.
-     * <b>Format : jj/mm/aaaa</b>
-     */
-    @Column(name = "DateCR")
-    @Temporal(TemporalType.DATE)
-    private Date date;
-
+    
     /**
      * Hibernate join property with Store Class.
      */
@@ -74,16 +68,14 @@ public class Have implements Serializable {
      * during a given time slot.
      * @param date Date of a time slot.
      */
-    public Have(HaveId haveId, int capacity, Date date) {
+    public Have(HaveId haveId, int capacity) {
         this.haveId = haveId;
         this.capacity = capacity;
-        this.date = date;
     }
     
-    public Have(HaveId haveId, int capacity, Date date, TimeSlot timeSlot) {
+    public Have(HaveId haveId, int capacity, TimeSlot timeSlot) {
         this.haveId = haveId;
         this.capacity = capacity;
-        this.date = date;
         this.timeSlot = timeSlot;
     }
 
@@ -119,22 +111,6 @@ public class Have implements Serializable {
      */
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-    }
-
-    /**
-     * Getter for the date property.
-     * @return The date property.
-     */
-    public Date getDate() {
-        return date;
-    }
-    
-    /**
-     * Setter for the date property.
-     * @param date The new value to set to the property.
-     */
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     /**
@@ -174,9 +150,9 @@ public class Have implements Serializable {
     /**
      * Method which converts the current object into a String object.
      */
-    @Override
+    @Override    
     public String toString() {
-        return "Have{" + "haveId=" + haveId + ", capacity=" + capacity + ", date=" + date + '}';
+        return "Have{" + "haveId=" + haveId + ", capacity=" + capacity + ", store=" + store + ", timeSlot=" + timeSlot + '}';
     }
 
     /**

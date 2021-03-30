@@ -1,9 +1,12 @@
 package com.jms.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * HaveId Class.
@@ -25,6 +28,15 @@ public class HaveId implements Serializable {
      */
     @Column(name = "CodeM")
     private int storeId;
+    
+    /**
+     * Date of a time slot.
+     * <b>Format : jj/mm/aaaa</b>
+     */
+    @Column(name = "DateCR")
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
 
     // -------------------- CONSTRUCTORS --------------------
 
@@ -38,10 +50,12 @@ public class HaveId implements Serializable {
      * A constructor of the HaveId Class.
      * @param startTime Start time of a time slot.
      * @param storeId Unique code identifying a store.
+     * @param date
      */
-    public HaveId(String startTime, int storeId) {
+    public HaveId(String startTime, int storeId, Date date) {
         this.startTime = startTime;
         this.storeId = storeId;
+        this.date = date;
     }
 
     // ----------------- GETTERS & SETTERS ------------------
@@ -78,14 +92,30 @@ public class HaveId implements Serializable {
         this.storeId = storeId;
     }
     
+    /**
+     * Getter for the date property.
+     * @return The date property.
+     */
+    public Date getDate() {
+        return date;
+    }
+    
+    /**
+     * Setter for the date property.
+     * @param date The new value to set to the property.
+     */
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
     // ----------------------- METHODS ----------------------
 
     /**
      * Method which converts the current object into a String object.
      */
-    @Override
+    @Override    
     public String toString() {
-        return "HaveId{" + "startTime=" + startTime + ", storeId=" + storeId + '}';
+        return "HaveId{" + "startTime=" + startTime + ", storeId=" + storeId + ", date=" + date + '}';
     }
 
     /**
@@ -94,9 +124,10 @@ public class HaveId implements Serializable {
      */
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.startTime);
-        hash = 67 * hash + this.storeId;
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.startTime);
+        hash = 23 * hash + this.storeId;
+        hash = 23 * hash + Objects.hashCode(this.date);
         return hash;
     }
     
@@ -123,6 +154,12 @@ public class HaveId implements Serializable {
         if (!Objects.equals(this.startTime, other.startTime)) {
             return false;
         }
+        if (!Objects.equals(this.date, other.date)) {
+            return false;
+        }
         return true;
     }
+
+    
+    
 }
