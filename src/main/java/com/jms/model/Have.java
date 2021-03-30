@@ -8,6 +8,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Have Class.
@@ -39,6 +41,7 @@ public class Have implements Serializable {
      * <b>Format : jj/mm/aaaa</b>
      */
     @Column(name = "DateCR")
+    @Temporal (TemporalType.DATE)
     private Date date;
 
     /**
