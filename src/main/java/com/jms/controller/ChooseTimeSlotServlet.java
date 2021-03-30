@@ -5,18 +5,24 @@
  */
 package com.jms.controller;
 
+import com.jms.dao.HaveDAO;
+import com.jms.model.Have;
+import com.jms.model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author RAKOTOARISOA
  */
-public class DeconnectServlet extends HttpServlet {
+public class ChooseTimeSlotServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,8 +35,35 @@ public class DeconnectServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().removeAttribute("client");
-        response.sendRedirect("index");
+        try ( PrintWriter out = response.getWriter()) {
+            response.setContentType("application/xml;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            
+            HttpSession session = request.getSession();
+            Store store = (Store) session.getAttribute("store");
+            try{
+                SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = DF.parse(request.getParameter("date"));
+                
+                out.println("<?xml version=\"1.0\"?>");
+                out.println("<timeSlots>");
+
+                if (store != null && date !=null ) {
+                    for (Have h : HaveDAO.getTimeSlotsByStoreId(store.getId(), date)) {
+                        out.println("   <timeSlot>");
+                        out.println("       <startTime><![CDATA[" + h.getTimeSlot().getStartTime() + "]]></startTime>");
+                        out.println("       <endTime><![CDATA[" + h.getTimeSlot().getEndTime() + "]]></endTime>");
+                        out.println("       <capacity><![CDATA[" + h.getCapacity() + "]]></capacity>");
+                        out.println("   </timeSlot>");
+                    }
+                }
+                
+            } catch (Exception ex){
+                out.print("<msg_error>" + ex.getMessage() + "</msg_error>");
+            }
+            
+            out.println("</timeSlots>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -41,6 +74,7 @@ public class DeconnectServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.text.ParseException
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -8,7 +8,7 @@ function displayStore() {
     var xhr = new XMLHttpRequest();
 
     // Requête au serveur avec les paramètres éventuels.
-    xhr.open("GET", "../CheckLogin");
+    xhr.open("GET", "CheckLogin");
 
     // On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
     xhr.onload = function ()
@@ -19,10 +19,10 @@ function displayStore() {
             // Elément html que l'on va mettre à jour.
             var idClients = xhr.responseXML.getElementsByTagName("idClient");
             if (idClients[0].firstChild.nodeValue === "no") {
-                window.location.href = "../login";
+                window.location.href = "login";
                 
             } else {
-                document.getElementById("view").src = "../basketPage";
+                document.getElementById("view").src = "basketPage";
                 document.getElementById("search_bar").style.display = "none";
                 document.getElementById("rayon_categorie_navbar").style.display = "none";
                 document.getElementById("view").style.marginTop = "120px";

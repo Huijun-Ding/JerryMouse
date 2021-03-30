@@ -9,7 +9,7 @@ function search_stores() {
     var xhr = new XMLHttpRequest();
     // Requête au serveur avec les paramètres éventuels.
     var param = "postalCode=" + encodeURIComponent(document.getElementById("search_stores").value);
-    var url = "../Store" + "?" + param;
+    var url = "Store" + "?" + param;
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -63,7 +63,7 @@ function changeStore(storeId) {
     var xhr = new XMLHttpRequest();
     // Requête au serveur avec les paramètres éventuels.
     var param = "setStoreId=" + encodeURIComponent(storeId);
-    var url = "../Store" + "?" + param;
+    var url = "Store" + "?" + param;
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -82,6 +82,7 @@ function changeStore(storeId) {
             document.getElementById("store_city").innerHTML = postalCode + " " + city;
             document.getElementById("search_stores").value = "";
             document.getElementById("stores_list").innerHTML = "";
+            document.getElementById("time_slot_button").classList.remove("d-none");
         }
     };    
     

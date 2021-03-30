@@ -12,12 +12,15 @@ html, body {
     height: 50px;
 }
 
+#quantity{
+    width: 30px;
+}
+
 #stores_list {
     padding: 0px;
 }
 
 #rayon_categorie_navbar {
-    margin-top: 140px;
     padding-left: 50px;
 }
 
@@ -67,4 +70,22 @@ html, body {
 #view {
     overflow-y: hidden;
     width: 100%;
+}
+
+@media only screen and (min-width: 758px) {
+    #rayon_categorie_navbar {
+        margin-top: 145px;
+    }
+}
+
+@media only screen and (max-width: 758px) and (min-width: 513px)  {
+    #rayon_categorie_navbar {
+        margin-top: 210px;
+    }
+}
+
+@media only screen and (max-width: 513px) {
+    #rayon_categorie_navbar {
+        margin-top: 250px;
+    }
 }
