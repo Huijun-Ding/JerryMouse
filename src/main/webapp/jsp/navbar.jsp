@@ -122,10 +122,6 @@
             </button> 
             <%}%>
             
-            <script>
-                
-            </script>
-            
         </div>
     </div>
 </header>
@@ -150,3 +146,4 @@
     </div>
 </div>
 
+<script src="js/shoppingList.js"></script>

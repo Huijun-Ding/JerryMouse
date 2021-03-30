@@ -19,6 +19,10 @@
         <div class="container" id="rayon_categorie_navbar">
             <h2>Créer ma nouvelle liste de courses</h2>
             <br>
+            <%
+                Client client = (Client) session.getAttribute("client");
+                int idClient = (client != null) ? client.getCode() : 0;
+            %>
             <form>
                 <div class="mb-3">
                     <label for="name_shopping_list" class="form-label">Nom de la liste</label>
