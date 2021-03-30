@@ -6,12 +6,8 @@
 package com.jms.controller;
 
 import com.jms.dao.HaveDAO;
-import com.jms.dao.TimeSlotDAO;
 import com.jms.model.Have;
-import com.jms.model.HaveId;
 import com.jms.model.Store;
-import com.jms.model.TimeSlot;
-import com.jms.util.DateUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -41,25 +37,18 @@ public class ChooseTimeSlotServlet extends HttpServlet {
             throws ServletException, IOException {
         try ( PrintWriter out = response.getWriter()) {
             response.setContentType("application/xml;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");          
-            out.println("<?xml version=\"1.0\"?>");
+            response.setCharacterEncoding("UTF-8");
             
             HttpSession session = request.getSession();
             Store store = (Store) session.getAttribute("store");
-            try {
+            try{
                 SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = DF.parse(request.getParameter("date"));
-                String startTime = request.getParameter("startTime");
+                
+                out.println("<?xml version=\"1.0\"?>");
+                out.println("<timeSlots>");
 
-                if(startTime != null && store != null && date !=null) {
-                    HaveId haveId = new HaveId(startTime, 0, date);
-                    TimeSlot timeSlot = TimeSlotDAO.get(startTime);
-                    Have have = new Have(haveId, 0, timeSlot);
-                    session.setAttribute("have", have);
-                    out.println("<msg>" + DateUtil.dateOfHaveObject(have) + "</msg>");
-                } else if(store != null && date != null) {
-                    out.println("<timeSlots>");
-                    
+                if (store != null && date !=null ) {
                     for (Have h : HaveDAO.getTimeSlotsByStoreId(store.getId(), date)) {
                         out.println("   <timeSlot>");
                         out.println("       <startTime><![CDATA[" + h.getTimeSlot().getStartTime() + "]]></startTime>");
@@ -67,14 +56,13 @@ public class ChooseTimeSlotServlet extends HttpServlet {
                         out.println("       <capacity><![CDATA[" + h.getCapacity() + "]]></capacity>");
                         out.println("   </timeSlot>");
                     }
-                    
-                    out.println("</timeSlots>");
-                } else {
-                    out.println("<msg>Requête inconnue !</msg>");
                 }
+                
             } catch (Exception ex){
                 out.print("<msg_error>" + ex.getMessage() + "</msg_error>");
             }
+            
+            out.println("</timeSlots>");
         }
     }
 
