@@ -48,9 +48,9 @@ public class ProductDAOH {
     }
     
     /**
-     * Gets all the information of a product from its EAN.
+     * Gets all the information of a product.
      *
-     * @param id the ean of the product.
+     * @param prod the given product.
      */
     public static Product getAll(Product prod) {
         /*----- Session opening -----*/
@@ -87,7 +87,7 @@ public class ProductDAOH {
     }
     
     /**
-     * Gets all the products in the catalog.
+     * Gets all the products in the catalog with all info.
      * @return the list of the products.
      */
     public static List<Product> getAllProductsWithAllInfo() {
