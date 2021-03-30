@@ -44,15 +44,6 @@ public class TimeSlotDAO {
             t.commit();
         }
     }
-    
-    public static TimeSlot get(String startTime) {
-        //Open a session
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
-            //Open a transaction
-            Transaction t = session.beginTransaction();
-            return session.get(TimeSlot.class, startTime);
-        }
-    }
 
     /**
      *
