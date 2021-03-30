@@ -15,6 +15,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import java.text.DateFormat;
 
 /**
  *
@@ -37,12 +38,19 @@ public class TimeSlotDAO {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
-
             TimeSlot t1 = new TimeSlot(startTime, endTime);
-
             session.save(t1);
-
+    
             t.commit();
+        }
+    }
+    
+    public static TimeSlot get(String startTime) {
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            //Open a transaction
+            Transaction t = session.beginTransaction();
+            return session.get(TimeSlot.class, startTime);
         }
     }
 

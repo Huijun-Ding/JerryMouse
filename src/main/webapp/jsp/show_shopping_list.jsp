@@ -15,8 +15,9 @@
 
     </head>
     <body>
+        
         <jsp:include page="navbar" flush="true"/>
-
+        
         <div class="container" id="rayon_categorie_navbar">
             <h2>Ma liste de courses xxxx</h2>
             <br>
@@ -38,17 +39,17 @@
                 <div class="col-1"></div>
 
                 <div class="col-3">
-                    <button type="button" id="add_shopping_list" class="btn btn-outline-primary">Ajouter</button>
-                    <button type="button" id="import_shopping_list" class="btn btn-outline-primary">Importer</button>
+                    <button type="button" id="add_shopping_list" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_post-it">Ajouter</button>
+                    <button type="button" id="import_shopping_list" class="btn btn-outline-primary" data-toggle="modal" data-target="#import_list_file">Importer</button>
                 </div>
             </div>
 
-            <div class="modal" tabindex="-1" id="modal">
+            <div class="modal" tabindex="-1" id="add_post-it">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Ajouter un nouveau post-it</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <p>Contenu : </p>
@@ -56,22 +57,35 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Supprimer</button>
-                            <button type="button" class="btn btn-primary">Sauvgarder</button>
+                            <button type="button" class="btn btn-primary">Sauvegarder</button>
                         </div>
                     </div>
                 </div>
             </div>
+            
+             <div class="modal" tabindex="-1" id="import_list_file">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Importer un fichier</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>S&aacute;lectionner un fichier : </p>
+                            <input type="file" class="form-control w-30 p-40 h-25" class="post_it" width="50">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <button type="button" class="btn btn-primary">Valider</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
 
         </div>
 
-        <script>
-        $(document).ready(function(){
-                    $("#add_shopping_list").click(function(){
-            $("#modal").modal("show");
-            });
-        });
-        </script>
-    </script>
+        
     <script src="js/shoppingList.js"></script>
 </body>
 </html>
