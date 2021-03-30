@@ -73,10 +73,6 @@
         <jsp-file>/jsp/navbar.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>SendEmail</servlet-name>
-        <servlet-class>com.jms.controller.SendEmail</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MyShoppinglLists</servlet-name>
         <jsp-file>/jsp/my_shopping_lists.jsp</jsp-file>
     </servlet>
@@ -91,6 +87,10 @@
     <servlet>
         <servlet-name>NewShoppingListServlet</servlet-name>
         <servlet-class>com.jms.controller.NewShoppingListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendEmailServlet</servlet-name>
+        <servlet-class>com.jms.controller.SendEmailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -161,10 +161,6 @@
         <url-pattern>/navbar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SendEmail</servlet-name>
-        <url-pattern>/SendEmail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
         <url-pattern>/Connect</url-pattern>
@@ -184,6 +180,10 @@
     <servlet-mapping>
         <servlet-name>NewShoppingListServlet</servlet-name>
         <url-pattern>/NewShoppingListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendEmailServlet</servlet-name>
+        <url-pattern>/SendEmailServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
