@@ -31,7 +31,7 @@ public class HaveDAO {
      */
     public static void create(String startTime, int storeId, int capacity, String date) throws ParseException {
         //Open a session
-        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
 
@@ -45,13 +45,12 @@ public class HaveDAO {
     }
 
     public static void initialize() throws ParseException {
-
-        int minCapacite = 5;
-        int maxCapacite = 20;
+        int minCapacite = 0;
+        int maxCapacite = 5;
         int range = maxCapacite - minCapacite + 1;
 
-        for (int storeId = 1; storeId <= 43; storeId++) {
-            for (Date d : DateUtil.nextDays(4)) {
+        for (Date d : DateUtil.nextDays(4)) {
+            for (int storeId = 1; storeId <= 43; storeId++) {
                 int hour = 7;
                 String minutes = "30";
 
@@ -65,6 +64,13 @@ public class HaveDAO {
                     }
                     minutes = (minutes.equals("00")) ? "30" : "00";
 
+                    System.out.println(
+                            hoursMinutes + " "
+                            + storeId + " "
+                            + capacity + " "
+                            + DateUtil.yearMonthDayFormat(d)
+                    );
+                    
                     create(hoursMinutes, storeId, capacity, DateUtil.yearMonthDayFormat(d));
                 }
             }
@@ -75,22 +81,25 @@ public class HaveDAO {
     /**
      *
      * @param storeId
-     * @param datePickUp
+     * @param date
      * @return
      */
-    public static List<Have> getTimeSlotsByStoreId(int storeId, Date datePickUp) {
+    public static List<Have> getTimeSlotsByStoreId(int storeId, Date date) {
         //Open a session
-        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
-            Query query = session.createQuery("select new Have(h.date,h.capacity, h.store, h.timeSlot) "
-                    + "from CreneauHoraire c , Avoir h"
+
+            Query query = session.createQuery(""
+                    + "select new com.jms.model.Have(h.haveId, h.capacity, "
+                    + "h.date, h.timeSlot) "
+                    + "from CreneauHoraire c, Avoir h "
                     + "where h.timeSlot.startTime = c.startTime "
                     + "and h.store.id = :storeId "
-                    + "and h.date = :datePickUp");
+                    + "and h.date = :date");
 
             query.setParameter("storeId", storeId);
-            query.setParameter("datePickUp", datePickUp);
+            query.setParameter("date", date);
 
             return query.list();
         }
@@ -98,6 +107,5 @@ public class HaveDAO {
 
     public static void main(String[] args) throws ParseException {
         initialize();
-        
     }
 }
