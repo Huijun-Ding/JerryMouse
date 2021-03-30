@@ -39,6 +39,15 @@ html, body {
     font-weight:bold;
     font-size: 20px;
 }
+
+.stock{
+    color:red;
+}
+
+.msg_error{
+    color:red;
+}
+
 #points{
     /*width: 50%;*/
     /*float: right;*/
