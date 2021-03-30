@@ -51,16 +51,17 @@ public class ValidateServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
         HttpSession session = request.getSession(true);
-
+        String format = "yyyy-MM-dd";
+        SimpleDateFormat DF = new SimpleDateFormat(format);
+        
         // Get the information of order
         String idClient = request.getParameter("idClient");
         int idStore = Integer.parseInt(request.getParameter("idStore"));
         String startTime = request.getParameter("startTime");
-        String format = "yyyy-MM-dd";
-        SimpleDateFormat DF = new SimpleDateFormat(format);
+        
+        Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
+        Store store = (idStore == 0) ? null : StoreDAO.get(idStore);
         
         Date date;
         Have have = null;
@@ -71,44 +72,41 @@ public class ValidateServlet extends HttpServlet {
             Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
-        Store store = StoreDAO.get(idStore);
-
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             out.println("<?xml version=\"1.0\"?>");
             out.println("<results>");
             
-            ArrayList<Boolean> lstRes = new ArrayList<>();
-            // retrouver le panier et des produits de client
-            try {
-                List<Basket> lstBasket = BasketDAO.loadBasket(Integer.parseInt(idClient));
-                for(Basket basket : lstBasket){
-                    // vérifier le stock pour un produit
-                    out.println("<product>");
-                    out.println("<ean><![CDATA[" + basket.getBasketId().getEan() + "]]></ean>");
-                    Boolean res = StockDAO.checkStockProd(idStore, 
-                            basket.getBasketId().getEan(), basket.getQtyBasket());
-                    lstRes.add(res);
+            if(client != null && store != null && have != null){  
+                ArrayList<Boolean> lstRes = new ArrayList<>();
+                // retrouver le panier et des produits de client
+                try {
+                    List<Basket> lstBasket = BasketDAO.loadBasket(Integer.parseInt(idClient));
+                    for(Basket basket : lstBasket){
+                        // vérifier le stock pour un produit
+                        out.println("<product>");
+                        out.println("<ean><![CDATA[" + basket.getBasketId().getEan() + "]]></ean>");
+                        Boolean res = StockDAO.checkStockProd(idStore, 
+                                basket.getBasketId().getEan(), basket.getQtyBasket());
+                        lstRes.add(res);
 
-                    if(res) out.println("<qte><![CDATA[ok]]></qte>");
-                    else out.println("<qte><![CDATA[Rupture de stock !]]></qte>");
-                    out.println("</product>");
+                        if(res) out.println("<qte><![CDATA[ok]]></qte>");
+                        else out.println("<qte><![CDATA[Rupture de stock !]]></qte>");
+                        out.println("</product>");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            // vérifier tous les prods sont en stock
-            Boolean resFinal = true;
-            for(Boolean b : lstRes){
-                if(!b) resFinal = false;
-                break;
-            }
-            
-            if(resFinal){
-                if(client != null && store != null && have != null){
+
+                // vérifier si tous les prods sont en stock
+                System.out.println(lstRes);
+                Boolean resFinal = true;
+                if(lstRes.contains(false)) resFinal = false;
+
+                // si tous les prods sont en stock
+                if(resFinal == true){
+                    // enregistrer la cmd si client a choisi un mag et un creneau
                     try {
                         Order order = ValiderDAO.registerBasket(client, store, have);
                         session.setAttribute("order", order);
@@ -117,25 +115,26 @@ public class ValidateServlet extends HttpServlet {
                         out.println("<res><![CDATA[error]]></res>");
                         out.println("<message><![CDATA[Erreur !]]></message>");
                     }       
-                }else if(client == null){
-                    out.println("<res><![CDATA[connection]]></res>");
-                }else {
-                    if(store == null && have == null){
+                }else{
+                    out.println("<res><![CDATA[stock]]></res>");
+                    out.println("<message><![CDATA[Rupture de stock !]]></message>");
+                }
+            }else if(client == null){
+                // client ne se connecte pas
+                out.println("<res><![CDATA[connection]]></res>");
+            }else {
+                if(store == null && have == null){
+                    // client n'a pas choisi un mag
                     out.println("<res><![CDATA[store]]></res>");
                     out.println("<message><![CDATA[Veuillez choisir votre magasin de retrait !]]></message>");
-                    }else if(store != null && have == null){
-                        out.println("<res><![CDATA[time]]></res>");
-                        out.println("<message><![CDATA[Veuillez choisir un cr&eacute;neau de retrait !]]></message>");
-                    }
+                }else if(store != null && have == null){
+                    // client a choisi un mag mas pas un créneau
+                    out.println("<res><![CDATA[time]]></res>");
+                    out.println("<message><![CDATA[Veuillez choisir un cr&eacute;neau de retrait !]]></message>");
                 }
-            }else{
-                out.println("<res><![CDATA[stock]]></res>");
-                out.println("<message><![CDATA[Rupture de sotl !]]></message>");
             }
             out.println("</results>");
         }
-           
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
