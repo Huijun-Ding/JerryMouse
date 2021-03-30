@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="com.jms.util.DateUtil"%>
 <%@page import="com.jms.model.Have"%>
 <%@page import="com.jms.model.TimeSlot"%>
@@ -25,13 +26,13 @@
             </button>
             <button id="time_slot_button" type="button"
                     class="<%if(s == null) out.print("d-none");%>
-                    btn btn-sm btn-outline-primary dropdown-toggle border-0" data-toggle="dropdown">
-                <i class="fa fa-shopping-bag"></i>
+                    btn btn-sm btn-outline-primary border-0" data-toggle="modal" data-target="#search_time_slots_modal">
+                <i class="fa fa-calendar-alt"></i>
                 <span id="time_slot_name">
-                    <%
-                        if(h != null) out.print(DateUtil.dateOfHaveObject(h));
-                        else out.print("Choisir un créneau");
-                    %>
+                <%
+                    if(h != null && h.getTimeSlot() != null) out.print(DateUtil.dateOfHaveObject(h));
+                    else out.print("Choisir un créneau");
+                %>
                 </span>
             </button>
             <ul class="dropdown-menu">
@@ -89,14 +90,14 @@
                 </button>
                 <div class="dropdown-menu">
                     <%if (client == null) {%>
-                    <a class="dropdown-item" href="login">Se connecter</a>
-                    <a class="dropdown-item" href="signup">S'inscrire</a>
+                    <a class="dropdown-item" href="login"><i class="fa fa-sign-in-alt"></i> Se connecter</a>
+                    <a class="dropdown-item" href="signup"><i class="fa fa-user-plus"></i> S'inscrire</a>
                     <%} else {%>
-                    <a class="dropdown-item" href="Deconnect">Se d&eacute;connecter</a>
+                    <a class="dropdown-item" href="Deconnect"><i class="fa fa-sign-out-alt"></i> Se d&eacute;connecter</a>
                     <%}%>
                 </div>
             </div>
-            <button id="basket_button" role="button" class="btn btn-outline-primary">
+            <button id="basket_button" role="button" class="btn btn-sm btn-outline-primary">
                 <div class="d-flex flex-column">
                     <i class="fa fa-shopping-basket"></i>
                     Panier
@@ -114,7 +115,7 @@
             </button>
 
             <%if (client != null) {%>
-            <button id="shopping_list_button" role="button" class="btn btn-sm btn-outline-primary">
+            <button id="shopping_list_button" role="button" class="btn btn-sm btn-outline-primary" href>
                 <div class="d-flex flex-column">
                     <i class="far fa-list-alt"></i>
                     Liste de courses
@@ -130,7 +131,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Changer de magasin</h4>
+                <h4 class="modal-title"><i class="fa fa-shopping-bag"></i> Changer de magasin</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -145,4 +146,31 @@
         </div>
     </div>
 </div>
+                
+<div class="modal" id="search_time_slots_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-calendar-alt"></i> Choisir un créneau</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <select id="search_time_slots" class="form-select" aria-label="Sélectionner la date ici ...">
+                    <option selected>Sélectionner la date ici ...</option>
+                    <%
+                        for(Date d : DateUtil.nextDays(4))
+                            out.println("<option value='" + DateUtil.yearMonthDayFormat(d) + "'>" + DateUtil.allDateInLetters(d) + "</option>");
+                    %>
+                </select>
+                <ul id="time_slots_list"></ul>
+                <button id="submit_time_slot" type="button" class="btn btn-primary">Valider</button>
+            </div>
 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/shoppingList.js"></script>

@@ -1,28 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.jms.controller;
 
-import com.jms.dao.HaveDAO;
-import com.jms.model.Have;
-import com.jms.model.Store;
+import com.jms.dao.ProductDAO;
+import com.jms.dao.ProductDAOH;
+import com.jms.dao.ShoppingListDAO;
+import com.jms.model.Client;
+import com.jms.model.Product;
+import com.jms.model.ShoppingList;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static java.lang.System.out;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author RAKOTOARISOA
- */
-public class ChooseTimeSlotServlet extends HttpServlet {
+public class DisplayAllShoppingListsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,36 +32,35 @@ public class ChooseTimeSlotServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try ( PrintWriter out = response.getWriter()) {
-            response.setContentType("application/xml;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            
-            HttpSession session = request.getSession();
-            Store store = (Store) session.getAttribute("store");
-            try{
-                SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = DF.parse(request.getParameter("date"));
-                
-                out.println("<?xml version=\"1.0\"?>");
-                out.println("<timeSlots>");
+            throws ServletException, IOException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
-                if (store != null && date !=null ) {
-                    for (Have h : HaveDAO.getTimeSlotsByStoreId(store.getId(), date)) {
-                        out.println("   <timeSlot>");
-                        out.println("       <startTime><![CDATA[" + h.getTimeSlot().getStartTime() + "]]></startTime>");
-                        out.println("       <endTime><![CDATA[" + h.getTimeSlot().getEndTime() + "]]></endTime>");
-                        out.println("       <capacity><![CDATA[" + h.getCapacity() + "]]></capacity>");
-                        out.println("   </timeSlot>");
-                    }
+        HttpSession session = request.getSession();
+
+        // Get the client id
+        if (session.getAttribute("client") != null) {
+            Client client = (Client) session.getAttribute("client");
+            int idClient = client.getCode();
+
+            try {
+                // get all my shopping lists by getMyShoppingLists()
+                List<ShoppingList> lst = ShoppingListDAO.getMyShoppingLists(idClient);
+
+                out.println("<shoppingLists>");
+                for (ShoppingList l : lst) {
+                    out.println("<shoppingList>");
+                    out.println("<code>" + l.getCode() + "</code>");
+                    out.println("<name>" + l.getName() + "</name>");
+                    out.println("</shoppingList>");
                 }
+                out.println("</shoppingLists>");
                 
-            } catch (Exception ex){
-                out.print("<msg_error>" + ex.getMessage() + "</msg_error>");
+            } catch (SQLException ex) {
+                out.println("<slist>Erreur - " + ex.getMessage() + "</slist>");
             }
-            
-            out.println("</timeSlots>");
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,12 +71,15 @@ public class ChooseTimeSlotServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.text.ParseException
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(DisplayAllShoppingListsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -93,7 +93,11 @@ public class ChooseTimeSlotServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(DisplayAllShoppingListsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
