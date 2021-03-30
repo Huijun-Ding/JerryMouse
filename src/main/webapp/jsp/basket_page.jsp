@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="com.jms.model.Have"%>
 <%@page import="com.jms.model.Store"%>
 <%@page import="com.jms.model.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,20 +12,31 @@
         <link rel="stylesheet" type="text/css" href="css/Style.css">
     </head>
     <body onload="displayBasket(), displayPoints()">
-        <script type="text/JavaScript" src="js/ScriptCheckBasket.js"></script>
-        <div class="container" id="container">
+        
+        <jsp:include page="navbar" flush="true"/>
+        
+        <div class="container" id="rayon_categorie_navbar">
             <h1>Mon panier</h1>
 
             <%
-
                 Client client = (Client) session.getAttribute("client");
-//                int idClient = 1;
-//                idClient = client.getCode();
+                int idClient = (client != null) ? client.getCode() : 0;
                 session.setAttribute("client", client);
+                
                 Store store = (Store) session.getAttribute("store");
                 session.setAttribute("store", store);
+                int idStore = (store != null) ? store.getId() : 0;
+                
+                Have h = (Have) request.getSession().getAttribute("have");
+                session.setAttribute("have", h);
+                String startTime = (h != null) ? h.getHaveId().getStartTime() : null;
+                Date date = (h != null) ? h.getHaveId().getDate() : null;
             %>
-            <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=client.getCode()%>'></input>
+            <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
+            <input type = 'hidden' id = 'idStore' name = 'value' value = '<%=idStore%>'></input>
+            <input type = 'hidden' id = 'startTime' name = 'value' value = '<%=startTime%>'></input>
+            <input type = 'hidden' id = 'date' name = 'value' value = '<%=date%>'></input>
+            
             <form action="">
                 <div class="row">
                     <div class="col-8" id="div_prod">
@@ -42,19 +55,21 @@
                     <div class="col-3">    
                         <div name="calcul">
                             <table class="table" id="points">
-                                <tr><td>Points acquis: </td><td><span class="bold" id="cagnotte_gagne"></span></td></tr>
-                                <tr><td>Points cumulatifs: </td><td><span class="bold" id="cagnotte_cumul"></span></td></tr>
-                                <tr><td>R&eacute;duction directe: </td><td><span class="bold" id="reduction"></span></td></tr>
-                                <tr><td>Total: </td><td><span class="bold" id="total"></span></td></tr>                        
+                                <tr><td>Points acquis : </td><td><span class="bold" id="cagnotte_gagne"></span></td></tr>
+                                <tr><td>Points actuels : </td><td><span class="bold" id="cagnotte_cumul"></span></td></tr>
+                                <tr><td>R&eacute;duction directe : </td><td><span class="bold" id="reduction"></span></td></tr>
+                                <tr><td>Total : </td><td><span class="bold" id="total"></span></td></tr>                        
                             </table>
                         </div>
-
+                        
+                        <div class="msg_error" id="msg_error"></div>
+                        
                         <div class="row">
                             <div class="col-6">
-                                <input class="btn btn-outline-primary" type="submit" id="valider" name="valider" value="Valider">
+                                <boutton class="btn btn-outline-primary" id="valider" name="valider">Valider</boutton>
                             </div>
                             <div class="col-6">
-                                <a class="btn btn-outline-primary" id="retour" href="DisplayProducts?home">Retour</a>
+                                <a class="btn btn-outline-primary" href="index">Retour</a>
                             </div>
                         </div>
                     </div>
@@ -62,4 +77,7 @@
             </form>
         </div>
     </body>
+    <script src="js/ScriptCheckBasket.js"></script>
+    <script src="js/basket.js"></script>
+    <script src="js/valider.js"></script>
 </html>

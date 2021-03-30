@@ -39,7 +39,7 @@ public class ValiderDAO {
      * @param haveTS the object containing the date and the timeslot to pick up
      * the order.
      */
-    public static void registerBasket(Client client, Store store, Have haveTS) throws ParseException {
+    public static Order registerBasket(Client client, Store store, Have haveTS) throws ParseException {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
@@ -83,7 +83,7 @@ public class ValiderDAO {
 
             // Close session
             session.close();
+            return order;
         }
     }
-
 }

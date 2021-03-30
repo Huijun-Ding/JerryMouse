@@ -130,6 +130,7 @@ public class LookBasketServlet extends HttpServlet {
                 prices.add(totalPriceProduct);
 
                 out.println("<product>");
+                out.println("<ean>" + product.getEan() + "</ean>");
                 out.println("<photo>" + product.getUrlThumbnail() + "</photo>");
                 out.println("<id>" + product.getEan() + "</id>");
                 out.println("<name>" + product.getName() + "</name>");
