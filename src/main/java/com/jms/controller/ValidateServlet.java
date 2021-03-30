@@ -5,19 +5,26 @@
  */
 package com.jms.controller;
 
+import com.jms.dao.BasketDAO;
 import com.jms.dao.ClientDAO;
 import com.jms.dao.HaveDAO;
+import com.jms.dao.ProductDAO;
 import com.jms.dao.StoreDAO;
 import com.jms.dao.ValiderDAO;
+import com.jms.model.Basket;
 import com.jms.model.Client;
 import com.jms.model.Have;
 import com.jms.model.Order;
+import com.jms.model.Product;
 import com.jms.model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -66,6 +73,17 @@ public class ValidateServlet extends HttpServlet {
         Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
         Store store = StoreDAO.get(idStore);
         
+        // retrouver le panier et des produits de client
+        ArrayList<Product> lstProd = new ArrayList<>();
+        try {
+            List<Basket> lstBasket = BasketDAO.loadBasket(Integer.parseInt(idClient));
+            for(Basket basket : lstBasket){
+                lstProd.add(ProductDAO.searchProduct(basket.getBasketId().getEan()));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
@@ -76,6 +94,8 @@ public class ValidateServlet extends HttpServlet {
             try {
                 // vérifier le stock
                 // TODO
+                
+                
                 
                 Order order = ValiderDAO.registerBasket(client, store, have);
                 session.setAttribute("order", order);
