@@ -64,32 +64,34 @@ public class SendEmailServlet extends HttpServlet {
 
         Date d1 = new Date(2021, 4, 2, 7, 30);
         Date d2 = new Date(2021, 4, 2, 8, 0);
-        Store s1=new Store("Auhchan", "rue du 12", "toulouse","31000");
+        Store s1 = new Store("Auhchan", "rue du 12", "toulouse", "31000");
         TimeSlot t1 = new TimeSlot(d1, d2);
-        Product p1 = new Product("p1", "eau", 1.4f);
-        Product p2 = new Product("p2", "chocolat", 1.4f);
-        Order o1 = new Order("order1", client,s1,t1);
+        Product p1 = new Product("p1", "eau", 1.4f,"https://www.carrefour.fr/media/1500x1500/Photosite/PGC/BOISSONS/3057640257858_PHOTOSITE_20201022_061508_0.jpg?placeholder=1");
+        Product p2 = new Product("p2", "chocolat", 1.4f,"https://www.carrefour.fr/media/1500x1500/Photosite/PGC/EPICERIE/8000500003787_PHOTOSITE_20210317_165358_0.jpg?placeholder=1");
+        Order o1 = new Order("order1", client, s1, t1);
         OrderLine ol1 = new OrderLine(2, o1, p1);
         OrderLine ol2 = new OrderLine(1, o1, p2);
         ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
         orderlines.add(ol1);
         orderlines.add(ol2);
         DateFormat format1 = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
-        String contentOrder = "<table style='width:100%' frame='above'><caption>Votre Facture"
-                + "</caption><thead><tr><th>Produit</th><th>Quantité</th><th>Montant</th></tr></thead>";
+        int total = 12;
+        String contentOrder = "<table style='width:60%' frame='above'><caption>Votre Facture"
+                + "</caption><thead><tr><th>Image</th><th>Produit</th><th>Quantité</th><th>Montant</th></tr></thead>";
         for (OrderLine ol : orderlines) {
 
-            contentOrder += "<tr><td align='center'>" + ol.getProduct().getName() + "</td><td align='center'>" 
-                    + ol.getQuantity() + "</td><td align='center'>" + ol.getProduct().getUnitPrice() * ol.getQuantity() + "</td></tr>";
+            contentOrder += "<tr><td align='center'><img src='"+ ol.getProduct().getUrlThumbnail() + "'  width='100' height='100'></td><td align='center'>" + ol.getProduct().getName() + "</td><td align='center'>"
+                    + ol.getQuantity() + "</td><td align='center'>" + ol.getProduct().getUnitPrice() * ol.getQuantity() + " &#8364;</td></tr>";
         }
         contentOrder = contentOrder + "</table>";
-        String content = "<h4>Bonjour " + client.getFirstName()+"</h4></br>"+
-                "</br>Veuillez trouver ci-dessous un resumé des articles "
-                + "que vous avez commandés. Cet email vaut comme facture pour votre achat.</br> " 
-                + contentOrder+"</br> Adresse de Retrait : "+o1.getStore().getName()
-                +o1.getStore().getStreet()+", "+o1.getStore().getPostalCode()
-                +"<br>Date de Retrait : "+
-                format1.format(o1.getTimeslot().getStartTime())+" - "+format1.format(o1.getTimeslot().getEndTime());
+        contentOrder = contentOrder + "<table style='width:60%' frame='below'> <tr><td align='left' > <b>Prix Total : </b> </td><td align='right' > <b>" + total + " &#8364; </b></td></tr></table>";
+        String content = "<h4>Bonjour " + client.getFirstName() + "</h4></br>"
+                + "</br>Veuillez trouver ci-dessous un resumé des articles "
+                + "que vous avez commandés. Cet email vaut comme facture pour votre achat.</br> "
+                + contentOrder + "</br> Adresse de Retrait : " + o1.getStore().getName()
+                + o1.getStore().getStreet() + ", " + o1.getStore().getPostalCode()
+                + "<br>Date de Retrait : "
+                + format1.format(o1.getTimeslot().getStartTime()) + " - " + format1.format(o1.getTimeslot().getEndTime());
         EmailUtil e = new EmailUtil(receiveMail, content, client.getFirstName() + client.getLastName());
 
     }
