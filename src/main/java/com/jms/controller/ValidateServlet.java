@@ -9,6 +9,7 @@ import com.jms.dao.BasketDAO;
 import com.jms.dao.ClientDAO;
 import com.jms.dao.HaveDAO;
 import com.jms.dao.ProductDAO;
+import com.jms.dao.StockDAO;
 import com.jms.dao.StoreDAO;
 import com.jms.dao.ValiderDAO;
 import com.jms.model.Basket;
@@ -72,17 +73,6 @@ public class ValidateServlet extends HttpServlet {
         
         Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
         Store store = StoreDAO.get(idStore);
-        
-        // retrouver le panier et des produits de client
-        ArrayList<Product> lstProd = new ArrayList<>();
-        try {
-            List<Basket> lstBasket = BasketDAO.loadBasket(Integer.parseInt(idClient));
-            for(Basket basket : lstBasket){
-                lstProd.add(ProductDAO.searchProduct(basket.getBasketId().getEan()));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/xml;charset=UTF-8");
@@ -90,30 +80,57 @@ public class ValidateServlet extends HttpServlet {
             out.println("<?xml version=\"1.0\"?>");
             out.println("<results>");
             
-            if(client != null && store != null && have != null){
+            ArrayList<Boolean> lstRes = new ArrayList<>();
+            // retrouver le panier et des produits de client
             try {
-                // vérifier le stock
-                // TODO
-                
-                
-                
-                Order order = ValiderDAO.registerBasket(client, store, have);
-                session.setAttribute("order", order);
-                out.println("<res><![CDATA[ok]]></res>");
-            }catch (ParseException ex) {
-                out.println("<res><![CDATA[error]]></res>");
-                    out.println("<message><![CDATA[Erreur !]]></message>");
-            }       
-            }else if(client == null){
-                out.println("<res><![CDATA[connection]]></res>");
-            }else {
-                if(store == null && have == null){
-                out.println("<res><![CDATA[store]]></res>");
-                out.println("<message><![CDATA[Veuillez choisir votre magasin de retrait !]]></message>");
-                }else if(store != null && have == null){
-                    out.println("<res><![CDATA[time]]></res>");
-                    out.println("<message><![CDATA[Veuillez choisir un cr&eacute;neau de retrait !]]></message>");
+                List<Basket> lstBasket = BasketDAO.loadBasket(Integer.parseInt(idClient));
+                for(Basket basket : lstBasket){
+                    // vérifier le stock pour un produit
+                    out.println("<product>");
+                    out.println("<ean><![CDATA[" + basket.getBasketId().getEan() + "]]></ean>");
+                    Boolean res = StockDAO.checkStockProd(idStore, 
+                            basket.getBasketId().getEan(), basket.getQtyBasket());
+                    lstRes.add(res);
+
+                    if(res) out.println("<qte><![CDATA[ok]]></qte>");
+                    else out.println("<qte><![CDATA[Rupture de stock !]]></qte>");
+                    out.println("</product>");
                 }
+            } catch (SQLException ex) {
+                Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            // vérifier tous les prods sont en stock
+            Boolean resFinal = true;
+            for(Boolean b : lstRes){
+                if(!b) resFinal = false;
+                break;
+            }
+            
+            if(resFinal){
+                if(client != null && store != null && have != null){
+                    try {
+                        Order order = ValiderDAO.registerBasket(client, store, have);
+                        session.setAttribute("order", order);
+                        out.println("<res><![CDATA[ok]]></res>");
+                    }catch (ParseException ex) {
+                        out.println("<res><![CDATA[error]]></res>");
+                        out.println("<message><![CDATA[Erreur !]]></message>");
+                    }       
+                }else if(client == null){
+                    out.println("<res><![CDATA[connection]]></res>");
+                }else {
+                    if(store == null && have == null){
+                    out.println("<res><![CDATA[store]]></res>");
+                    out.println("<message><![CDATA[Veuillez choisir votre magasin de retrait !]]></message>");
+                    }else if(store != null && have == null){
+                        out.println("<res><![CDATA[time]]></res>");
+                        out.println("<message><![CDATA[Veuillez choisir un cr&eacute;neau de retrait !]]></message>");
+                    }
+                }
+            }else{
+                out.println("<res><![CDATA[stock]]></res>");
+                out.println("<message><![CDATA[Rupture de sotl !]]></message>");
             }
             out.println("</results>");
         }
