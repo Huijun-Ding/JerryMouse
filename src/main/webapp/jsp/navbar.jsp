@@ -30,7 +30,7 @@
                 <i class="fa fa-calendar-alt"></i>
                 <span id="time_slot_name">
                 <%
-                    if(h != null && h.getTimeSlot().getStartTime() != null) out.print(DateUtil.dateOfHaveObject(h));
+                    if(h != null && h.getTimeSlot() != null) out.print(DateUtil.dateOfHaveObject(h));
                     else out.print("Choisir un créneau");
                 %>
                 </span>
@@ -156,12 +156,14 @@
             </div>
             <div class="modal-body">
                 <select id="search_time_slots" class="form-select" aria-label="Sélectionner la date ici ...">
+                    <option selected>Sélectionner la date ici ...</option>
                     <%
                         for(Date d : DateUtil.nextDays(4))
                             out.println("<option value='" + DateUtil.yearMonthDayFormat(d) + "'>" + DateUtil.allDateInLetters(d) + "</option>");
                     %>
                 </select>
                 <ul id="time_slots_list"></ul>
+                <button id="submit_time_slot" type="button" class="btn btn-primary">Valider</button>
             </div>
 
             <div class="modal-footer">
