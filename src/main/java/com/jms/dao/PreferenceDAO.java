@@ -10,6 +10,7 @@ import com.jms.model.Product;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  * The PreferenceDAO class contains the DAO methods regarding the preferences
@@ -39,5 +40,31 @@ public class PreferenceDAO {
             t.commit();
             session.close();
         }
+    }
     
+    /**
+     * Gets the favorite products of a client.
+     * @param client
+     * @return the list of favorite products of a client.
+     */
+    public static List<Product> getFavoriteProducts (Client client) {
+        List<Product> list;
+        /*----- Session opening -----*/
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            
+            String sql = "SELECT p "
+                    + "FROM Produit p "
+                    + "WHERE p.clients.code = :c";
+            
+            // Create HQL query
+            Query query = session.createQuery(sql);
+            query.setParameter("c", client.getCode());
+            list = query.list();
+            
+            t.commit();
+            session.close();
+            return list;
+        }
+    }
 }
