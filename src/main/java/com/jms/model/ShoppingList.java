@@ -71,6 +71,12 @@ public class ShoppingList implements Serializable{
         this.client = client;
     }
 
+    public ShoppingList(int code, String name, Client client) {
+        this.code = code;
+        this.name = name;
+        this.client = client;
+    }
+
     //---------------- GETTERS&SETTERS -----------------------
     /**
      * Getter for the property id.
