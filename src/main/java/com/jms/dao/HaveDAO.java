@@ -118,27 +118,31 @@ public class HaveDAO {
 
     } 
     
-    public static Have getHave(int storeId, Date datePickUp, String startTime){
+    public static Have getHave(int storeId, String datePickUp, String startTime){
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
-            Query query = session.createQuery("select new Have(h.date,h.capacity, h.store, h.timeSlot) "
-                    + "from CreneauHoraire c , Avoir h"
-                    + "where h.timeSlot.startTime = :startTime "
-                    + "and h.store.id = :storeId "
-                    + "and h.date = :datePickUp");
+            Query query = session.createQuery("from Avoir "
+                    + "where HeureDebutCR = :startTime "
+                    + "and CodeM = :storeId "
+                    + "and DateCR = :datePickUp");
 
             query.setParameter("startTime", startTime);
             query.setParameter("storeId", storeId);
             query.setParameter("datePickUp", datePickUp);
+            Have have = (Have)query.list().get(0);
+            t.commit();
+            return have;
             
-            return (Have)query.list().get(0);
         }
     } 
 
     public static void main(String[] args) throws ParseException {
         // HaveDAO.initialize();
+
+        
+        System.out.println(HaveDAO.getHave(40, "2021-03-31", "07:30"));
     }
 
 }
