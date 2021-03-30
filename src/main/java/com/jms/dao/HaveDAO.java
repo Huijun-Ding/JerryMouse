@@ -29,35 +29,35 @@ public class HaveDAO {
     /**
      *
      */
-    public static void create(String startTime, int storeId, int capacity, String date) throws ParseException {
+    public static void create(String startTime, int storeId,String date, int capacity) throws ParseException {
         //Open a session
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
 
-            HaveId haveId = new HaveId(startTime, storeId);
-            Have d = new Have(haveId, capacity, DF.parse(date));
+            HaveId haveId = new HaveId(startTime, storeId, DF.parse(date));
+            Have d = new Have(haveId, capacity);
 
             session.save(d);
 
             t.commit();
         }
     }
-    
+
     public static void initialize() throws ParseException {
-        int minCapacite = 0;
-        int maxCapacite = 5;
-        int range = maxCapacite - minCapacite + 1;
-
         for (int storeId = 1; storeId <= 43; storeId++) {
-            int hour = 7;
-            String minutes = "30";
+            for (Date d : DateUtil.nextDays(4)) {
+                int hour = 7;
+                String minutes = "30";
+                int minCapacite = 0;
+                int maxCapacite = 10;
+                int range = maxCapacite - minCapacite + 1;
 
-            while (hour < 20 && minutes != "30") {
-                for (Date d : DateUtil.nextDays(4)) {
+                String hoursMinutes = "";
+                while (!hoursMinutes.equals("20:30")) {
                     int capacity = (int) (Math.random() * range) + minCapacite;
 
-                    String hoursMinutes = (hour < 10) ? "0" + hour + ":" + minutes : "" + hour + ":" + minutes;
+                    hoursMinutes = (hour < 10) ? "0" + hour + ":" + minutes : "" + hour + ":" + minutes;
 
                     if (minutes.equals("30")) {
                         hour++;
@@ -70,8 +70,18 @@ public class HaveDAO {
                             + capacity + " "
                             + DateUtil.yearMonthDayFormat(d)
                     );
+                    
+                    if(hour > 12 && hour <= 16) {
+                        minCapacite = 0;
+                        maxCapacite = 15;
+                    } else if(hour > 16) {
+                        minCapacite = 0;
+                        maxCapacite = 20;
+                    }
 
-                    create(hoursMinutes, storeId, capacity, DateUtil.yearMonthDayFormat(d));
+                   range = maxCapacite - minCapacite + 1;
+                   
+                   create(hoursMinutes, storeId,DateUtil.yearMonthDayFormat(d), capacity);
                 }
             }
         }
@@ -106,6 +116,7 @@ public class HaveDAO {
     }
 
     public static void main(String[] args) throws ParseException {
-        initialize();
+        com.jms.dao.HaveDAO.initialize();
+        
     }
 }
