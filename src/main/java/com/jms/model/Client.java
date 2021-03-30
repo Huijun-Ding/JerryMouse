@@ -107,7 +107,7 @@ public class Client implements Serializable {
     @JoinTable(name = "Preferer",
             joinColumns = @JoinColumn(name = "CodeCL"),
             inverseJoinColumns = @JoinColumn(name = "EANP"))
-    private Set<Product> products = new HashSet(0);
+    private Set<Product> favoriteProducts = new HashSet(0);
 
     // -------------------- CONSTRUCTORS --------------------
     /**
@@ -324,21 +324,21 @@ public class Client implements Serializable {
     }
 
     /**
-     * Getter for the property products.
+     * Getter for the property favoriteProducts.
      *
-     * @return the products set.
+     * @return the favoriteProducts set.
      */
-    public Set<Product> getProducts() {
-        return products;
+    public Set<Product> getFavoriteProducts() {
+        return favoriteProducts;
     }
 
     /**
-     * Setter for the property products.
+     * Setter for the property favoriteProducts.
      *
-     * @param products The new value to set to the property.
+     * @param favoriteProducts The new value to set to the property.
      */
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setFavoriteProducts(Set<Product> favoriteProducts) {
+        this.favoriteProducts = favoriteProducts;
     }
 
     // ----------------------- METHODS ----------------------
