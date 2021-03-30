@@ -30,7 +30,7 @@
                 <i class="fa fa-calendar-alt"></i>
                 <span id="time_slot_name">
                 <%
-                    if(h != null && h.getTimeSlot() != null) out.print(DateUtil.dateOfHaveObject(h));
+                    if(h != null) out.print(DateUtil.dateOfHaveObject(h));
                     else out.print("Choisir un créneau");
                 %>
                 </span>
@@ -162,8 +162,7 @@
                             out.println("<option value='" + DateUtil.yearMonthDayFormat(d) + "'>" + DateUtil.allDateInLetters(d) + "</option>");
                     %>
                 </select>
-                <ul id="time_slots_list"></ul>
-                <button id="submit_time_slot" type="button" class="btn btn-primary">Valider</button>
+                <div class="mt-4 d-flex justify-content-between flex-wrap" id="time_slots_list"></div>
             </div>
 
             <div class="modal-footer">
