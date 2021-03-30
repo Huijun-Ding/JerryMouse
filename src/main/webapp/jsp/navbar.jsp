@@ -97,7 +97,7 @@
                     <%}%>
                 </div>
             </div>
-            <button id="basket_button" role="button" class="btn btn-outline-primary">
+            <button id="basket_button" role="button" class="btn btn-sm btn-outline-primary">
                 <div class="d-flex flex-column">
                     <i class="fa fa-shopping-basket"></i>
                     Panier
