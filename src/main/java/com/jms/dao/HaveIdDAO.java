@@ -32,14 +32,17 @@ public class HaveIdDAO {
      * @param storeId
      * @throws ParseException 
      */
-    public static void create(String startTime, int storeId) throws ParseException {
+    public static void create(String startTime, int storeId) {
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
             
-           
-            HaveId d = new HaveId(DF.format(startTime),storeId);
+        
+            HaveId d = new HaveId(startTime,storeId);
+
+            session.save(d);
+
 
             t.commit();
         }

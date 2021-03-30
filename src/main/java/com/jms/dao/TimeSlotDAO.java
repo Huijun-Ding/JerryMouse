@@ -29,16 +29,16 @@ public class TimeSlotDAO {
     /**
      * Create a timeslot
      *
+     * @param startTime
+     * @param endTime
      * @throws ParseException
      */
-    public static void create(String startTime, String endTime) throws ParseException {
+    public static void create(String startTime, String endTime)  {
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
-    
-            TimeSlot t1 = new TimeSlot(DF.format(startTime), DF.format(endTime));
-    
+            TimeSlot t1 = new TimeSlot(startTime, endTime);
             session.save(t1);
     
             t.commit();
@@ -48,11 +48,8 @@ public class TimeSlotDAO {
     /**
      *
      */
-    public static void initialize() throws ParseException {
-        //Open a session
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
-            //Open a transaction
-            Transaction t = session.beginTransaction();
+    public static void initialize() {
+        
 
             create("07:30", "08:00");
             create("08:00", "08:30");
@@ -82,13 +79,13 @@ public class TimeSlotDAO {
             create("20:00", "20:30");
             create("20:30", "21:00");
 
-            t.commit();
-        }
+            
+        
     }
     
     
     
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
         /*int minutes = 0;
         for (int i = 7; i < 21; i++) {
             String startMinutes = (minutes % 2 == 0 ? "00" : "30");
@@ -111,7 +108,8 @@ public class TimeSlotDAO {
         
         //TimeSlotDAO.initialize();
         
-        
+        //TimeSlotDAO.create("07:00","07:30");
+        // TimeSlotDAO.initialize();
         
     }
 }

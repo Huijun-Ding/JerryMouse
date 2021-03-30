@@ -19,17 +19,18 @@
         <div class="container" id="rayon_categorie_navbar">
             <h2>Créer ma nouvelle liste de courses</h2>
             <br>
+            
             <form>
                 <div class="mb-3">
                     <label for="name_shopping_list" class="form-label">Nom de la liste</label>
 
-                    <input type="text" class="form-control w-25 p-3 h-25" id="name_shopping_list" aria-describedby="nameHelp" width="50">
+                    <input type="text" class="form-control w-25 p-3 h-25" id="name_shopping_list" name="name_shopping_list" aria-describedby="nameHelp" width="50">
                     <div id="nameHelp" class="form-text">Veuillez saisir un nom personnalisé pour votre nouvelle liste de course.</div>
                 </div>
-                <div><button type="button" class="btn btn-primary">Créer</button></div>
+                <div><button type="button" class="btn btn-primary" id="add_sl">Créer</button></div>
             </form>
         </div>
 
-        <script type="text/JavaScript" src="js/shoppingList.js"></script>
+        <!--<script type="text/JavaScript" src="js/shoppingList.js"></script>-->
     </body>
 </html>
