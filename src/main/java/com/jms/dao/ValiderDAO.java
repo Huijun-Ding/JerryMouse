@@ -59,7 +59,7 @@ public class ValiderDAO {
 
             // Register the date and the timeslot to pick up the order
             order.setTimeslot(haveTS.getTimeSlot());
-            order.setPickupDate(haveTS.getDate());
+            order.setPickupDate(haveTS.getHaveId().getDate());
 
             // Save the order in DB
             session.save(order);
