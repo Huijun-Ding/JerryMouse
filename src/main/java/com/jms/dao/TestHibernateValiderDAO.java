@@ -36,7 +36,7 @@ public class TestHibernateValiderDAO {
         Have haveTS = new Have();
         haveTS.setTimeSlot(timeslot);
         Date date = new Date();
-        haveTS.setDate(df.parse("01-04-2021"));
+        haveTS.getHaveId().setDate(df.parse("01-04-2021"));
         ValiderDAO.registerBasket(client, store, haveTS);
         
         System.out.println("Client : " + client);
