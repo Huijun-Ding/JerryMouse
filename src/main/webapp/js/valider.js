@@ -34,13 +34,12 @@ function validate() {
                 window.location.href = "login";
             }else if(res === "stock"){
                 product = result[0].getElementsByTagName("product");
-
                 for (i = 0; i < product.length; i++) {
-                    ean = product[i].getElementsByTagName("ean").firstChild.nodeValue;
-                    qte = product[i].getElementsByTagName("qte").firstChild.nodeValue;
+                    ean = product[i].getElementsByTagName("ean")[0].firstChild.nodeValue;
+                    qte = product[i].getElementsByTagName("qte")[0].firstChild.nodeValue;
                     stock = document.getElementById(ean);
                     stock.innerHTML = "";
-                    if(stock !== "ok") stock.insertAdjacentHTML('beforeend', stock);   
+                    if(qte !== "ok") stock.insertAdjacentHTML('beforeend', qte);   
                 }
             }else{
                 message = result[0].getElementsByTagName("message")[0].firstChild.nodeValue;
