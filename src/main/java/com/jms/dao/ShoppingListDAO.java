@@ -96,7 +96,7 @@ public class ShoppingListDAO {
     public static void main(String[] args) throws ParseException, SQLException {
         // Test
         // ShoppingListDAO.saveShoppingList("cooktail");
-        //ShoppingListDAO.getMyShoppingLists(2); 
+         ShoppingListDAO.getMyShoppingLists(2); 
 
         // Exit
         System.exit(0);

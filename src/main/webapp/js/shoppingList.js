@@ -36,15 +36,17 @@ function showMyLists() {
     {
         if (xhr.status === 200)
         {
-            suggestions = xhr.responseXML.getElementsByTagName("slist");
+            suggestions = xhr.responseXML.getElementsByTagName("shoppingList");
             elt = document.getElementById("my_lists");
             elt.innerHTML = "";
 
             for (i = 0; i < suggestions.length; i++) {
-                listName = suggestions[i].firstChild.nodeValue;
-                alert(listName);
-                listCode = suggestions[i].firstChild.nodeValue;
-                elt.insertAdjacentHTML("beforeend", "<a href='showShoppingList" + listCode +" class='list-group-item list-group-item-action'>" + listName +"</a>");
+                shoppingListLine = suggestions[i];
+
+                code = shoppingListLine.getElementsByTagName("code")[0].firstChild.nodeValue;
+                name = shoppingListLine.getElementsByTagName("name")[0].firstChild.nodeValue;
+                
+                elt.insertAdjacentHTML("beforeend", "<a href='showShoppingList" + code +" class='list-group-item list-group-item-action'>" + name +"</a>");
             }
         }
     };

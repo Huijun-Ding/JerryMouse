@@ -47,9 +47,15 @@ public class DisplayAllShoppingListsServlet extends HttpServlet {
                 // get all my shopping lists by getMyShoppingLists()
                 List<ShoppingList> lst = ShoppingListDAO.getMyShoppingLists(idClient);
 
+                out.println("<shoppingLists>");
                 for (ShoppingList l : lst) {
-                    out.println("<slist><![CDATA[" + l + "]]></slist>");
+                    out.println("<shoppingList>");
+                    out.println("<code>" + l.getCode() + "</code>");
+                    out.println("<name>" + l.getName() + "</name>");
+                    out.println("</shoppingList>");
                 }
+                out.println("</shoppingLists>");
+                
             } catch (SQLException ex) {
                 out.println("<slist>Erreur - " + ex.getMessage() + "</slist>");
             }

@@ -22,7 +22,7 @@
 
             <br>
             <div class="list-group" id="my_lists">
-                <a href="showShoppingList" class="list-group-item list-group-item-action">A second link item</a>
+                <!--<a href="showShoppingList" class="list-group-item list-group-item-action">A second link item</a>-->
 
             </div>
 
