@@ -30,7 +30,7 @@
                 Have h = (Have) request.getSession().getAttribute("have");
                 session.setAttribute("have", h);
                 String startTime = (h != null) ? h.getHaveId().getStartTime() : null;
-                Date date = (h != null) ? h.getDate() : null;
+                Date date = (h != null) ? h.getHaveId().getDate() : null;
             %>
             <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
             <input type = 'hidden' id = 'idStore' name = 'value' value = '<%=idStore%>'></input>
@@ -55,10 +55,10 @@
                     <div class="col-3">    
                         <div name="calcul">
                             <table class="table" id="points">
-                                <tr><td>Points acquis: </td><td><span class="bold" id="cagnotte_gagne"></span></td></tr>
-                                <tr><td>Points cumulatifs: </td><td><span class="bold" id="cagnotte_cumul"></span></td></tr>
-                                <tr><td>R&eacute;duction directe: </td><td><span class="bold" id="reduction"></span></td></tr>
-                                <tr><td>Total: </td><td><span class="bold" id="total"></span></td></tr>                        
+                                <tr><td>Points acquis : </td><td><span class="bold" id="cagnotte_gagne"></span></td></tr>
+                                <tr><td>Points actuels : </td><td><span class="bold" id="cagnotte_cumul"></span></td></tr>
+                                <tr><td>R&eacute;duction directe : </td><td><span class="bold" id="reduction"></span></td></tr>
+                                <tr><td>Total : </td><td><span class="bold" id="total"></span></td></tr>                        
                             </table>
                         </div>
                         
