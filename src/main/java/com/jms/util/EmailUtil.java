@@ -98,7 +98,7 @@ public class EmailUtil {
         MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(sendMail, "JerryMouseSoftware", "UTF-8"));
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, receiveMailName, "UTF-8"));
-        message.setSubject("Facture", "UTF-8");
+        message.setSubject("Facture d'achat", "UTF-8");
         message.setContent(content, "text/html;charset=UTF-8");
         message.setSentDate(new Date());
         message.saveChanges();
