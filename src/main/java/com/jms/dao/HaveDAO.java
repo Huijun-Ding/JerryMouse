@@ -31,7 +31,7 @@ public class HaveDAO {
      */
     public static void create(String startTime, int storeId, int capacity, String date) throws ParseException {
         //Open a session
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
 
@@ -49,12 +49,12 @@ public class HaveDAO {
         int maxCapacite = 5;
         int range = maxCapacite - minCapacite + 1;
 
-        for (Date d : DateUtil.nextDays(4)) {
-            for (int storeId = 1; storeId <= 43; storeId++) {
-                int hour = 7;
-                String minutes = "30";
+        for (int storeId = 1; storeId <= 43; storeId++) {
+            int hour = 7;
+            String minutes = "30";
 
-                while (hour < 21) {
+            while (hour < 21) {
+                for (Date d : DateUtil.nextDays(4)) {
                     int capacity = (int) (Math.random() * range) + minCapacite;
 
                     String hoursMinutes = (hour < 10) ? "0" + hour + ":" + minutes : "" + hour + ":" + minutes;
@@ -70,7 +70,7 @@ public class HaveDAO {
                             + capacity + " "
                             + DateUtil.yearMonthDayFormat(d)
                     );
-                    
+
                     create(hoursMinutes, storeId, capacity, DateUtil.yearMonthDayFormat(d));
                 }
             }
@@ -86,7 +86,7 @@ public class HaveDAO {
      */
     public static List<Have> getTimeSlotsByStoreId(int storeId, Date date) {
         //Open a session
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
 
