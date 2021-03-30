@@ -33,34 +33,37 @@ public class DisplayAllShoppingListsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession();
+        try (PrintWriter out = response.getWriter()) {
 
-        // Get the client id
-        if (session.getAttribute("client") != null) {
-            Client client = (Client) session.getAttribute("client");
-            int idClient = client.getCode();
+            HttpSession session = request.getSession();
 
-            try {
-                // get all my shopping lists by getMyShoppingLists()
-                List<ShoppingList> lst = ShoppingListDAO.getMyShoppingLists(idClient);
+            // Get the client id
+            if (session.getAttribute("client") != null) {
+                Client client = (Client) session.getAttribute("client");
+                int idClient = client.getCode();
 
-                out.println("<shoppingLists>");
-                for (ShoppingList l : lst) {
-                    out.println("<shoppingList>");
-                    out.println("<code>" + l.getCode() + "</code>");
-                    out.println("<name>" + l.getName() + "</name>");
-                    out.println("</shoppingList>");
+                try {
+                    // get all my shopping lists by getMyShoppingLists()
+                    List<ShoppingList> lst = ShoppingListDAO.getMyShoppingLists(idClient);
+                    
+                    response.setContentType("application/xml;charset=UTF-8");
+                    response.setCharacterEncoding("UTF-8");
+                    out.println("<?xml version=\"1.0\"?>");
+                    out.println("<shoppingLists>");
+                    for (ShoppingList l : lst) {
+                        out.println("<shoppingList>");
+                        out.println("<code><![CDATA[" + l.getCode() + "]]></code>");
+                        out.println("<name><![CDATA[" + l.getName() + "]]></name>");
+                        out.println("</shoppingList>");
+                    }
+                    out.println("</shoppingLists>");
+
+                } catch (SQLException ex) {
+                    out.println("<shoppingLists>Erreur - " + ex.getMessage() + "</shoppingLists>");
                 }
-                out.println("</shoppingLists>");
-                
-            } catch (SQLException ex) {
-                out.println("<slist>Erreur - " + ex.getMessage() + "</slist>");
             }
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
