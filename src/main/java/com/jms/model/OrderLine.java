@@ -56,14 +56,6 @@ public class OrderLine {
         this.order = order;
         this.product = product;
     }
-<<<<<<< HEAD
-    public OrderLine( int quantity, Order order, Product product) {
-       
-        this.quantity = quantity;
-        this.order = order;
-        this.product = product;
-    }
-=======
 
     public OrderLine(int quantity, Order order, Product product) {
         this.quantity = quantity;
@@ -72,7 +64,6 @@ public class OrderLine {
         this.id = new OrderLineId(product.getEan(), order.getOrderId());
     }
     
->>>>>>> origin/develop
     // ----------------- GETTERS & SETTERS ------------------
     public OrderLineId getId() {
         return id;
