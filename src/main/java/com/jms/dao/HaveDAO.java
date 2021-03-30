@@ -43,7 +43,7 @@ public class HaveDAO {
             t.commit();
         }
     }
-
+    
     public static void initialize() throws ParseException {
         int minCapacite = 0;
         int maxCapacite = 5;
@@ -53,7 +53,7 @@ public class HaveDAO {
             int hour = 7;
             String minutes = "30";
 
-            while (hour < 21) {
+            while (hour < 20 && minutes != "30") {
                 for (Date d : DateUtil.nextDays(4)) {
                     int capacity = (int) (Math.random() * range) + minCapacite;
 
