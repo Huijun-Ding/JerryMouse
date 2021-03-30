@@ -45,7 +45,9 @@ public class HaveDAO {
     }
 
     public static void initialize() throws ParseException {
-        for (int storeId = 1; storeId <= 43; storeId++) {
+        int[] storeIds = new int[]{15, 19, 38, 40};
+        
+        for(int storeId : storeIds) {
             for (Date d : DateUtil.nextDays(4)) {
                 int hour = 7;
                 String minutes = "30";
@@ -116,7 +118,6 @@ public class HaveDAO {
     }
 
     public static void main(String[] args) throws ParseException {
-        com.jms.dao.HaveDAO.initialize();
-        
+        // HaveDAO.initialize();
     }
 }
