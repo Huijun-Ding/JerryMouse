@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.jms.model.Have"%>
 <%@page import="com.jms.model.Store"%>
@@ -25,6 +26,7 @@
             <h1>Mon panier</h1>
 
             <%
+                SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
                 Client client = (Client) session.getAttribute("client");
                 int idClient = (client != null) ? client.getCode() : 0;
                 session.setAttribute("client", client);
@@ -35,7 +37,7 @@
 
                 Have h = (Have)session.getAttribute("have");
                 String startTime = (h != null) ? h.getHaveId().getStartTime() : null;
-                Date date = (h != null) ? h.getHaveId().getDate() : null;
+                String date = (h != null) ? DF.format(h.getHaveId().getDate()) : null;
                 session.setAttribute("have", h);
             %>
             <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
