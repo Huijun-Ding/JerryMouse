@@ -33,6 +33,12 @@ public class DateUtil {
         String time = sdf.format(date);
         return time.toUpperCase().substring(0,1) + time.substring(1);
     }
+        
+    public static String yearMonthDayFormat(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String time = sdf.format(date);
+        return time.toUpperCase().substring(0,1) + time.substring(1);
+    }
 
     public static Date[] nextDays(int n) {
         Date[] d = new Date[n];

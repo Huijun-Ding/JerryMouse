@@ -10,7 +10,6 @@ import com.jms.model.Have;
 import com.jms.model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -37,43 +36,33 @@ public class ChooseTimeSlotServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try ( PrintWriter out = response.getWriter()) {
-            response.setContentType("text/html;charset=UTF-8");
+            response.setContentType("application/xml;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
             
             HttpSession session = request.getSession();
             Store store = (Store) session.getAttribute("store");
             try{
-                
                 SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
-                Date datePickUp = DF.parse(request.getParameter("date"));
-
-                response.setContentType("application/xml;charset=UTF-8");
-                response.setCharacterEncoding("UTF-8");
+                Date date = DF.parse(request.getParameter("date"));
+                
                 out.println("<?xml version=\"1.0\"?>");
                 out.println("<timeSlots>");
 
-                int storeId;
-                if (store != null && datePickUp!=null ) {
-                    storeId = store.getId();
-                    
-                    for (Have h : HaveDAO.getTimeSlotsByStoreId(storeId, datePickUp)) {
+                if (store != null && date !=null ) {
+                    for (Have h : HaveDAO.getTimeSlotsByStoreId(store.getId(), date)) {
                         out.println("   <timeSlot>");
-                        out.println("       <starTime><![CDATA[" + h.getTimeSlot().getStartTime() + "]]></startTime>");
+                        out.println("       <startTime><![CDATA[" + h.getTimeSlot().getStartTime() + "]]></startTime>");
                         out.println("       <endTime><![CDATA[" + h.getTimeSlot().getEndTime() + "]]></endTime>");
                         out.println("       <capacity><![CDATA[" + h.getCapacity() + "]]></capacity>");
                         out.println("   </timeSlot>");
                     }
                 }
-                out.println("</timeSlots>");
                 
-                Have have = new Have();
-                have.setDate(datePickUp);
-                session.setAttribute("have", have);
-                
-            }catch( ParseException ex){
-                ex.getMessage();
+            } catch (Exception ex){
+                out.print("<msg_error>" + ex.getMessage() + "</msg_error>");
             }
             
-            
+            out.println("</timeSlots>");
         }
     }
 

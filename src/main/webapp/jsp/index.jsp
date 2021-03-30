@@ -38,9 +38,10 @@
         <!-- 16:9 aspect ratio -->
         <iframe id="view" class="h-100 d-inline-block w-100" src="DisplayProducts?home" allowfullscreen></iframe>
 
-        <script type="text/JavaScript" src="js/search.js"></script>
+        <script src="js/search.js"></script>
         <script src="js/stores.js"></script>
         <script src="js/department.js"></script>
         <script src="js/basket.js"></script>
+        <script src="js/time_slots.js"></script>
     </body>
 </html>
