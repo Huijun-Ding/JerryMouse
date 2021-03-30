@@ -1,7 +1,6 @@
 function displayShoppingLists() {
     // relocated to page myShoppingLists
-    window.location.href = "myShoppingLists";
-    alert('get');
+    window.location.href = "createShoppingList";
 }
 
 

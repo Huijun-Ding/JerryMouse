@@ -36,7 +36,7 @@ public class TimeSlotDAO {
             //Open a transaction
             Transaction t = session.beginTransaction();
 
-            TimeSlot t1 = new TimeSlot(DF.parse(startTime), DF.parse(endTime));
+            TimeSlot t1 = new TimeSlot(startTime, endTime);
 
             session.save(t1);
 
