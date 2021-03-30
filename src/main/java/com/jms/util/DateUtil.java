@@ -61,7 +61,7 @@ public class DateUtil {
      * @return String value representing the have object parameter.
      */
     public static String dateOfHaveObject(Have h) {
-        return allDateInLetters(h.getDate()) + " | "
+        return allDateInLetters(h.getHaveId().getDate()) + " | "
                 + h.getTimeSlot().getStartTime() + " - "
                 + h.getTimeSlot().getEndTime();
     }

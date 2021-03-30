@@ -23,23 +23,24 @@ import org.hibernate.query.Query;
 public class HaveIdDAO {
     
     /*----- Date Format -----*/
-    private static String format = "hh:mm";
+    private static String format = "dd-MM-yyyy";
     private static final SimpleDateFormat DF = new SimpleDateFormat(format);
     
     /**
      *  
      * @param startTime
      * @param storeId
+     * @param date
      * @throws ParseException 
      */
-    public static void create(String startTime, int storeId) {
+    public static void create(String startTime, int storeId, String date) throws ParseException {
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
             
            
-            HaveId d = new HaveId(startTime,storeId);
+            HaveId d = new HaveId(startTime,storeId, DF.parse(date));
 
             session.save(d);
 
