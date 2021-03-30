@@ -24,13 +24,24 @@ function validate() {
         if (xhr.status === 200) {
             msg_error = document.getElementById("msg_error");
             msg_error.innerHTML = "";
-
+            
             result = xhr.responseXML.getElementsByTagName("results");
             res = result[0].getElementsByTagName("res")[0].firstChild.nodeValue;
+                    
             if(res === "ok"){
                 window.location.href = "confirmationOrder";
             }else if(res === "connection"){
                 window.location.href = "login";
+            }else if(res === "stock"){
+                product = result[0].getElementsByTagName("product");
+
+                for (i = 0; i < product.length; i++) {
+                    ean = product[i].getElementsByTagName("ean").firstChild.nodeValue;
+                    qte = product[i].getElementsByTagName("qte").firstChild.nodeValue;
+                    stock = document.getElementById(ean);
+                    stock.innerHTML = "";
+                    if(stock !== "ok") stock.insertAdjacentHTML('beforeend', stock);   
+                }
             }else{
                 message = result[0].getElementsByTagName("message")[0].firstChild.nodeValue;
                 msg_error.insertAdjacentHTML('beforeend', message);
