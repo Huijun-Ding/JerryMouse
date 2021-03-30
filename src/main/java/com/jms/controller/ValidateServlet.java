@@ -18,6 +18,7 @@ import com.jms.model.Have;
 import com.jms.model.Order;
 import com.jms.model.Product;
 import com.jms.model.Store;
+import com.jms.util.DateUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -51,7 +52,7 @@ public class ValidateServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(false);
         String format = "yyyy-MM-dd";
         SimpleDateFormat DF = new SimpleDateFormat(format);
         
@@ -68,6 +69,7 @@ public class ValidateServlet extends HttpServlet {
         try {
             date = DF.parse(request.getParameter("date"));
             have = HaveDAO.getHave(idStore, date, startTime);
+//            have = (Have)session.getAttribute("have");
         } catch (ParseException ex) {
             Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

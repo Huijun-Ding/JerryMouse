@@ -33,10 +33,10 @@
                 session.setAttribute("store", store);
                 int idStore = (store != null) ? store.getId() : 0;
 
-                Have h = (Have) request.getSession().getAttribute("have");
-                session.setAttribute("have", h);
+                Have h = (Have)session.getAttribute("have");
                 String startTime = (h != null) ? h.getHaveId().getStartTime() : null;
                 Date date = (h != null) ? h.getHaveId().getDate() : null;
+                session.setAttribute("have", h);
             %>
             <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
             <input type = 'hidden' id = 'idStore' name = 'value' value = '<%=idStore%>'></input>
