@@ -5,7 +5,6 @@
  */
 package com.jms.model;
 
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,6 +18,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import javax.persistence.MapKeyJoinColumn;
@@ -26,92 +27,104 @@ import javax.persistence.OneToMany;
 
 /**
  * Client Class
+ *
  * @author JerryMouseSoftware
  */
-@Entity(name="Client")
+@Entity(name = "Client")
 public class Client implements Serializable {
     //------------ PROPERTIES  ------------
-    
+
     /**
      * Designation: Unique code identifying a customer
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="CodeCL")
+    @Column(name = "CodeCL")
     private int code;
-    
+
     /**
      * Designation: Last name of a customer
      */
-    @Column(name="NomCL")
+    @Column(name = "NomCL")
     private String lastName;
-    
+
     /**
      * Designation: First name of a customer
      */
-    @Column(name="PrenomCL")
+    @Column(name = "PrenomCL")
     private String firstName;
-    
+
     /**
      * Designation: Email of a customer
      */
-    @Column(name="AdresseMailCL")
+    @Column(name = "AdresseMailCL")
     private String email;
-    
+
     /**
      * Designation: Password of a customer
      */
-    @Column(name="MotDePasseCL")
+    @Column(name = "MotDePasseCL")
     private String password;
-    
+
     /**
      * Designation: Fidelity Points of a customer
      */
-    @Column(name="PointsFideliteCL")
+    @Column(name = "PointsFideliteCL")
     private int fidelityPoints;
-    
+
     /**
-    *  Hibernate join property with ShoppingList Class  and Client Class.
-    */
+     * Hibernate join property with ShoppingList Class and Client Class.
+     */
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private Set<ShoppingList> shoppingList = new HashSet(0);
-    
+
     /**
-    *  Hibernate join property with Store Class  and Client Class.
-    */
+     * Hibernate join property with Store Class and Client Class.
+     */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "CodeM")
+    @JoinColumn(name = "CodeM")
     private Store store;
-    
+
     /**
-    *  Hibernate join property with Product Class  and Client Class.
-    */
-    @OneToMany(mappedBy= "client", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn(name="EANP")
+     * Hibernate join property with Product Class and Client Class.
+     */
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "EANP")
     private Map<Product, Basket> baskets = new HashMap(0);
-    
+
     /**
-    *  Hibernate join property with Order Class  and Client Class.
-    */
+     * Hibernate join property with Order Class and Client Class.
+     */
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-    @MapKeyJoinColumn(name="EANP")
+    @MapKeyJoinColumn(name = "EANP")
     private Set<Order> orders = new HashSet(0);
-    
+
+    /**
+     * Hibernate join property with Client Class and Product Class for the
+     * relationship "Preferer".
+     */
+    @ManyToMany
+    @JoinTable(name = "Preferer",
+            joinColumns = @JoinColumn(name = "CodeCL"),
+            inverseJoinColumns = @JoinColumn(name = "EANP"))
+    private Set<Product> products = new HashSet(0);
+
     // -------------------- CONSTRUCTORS --------------------
     /**
-    * A constructor of the PostIt Class.
-    */
+     * A empty constructor of the Client Class.
+     */
     public Client() {
     }
-    
+
     /**
-    * A constructor of the PostIt Class.
-    * @param lastName Last name of a customer.
-    * @param firstName Fisrt name of a customer.
-    * @param email Email of a customer.
-    * @param password Password of a customer
-    * @param fidelityPoints Fidelity Points of a customer
-    */
+     * A constructor of the PostIt Class.
+     *
+     * @param lastName Last name of a customer.
+     * @param firstName Fisrt name of a customer.
+     * @param email Email of a customer.
+     * @param password Password of a customer
+     * @param fidelityPoints Fidelity Points of a customer
+     */
     public Client(String lastName, String firstName, String email, String password, int fidelityPoints) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -132,164 +145,201 @@ public class Client implements Serializable {
     // ----------------- GETTERS & SETTERS ------------------
     /**
      * Getter for the property code.
+     *
      * @return the code property.
      */
     public int getCode() {
         return code;
     }
-    
+
     /**
      * Setter for the property code.
+     *
      * @param code The new value to set to the property.
      */
     public void setCode(int code) {
         this.code = code;
     }
-    
+
     /**
      * Getter for the property lastName.
+     *
      * @return the lastName property.
      */
     public String getLastName() {
         return lastName;
     }
-    
+
     /**
      * Setter for the property lastName.
+     *
      * @param lastName The new value to set to the property.
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     /**
      * Getter for the property firstName.
+     *
      * @return the firstName property.
      */
     public String getFirstName() {
         return firstName;
     }
-    
+
     /**
      * Setter for the property firstName.
+     *
      * @param firstName The new value to set to the property.
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     /**
      * Getter for the property email.
+     *
      * @return the email property.
      */
     public String getEmail() {
         return email;
     }
-    
+
     /**
-    * Setter for the property email.
+     * Setter for the property email.
+     *
      * @param email The new value to set to the property.
      */
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     /**
      * Getter for the property password.
+     *
      * @return the password property.
      */
     public String getPassword() {
         return password;
     }
-    
+
     /**
      * Setter for the property password.
+     *
      * @param password The new value to set to the property.
      */
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     /**
      * Getter for the property fidelityPoints.
+     *
      * @return the fidelityPoints property.
      */
     public int getFidelityPoints() {
         return fidelityPoints;
     }
-    
+
     /**
      * Setter for the property fidelityPoints.
+     *
      * @param fidelityPoints The new value to set to the property.
      */
     public void setFidelityPoints(int fidelityPoints) {
         this.fidelityPoints = fidelityPoints;
     }
-    
+
     /**
      * Getter for the property fidelityPoints.
+     *
      * @return the fidelityPoints property.
      */
     public Set<ShoppingList> getShoppingList() {
         return shoppingList;
     }
-    
+
     /**
      * Setter for the property fidelityPoints.
+     *
      * @param fidelityPoints The new value to set to the property.
      */
     public void setShoppingList(Set<ShoppingList> shoppingList) {
         this.shoppingList = shoppingList;
     }
-    
+
     /**
      * Getter for the object store.
+     *
      * @return the store object.
      */
     public Store getStore() {
         return store;
     }
-    
+
     /**
      * Setter for the object store.
+     *
      * @param store The new value to set to the property.
      */
     public void setStore(Store store) {
         this.store = store;
     }
-    
+
     /**
      * Getter for the Map baskets.
+     *
      * @return the baskets property.
      */
     public Map<Product, Basket> getBaskets() {
         return baskets;
     }
-    
+
     /**
      * Setter for the Map baskets.
+     *
      * @param baskest The new value to set to the property.
      */
     public void setBaskets(Map<Product, Basket> baskets) {
         this.baskets = baskets;
     }
-    
+
     /**
      * Getter for the Set orders.
+     *
      * @return the orders Set.
      */
     public Set<Order> getOrders() {
         return orders;
     }
-    
+
     /**
      * Setter for the property orders.
+     *
      * @param orders The new value to set to the property.
      */
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
-    
+
+    /**
+     * Getter for the property products.
+     *
+     * @return the products set.
+     */
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    /**
+     * Setter for the property products.
+     *
+     * @param products The new value to set to the property.
+     */
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
 
     // ----------------------- METHODS ----------------------
     /**
@@ -299,9 +349,10 @@ public class Client implements Serializable {
     public String toString() {
         return "Client{" + "code=" + code + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email + ", password=" + password + ", fidelityPoints=" + fidelityPoints + '}';
     }
-    
+
     /**
      * Method which returns the hash code of the current object id.
+     *
      * @return The hash code of the current object id.
      */
     @Override
@@ -310,9 +361,10 @@ public class Client implements Serializable {
         hash = 73 * hash + this.code;
         return hash;
     }
-    
+
     /**
      * Method which compares the current object with another one.
+     *
      * @param obj The object to compare with.
      * @return <b>True</b> if both objects are equals, <b>False</b> else.
      */
@@ -332,5 +384,5 @@ public class Client implements Serializable {
             return false;
         }
         return true;
-    } 
+    }
 }
