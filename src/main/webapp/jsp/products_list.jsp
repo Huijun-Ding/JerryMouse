@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--> 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <script type="text/javascript" src="../js/quantityProduct.js"></script>
         <title>Products List</title>
     </head>
     <body>
@@ -35,7 +36,7 @@
             <%
                 ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
                 request.setAttribute("productsList", list);
-                Client client = (Client) session.getAttribute("client");
+                Client client = (Client)session.getAttribute("client");
                 session.setAttribute("client", client);
                 //int nb_product = 5; // number of products to display    
 
@@ -90,7 +91,7 @@
                         %>
                         <img class="card-img-top img-thumbnail" src="<%= url%>" alt="alt"/>
                         <div class="card-body">
-                            <a id="addProduct" href="AddProductServlet?ean=<%= product.getEan()%>" class="stretched-link"></a> 
+                            <a id="addProduct" href="AddProductServlet?ean=<%= product.getEan() %>" class="stretched-link"></a> 
                             <h6 class="card-title "><%= libelle%></h6>
                             <!-- subtitle -->
                             <h7 class="card-subtitle mb-2 text-muted">
@@ -143,8 +144,8 @@
                             <h3 class=""><%= price + " €"%></h3>
 
                             <div class="" name="addButton">
-                                <a href="AddProductServlet?ean=<%= product.getEan()%>" class="">
-                                    <i class="btn btn-primary fas fa-shopping-basket" ></i>
+                                <a href="AddProductServlet?ean=<%= product.getEan() %>" class="">
+                                <i class="btn btn-primary fas fa-shopping-basket" ></i>
                                 </a>
                             </div>
                         </div>
@@ -154,6 +155,5 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="js/quantityProduct.js"></script>
     </body>
 </html>

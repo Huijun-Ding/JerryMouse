@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Class ConnectServlet
- *
  * @author Jerry Mouse Software
  */
 public class ConnectServlet extends HttpServlet {
@@ -38,10 +37,10 @@ public class ConnectServlet extends HttpServlet {
             //Get parameter login and password
             String mail = request.getParameter("mail");
             String pw = request.getParameter("password");
-
+            
             //Get the session
             HttpSession session = request.getSession(true);
-
+            
             try {
                 //Call method authenticate to check login and password
                 boolean check = ClientDAO.authenticate(mail, pw);
@@ -49,16 +48,14 @@ public class ConnectServlet extends HttpServlet {
                     Client client = ClientDAO.getByEmailPassword(mail, pw);
                     //Put the client object in the session
                     session.setAttribute("client", client);
-
+                    
                     //chain to index page
-                    response.sendRedirect("index");
-
-                } else if (check == false) {
+                    response.sendRedirect("jsp/index.jsp");
+                } else {
                     //chain to page login and display a message error
-
                     request.setAttribute("msg_error", "Le login ou le mot de passe est incorrect!");
                     request.getRequestDispatcher("login").forward(request, response);
-
+                    
                 }
             } catch (Exception ex) {
                 request.setAttribute("error", ex.getMessage());

@@ -38,7 +38,7 @@
                 <input type ="text" name ="confPasswordCreated"/>
             </div>
             <br>
-            <a href="index" class="btn btn-outline-primary">Annuler</a>
+            <a href="index.jsp" class="btn btn-outline-primary">Annuler</a>
             <input type="submit" class="btn btn-outline-primary" vlaue="S'inscrire">
         </form>
     </body>

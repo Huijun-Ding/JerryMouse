@@ -7,7 +7,7 @@
     <property name="hibernate.connection.url">jdbc:mysql://sql4.freemysqlhosting.net:3306/sql4402068</property>
     <property name="hibernate.connection.username">sql4402068</property>
     <property name="hibernate.connection.password">Act8WQ5TtL</property>
-    <!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jm</property>
+<!--    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jm</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password"></property>-->
 

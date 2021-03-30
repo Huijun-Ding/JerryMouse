@@ -37,11 +37,7 @@ function displayBasket() {
                 const rows = "<tr><td><img src='" + photo + "' class='prodPhoto'></td><td>" 
                         + name + "</br>" +"<span class='card-subtitle mb-2 text-muted'>"+ format+"</span>" + "</td><td>" 
                         + price + "&#8364;</br>" + "<span class='priceAfter'>" + priceAfter + "</span></td><td>" 
-//                        + quantity + "</td><td>" 
-//                        + "<input type='number' placeholder='multiple of 1' step='1' min='1' max='100' vlaue='" + quantity + "></td><td>"  
-                        + "<input type='button' name='minus' value='-' onclick='#'>"
-                        + "<input type='text' name='quantity' id='quantity' value='" + quantity + "'>"
-                        + "<input type='button' name='plus' value='+' onclick='#'>"
+                        + quantity + "</td><td>" 
                         + totalPrice + "&#8364;</td></tr>";
                 tabProd.insertAdjacentHTML('beforeend', rows);
             }

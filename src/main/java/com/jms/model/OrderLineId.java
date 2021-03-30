@@ -38,18 +38,15 @@ public class OrderLineId implements Serializable {
 
     // -------------------- CONSTRUCTORS --------------------
     /**
-     * An empty constructor of the OrderLineID Class. 
-     */
-    public OrderLineId() {
-    }
-
-    /**
      * A constructor of the OrderLineID Class.
      *
      * @param ean EAN (European Article Numbering): Bar code that uniquely
      * identifies a product.
      * @param orderId Unique code identifying a order.
      */
+    public OrderLineId() {
+    }
+
     public OrderLineId(String ean, int orderId) {
         this.ean = ean;
         this.orderId = orderId;

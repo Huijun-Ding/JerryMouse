@@ -3,10 +3,8 @@ package com.jms.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +32,7 @@ public class TimeSlot implements Serializable {
      */
     @Id
     @Column(name = "HeureDebutCR")
-    private String startTime;
+    private Date startTime;
 
     /**
      * End time of a time slot.
@@ -42,7 +40,7 @@ public class TimeSlot implements Serializable {
      * <b>Format : hh:mm (format 24h)</b>
      */
     @Column(name = "HeureFinCR")
-    private String endTime;
+    private Date endTime;
 
     /**
      * Hibernate join property with Store Class and Have Class.
@@ -54,8 +52,9 @@ public class TimeSlot implements Serializable {
     /**
      * Hibernate join property with Order Class.
      */
-    @OneToMany(mappedBy = "timeslot",fetch = FetchType.LAZY)
-    private Set<Order> orders = new HashSet<>(0);
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CodeCD")
+    private Order order = new Order();
 
     // -------------------- CONSTRUCTORS --------------------
 
@@ -70,7 +69,7 @@ public class TimeSlot implements Serializable {
      * @param startTime Start time of a time slot.
      * @param endTime End time of a time slot.
      */
-    public TimeSlot(String startTime, String endTime) {
+    public TimeSlot(Date startTime, Date endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -80,7 +79,7 @@ public class TimeSlot implements Serializable {
      * Getter for the start time property.
      * @return The start time property.
      */
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
@@ -88,7 +87,7 @@ public class TimeSlot implements Serializable {
      * Setter for the start time property.
      * @param startTime The new value to set to the property.
      */
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
@@ -96,7 +95,7 @@ public class TimeSlot implements Serializable {
      * Getter for the end time property.
      * @return The end time property.
      */
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
@@ -104,7 +103,7 @@ public class TimeSlot implements Serializable {
      * Setter for the end time property.
      * @param endTime The new value to set to the property.
      */
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -123,16 +122,6 @@ public class TimeSlot implements Serializable {
     public void setStores(Map<Store, Have> stores) {
         this.stores = stores;
     }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
-    
-    
 
     // ----------------------- METHODS ----------------------
 
