@@ -8,7 +8,6 @@ package com.jms.controller;
 import com.jms.dao.BasketDAO;
 import com.jms.dao.ClientDAO;
 import com.jms.dao.HaveDAO;
-import com.jms.dao.ProductDAO;
 import com.jms.dao.StockDAO;
 import com.jms.dao.StoreDAO;
 import com.jms.dao.ValiderDAO;
@@ -16,16 +15,12 @@ import com.jms.model.Basket;
 import com.jms.model.Client;
 import com.jms.model.Have;
 import com.jms.model.Order;
-import com.jms.model.Product;
 import com.jms.model.Store;
-import com.jms.util.DateUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,27 +47,16 @@ public class ValidateServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        String format = "yyyy-MM-dd";
-        SimpleDateFormat DF = new SimpleDateFormat(format);
-        
+        HttpSession session = request.getSession(true);
         // Get the information of order
         String idClient = request.getParameter("idClient");
         int idStore = Integer.parseInt(request.getParameter("idStore"));
         String startTime = request.getParameter("startTime");
+        String date = request.getParameter("date");
         
         Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
         Store store = (idStore == 0) ? null : StoreDAO.get(idStore);
-        
-        Date date;
-        Have have = null;
-        try {
-            date = DF.parse(request.getParameter("date"));
-            have = HaveDAO.getHave(idStore, date, startTime);
-//            have = (Have)session.getAttribute("have");
-        } catch (ParseException ex) {
-            Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Have have = HaveDAO.getHave(idStore, date, startTime);
         
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/xml;charset=UTF-8");
