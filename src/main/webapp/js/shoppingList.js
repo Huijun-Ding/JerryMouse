@@ -21,6 +21,24 @@ function sendShoppingListName() {
     xhr.send();
 }
 
+function showPostIts() {
+    // Objet XMLHttpRequest.
+    var xhr = new XMLHttpRequest();
+
+    var myinput = document.getElementById("").value;
+    xhr.open("GET", "DisplayPostItServlet?id=" + myinput);
+
+    xhr.onload = function ()
+    {
+        if (xhr.status === 200)
+        {
+            alert("get");
+        }
+    };
+
+    xhr.send();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     var btn = document.getElementById("shopping_list_button");
     if (btn != null) {
