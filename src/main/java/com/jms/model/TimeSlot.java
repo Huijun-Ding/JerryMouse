@@ -34,7 +34,7 @@ public class TimeSlot implements Serializable {
      */
     @Id
     @Column(name = "HeureDebutCR")
-    private Date startTime;
+    private String startTime;
 
     /**
      * End time of a time slot.
@@ -42,7 +42,7 @@ public class TimeSlot implements Serializable {
      * <b>Format : hh:mm (format 24h)</b>
      */
     @Column(name = "HeureFinCR")
-    private Date endTime;
+    private String endTime;
 
     /**
      * Hibernate join property with Store Class and Have Class.
@@ -70,7 +70,7 @@ public class TimeSlot implements Serializable {
      * @param startTime Start time of a time slot.
      * @param endTime End time of a time slot.
      */
-    public TimeSlot(Date startTime, Date endTime) {
+    public TimeSlot(String startTime, String endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -80,7 +80,7 @@ public class TimeSlot implements Serializable {
      * Getter for the start time property.
      * @return The start time property.
      */
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
@@ -88,7 +88,7 @@ public class TimeSlot implements Serializable {
      * Setter for the start time property.
      * @param startTime The new value to set to the property.
      */
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
@@ -96,7 +96,7 @@ public class TimeSlot implements Serializable {
      * Getter for the end time property.
      * @return The end time property.
      */
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
@@ -104,7 +104,7 @@ public class TimeSlot implements Serializable {
      * Setter for the end time property.
      * @param endTime The new value to set to the property.
      */
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

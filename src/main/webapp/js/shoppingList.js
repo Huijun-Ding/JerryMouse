@@ -1,31 +1,28 @@
 function displayShoppingLists() {
+    // relocated to page myShoppingLists
+    window.location.href = "createShoppingList";
+}
+
+function sendShoppingListName() {
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
 
-    xhr.open("GET", "CheckLogin");
+    var myinput = document.getElementById("name_shopping_list").value;
+    xhr.open("GET", "NewShoppingListServlet?name=" + myinput);
+    alert(myinput);
 
     xhr.onload = function ()
     {
         if (xhr.status === 200)
         {
-            var idClients = xhr.responseXML.getElementsByTagName("idClient");
-            if (idClients[0].firstChild.nodeValue === "no") {
-                window.location.href = "login";
-                
-            } else {
-                document.getElementById("view").src = "basketPage";
-                document.getElementById("search_bar").style.display = "none";
-                document.getElementById("rayon_categorie_navbar").style.display = "none";
-                document.getElementById("view").style.marginTop = "120px";
-            }
+            window.location.href = "myShoppingLists";
         }
     };
 
     xhr.send();
 }
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("shopping_list_button").addEventListener("click", displayShoppingList);
+    document.getElementById("shopping_list_button").addEventListener("click", displayShoppingLists);
+    document.getElementById("add_sl").addEventListener("click", sendShoppingListName);
 });

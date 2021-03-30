@@ -1,28 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.jms.controller;
 
-import com.jms.dao.HaveDAO;
-import com.jms.model.Have;
-import com.jms.model.Store;
+import com.jms.dao.ShoppingListDAO;
+import com.jms.model.Client;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static java.lang.System.out;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author RAKOTOARISOA
- */
-public class ChooseTimeSlotServlet extends HttpServlet {
+public class NewShoppingListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,34 +25,21 @@ public class ChooseTimeSlotServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try ( PrintWriter out = response.getWriter()) {
-            response.setContentType("application/xml;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            
-            HttpSession session = request.getSession();
-            Store store = (Store) session.getAttribute("store");
-            try{
-                SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = DF.parse(request.getParameter("date"));
-                
-                out.println("<?xml version=\"1.0\"?>");
-                out.println("<timeSlots>");
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
-                if (store != null && date !=null ) {
-                    for (Have h : HaveDAO.getTimeSlotsByStoreId(store.getId(), date)) {
-                        out.println("   <timeSlot>");
-                        out.println("       <startTime><![CDATA[" + h.getTimeSlot().getStartTime() + "]]></startTime>");
-                        out.println("       <endTime><![CDATA[" + h.getTimeSlot().getEndTime() + "]]></endTime>");
-                        out.println("       <capacity><![CDATA[" + h.getCapacity() + "]]></capacity>");
-                        out.println("   </timeSlot>");
-                    }
-                }
-                
-            } catch (Exception ex){
-                out.print("<msg_error>" + ex.getMessage() + "</msg_error>");
-            }
+        HttpSession session = request.getSession();
+
+        // Get the client id
+        if (session.getAttribute("client") != null) {
+            Client client = (Client) session.getAttribute("client");
             
-            out.println("</timeSlots>");
+            String shoppinglist = request.getParameter("name");
+                    
+            if (!shoppinglist.equals("")) {
+                // add new shopping list by saveShoppingList()
+                ShoppingListDAO.saveShoppingList(shoppinglist, client);
+            }
         }
     }
 
@@ -74,7 +51,6 @@ public class ChooseTimeSlotServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.text.ParseException
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

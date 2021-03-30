@@ -5,13 +5,11 @@
  */
 package com.jms.controller;
 
-import com.jms.dao.HaveDAO;
-import com.jms.model.Have;
+import com.jms.model.Client;
 import com.jms.model.Store;
+import com.jms.model.TimeSlot;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +18,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author RAKOTOARISOA
+ * @author mlk
  */
-public class ChooseTimeSlotServlet extends HttpServlet {
+public class ValidateServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,34 +33,36 @@ public class ChooseTimeSlotServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try ( PrintWriter out = response.getWriter()) {
-            response.setContentType("application/xml;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            
-            HttpSession session = request.getSession();
+        response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession session = request.getSession();
+        
+        // Get the client
+        if (session.getAttribute("client") != null ) {
+            Client client = (Client) session.getAttribute("client");
+        }
+        
+        // Get the store
+        if (session.getAttribute("store") != null ) {
             Store store = (Store) session.getAttribute("store");
-            try{
-                SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = DF.parse(request.getParameter("date"));
-                
-                out.println("<?xml version=\"1.0\"?>");
-                out.println("<timeSlots>");
-
-                if (store != null && date !=null ) {
-                    for (Have h : HaveDAO.getTimeSlotsByStoreId(store.getId(), date)) {
-                        out.println("   <timeSlot>");
-                        out.println("       <startTime><![CDATA[" + h.getTimeSlot().getStartTime() + "]]></startTime>");
-                        out.println("       <endTime><![CDATA[" + h.getTimeSlot().getEndTime() + "]]></endTime>");
-                        out.println("       <capacity><![CDATA[" + h.getCapacity() + "]]></capacity>");
-                        out.println("   </timeSlot>");
-                    }
-                }
-                
-            } catch (Exception ex){
-                out.print("<msg_error>" + ex.getMessage() + "</msg_error>");
-            }
-            
-            out.println("</timeSlots>");
+        }
+        
+        // Get the timeslot        
+        if (session.getAttribute("timeslot") != null ) {
+            TimeSlot timeslot = (TimeSlot) session.getAttribute("timeslot");
+        }
+        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ValidateServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ValidateServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -74,7 +74,6 @@ public class ChooseTimeSlotServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.text.ParseException
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
