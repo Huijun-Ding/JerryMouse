@@ -92,6 +92,10 @@
         <servlet-name>NewShoppingListServlet</servlet-name>
         <servlet-class>com.jms.controller.NewShoppingListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DisplayAllShoppingLists</servlet-name>
+        <servlet-class>com.jms.controller.DisplayAllShoppingListsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -184,6 +188,10 @@
     <servlet-mapping>
         <servlet-name>NewShoppingListServlet</servlet-name>
         <url-pattern>/NewShoppingListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayAllShoppingLists</servlet-name>
+        <url-pattern>/DisplayAllShoppingLists</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

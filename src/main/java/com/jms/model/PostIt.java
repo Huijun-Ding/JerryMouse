@@ -60,6 +60,18 @@ public class PostIt implements Serializable{
     public PostIt(String wording) {
         this.wording = wording;
     }
+
+    public PostIt(String wording, ShoppingList shoppingList) {
+        this.wording = wording;
+        this.shoppingList = shoppingList;
+    }
+
+    public PostIt(String wording, ShoppingList shoppingList, Product product) {
+        this.wording = wording;
+        this.shoppingList = shoppingList;
+        this.product = product;
+    }
+    
     //------------ GETTERS&SETTERS --------------
 
     /**
