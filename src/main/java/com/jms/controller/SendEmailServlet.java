@@ -16,6 +16,7 @@ import com.jms.model.ProductNutriScore;
 import com.jms.model.Store;
 import com.jms.model.TimeSlot;
 import com.jms.util.EmailUtil;
+import com.jms.util.QRcodeUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
@@ -65,18 +66,20 @@ public class SendEmailServlet extends HttpServlet {
         Date d1 = new Date(2021, 4, 2, 7, 30);
         Date d2 = new Date(2021, 4, 2, 8, 0);
         Store s1 = new Store("Auhchan", "rue du 12", "toulouse", "31000");
-        TimeSlot t1 = new TimeSlot(d1, d2);
+        
+        TimeSlot t1 = new TimeSlot("21-04-02 07:30:00", "21-04-02 08:00:00");
         Product p1 = new Product("p1", "eau", 1.4f,"https://www.carrefour.fr/media/1500x1500/Photosite/PGC/BOISSONS/3057640257858_PHOTOSITE_20201022_061508_0.jpg?placeholder=1");
         Product p2 = new Product("p2", "chocolat", 1.4f,"https://www.carrefour.fr/media/1500x1500/Photosite/PGC/EPICERIE/8000500003787_PHOTOSITE_20210317_165358_0.jpg?placeholder=1");
-        Order o1 = new Order("order1", client, s1, t1);
+        Order o1 = new Order(123, client, s1, t1);
         OrderLine ol1 = new OrderLine(2, o1, p1);
         OrderLine ol2 = new OrderLine(1, o1, p2);
         ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
         orderlines.add(ol1);
         orderlines.add(ol2);
-        DateFormat format1 = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+        String qrcode="data:image/PNG;base64,"+QRcodeUtil.getQRCodeImage(""+o1.getClient().getCode()+o1.getOrderId());
+        //DateFormat format1 = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
         int total = 12;
-        String contentOrder = "<table style='width:60%' frame='above'><caption>Votre Facture"
+        String contentOrder = "<table style='width:75%' frame='above'><caption>Votre Facture"
                 + "</caption><thead><tr><th>Image</th><th>Produit</th><th>Quantité</th><th>Montant</th></tr></thead>";
         for (OrderLine ol : orderlines) {
 
@@ -84,14 +87,14 @@ public class SendEmailServlet extends HttpServlet {
                     + ol.getQuantity() + "</td><td align='center'>" + ol.getProduct().getUnitPrice() * ol.getQuantity() + " &#8364;</td></tr>";
         }
         contentOrder = contentOrder + "</table>";
-        contentOrder = contentOrder + "<table style='width:60%' frame='below'> <tr><td align='left' > <b>Prix Total : </b> </td><td align='right' > <b>" + total + " &#8364; </b></td></tr></table>";
+        contentOrder = contentOrder + "<table style='width:75%' frame='below'> <tr><td align='left' > <b>Prix Total : </b> </td><td align='right' > <b>" + total + " &#8364; </b></td></tr></table>";
         String content = "<h4>Bonjour " + client.getFirstName() + "</h4></br>"
                 + "</br>Veuillez trouver ci-dessous un resumé des articles "
                 + "que vous avez commandés. Cet email vaut comme facture pour votre achat.</br> "
                 + contentOrder + "</br> Adresse de Retrait : " + o1.getStore().getName()
                 + o1.getStore().getStreet() + ", " + o1.getStore().getPostalCode()
-                + "<br>Date de Retrait : "
-                + format1.format(o1.getTimeslot().getStartTime()) + " - " + format1.format(o1.getTimeslot().getEndTime());
+                + "<br>Date de Retrait : de " + o1.getTimeslot().getStartTime() + " à " + o1.getTimeslot().getEndTime()
+                +"<br> Votre QR Code : "+"<img src='"+ qrcode + "'  width='100' height='100'>";
         EmailUtil e = new EmailUtil(receiveMail, content, client.getFirstName() + client.getLastName());
 
     }
