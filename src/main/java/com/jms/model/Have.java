@@ -79,6 +79,13 @@ public class Have implements Serializable {
         this.capacity = capacity;
         this.date = date;
     }
+    
+    public Have(HaveId haveId, int capacity, Date date, TimeSlot timeSlot) {
+        this.haveId = haveId;
+        this.capacity = capacity;
+        this.date = date;
+        this.timeSlot = timeSlot;
+    }
 
     // ----------------- GETTERS & SETTERS ------------------
 
