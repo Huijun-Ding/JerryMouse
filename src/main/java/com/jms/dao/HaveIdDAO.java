@@ -39,7 +39,7 @@ public class HaveIdDAO {
             Transaction t = session.beginTransaction();
             
            
-            HaveId d = new HaveId(DF.parse(startTime),storeId);
+            HaveId d = new HaveId(startTime,storeId);
 
             session.save(d);
 
