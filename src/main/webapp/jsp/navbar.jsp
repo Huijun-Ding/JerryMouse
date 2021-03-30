@@ -114,7 +114,7 @@
             </button>
 
             <%if (client != null) {%>
-            <button id="shopping_list_button" role="button" class="btn btn-sm btn-outline-primary">
+            <button id="shopping_list_button" role="button" class="btn btn-sm btn-outline-primary" href>
                 <div class="d-flex flex-column">
                     <i class="far fa-list-alt"></i>
                     Liste de courses
@@ -146,3 +146,4 @@
     </div>
 </div>
 
+<script src="js/shoppingList.js"></script>
