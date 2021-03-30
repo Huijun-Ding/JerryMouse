@@ -102,11 +102,11 @@ public class HaveDAO {
 
             Query query = session.createQuery(""
                     + "select new com.jms.model.Have(h.haveId, h.capacity, "
-                    + "h.date, h.timeSlot) "
+                    + "h.timeSlot) "
                     + "from CreneauHoraire c, Avoir h "
                     + "where h.timeSlot.startTime = c.startTime "
                     + "and h.store.id = :storeId "
-                    + "and h.date = :date");
+                    + "and h.haveId.date = :date");
 
             query.setParameter("storeId", storeId);
             query.setParameter("date", date);
