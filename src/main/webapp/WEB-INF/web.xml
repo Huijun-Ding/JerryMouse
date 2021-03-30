@@ -73,6 +73,10 @@
         <jsp-file>/jsp/navbar.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>confirmation_order</servlet-name>
+        <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>SendEmail</servlet-name>
         <servlet-class>com.jms.controller.SendEmail</servlet-class>
     </servlet>
