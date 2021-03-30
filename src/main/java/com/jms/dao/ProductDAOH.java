@@ -127,7 +127,8 @@ public class ProductDAOH {
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
                     + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
                     + "FROM Produit p "
-                    + "WHERE p.category.id = :id";
+                    + "WHERE p.category.id = :id "
+                    + "ORDER BY p.name ASC";
             
             Query query = session.createQuery(sql);
             query.setParameter("id", id);
@@ -155,7 +156,8 @@ public class ProductDAOH {
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
                     + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
                     + "FROM Produit p "
-                    + "WHERE p.category.department.id = :id";
+                    + "WHERE p.category.department.id = :id "
+                    + "ORDER BY p.name ASC";
             Query query = session.createQuery(sql);
             query.setParameter("id", id);
             list = query.list();
