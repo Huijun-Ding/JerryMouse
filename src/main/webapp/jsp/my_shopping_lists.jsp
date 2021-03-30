@@ -20,12 +20,16 @@
         <div class="container" id="rayon_categorie_navbar">
             <h2>Mes listes de courses</h2>
 
+            <br>
             <div class="list-group" id="my_lists">
                 <a href="showShoppingList" class="list-group-item list-group-item-action">A second link item</a>
 
             </div>
 
+            <br>
+            <div><button type="button" class="btn btn-primary" id="add_new_sl">Créer une nouvelle shopping liste</button></div>
         </div>
+
         <script src="js/shoppingList.js"></script>
     </body>
 </html>
