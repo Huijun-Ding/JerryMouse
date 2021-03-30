@@ -21,7 +21,7 @@
         <servlet-class>com.jms.controller.DisplayProductsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>/ProductsList</servlet-name>
+        <servlet-name>ProductsList</servlet-name>
         <jsp-file>/jsp/products_list.jsp</jsp-file>
     </servlet>
     <servlet>
@@ -72,6 +72,18 @@
         <servlet-name>SendEmail</servlet-name>
         <servlet-class>com.jms.controller.SendEmail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyShoppinglLists</servlet-name>
+        <jsp-file>/jsp/my_shopping_lists.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateShoppingList</servlet-name>
+        <jsp-file>/jsp/create_shopping_list.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowShoppingList</servlet-name>
+        <jsp-file>/jsp/show_shopping_list.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
@@ -89,7 +101,7 @@
         <url-pattern>/DisplayProducts</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>/ProductsList</servlet-name>
+        <servlet-name>ProductsList</servlet-name>
         <url-pattern>/ProductsList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -143,6 +155,18 @@
     <servlet-mapping>
         <servlet-name>SendEmail</servlet-name>
         <url-pattern>/SendEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyShoppinglLists</servlet-name>
+        <url-pattern>/myShoppingLists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateShoppingList</servlet-name>
+        <url-pattern>/createShoppingList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowShoppingList</servlet-name>
+        <url-pattern>/showShoppingList</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

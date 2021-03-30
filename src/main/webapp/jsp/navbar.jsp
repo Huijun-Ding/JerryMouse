@@ -114,13 +114,17 @@
             </button>
 
             <%if (client != null) {%>
-            <button id="shopping_list_button" role="button" class="btn btn-sm btn-outline-primary">
-                <div class="d-flex flex-column">
+            <button id="shopping_list_button" role="button" class="btn btn-sm btn-outline-primary" href>
+                <div class="d-flex flex-column" href="showShoppingList">
                     <i class="far fa-list-alt"></i>
                     Liste de courses
                 </div>
             </button> 
             <%}%>
+            
+            <script>
+                
+            </script>
             
         </div>
     </div>
