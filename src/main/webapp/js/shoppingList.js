@@ -9,7 +9,6 @@ function sendShoppingListName() {
 
     var myinput = document.getElementById("name_shopping_list").value;
     xhr.open("GET", "NewShoppingListServlet?name=" + myinput);
-    alert(myinput);
 
     xhr.onload = function ()
     {
@@ -24,5 +23,9 @@ function sendShoppingListName() {
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("shopping_list_button").addEventListener("click", displayShoppingLists);
-    document.getElementById("add_sl").addEventListener("click", sendShoppingListName);
+    
+    var el = document.getElementById("add_sl");
+    if (el != null) {
+        el.addEventListener("click", sendShoppingListName);
+    }
 });
