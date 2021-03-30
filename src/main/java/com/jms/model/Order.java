@@ -103,8 +103,8 @@ public class Order {
         this.timeslot = timeslot;
     }
 
-    public Order(String orderName, Client client, Store store, TimeSlot timeslot) {
-        this.orderName = orderName;
+    public Order(int orderId, Client client, Store store, TimeSlot timeslot) {
+       this.orderId=orderId;
         this.client = client;
         this.store = store;
         this.timeslot = timeslot;
