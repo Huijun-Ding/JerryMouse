@@ -34,7 +34,7 @@ public class NewShoppingListServlet extends HttpServlet {
         if (session.getAttribute("client") != null) {
             Client client = (Client) session.getAttribute("client");
             
-            String shoppinglist = request.getParameter("name_shopping_list");
+            String shoppinglist = request.getParameter("name");
                     
             if (!shoppinglist.equals("")) {
                 // add new shopping list by saveShoppingList()
