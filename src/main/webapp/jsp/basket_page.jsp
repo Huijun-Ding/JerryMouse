@@ -68,6 +68,11 @@
                             </table>
                         </div>
 
+
+                        <div>
+                            <input type="checkbox" id="checkPoint" name="checkPoint" >
+                            <label for="checkPoint"> Utiliser mes points de fid&eacute;lit&eacute;</label><br>
+                        </div>
                         <div class="msg_error" id="msg_error"></div>
 
                         <div class="row">
