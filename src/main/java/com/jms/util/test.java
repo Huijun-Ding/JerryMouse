@@ -11,21 +11,12 @@ package com.jms.util;
  */
 public class test {
     public static void main(String[] args) throws Exception {
-        String myEmailAccount = "jerrymouse.sw@gmail.com";
-    /**
-     * myEmailPassword : password for the sender email
-     */
-    String myEmailPassword = "#jms06IPM";
-    /**
-     * myEmailSMTPHost : address of server SMTP 
-     */
-    String myEmailSMTPHost = "smtp.gmail.com";
     /**
      * receiveMailAccount : address of recipient  
      */
      String receiveMailAccount = "18810952622@163.com";
      String contenue="test class";
 
-        Email e= new Email(myEmailAccount,myEmailPassword,myEmailSMTPHost,receiveMailAccount,contenue);
+        EmailUtil e= new EmailUtil(receiveMailAccount,contenue,"Chloé");
     }
 }
