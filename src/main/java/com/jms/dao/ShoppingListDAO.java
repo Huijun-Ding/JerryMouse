@@ -76,7 +76,7 @@ public class ShoppingListDAO {
 
     }
 
-    public static ShoppingList getNameShoppingList(int id) {
+    public static ShoppingList getShoppingList(int id) {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
 
