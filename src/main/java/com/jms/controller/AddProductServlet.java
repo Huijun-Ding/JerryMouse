@@ -30,7 +30,7 @@ public class AddProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(false);
         Client client = (Client)session.getAttribute("client");
         
 //        ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
