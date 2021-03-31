@@ -18,51 +18,44 @@ import java.util.Set;
  *
  * @author RAKOTOARISOA
  */
-public class ShoppingListFile {
+public class FileUtil {
 
     /**
      * Read and turn each line of file into a PostIt
      *
      * @param fileList
      */
-    public static Set<PostIt> importFromFile( File fileList) {
+    public static Set<PostIt> importPostItsFromFile(File fileList) {
         Set<PostIt> postIts = new HashSet<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileList));
             String ligne;
-            int nbLigne = 1;
             while ((ligne = br.readLine()) != null) {
-                System.out.println(ligne);
-                postIts.add(new PostIt(nbLigne, ligne));
-                nbLigne++;  
+                postIts.add(new PostIt(ligne));
             }
-            
-            
-            System.out.println(nbLigne);
-//            for (PostIt postIt : postIts) {
-//                System.out.println(postIt);
-//            }
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
         return postIts;
     }
     
-    public static ShoppingList addPostIt(String titleList, Set<PostIt> postIts, File fileList ){
+    public static ShoppingList importShoppingListFromFile(String titleList, File file) {
+        Set<PostIt> postIts = importPostItsFromFile(file);
+        ShoppingList fileImported = new ShoppingList(titleList, postIts);
         
-        postIts = importFromFile(fileList);
-        ShoppingList fileImported =  new ShoppingList(titleList,postIts);
+        for (PostIt p : postIts) {
+            p.setShoppingList(fileImported);
+        }
+        
         return fileImported;
     }
-
+    
     public static void main(String[] args) {
-        File list = new File("listeShopping.txt");
-        Set<PostIt> postIts =  importFromFile(list);
-        
-        ShoppingList s = addPostIt("Liste apéro",postIts,list);
+        File file = new File("listeShopping.txt");        
+        ShoppingList s = importShoppingListFromFile("Liste apéro", file);
+        System.out.println(s);
         System.out.println(s.getPostIts());
-        
+
 //        Set<PostIt> sets = new HashSet<>(0);
 //        PostIt p = new PostIt("Fraise");
 //        PostIt p1 = new PostIt("Pomme");
@@ -71,6 +64,5 @@ public class ShoppingListFile {
 //        //return false car code=0 existe déja
 //        System.out.println(sets.add(p1));
 //        sets.add(p1);
-
     }
 }
