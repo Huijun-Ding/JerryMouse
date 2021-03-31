@@ -79,22 +79,22 @@
                                                 SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
                                                 if(store != null && have != null){
                                             %>
-                                                <li class='list-group-item'>
-                                                    <div class='card'>
-                                                        <div class='card-header'>Magasin de retrait :</div>
-                                                        <div class='card-body'>
-                                                            <h5 class='card-title'><%=store.getName()%>  </h5>
-                                                            <p class='card-text'><%=store.getStreet()%></p>
-                                                            <p class='card-text'><%=store.getPostalCode() + " " + store.getCity()%></p>
-                                                        </div>
-
-                                                        <div class='card-header'>Cr&eacute;neau de retrait :</div>
-                                                            <div class='card-body'>
-                                                                <p class='card-text'><%=DF.format(have.getHaveId().getDate())%></p>
-                                                                <p class='card-text'><%=have.getTimeSlot().getStartTime() + " - " + have.getTimeSlot().getEndTime()%></p>
-                                                            </div>
+                                            <li class='list-group-item'>
+                                                <div class='card'>
+                                                    <div class='card-header'>Magasin de retrait :</div>
+                                                    <div class='card-body'>
+                                                        <h5 class='card-title'><%=store.getName()%></h5>
+                                                        <p class='card-text'><%=store.getStreet()%><br>
+                                                        <%=store.getPostalCode() + " " + store.getCity()%></p>
                                                     </div>
-                                                </li>
+
+                                                    <div class='card-header'>Cr&eacute;neau de retrait :</div>
+                                                        <div class='card-body'>
+                                                            <p class='card-text'><%=DF.format(have.getHaveId().getDate())%><br>
+                                                            <%=have.getTimeSlot().getStartTime() + " - " + have.getTimeSlot().getEndTime()%></p>
+                                                        </div>
+                                                </div>
+                                            </li>
                                                 <%}%>
                                         </div>
                                     </div>
