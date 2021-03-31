@@ -219,7 +219,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadShoppingFileServlet</servlet-name>
-        <url-pattern>/UploadShoppingFileServlet</url-pattern>
+        <url-pattern>/UploadShoppingFile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SendEmailServlet</servlet-name>
