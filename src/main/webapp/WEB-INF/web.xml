@@ -112,6 +112,10 @@
         <servlet-name>SendEmailServlet</servlet-name>
         <servlet-class>com.jms.controller.SendEmailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Favorites</servlet-name>
+        <jsp-file>/jsp/favorites.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -220,6 +224,10 @@
     <servlet-mapping>
         <servlet-name>confirmation_order</servlet-name>
         <url-pattern>/confirmationOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Favorites</servlet-name>
+        <url-pattern>/Favorites</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
