@@ -25,7 +25,9 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <title>Products List</title>
     </head>
     <body>
@@ -89,8 +91,7 @@
                             %>
                             <img class="img-thumbnail" src="<%= url%>" alt="alt"/>
                             <div class="card-body">
-                                <a id="addProduct" href="AddProductServlet?ean=<%= product.getEan()%>" class="stretched-link"></a> 
-                                <h6 class="card-title "><%= libelle%></h6>
+                                <h6 class="card-title " data-toggle="modal" data-target="#visualise_article"><%= libelle%></h6>
                                 <!-- subtitle -->
                                 <h8 class="card-subtitle mb-1 text-muted">
                                     <% if (priceKG != "") {
@@ -139,20 +140,49 @@
 
 
                             </div>
-                            <!-- footer (price, button) -->
-                            <div class="card-footer text-right">
-                                <h3 class="d-inline-block text-left"><%= price + " €"%></h3>
+                            <div >
+                                <div class="text-left" >
+                                    <button>
+                                        <i class="fa fa-eye-fill"></i>
+                                    </button>
+                                </div>
+                                <!-- footer (price, button) -->
+                                <div class=" card-footer text-right">
+                                    <h3 class="d-inline-block text-left"><%= price + " €"%></h3>
 
-                                <h2 class="d-inline-block" name="addButton">
-                                    <a href="AddProductServlet?ean=<%= product.getEan()%>" class="">
-                                        <i class="btn btn-primary fas fa-shopping-basket" ></i>
-                                    </a>
-                                </h2>
+                                    <h2 class="d-inline-block" name="addButton">
+                                        <a href="AddProductServlet?ean=<%= product.getEan()%>" class="">
+                                            <i class="btn btn-primary fas fa-shopping-basket" ></i>
+                                        </a>
+                                    </h2>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <% }%>
 
+                </div>
+            </div>
+        </div>
+        <div class="modal" tabindex="-1" id="visualise_article">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ajouter un post-it</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Contenu de post-it : </p>
+                        <form>
+                            <div class="input-group input-group">
+                                <input type="input" class="form-control" placeholder="Jus de fruit, Lait, Savon...">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-primary">Valider</button>
+                    </div>
                 </div>
             </div>
         </div>
