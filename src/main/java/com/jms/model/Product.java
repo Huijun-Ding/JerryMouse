@@ -116,12 +116,12 @@ public class Product implements Serializable {
     private String urlThumbnail;
 
     // Relation Appartenir Categorie
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CodeCategorieP")
     private ProductCategory category;
 
     // Relation Posseder Label
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.LAZY)
     @JoinTable(name = "Posseder",
             joinColumns = @JoinColumn(name = "EANP"),
             inverseJoinColumns = @JoinColumn(name = "CodeLB"))
@@ -133,17 +133,20 @@ public class Product implements Serializable {
     private Set<PostIt> postIts = new HashSet<>(0);
 
     // Relation Panier Client
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodeCL")
     private Map<Client, Basket> baskets = new HashMap<>(0);
 
     // Relation Reduire Promotion
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodePR")
     private Map<Promotion, Reduce> promotions = new HashMap<>(0);
 
     // Relation Ligne de commande Commande
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodeCD")
     private Map<Order, OrderLine> orders = new HashMap<>(0);
 
@@ -151,7 +154,7 @@ public class Product implements Serializable {
      * Hibernate join property with Product Class and Client Class for the
      * relationship "Preferer".
      */
-    @ManyToMany(mappedBy = "favoriteProducts")
+    @ManyToMany(mappedBy = "favoriteProducts", fetch = FetchType.LAZY)
     private Set<Client> clients = new HashSet<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
@@ -432,8 +435,8 @@ public class Product implements Serializable {
                 + brand + ", format=" + format + ", bio=" + bio
                 + ", nutriscore=" + nutriscore
                 + ", packaging=" + packaging + ", category=" + category
-                + ", labels=" + labels 
-                + ", clients=" + clients + '}';
+                + ", labels=" + labels
+                + ", promotions=" + promotions + '}';
     }
 
 }
