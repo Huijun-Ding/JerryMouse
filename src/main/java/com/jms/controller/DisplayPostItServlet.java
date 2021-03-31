@@ -34,11 +34,12 @@ public class DisplayPostItServlet extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
 
-            String id = request.getParameter("id");
+            String id = request.getParameter("codesl");
 
             try {
                 // get all my shopping lists by getMyShoppingLists()
-                List<PostIt> lst = ShoppingListDAO.getPostIts(toInt(id));
+               List<PostIt> lst = ShoppingListDAO.getPostIts(Integer.parseInt(id));
+                
                 System.out.println("Voici la liste : " + lst);
                 response.setContentType("application/xml;charset=UTF-8");
                 response.setCharacterEncoding("UTF-8");

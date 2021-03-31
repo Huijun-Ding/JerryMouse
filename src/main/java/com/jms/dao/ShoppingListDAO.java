@@ -97,7 +97,7 @@ public class ShoppingListDAO {
         // Test
         // ShoppingListDAO.saveShoppingList("cooktail");
         // ShoppingListDAO.getMyShoppingLists(2); 
-        //ShoppingListDAO.getPostIts(5);
+        ShoppingListDAO.getPostIts(5);
 
         // Exit
         System.exit(0);
