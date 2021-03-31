@@ -104,6 +104,10 @@
         <servlet-name>DisplayPostItServlet</servlet-name>
         <servlet-class>com.jms.controller.DisplayPostItServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadShoppingFileServlet</servlet-name>
+        <servlet-class>com.jms.controller.UploadShoppingFileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -204,6 +208,10 @@
     <servlet-mapping>
         <servlet-name>DisplayPostItServlet</servlet-name>
         <url-pattern>/DisplayPostItServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadShoppingFileServlet</servlet-name>
+        <url-pattern>/UploadShoppingFileServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
