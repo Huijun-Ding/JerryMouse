@@ -10,6 +10,7 @@
 function validate() {
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
+<<<<<<< HEAD
 //    idClient = document.getElementById("idClient").value;
 //    idStore = document.getElementById("idStore").value;
 //    startTime = document.getElementById("startTime").value;
@@ -25,6 +26,20 @@ function validate() {
 //            + "&idStore=" + idStore
 //            + "&startTime=" + startTime
 //            + "&date=" + date;
+=======
+    idClient = document.getElementById("idClient").value;
+    idStore = document.getElementById("idStore").value;
+    startTime = document.getElementById("startTime").value;
+    date = document.getElementById("date").value;
+    checkBox= document.getElementsByName("checkPoint");
+    checkPoint=false;
+    if(checkBox[0].checked) checkPoint=true;
+    xhr.open("GET", "Validate?idClient="+idClient 
+            + "&idStore=" + idStore
+            + "&startTime=" + startTime
+            + "&date=" + date
+            +"checkPoint"+checkPoint);
+>>>>>>> 3a8c0864b84e1ec96bcc24b5c255d01b7133d92a
 
     xhr.onload = function () {
         if (xhr.status === 200) {

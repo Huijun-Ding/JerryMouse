@@ -55,6 +55,7 @@ public class ValidateServlet extends HttpServlet {
         Store store = (Store)session.getAttribute("store");
         Have have = (Have)session.getAttribute("have");
 
+
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
