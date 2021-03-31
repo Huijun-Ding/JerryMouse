@@ -89,7 +89,7 @@ function changeStore(storeId) {
     msg_error = document.getElementById("msg_error");
     if (msg_error !== null)
         msg_error.innerHTML = "";
-                    
+                   
     xhr.send(param);
 }
 
