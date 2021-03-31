@@ -24,91 +24,90 @@
 
         <div class="container" id="rayon_categorie_navbar">
             <h1>Mon panier</h1>
-            <form action="">
-                <div class="row">
-                    <div class="col-8" id="div_prod">
-                        <table class="table table-hover" id="tabProd">
-                            <%
-                                // loop to write products
-                                out.print("<tr><td>" + "photo" + "</td>");
-                                out.print("<td>Nom</td>");
-                                out.print("<td>Prix Unitaire</td>");
-                                out.print("<td>Qte</td>");
-                                out.print("<td>Prix Total</td></tr>");
-                            %>
+            <div class="row">
+                <div class="col-8" id="div_prod">
+                    <table class="table table-hover" id="tabProd">
+                        <%
+                            // loop to write products
+                            out.print("<tr><td>" + "photo" + "</td>");
+                            out.print("<td>Nom</td>");
+                            out.print("<td>Prix Unitaire</td>");
+                            out.print("<td>Qte</td>");
+                            out.print("<td>Prix Total</td></tr>");
+                        %>
+                    </table>
+                </div>
+                <div class="col-1"></div>      
+                <div class="col-3">    
+                    <div name="calcul">
+                        <table class="table" id="points">
+                            <tr><td>Points acquis : </td><td><span class="bold" id="cagnotte_gagne"></span></td></tr>
+                            <tr><td>Points actuels : </td><td><span class="bold" id="cagnotte_cumul"></span></td></tr>
+                            <tr><td>R&eacute;duction directe : </td><td><span class="bold" id="reduction"></span></td></tr>
+                            <tr><td>Total : </td><td><span class="bold" id="total"></span></td></tr>                        
                         </table>
                     </div>
-                    <div class="col-1"></div>      
-                    <div class="col-3">    
-                        <div name="calcul">
-                            <table class="table" id="points">
-                                <tr><td>Points acquis : </td><td><span class="bold" id="cagnotte_gagne"></span></td></tr>
-                                <tr><td>Points actuels : </td><td><span class="bold" id="cagnotte_cumul"></span></td></tr>
-                                <tr><td>R&eacute;duction directe : </td><td><span class="bold" id="reduction"></span></td></tr>
-                                <tr><td>Total : </td><td><span class="bold" id="total"></span></td></tr>                        
-                            </table>
+
+                    <div class="msg_error" id="msg_error"></div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <boutton type="button" class="btn btn-outline-primary" name="valider" data-toggle="modal" data-target="#exampleModalLong">Valider</boutton>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">-->
                         </div>
-
-                        <div class="msg_error" id="msg_error"></div>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <boutton type="button" class="btn btn-outline-primary" name="valider" data-toggle="modal" data-target="#exampleModalLong">Valider</boutton>
-                                <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">-->
-                            </div>
-                            <div class="col-6">
-                                <a class="btn btn-outline-primary" href="index" id="test">Retour</a>
-                            </div>
+                        <div class="col-6">
+                            <a class="btn btn-outline-primary" href="index" id="test">Retour</a>
                         </div>
+                    </div>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Voulez-vous valider votre commande?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div>
-                                            <%
-                                                Store store = (Store)session.getAttribute("store");
-                                                Have have = (Have)session.getAttribute("have");
-                                                SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
-                                                if(store != null && have != null){
-                                            %>
-                                            <li class='list-group-item'>
-                                                <div class='card'>
-                                                    <div class='card-header'>Magasin de retrait :</div>
-                                                    <div class='card-body'>
-                                                        <h5 class='card-title'><%=store.getName()%></h5>
-                                                        <p class='card-text'><%=store.getStreet()%><br>
-                                                        <%=store.getPostalCode() + " " + store.getCity()%></p>
-                                                    </div>
-
-                                                    <div class='card-header'>Cr&eacute;neau de retrait :</div>
-                                                        <div class='card-body'>
-                                                            <p class='card-text'><%=DF.format(have.getHaveId().getDate())%><br>
-                                                            <%=have.getTimeSlot().getStartTime() + " - " + have.getTimeSlot().getEndTime()%></p>
-                                                        </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Voulez-vous valider votre commande?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="corp_modal" style="display: none;">
+                                    <%
+                                        Store store = (Store)session.getAttribute("store");
+                                        Have have = (Have)session.getAttribute("have");
+                                        SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
+                                        if(store != null && have != null){
+                                    %>
+                                    <div>
+                                        <li class='list-group-item'>
+                                            <div class='card'>
+                                                <div class='card-header'>Magasin de retrait :</div>
+                                                <div class='card-body'>
+                                                    <h5 class='card-title'><%=store.getName()%></h5>
+                                                    <p class='card-text'><%=store.getStreet()%><br>
+                                                    <%=store.getPostalCode() + " " + store.getCity()%></p>
                                                 </div>
-                                            </li>
-                                                <%}%>
-                                        </div>
+
+                                                <div class='card-header'>Cr&eacute;neau de retrait :</div>
+                                                    <div class='card-body'>
+                                                        <p class='card-text'><%=DF.format(have.getHaveId().getDate())%><br>
+                                                        <%=have.getTimeSlot().getStartTime() + " - " + have.getTimeSlot().getEndTime()%></p>
+                                                    </div>
+                                            </div>
+                                        </li>
                                     </div>
-                                     
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                        <button type="button" id="valider" class="btn btn-outline-primary" data-dismiss="modal">Valider</button>
-                                    </div>
+                                    <%}%>
+                                </div>
+                                
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <button type="button" id="valider" class="btn btn-outline-primary" data-dismiss="modal">Valider</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </body>
     <script src="js/ScriptCheckBasket.js"></script>
