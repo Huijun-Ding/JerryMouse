@@ -31,7 +31,7 @@
                 Have have = (Have)session.getAttribute("have");
                 DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
             %>
-            <p>Votre commande num&eacute;ro 
+            <p>Votre commande N&deg; 
                 <span id="num_order"> <%=order.getOrderId()%> </span> 
                 est bien &eacute;t&eacute; enregistr&eacute;e !</p>
 
