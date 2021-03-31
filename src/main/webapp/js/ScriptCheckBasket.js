@@ -17,7 +17,8 @@ function displayBasket() {
             product = xhr.responseXML.getElementsByTagName("product");
             for (i = 0; i < product.length; i++) {
                 productLine = product[i];
-
+                
+                ean = productLine.getElementsByTagName("ean")[0].firstChild.nodeValue;
                 photo = productLine.getElementsByTagName("photo")[0].firstChild.nodeValue;
                 name = productLine.getElementsByTagName("name")[0].firstChild.nodeValue;
                 format = productLine.getElementsByTagName("format")[0].firstChild.nodeValue;
@@ -40,8 +41,9 @@ function displayBasket() {
 //                        + quantity + "</td><td>" 
 //                        + "<input type='number' placeholder='multiple of 1' step='1' min='1' max='100' vlaue='" + quantity + "></td><td>"  
                         + "<input type='button' name='minus' value='-' onclick='#'>"
-                        + "<input type='text' name='quantity' id='quantity' value='" + quantity + "'>"
+                        + "<input type='text' class='quantity' name='quantity' value='" + quantity + "'>"
                         + "<input type='button' name='plus' value='+' onclick='#'>"
+                        + "</br><span class='stock' id='" + ean + "'></span></td><td>"
                         + totalPrice + "&#8364;</td></tr>";
                 tabProd.insertAdjacentHTML('beforeend', rows);
             }

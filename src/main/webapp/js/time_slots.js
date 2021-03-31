@@ -26,34 +26,60 @@ function search_time_slots() {
             var htmlText = "";
             var timeSlot = xhr.responseXML.getElementsByTagName("timeSlot");
             
-            htmlText += url ;
             for (var i = 0; i < timeSlot.length; i++) {
                 var startTime = timeSlot[i].getElementsByTagName("startTime")[0].firstChild.nodeValue;
                 var endTime = timeSlot[i].getElementsByTagName("endTime")[0].firstChild.nodeValue;
                 var capacity = timeSlot[i].getElementsByTagName("capacity")[0].firstChild.nodeValue;
-
-                htmlText += '<li class="form-check">\n';
-                htmlText += '   <input class="form-check-input" type="radio" name="startTime" id="ts' + i + '"';
-                if (capacity === 0)
+                var message_capacity = (capacity <= 1) ? capacity + " place restante." : capacity + " places restantes.";
+               
+                
+                htmlText += '   <button tabindex="' + i + '" id="ts' + i + '" class="btn btn-dark d-inline-block mb-3" type="button" value="' + startTime + '" title="' + message_capacity + '" data-toggle="tooltip" data-placement="top"';                
+                if (capacity === "0")
                     htmlText += ' disabled';
-                htmlText += '>\n';
-                htmlText += '   <label class="form-check-label" for="ts' + i + '">\n';
-                htmlText += startTime + ' - ' + endTime + '</label>\n';
-                htmlText += '</li>\n';
+                htmlText += ' data-dismiss="modal">' + startTime + ' - ' + endTime + '</button>\n';
             }
 
             time_slots_list.innerHTML = htmlText;
 
-            //Ajouter le listener pour le bouton de validation
+            for (var i = 0; i < timeSlot.length; i++) {
+                //var startTime = timeSlot[i].getElementsByTagName("startTime")[0].firstChild.nodeValue;
+                document.getElementById('ts' + i).addEventListener("click", function() {
+                    changeTimeSlot(this.value);
+                   
+                });
+            }
         }
     };
-
-    xhr.send(param);
+    msg_error = document.getElementById("msg_error");
+    if (msg_error !== null)
+        msg_error.innerHTML = "";
+    xhr.send();
 }
 
+function changeTimeSlot(startTime) {
+    // Objet XMLHttpRequest.
+    var xhr = new XMLHttpRequest();
+    // Requête au serveur avec les paramètres éventuels.
+    var x = document.getElementById("search_time_slots").selectedIndex;
+    var value = document.getElementsByTagName("option")[x].value;
 
-function changeTimeSlot() {
-    //Fontion pour modifier un time slot depuis la servlet ChooseTimeSlot
+    var param = "date=" + encodeURIComponent(value);
+    param += "&startTime=" + startTime;
+    var url = "ChooseTimeSlot" + "?" + param;
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
+    xhr.onload = function () {
+        // Si la requête http s'est bien passée.
+        if (xhr.status === 200) {
+            var timeSlot = xhr.responseXML.getElementsByTagName("msg")[0];
+            document.getElementById("time_slot_name").innerHTML = timeSlot.innerHTML;
+        }
+    };
+    
+
+    xhr.send();
 }
 
 /**
@@ -62,4 +88,7 @@ function changeTimeSlot() {
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("search_time_slots").addEventListener("change", search_time_slots);
 });
-    
+
+$(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});

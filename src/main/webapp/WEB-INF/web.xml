@@ -9,6 +9,10 @@
         <jsp-file>/jsp/basket_page.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>confirmationOrder</servlet-name>
+        <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>StoreServlet</servlet-name>
         <servlet-class>com.jms.controller.StoreServlet</servlet-class>
     </servlet>
@@ -73,6 +77,10 @@
         <jsp-file>/jsp/navbar.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>confirmation_order</servlet-name>
+        <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>SendEmail</servlet-name>
         <servlet-class>com.jms.controller.SendEmail</servlet-class>
     </servlet>
@@ -95,6 +103,14 @@
     <servlet>
         <servlet-name>DisplayAllShoppingLists</servlet-name>
         <servlet-class>com.jms.controller.DisplayAllShoppingListsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayPostItServlet</servlet-name>
+        <servlet-class>com.jms.controller.DisplayPostItServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendEmailServlet</servlet-name>
+        <servlet-class>com.jms.controller.SendEmailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -192,6 +208,18 @@
     <servlet-mapping>
         <servlet-name>DisplayAllShoppingLists</servlet-name>
         <url-pattern>/DisplayAllShoppingLists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayPostItServlet</servlet-name>
+        <url-pattern>/DisplayPostItServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendEmailServlet</servlet-name>
+        <url-pattern>/SendEmailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>confirmation_order</servlet-name>
+        <url-pattern>/confirmationOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

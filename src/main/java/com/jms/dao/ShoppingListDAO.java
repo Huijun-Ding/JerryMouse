@@ -61,13 +61,13 @@ public class ShoppingListDAO {
 
     }
 
-    public static void savePostItWithProduct(String namePostIt, Product product, ShoppingList shoppinglist) {
+    public static void savePostItWithProduct(Product product, ShoppingList shoppinglist) {
 
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             // new  session
             Transaction t = session.beginTransaction();
 
-            PostIt postit = new PostIt(namePostIt, shoppinglist, product);
+            PostIt postit = new PostIt(shoppinglist, product);
 
             session.save(postit);
 
@@ -96,7 +96,8 @@ public class ShoppingListDAO {
     public static void main(String[] args) throws ParseException, SQLException {
         // Test
         // ShoppingListDAO.saveShoppingList("cooktail");
-         ShoppingListDAO.getMyShoppingLists(2); 
+        // ShoppingListDAO.getMyShoppingLists(2); 
+//        ShoppingListDAO.getPostIts(5);
 
         // Exit
         System.exit(0);
