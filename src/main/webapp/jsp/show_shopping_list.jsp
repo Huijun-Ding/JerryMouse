@@ -34,6 +34,7 @@
                         <button type="button" id="valide_add_pt" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_post_it">Ajouter un post-it dans cette liste</button>
                         <button type="button" id="valide_add_article" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_article">Ajouter un article dans cette liste</button>
                         <button type="button" id="import_shopping_list" class="btn btn-outline-primary" data-toggle="modal" data-target="#import_list_file">Importer une liste de course</button>
+                        <button type="button" id="list_to_panier" class="btn btn-outline-primary">Transformer ma liste en panier</button>
                     </div>
                 </div>
             </div>
