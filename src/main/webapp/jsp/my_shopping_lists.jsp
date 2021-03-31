@@ -20,12 +20,16 @@
             <h2>Mes listes de courses</h2>
 
             <br>
-            <div class="list-group" id="my_lists"></div>
+            <div class="list-group col-7" id="my_lists"></div>
 
             <br>
             <div><button type="button" class="btn btn-primary" id="add_new_sl">Créer une nouvelle shopping liste</button></div>
         </div>
 
         <script src="js/allShoppingLists.js"></script>
+        <script src="js/search.js"></script>
+        <script src="js/stores.js"></script>
+        <script src="js/time_slots.js"></script>
+        <script src="js/basket.js"></script>
     </body>
 </html>

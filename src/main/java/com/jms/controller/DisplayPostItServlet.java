@@ -27,7 +27,7 @@ public class DisplayPostItServlet extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
 
-            String id = request.getParameter("codesl");
+            String id = request.getParameter("id");
 
             try {
                 // get all my shopping lists by getMyShoppingLists()
@@ -40,33 +40,23 @@ public class DisplayPostItServlet extends HttpServlet {
                 
                 String productName = "";
                 String productBrand = "";
-                String productQuantity = "";
-                String productPrice = "";
                 
                 for (PostIt p : lst) {
                     
                     if (p.getProduct()==null) {
-                        productName = "Pas de produit sélectionné";
-                        productBrand = "Pas de produit sélectionné";
-                        productQuantity = "Pas de produit sélectionné";
-                        productPrice = "Pas de produit sélectionné";
+                        productName = "Libellé de produit inconnu";
+                        productBrand = "Marque inconnu";
                     }
                     else{
                         productName = p.getProduct().getName();
                         productBrand = p.getProduct().getBrand();
-                        //productQuantity = toString(p.getProduct().getPackagingQuantity());
-                        productPrice = "Pas de produit sélectionné";
                     }
-//                    System.out.println(p.getProduct().getEan());
+
                     out.println("<postIt>");
                     out.println("<name><![CDATA[" + p.getWording() + "]]></name>");
                     out.println("<code><![CDATA[" + p.getCode() + "]]></code>");
-
-                    //  out.println("<product><![CDATA[" + p.getProduct().getEan() + "]]></product>");
-//                    out.println("<pname><![CDATA[" +  + "]]></pname>");
-//                    out.println("<pbrand><![CDATA[" +  + "]]></pbrand>");
-//                    out.println("<pq><![CDATA[" +  + "]]></pq>");
-//                    out.println("<pprice><![CDATA[" + p.getProduct().getUnitPrice() + "]]></pprice>");
+                    out.println("<pname><![CDATA[" + productName + "]]></pname>");
+                    out.println("<pbrand><![CDATA[" + productBrand + "]]></pbrand>");
                     out.println("</postIt>");
                 }
                 out.println("</postIts>");
