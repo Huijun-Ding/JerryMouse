@@ -8,7 +8,6 @@ package com.jms.controller;
 import com.jms.dao.BasketDAO;
 import com.jms.dao.ClientDAO;
 import com.jms.dao.HaveDAO;
-import com.jms.dao.ProductDAO;
 import com.jms.dao.StockDAO;
 import com.jms.dao.StoreDAO;
 import com.jms.dao.ValiderDAO;
@@ -16,16 +15,15 @@ import com.jms.model.Basket;
 import com.jms.model.Client;
 import com.jms.model.Have;
 import com.jms.model.Order;
-import com.jms.model.Product;
 import com.jms.model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -52,26 +50,19 @@ public class ValidateServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        String format = "yyyy-MM-dd";
-        SimpleDateFormat DF = new SimpleDateFormat(format);
-        
         // Get the information of order
         String idClient = request.getParameter("idClient");
         int idStore = Integer.parseInt(request.getParameter("idStore"));
         String startTime = request.getParameter("startTime");
+        System.out.println("===============" + startTime);
+        String date = request.getParameter("date");
         
         Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
         Store store = (idStore == 0) ? null : StoreDAO.get(idStore);
-        
-        Date date;
         Have have = null;
-        try {
-            date = DF.parse(request.getParameter("date"));
+        if(idStore != 0 && date != null && startTime != null) 
             have = HaveDAO.getHave(idStore, date, startTime);
-        } catch (ParseException ex) {
-            Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/xml;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
@@ -80,6 +71,7 @@ public class ValidateServlet extends HttpServlet {
             
             if(client != null && store != null && have != null){  
                 ArrayList<Boolean> lstRes = new ArrayList<>();
+                Map<String, Integer> lstProdQte = new HashMap<>();
                 // retrouver le panier et des produits de client
                 try {
                     List<Basket> lstBasket = BasketDAO.loadBasket(Integer.parseInt(idClient));
@@ -90,6 +82,7 @@ public class ValidateServlet extends HttpServlet {
                         Boolean res = StockDAO.checkStockProd(idStore, 
                                 basket.getBasketId().getEan(), basket.getQtyBasket());
                         lstRes.add(res);
+                        lstProdQte.put(basket.getBasketId().getEan(), basket.getQtyBasket());
 
                         if(res) out.println("<qte><![CDATA[ok]]></qte>");
                         else out.println("<qte><![CDATA[Rupture de stock !]]></qte>");
@@ -109,6 +102,17 @@ public class ValidateServlet extends HttpServlet {
                     // enregistrer la cmd si client a choisi un mag et un creneau
                     try {
                         Order order = ValiderDAO.registerBasket(client, store, have);
+                        
+                        for(String ean : lstProdQte.keySet()){
+                            try {
+                                // update stock de prod
+                                StockDAO.updateStockProd(idStore, ean, lstProdQte.get(ean));
+                                // delete basket
+                                BasketDAO.deleteBasket(2);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                         session.setAttribute("order", order);
                         out.println("<res><![CDATA[ok]]></res>");
                     }catch (ParseException ex) {

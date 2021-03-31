@@ -10,13 +10,10 @@ function displayStore() {
     // Requête au serveur avec les paramètres éventuels.
     xhr.open("GET", "CheckLogin");
 
-    // On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
     xhr.onload = function ()
     {
-        // Si la requête http s'est bien passée.
         if (xhr.status === 200)
         {
-            // Elément html que l'on va mettre à jour.
             var idClients = xhr.responseXML.getElementsByTagName("idClient");
             if (idClients[0].firstChild.nodeValue === "no") {
                 window.location.href = "login";

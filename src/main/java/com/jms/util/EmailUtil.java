@@ -16,24 +16,28 @@ import java.util.Properties;
  *
  * @author Jerry Mouse Software.
  */
-public class Email {
+public class EmailUtil {
 
     /**
      * myEmailAccount : account of sender email
      */
-    private String myEmailAccount;
+    private String myEmailAccount = "jerrymouse.sw@gmail.com";
     /**
      * myEmailPassword : password for the sender email
      */
-    private String myEmailPassword;
+    private String myEmailPassword = "#jms06IPM";
     /**
      * myEmailSMTPHost : address of server SMTP
      */
-    private String myEmailSMTPHost;
+    private String myEmailSMTPHost = "smtp.gmail.com";
     /**
      * receiveMailAccount : address of recipient
      */
     private String receiveMailAccount;
+    /**
+     * receiveMailName : name of recipient
+     */
+    private String receiveMailName;
     /**
      * contentMail : content of mail
      */
@@ -42,13 +46,10 @@ public class Email {
     /**
      * A constructor of the Email Class.
      *
-     * @param myEmailAccount account of sender email.
-     * @param myEmailPassword password for the sender email.
-     * @param myEmailSMTPHost address of server SMTP.
      * @param receiveMailAccount address of recipient.
      * @param contentMail content of mail.
      */
-    public Email(String myEmailAccount, String myEmailPassword, String myEmailSMTPHost, String receiveMailAccount, String contentMail) throws Exception {
+    public EmailUtil(String receiveMailAccount, String contentMail,String receiveMailName) throws Exception {
         // configuration of the parameters used to connect to the mail server
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
@@ -69,7 +70,7 @@ public class Email {
         session.setDebug(true);
 
         //create a email
-        MimeMessage message = createMimeMessage(session, myEmailAccount, receiveMailAccount, contentMail);
+        MimeMessage message = createMimeMessage(session, myEmailAccount, receiveMailAccount, contentMail,receiveMailName);
 
         //Get session-based mail forwarding subject
         Transport transport = session.getTransport();
@@ -93,11 +94,11 @@ public class Email {
      * @return MimeMessage
      * @throws Exception
      */
-    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail, String content) throws Exception {
+    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail, String content,String receiveMailName) throws Exception {
         MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(sendMail, "JerryMouseSoftware", "UTF-8"));
-        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "Chloé", "UTF-8"));
-        message.setSubject("Retest!!!", "UTF-8");
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, receiveMailName, "UTF-8"));
+        message.setSubject("Facture d'achat", "UTF-8");
         message.setContent(content, "text/html;charset=UTF-8");
         message.setSentDate(new Date());
         message.saveChanges();
@@ -109,7 +110,6 @@ public class Email {
      *
      * @return The myEmailAccount property.
      */
-
     public String getMyEmailAccount() {
         return myEmailAccount;
     }
@@ -119,7 +119,6 @@ public class Email {
      *
      * @param myEmailAccount The new value to set to the property.
      */
-
     public void setMyEmailAccount(String myEmailAccount) {
         this.myEmailAccount = myEmailAccount;
     }
@@ -129,7 +128,6 @@ public class Email {
      *
      * @return The myEmailPassword property.
      */
-
     public String getMyEmailPassword() {
         return myEmailPassword;
     }
@@ -139,7 +137,6 @@ public class Email {
      *
      * @param <nom_de_la_propriété> The new value to set to the property.
      */
-
     public void setMyEmailPassword(String myEmailPassword) {
         this.myEmailPassword = myEmailPassword;
     }
@@ -149,7 +146,6 @@ public class Email {
      *
      * @return The myEmailSMTPHost property.
      */
-
     public String getMyEmailSMTPHost() {
         return myEmailSMTPHost;
     }
@@ -159,7 +155,6 @@ public class Email {
      *
      * @param myEmailSMTPHost The new value to set to the property.
      */
-
     public void setMyEmailSMTPHost(String myEmailSMTPHost) {
         this.myEmailSMTPHost = myEmailSMTPHost;
     }
@@ -169,7 +164,6 @@ public class Email {
      *
      * @return The receiveMailAccount property.
      */
-
     public String getReceiveMailAccount() {
         return receiveMailAccount;
     }
@@ -179,7 +173,6 @@ public class Email {
      *
      * @param <nom_de_la_propriété> The new value to set to the property.
      */
-
     public void setReceiveMailAccount(String receiveMailAccount) {
         this.receiveMailAccount = receiveMailAccount;
     }
@@ -189,7 +182,6 @@ public class Email {
      *
      * @return The contentMail property.
      */
-
     public String getContentMail() {
         return contentMail;
     }
@@ -199,7 +191,6 @@ public class Email {
      *
      * @param <nom_de_la_propriété> The new value to set to the property.
      */
-
     public void setContentMail(String contentMail) {
         this.contentMail = contentMail;
     }
