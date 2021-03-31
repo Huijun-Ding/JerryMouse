@@ -45,7 +45,9 @@ public class HaveDAO {
     }
 
     public static void initialize() throws ParseException {
-        for (int storeId = 1; storeId <= 43; storeId++) {
+        int[] storeIds = new int[]{15, 19, 38, 40};
+        
+        for(int storeId : storeIds) {
             for (Date d : DateUtil.nextDays(4)) {
                 int hour = 7;
                 String minutes = "30";
@@ -102,21 +104,45 @@ public class HaveDAO {
 
             Query query = session.createQuery(""
                     + "select new com.jms.model.Have(h.haveId, h.capacity, "
-                    + "h.date, h.timeSlot) "
+                    + "h.timeSlot) "
                     + "from CreneauHoraire c, Avoir h "
                     + "where h.timeSlot.startTime = c.startTime "
                     + "and h.store.id = :storeId "
-                    + "and h.date = :date");
+                    + "and h.haveId.date = :date");
 
             query.setParameter("storeId", storeId);
             query.setParameter("date", date);
 
             return query.list();
         }
-    }
+
+    } 
+    
+    public static Have getHave(int storeId, String datePickUp, String startTime){
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            //Open a transaction
+            Transaction t = session.beginTransaction();
+            Query query = session.createQuery("from Avoir "
+                    + "where HeureDebutCR = :startTime "
+                    + "and CodeM = :storeId "
+                    + "and DateCR = :datePickUp");
+
+            query.setParameter("startTime", startTime);
+            query.setParameter("storeId", storeId);
+            query.setParameter("datePickUp", datePickUp);
+            Have have = (Have)query.list().get(0);
+            t.commit();
+            return have;
+            
+        }
+    } 
 
     public static void main(String[] args) throws ParseException {
-        com.jms.dao.HaveDAO.initialize();
+        // HaveDAO.initialize();
+
         
+        System.out.println(HaveDAO.getHave(40, "2021-03-31", "07:30"));
     }
+
 }

@@ -43,6 +43,7 @@ public class HaveIdDAO {
 
             session.save(d);
 
+
             t.commit();
         }
     }
