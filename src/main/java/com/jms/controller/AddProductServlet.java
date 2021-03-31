@@ -32,10 +32,9 @@ public class AddProductServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         Client client = (Client)session.getAttribute("client");
-        session.setAttribute("client", client);
         
-        ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
-        request.setAttribute("productsList", list);
+//        ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
+//        request.setAttribute("productsList", list);
         
         int idClient = client.getCode();
 //        int idClient = Integer.parseInt(request.getParameter("idClient"));
