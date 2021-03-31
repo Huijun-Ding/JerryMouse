@@ -144,6 +144,5 @@ public class HaveDAO {
     public static void main(String[] args) throws ParseException {
         // HaveDAO.initialize();
         
-        System.out.println(HaveDAO.getHave(40, "2021-03-31", "07:30"));
     }
 }

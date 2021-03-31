@@ -49,19 +49,11 @@ public class ValidateServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(false);
         // Get the information of order
-        String idClient = request.getParameter("idClient");
-        int idStore = Integer.parseInt(request.getParameter("idStore"));
-        String startTime = request.getParameter("startTime");
-        System.out.println("===============" + startTime);
-        String date = request.getParameter("date");
-        
-        Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
-        Store store = (idStore == 0) ? null : StoreDAO.get(idStore);
-        Have have = null;
-        if(idStore != 0 && date != null && startTime != null) 
-            have = HaveDAO.getHave(idStore, date, startTime);
+        Client client = (Client)session.getAttribute("client");
+        Store store = (Store)session.getAttribute("store");
+        Have have = (Have)session.getAttribute("have");
 
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/xml;charset=UTF-8");
@@ -74,12 +66,12 @@ public class ValidateServlet extends HttpServlet {
                 Map<String, Integer> lstProdQte = new HashMap<>();
                 // retrouver le panier et des produits de client
                 try {
-                    List<Basket> lstBasket = BasketDAO.loadBasket(Integer.parseInt(idClient));
+                    List<Basket> lstBasket = BasketDAO.loadBasket(client.getCode());
                     for(Basket basket : lstBasket){
                         // vérifier le stock pour un produit
                         out.println("<product>");
                         out.println("<ean><![CDATA[" + basket.getBasketId().getEan() + "]]></ean>");
-                        Boolean res = StockDAO.checkStockProd(idStore, 
+                        Boolean res = StockDAO.checkStockProd(store.getId(), 
                                 basket.getBasketId().getEan(), basket.getQtyBasket());
                         lstRes.add(res);
                         lstProdQte.put(basket.getBasketId().getEan(), basket.getQtyBasket());
@@ -106,7 +98,7 @@ public class ValidateServlet extends HttpServlet {
                         for(String ean : lstProdQte.keySet()){
                             try {
                                 // update stock de prod
-                                StockDAO.updateStockProd(idStore, ean, lstProdQte.get(ean));
+                                StockDAO.updateStockProd(store.getId(), ean, lstProdQte.get(ean));
                                 // delete basket
                                 BasketDAO.deleteBasket(2);
                             } catch (SQLException ex) {

@@ -84,8 +84,12 @@ function changeStore(storeId) {
             document.getElementById("stores_list").innerHTML = "";
             document.getElementById("time_slot_button").classList.remove("d-none");
         }
-    };    
-    
+    };
+
+    msg_error = document.getElementById("msg_error");
+    if (msg_error !== null)
+        msg_error.innerHTML = "";
+                    
     xhr.send(param);
 }
 
