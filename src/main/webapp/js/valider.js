@@ -13,7 +13,9 @@ function validate() {
     idClient = document.getElementById("idClient").value;
     idStore = document.getElementById("idStore").value;
     startTime = document.getElementById("startTime").value;
+    alert(startTime);
     date = document.getElementById("date").value;
+    alert(date);
     
     xhr.open("GET", "Validate?idClient="+idClient 
             + "&idStore=" + idStore
