@@ -50,19 +50,19 @@
                             <p>Contenu de post-it : </p>
                             <form>
                                 <div class="input-group input-group">
-                                    <input type="input" class="form-control" placeholder="Jus de fruit, Lait, Savon...">
+                                    <input type="input" class="form-control" id="input_post_it" placeholder="Huile de coco...">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">Valider</button>
+                            <button type="button" class="btn btn-primary"id="submit_post_it">Valider</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="modal" tabindex="-1" id="add_article">
+<!--            <div class="modal" tabindex="-1" id="add_article">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="modal" tabindex="-1" id="import_list_file">
                 <div class="modal-dialog">

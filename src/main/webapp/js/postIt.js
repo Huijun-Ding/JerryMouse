@@ -49,6 +49,24 @@ function showShoppingListName() {
     xhr.send();
 }
 
+function sendAddPostItRequest() {
+    var xhr = new XMLHttpRequest();
+
+    var id = window.location.search.substr(8);
+    var name = document.getElementById("input_post_it").value;
+    xhr.open("GET", "AddPostItServlet?id=" + id + "&name=" + name);
+
+    xhr.onload = function ()
+    {
+        if (xhr.status === 200)
+        {
+            alert("Post-it ajouté !");
+            window.location.reload();
+        }
+    };
+    xhr.send();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     if (window.addEventListener) {
         window.addEventListener('load', showPostIts); //W3C
@@ -57,4 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.attachEvent('onload', showPostIts); //IE
         window.attachEvent('onload', showShoppingListName);
     }
+    
+    document.getElementById("submit_post_it").addEventListener("click", sendAddPostItRequest);
 });
