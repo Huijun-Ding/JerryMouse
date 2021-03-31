@@ -142,7 +142,7 @@ public class SendEmailServlet extends HttpServlet {
                 + "</br>Veuillez trouver ci-dessous un resumé des articles "
                 + "que vous avez commandés. Cet email vaut comme facture pour votre achat.</br> </br>"
                 + contentOrder + "</br> Adresse de Retrait : " + store.getName()
-                + store.getStreet() + ", " + store.getPostalCode()
+                + store.getStreet() + ", " + store.getPostalCode()+" "+store.getCity()
                 + "<br>Date de Retrait : de " + dateStart + " à " + dateEnd
                 + "<br> Votre QR Code : " + "<img src='" + qrcode + "'  width='100' height='100'>";
         EmailUtil e = new EmailUtil(receiveMail, content, client.getFirstName() + client.getLastName());
