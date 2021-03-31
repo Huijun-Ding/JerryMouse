@@ -31,14 +31,14 @@
     <body>
 
         <div class="container-lg">
-            <h1>Liste des produits</h1>
+            <!--<h1>Liste des produits</h1>-->
             <div class="d-flex justify-content-center" >
 
                 <%
                     ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
                     request.setAttribute("productsList", list);
                     Client client = (Client) session.getAttribute("client");
-                    session.setAttribute("client", client); 
+                    session.setAttribute("client", client);
 
                 %> 
                 <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-4 g-4">
@@ -92,7 +92,7 @@
                                 <a id="addProduct" href="AddProductServlet?ean=<%= product.getEan()%>" class="stretched-link"></a> 
                                 <h6 class="card-title "><%= libelle%></h6>
                                 <!-- subtitle -->
-                                <h7 class="card-subtitle mb-2 text-muted">
+                                <h8 class="card-subtitle mb-1 text-muted">
                                     <% if (priceKG != "") {
                                             out.print(priceKG + " €/kg");
                                         }
@@ -108,20 +108,20 @@
                                             }
                                         }
                                     %>
-                                </h7>
+                                </h8>
                                 <!-- nutriscore -->
                                 <% if (nutriscore != null) {%>
                                 <div><img src="img/Nutri-score-<%= nutriscore%>.svg" width="50px" alt="alt"/></div>
                                     <% }%>
 
                                 <!-- labels -->
+                                <% if (!labelStrings.isEmpty()) { %>
                                 <div class="row">
-                                    <% if (!labelStrings.isEmpty()) { %>
                                     <% for (String labelString : labelStrings) {%>
                                     <div class="btn btn-outline-warning"><%= labelString + " LABEL_HERE "%></div>
-                                    <% }
-                                        }%>
+                                    <% }%>
                                 </div> 
+                                <% }%>
 
                                 <!-- promotions -->
                                 <% if (percent != "") {%>
