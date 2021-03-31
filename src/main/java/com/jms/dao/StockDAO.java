@@ -35,9 +35,29 @@ public class StockDAO {
         }
     }
     
+    public static int updateStockProd(int idStore, String ean, int qte) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Query query = session.createSQLQuery("UPDATE Stocker "
+                    + "SET QteStock = QteStock - :qte "
+                    + "WHERE CodeP = :ean "
+                    + "AND CodeM = :idStore");
+
+            query.setParameter("qte", qte);
+            query.setParameter("ean", ean);
+            query.setParameter("idStore", idStore);
+            
+            int nb = query.executeUpdate();
+            t.commit(); // Commit et flush automatique de la session.
+            return nb;
+        }
+    }
+    
     public static void main(String[] args) {
         try {
-            System.out.println(StockDAO.checkStockProd(1, "P1", 2));
+            System.out.println(StockDAO.checkStockProd(40, "P1", 2));
+            System.out.println(StockDAO.updateStockProd(40, "P1", 2));
         } catch (SQLException ex) {
             Logger.getLogger(StockDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
