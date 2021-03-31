@@ -89,8 +89,19 @@ function changeStore(storeId) {
     msg_error = document.getElementById("msg_error");
     if (msg_error !== null)
         msg_error.innerHTML = "";
-                   
-    xhr.send(param);
+    
+//    corp_modal = document.getElementsByClassName("stock");
+//    for (let i = 0; i < corp_modal.length; i++) {
+//        corp_modal[i][0].firstChild.innerHTML = "";
+//    }
+    
+    corp_modal = document.getElementById("corp_modal");
+    if (corp_modal !== null)
+        corp_modal.style.display="";
+    
+    
+
+    xhr.send(param);  
 }
 
 /**
