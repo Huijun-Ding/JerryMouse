@@ -97,7 +97,7 @@
                             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>S&aacute;lectionner un fichier : </p>
+                            <p>S&eacute;lectionner un fichier : </p>
                             <input id="fileShoppingList" type="file" class="form-control w-30 p-40 h-25 post_it" width="50">
                         </div>
                         <div class="modal-footer">
@@ -115,5 +115,6 @@
         <script src="js/stores.js"></script>
         <script src="js/time_slots.js"></script>
         <script src="js/basket.js"></script>
+        <script src="js/upload_shopping_file.js"></script>
     </body>
 </html>
