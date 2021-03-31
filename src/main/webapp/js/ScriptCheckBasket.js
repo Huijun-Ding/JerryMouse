@@ -35,14 +35,18 @@ function displayBasket() {
                     price = "<span>" + price + "</span>";
                 }
                 
-                const rows = "<tr><td><img src='" + photo + "' class='prodPhoto'></td><td>" 
-                        + name + "</br>" +"<span class='card-subtitle mb-2 text-muted'>"+ format+"</span>" + "</td><td>" 
-                        + price + "&#8364;</br>" + "<span class='priceAfter'>" + priceAfter + "</span></td><td>" 
-                        + "<input type='button' name='minus' value='-' onclick='#'>"
-                        + "<input type='text' class='quantity' name='quantity' value='" + quantity + "'>"
-                        + "<input type='button' name='plus' value='+' onclick='#'>"
-                        + "</br><span class='stock' id='" + ean + "'></span></td><td>"
-                        + totalPrice + "&#8364;</td></tr>";
+                const rows = "<tr>"
+                        + "<td><img src='" + photo + "' class='prodPhoto'></td>"
+                        + "<td>" + name + "</br>" 
+                        + "<span class='card-subtitle mb-2 text-muted'>" + format + "</span></td>"
+                        + "<td>" + price + "&#8364;</br>" 
+                        + "<span class='priceAfter'>" + priceAfter + "</span></td>"
+                        + "<td><input type='button' name='minus' value='-' onclick='#'>"
+                        + "<input type='number' class='quantity' value='" + quantity + "'>"
+                        + "<input type='button' name='plus' value='+' onclick='#'></br>"
+                        + "<span class='stock' id='" + ean + "'></span></td>"
+                        + "<td>" + totalPrice + "&#8364;</td>"
+                        + "</tr>";
                 tabProd.insertAdjacentHTML('beforeend', rows);
             }
 
