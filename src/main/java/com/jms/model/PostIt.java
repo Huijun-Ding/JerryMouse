@@ -53,6 +53,12 @@ public class PostIt implements Serializable{
     public PostIt() {
     }
     
+    public PostIt(int code, String wording) {
+        this.code = code;
+        this.wording = wording;
+    }
+    
+    
     /**
     * A constructor of the PostIt Class.
     * @param wording Label of a post-it.
