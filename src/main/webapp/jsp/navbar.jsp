@@ -148,7 +148,7 @@
 </div>
                 
 <div class="modal" id="search_time_slots_modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><i class="fa fa-calendar-alt"></i> Choisir un créneau</h4>

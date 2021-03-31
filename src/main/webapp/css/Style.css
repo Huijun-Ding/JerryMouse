@@ -157,3 +157,7 @@ html, body {
 #btn_login, #btn_return{
     width:200px;
 }
+
+#time_slots_list > button {
+    width: 147px;
+}

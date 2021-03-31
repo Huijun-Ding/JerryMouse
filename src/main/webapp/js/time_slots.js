@@ -33,10 +33,19 @@ function search_time_slots() {
                 var message_capacity = (capacity <= 1) ? capacity + " place restante." : capacity + " places restantes.";
                
                 
-                htmlText += '   <button tabindex="' + i + '" id="ts' + i + '" class="btn btn-dark d-inline-block mb-3" type="button" value="' + startTime + '" title="' + message_capacity + '" data-toggle="tooltip" data-placement="top"';                
+                htmlText += '   <button tabindex="' + i + '" id="ts' + i + '" title="' + message_capacity + '"';
+                htmlText += ' class="btn btn-';
+                if (capacity !== "0")
+                    htmlText += 'primary';
+                else 
+                    htmlText += 'dark';
+                htmlText += ' d-inline-block mb-3" type="button" value="' + startTime + '" data-toggle="tooltip" data-placement="top"';                
                 if (capacity === "0")
                     htmlText += ' disabled';
-                htmlText += ' data-dismiss="modal">' + startTime + ' - ' + endTime + '</button>\n';
+                htmlText += ' data-dismiss="modal">' + startTime + ' - ' + endTime;
+                if (capacity !== "0")
+                    htmlText += ' <span class="badge bg-info"><span class="fa fa-user"></span> ' + capacity + '</span>';
+                htmlText += '</button>\n';
             }
 
             time_slots_list.innerHTML = htmlText;
