@@ -90,10 +90,10 @@ function changeStore(storeId) {
     if (msg_error !== null)
         msg_error.innerHTML = "";
     
-//    corp_modal = document.getElementsByClassName("stock");
-//    for (let i = 0; i < corp_modal.length; i++) {
-//        corp_modal[i][0].firstChild.innerHTML = "";
-//    }
+    corp_modal = document.getElementsByClassName("stock");
+    for (let i = 0; i < corp_modal.length; i++) {
+        corp_modal[i].innerHTML = "";
+    }
     
     corp_modal = document.getElementById("corp_modal");
     if (corp_modal !== null)
