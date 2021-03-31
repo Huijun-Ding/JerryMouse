@@ -19,7 +19,7 @@
         <jsp:include page="navbar" flush="true"/>
 
         <div class="container" id="rayon_categorie_navbar">
-            <h2>Ma liste de course </h2>
+            <div id="list_name"></div>
             <br>
             <div class="row">
                 <div class="col-7">
