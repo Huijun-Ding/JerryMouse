@@ -127,15 +127,15 @@ public class HaveDAO {
                     + "where HeureDebutCR = :startTime "
                     + "and CodeM = :storeId "
                     + "and DateCR = :datePickUp");
+            
+            query.setParameter("startTime", startTime);
+            query.setParameter("storeId", storeId);
+            query.setParameter("datePickUp", datePickUp);
+            
             Have have = null;
-            if(datePickUp != null && startTime != null){
-                query.setParameter("startTime", startTime);
-                query.setParameter("storeId", storeId);
-                query.setParameter("datePickUp", datePickUp);
-
+            if(!query.list().isEmpty()){
                 have = (Have)query.list().get(0);
             }
-            
             t.commit();
             return have;
             
