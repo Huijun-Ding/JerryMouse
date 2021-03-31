@@ -151,7 +151,7 @@ public class Product implements Serializable {
      * Hibernate join property with Product Class and Client Class for the
      * relationship "Preferer".
      */
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "favoriteProducts")
     private Set<Client> clients = new HashSet<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
