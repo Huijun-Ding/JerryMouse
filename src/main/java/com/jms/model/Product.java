@@ -151,6 +151,13 @@ public class Product implements Serializable {
     public Product() {
     }
 
+    public Product(String ean, String libelle, float unitPrice, String urlThumbnail) {
+        this.ean = ean;
+        this.name = libelle;
+        this.unitPrice = unitPrice;
+        this.urlThumbnail=urlThumbnail;
+    }
+
     public Product(String ean, String libelle, String description,
             String brand, String format, boolean bio,
             ProductNutriScore nutriscore, ProductConditioning packaging) {
@@ -163,7 +170,7 @@ public class Product implements Serializable {
         this.nutriscore = nutriscore;
         this.packaging = packaging;
     }
-    
+
     public Product(String ean, String libelle, String description,
             String brand, String format, boolean bio,
             ProductNutriScore nutriscore, ProductConditioning packaging,
@@ -179,22 +186,24 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public Product(String ean, String name, String format, 
-            ProductNutriScore nutriscore, ProductConditioning packaging, 
-            int packagingQuantity, float unitPrice, float kgPrice, 
+    public Product(String ean, String name, String format,
+            ProductNutriScore nutriscore, ProductConditioning packaging,
+            int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail) {
         this.ean = ean;
         this.name = name;
         this.format = format;
         this.nutriscore = nutriscore;
         this.packaging = packaging;
-        if (packaging == null) this.packaging = null;
+        if (packaging == null) {
+            this.packaging = null;
+        }
         this.packagingQuantity = packagingQuantity;
         this.unitPrice = unitPrice;
         this.kgPrice = kgPrice;
         this.urlThumbnail = urlThumbnail;
     }
-    
+
     public Product(String ean, String name, String format,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
@@ -210,11 +219,11 @@ public class Product implements Serializable {
         this.urlThumbnail = urlThumbnail;
         this.promotions.put(new Promotion(percentage, rank), new Reduce());
     }
-    
+
     public Product(String ean, String name, String format,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
-            String urlThumbnail, int idPromotion, float percentage, int rank, 
+            String urlThumbnail, int idPromotion, float percentage, int rank,
             Set<Label> labels) {
         this.ean = ean;
         this.name = name;
