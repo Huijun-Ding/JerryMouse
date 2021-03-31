@@ -44,8 +44,8 @@ public class DisplayPostItServlet extends HttpServlet {
                 for (PostIt p : lst) {
                     
                     if (p.getProduct()==null) {
-                        productName = "Pas de produit sélectionné";
-                        productBrand = "Pas de produit sélectionné";
+                        productName = "Libellé de produit inconnu";
+                        productBrand = "Marque inconnu";
                     }
                     else{
                         productName = p.getProduct().getName();

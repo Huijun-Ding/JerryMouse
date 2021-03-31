@@ -1,13 +1,8 @@
 function showPostIts() {
-    // Objet XMLHttpRequest.
+// Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
-    
-//    id = window.location.search.substr(1);
-    id = window.location.search;
-    alert(id);
-    alert(location.search.substring(1));
-    
-    var myinput = document.getElementById("search").value;
+
+    var myinput = window.location.search.substr(8);
     xhr.open("GET", "DisplayPostItServlet?id=" + myinput);
 
     xhr.onload = function ()
@@ -17,20 +12,22 @@ function showPostIts() {
             postits = xhr.responseXML.getElementsByTagName("postIt");
             elt = document.getElementById("show_postit");
             elt.innerHTML = "";
-            
             for (i = 0; i < postits.length; i++) {
                 postItLine = postits[i];
-                alert(postItLine);
+                
                 code = postItLine.getElementsByTagName("code")[0].firstChild.nodeValue;
                 name = postItLine.getElementsByTagName("name")[0].firstChild.nodeValue;
                 pname = postItLine.getElementsByTagName("pname")[0].firstChild.nodeValue;
                 pbrand = postItLine.getElementsByTagName("pbrand")[0].firstChild.nodeValue;
 
-                elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + name + pname + " - " + pbrand + "<p class='text-end'><i class='fas fa-search-plus' value='" + name + pname + "'></i>");
+                if (name === "") {
+                    elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + pname + " " + pbrand + "<p class='text-end'><i class='fas fa-search-plus' value='" + pname + "'></i>");
+                } else {
+                    elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + name + "<p class='text-end'><i class='fas fa-search-plus' value='" + name + "'></i>");
+                }
             }
         }
     };
-
     xhr.send();
 }
 
