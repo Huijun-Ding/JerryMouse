@@ -5,7 +5,10 @@ function showPostIts() {
 //    id = window.location.search.substr(1);
     id = window.location.search;
     alert(id);
-    xhr.open("GET", "DisplayPostItServlet");
+    alert(location.search.substring(1));
+    
+    var myinput = document.getElementById("search").value;
+    xhr.open("GET", "DisplayPostItServlet?id=" + myinput);
 
     xhr.onload = function ()
     {
@@ -20,8 +23,10 @@ function showPostIts() {
                 alert(postItLine);
                 code = postItLine.getElementsByTagName("code")[0].firstChild.nodeValue;
                 name = postItLine.getElementsByTagName("name")[0].firstChild.nodeValue;
+                pname = postItLine.getElementsByTagName("pname")[0].firstChild.nodeValue;
+                pbrand = postItLine.getElementsByTagName("pbrand")[0].firstChild.nodeValue;
 
-                elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + name + "<p class='text-end'><i class='fas fa-search-plus' value='" + name + "'></i>");
+                elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + name + pname + " - " + pbrand + "<p class='text-end'><i class='fas fa-search-plus' value='" + name + pname + "'></i>");
             }
         }
     };

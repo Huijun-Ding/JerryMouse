@@ -27,7 +27,7 @@ public class DisplayPostItServlet extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
 
-            String id = request.getParameter("codesl");
+            String id = request.getParameter("id");
 
             try {
                 // get all my shopping lists by getMyShoppingLists()
@@ -55,8 +55,6 @@ public class DisplayPostItServlet extends HttpServlet {
                     out.println("<postIt>");
                     out.println("<name><![CDATA[" + p.getWording() + "]]></name>");
                     out.println("<code><![CDATA[" + p.getCode() + "]]></code>");
-
-//                    out.println("<product><![CDATA[" + p.getProduct().getEan() + "]]></product>");
                     out.println("<pname><![CDATA[" + productName + "]]></pname>");
                     out.println("<pbrand><![CDATA[" + productBrand + "]]></pbrand>");
                     out.println("</postIt>");

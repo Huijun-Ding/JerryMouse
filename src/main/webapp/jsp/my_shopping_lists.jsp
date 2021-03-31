@@ -27,5 +27,9 @@
         </div>
 
         <script src="js/allShoppingLists.js"></script>
+        <script src="js/search.js"></script>
+        <script src="js/stores.js"></script>
+        <script src="js/time_slots.js"></script>
+        <script src="js/basket.js"></script>
     </body>
 </html>

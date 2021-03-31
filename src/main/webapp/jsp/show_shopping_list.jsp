@@ -15,9 +15,9 @@
 
     </head>
     <body>
-        
+
         <jsp:include page="navbar" flush="true"/>
-        
+
         <div class="container" id="rayon_categorie_navbar">
             <h2>Ma liste de courses xxxx</h2>
             <br>
@@ -53,8 +53,8 @@
                     </div>
                 </div>
             </div>
-            
-             <div class="modal" tabindex="-1" id="import_list_file">
+
+            <div class="modal" tabindex="-1" id="import_list_file">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -75,6 +75,10 @@
 
         </div>
 
-    <script src="js/postIt.js"></script>
-</body>
+        <script src="js/postIt.js"></script>
+        <script src="js/search.js"></script>
+        <script src="js/stores.js"></script>
+        <script src="js/time_slots.js"></script>
+        <script src="js/basket.js"></script>
+    </body>
 </html>
