@@ -102,9 +102,13 @@ public class ValidateServlet extends HttpServlet {
                     // enregistrer la cmd si client a choisi un mag et un creneau
                     try {
                         Order order = ValiderDAO.registerBasket(client, store, have);
+                        
                         for(String ean : lstProdQte.keySet()){
                             try {
+                                // update stock de prod
                                 StockDAO.updateStockProd(idStore, ean, lstProdQte.get(ean));
+                                // delete basket
+                                BasketDAO.deleteBasket(2);
                             } catch (SQLException ex) {
                                 Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
                             }
