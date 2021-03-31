@@ -58,7 +58,7 @@
             </div>
 
             <div class="mt-4">
-                <boutton type="button" id="retour" class="btn btn-outline-primary">Page d'accueil</boutton>
+                <a class="btn btn-outline-primary" href="index">Page d'accueil</a>
             </div>
         </div>
     </body>
