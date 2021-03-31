@@ -152,6 +152,25 @@ public class BasketDAO {
             return nb;
         }
     }
+    
+    // update a basket
+    public static int deleteBasket(int idClient) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            
+            // get the quantity of product
+            Query query = session.createSQLQuery("DELETE FROM `Panier` WHERE CodeCL = :codeCL");
+            query.setParameter("codeCL", idClient);
+
+            int nb = query.executeUpdate();
+            
+            t.commit(); // Commit et flush automatique de la session.
+            return nb;
+        }
+    }
+    
+    
 
     public static void main(String[] args) {
         // test for method loadBasket
@@ -179,7 +198,8 @@ public class BasketDAO {
 //            System.out.println(BasketDAO.checkProductBakset(1, "P3"));
 //            System.out.println(BasketDAO.checkProductBakset(1, "P4"));
 //            System.out.println(BasketDAO.updateBasket(1, "P3"));
-            System.out.println(calculNbProduct(2));
+//            System.out.println(calculNbProduct(2));
+            System.out.println(BasketDAO.deleteBasket(2));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } 

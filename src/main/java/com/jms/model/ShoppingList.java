@@ -47,7 +47,7 @@ public class ShoppingList implements Serializable{
     /**
     *  Hibernate join property with ShoppingList Class  and PostIt Class.
     */
-    @OneToMany(mappedBy ="shoppingList", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="shoppingList", fetch = FetchType.EAGER)
     private Set<PostIt> postIts = new HashSet(0);
     
     //---------------- CONSTRUCTOR -----------------
