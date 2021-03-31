@@ -5,7 +5,6 @@
  */
 
 function upload() {
-    alert("input filt has changed !");
     var elt = document.getElementById("fileShoppingList");
     var files = elt.files;
     
@@ -14,13 +13,11 @@ function upload() {
     formData.append("nameList", "Test 31_03_2021");
     
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/upload", true);
+    xhr.open("POST", "UploadShoppingFile", true);
     
     xhr.onload = function () {
-        if (xhr.status === 200) {  
-            alert("File successfully uploaded !");
-        } else {
-            alert("File upload failed !");
+        if (xhr.status === 200) {
+            
         }
     };
 
