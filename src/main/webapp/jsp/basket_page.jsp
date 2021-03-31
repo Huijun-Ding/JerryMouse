@@ -116,5 +116,4 @@
     <script src="js/search.js"></script>
     <script src="js/stores.js"></script>
     <script src="js/time_slots.js"></script>
-    <script src="js/confirm_store_time.js"></script>
 </html>
