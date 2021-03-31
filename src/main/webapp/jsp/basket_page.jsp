@@ -8,15 +8,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mon panier</title>
+        
+        <title>Mon panier</title>     
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="css/Style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>      
-        <link rel="stylesheet" type="text/css" href="css/Style.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
     <body onload="displayBasket(), displayPoints()">
 
@@ -24,27 +24,6 @@
 
         <div class="container" id="rayon_categorie_navbar">
             <h1>Mon panier</h1>
-
-            <%
-                SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
-                Client client = (Client) session.getAttribute("client");
-                int idClient = (client != null) ? client.getCode() : 0;
-                session.setAttribute("client", client);
-
-                Store store = (Store) session.getAttribute("store");
-                session.setAttribute("store", store);
-                int idStore = (store != null) ? store.getId() : 0;
-
-                Have h = (Have)session.getAttribute("have");
-                String startTime = (h != null) ? h.getHaveId().getStartTime() : null;
-                String date = (h != null) ? DF.format(h.getHaveId().getDate()) : null;
-                session.setAttribute("have", h);
-            %>
-            <input type = 'hidden' id = 'idClient' name = 'value' value = '<%=idClient%>'></input>
-            <input type = 'hidden' id = 'idStore' name = 'value' value = '<%=idStore%>'></input>
-            <input type = 'hidden' id = 'startTime' name = 'value' value = '<%=startTime%>'></input>
-            <input type = 'hidden' id = 'date' name = 'value' value = '<%=date%>'></input>
-
             <form action="">
                 <div class="row">
                     <div class="col-8" id="div_prod">
@@ -114,4 +93,5 @@
     <script src="js/search.js"></script>
     <script src="js/stores.js"></script>
     <script src="js/time_slots.js"></script>
+    <script src="js/confirm_store_time.js"></script>
 </html>
