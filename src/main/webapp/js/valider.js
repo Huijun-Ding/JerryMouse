@@ -29,7 +29,7 @@ function validate() {
             res = result[0].getElementsByTagName("res")[0].firstChild.nodeValue;
                     
             if(res === "ok"){
-                window.location.href = "#";
+                window.location.href = "SendEmailServlet";
             }else if(res === "connection"){
                 window.location.href = "login";
             }else if(res === "stock"){
