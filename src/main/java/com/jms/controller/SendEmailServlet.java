@@ -62,8 +62,8 @@ public class SendEmailServlet extends HttpServlet {
         //get pick up time from session
         Have have = (Have) session.getAttribute("have");
         //get pick up dure for the client
-        String dateStart = " " + order.getPickupDate() + order.getTimeslot().getStartTime();
-        String dateEnd = " " + order.getPickupDate() + order.getTimeslot().getEndTime();
+        String dateStart = " " + order.getPickupDate() + " "+ order.getTimeslot().getStartTime();
+        String dateEnd = " " + order.getPickupDate() + " "+order.getTimeslot().getEndTime();
 
         //TimeSlot t1 = new TimeSlot("21-04-02 07:30:00", "21-04-02 08:00:00");
         //get products and orderlines
