@@ -66,8 +66,7 @@ public class PostIt implements Serializable{
         this.shoppingList = shoppingList;
     }
 
-    public PostIt(String wording, ShoppingList shoppingList, Product product) {
-        this.wording = wording;
+    public PostIt(ShoppingList shoppingList, Product product) {
         this.shoppingList = shoppingList;
         this.product = product;
     }
@@ -145,7 +144,7 @@ public class PostIt implements Serializable{
      */
     @Override
     public String toString() {
-        return "PostIt{" + "code=" + code + ", wording=" + wording + '}';
+        return "PostIt{" + "wording=" + wording + ", shoppingList=" + shoppingList + ", product=" + product + '}';
     }
 
     /**

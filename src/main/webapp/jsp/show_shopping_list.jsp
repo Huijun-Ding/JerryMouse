@@ -24,9 +24,6 @@
             <div class="row">
                 <div class="col-7">
                     <div class="card">
-                        <ul class="list-group list-group-flush" id="show_postit">
-                            <li class="list-group-item">Compote de fraise<p class="text-end"><i class="fas fa-search-plus"></i><i class="far fa-trash-alt"></i></p></li>
-                        </ul>
                     </div>
                 </div>
 

@@ -1,9 +1,7 @@
 package com.jms.controller;
 
 import com.jms.dao.ShoppingListDAO;
-import com.jms.model.Client;
 import com.jms.model.PostIt;
-import com.jms.model.ShoppingList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -12,12 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Mathi
- */
 public class DisplayPostItServlet extends HttpServlet {
 
     /**
@@ -38,27 +31,48 @@ public class DisplayPostItServlet extends HttpServlet {
 
             try {
                 // get all my shopping lists by getMyShoppingLists()
-               List<PostIt> lst = ShoppingListDAO.getPostIts(Integer.parseInt(id));
-                
-                System.out.println("Voici la liste : " + lst);
+                List<PostIt> lst = ShoppingListDAO.getPostIts(Integer.parseInt(id));
+
                 response.setContentType("application/xml;charset=UTF-8");
                 response.setCharacterEncoding("UTF-8");
                 out.println("<?xml version=\"1.0\"?>");
                 out.println("<postIts>");
+                
+                String productName = "";
+                String productBrand = "";
+                String productQuantity = "";
+                String productPrice = "";
+                
                 for (PostIt p : lst) {
+                    
+                    if (p.getProduct()==null) {
+                        productName = "Pas de produit sélectionné";
+                        productBrand = "Pas de produit sélectionné";
+                        productQuantity = "Pas de produit sélectionné";
+                        productPrice = "Pas de produit sélectionné";
+                    }
+                    else{
+                        productName = p.getProduct().getName();
+                        productBrand = p.getProduct().getBrand();
+                        //productQuantity = toString(p.getProduct().getPackagingQuantity());
+                        productPrice = "Pas de produit sélectionné";
+                    }
+//                    System.out.println(p.getProduct().getEan());
                     out.println("<postIt>");
                     out.println("<name><![CDATA[" + p.getWording() + "]]></name>");
                     out.println("<code><![CDATA[" + p.getCode() + "]]></code>");
-//                    out.println("<pname><![CDATA[" + p.getProduct().getName() + "]]></pname>");
-//                    out.println("<pbrand><![CDATA[" + p.getProduct().getBrand() + "]]></pbrand>");
-//                    out.println("<pq><![CDATA[" + p.getProduct().getPackagingQuantity() + "]]></pq>");
+
+                    //  out.println("<product><![CDATA[" + p.getProduct().getEan() + "]]></product>");
+//                    out.println("<pname><![CDATA[" +  + "]]></pname>");
+//                    out.println("<pbrand><![CDATA[" +  + "]]></pbrand>");
+//                    out.println("<pq><![CDATA[" +  + "]]></pq>");
 //                    out.println("<pprice><![CDATA[" + p.getProduct().getUnitPrice() + "]]></pprice>");
                     out.println("</postIt>");
                 }
                 out.println("</postIts>");
 
             } catch (SQLException ex) {
-                out.println("<shoppingLists>Erreur - " + ex.getMessage() + "</shoppingLists>");
+                out.println("<postIts>Erreur - " + ex.getMessage() + "</postIts>");
             }
         }
     }
