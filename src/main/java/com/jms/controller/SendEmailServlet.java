@@ -68,7 +68,7 @@ public class SendEmailServlet extends HttpServlet {
         //TimeSlot t1 = new TimeSlot("21-04-02 07:30:00", "21-04-02 08:00:00");
         //get products and orderlines
         Map<Product, OrderLine> orderlines = order.getProducts();
-
+        
         Iterator<Map.Entry<Product, OrderLine>> entries = orderlines.entrySet().iterator();
         String contentOrder = "<table style='width:75%' frame='above'><caption>Votre Facture"
                 + "</caption><thead><tr><th> </th><th>Produit</th><th>Quantité</th><th>Montant</th></tr></thead>";
@@ -76,45 +76,45 @@ public class SendEmailServlet extends HttpServlet {
         Product product;
         ArrayList<Float> prices = new ArrayList<>();
         while (entries.hasNext()) {
-
+            
             Map.Entry<Product, OrderLine> entry = entries.next();
-
+            
             orderline = entry.getValue();
             product = entry.getKey();
             // ------ INFO PROMOTION PRODUCT ---------
             Promotion promotion = PromotionDAO.searchPromotion(product.getEan());
-            
+
             // ------- CALCUL: PRICE, POINTS... -----------
-                float priceAfterFloat = product.getUnitPrice();
-                String priceAfterString = "";
-                String promo = "";
-                float discountProd = 0f;
-                
-                // convert to percentage
-                NumberFormat nt = NumberFormat.getPercentInstance();
-                nt.setMinimumFractionDigits(2);
-                
-                if (promotion != null){
-                    // calculate price unitary after promotion and percentage of promotion
-                    priceAfterFloat = BasketDAO.calculPriceUnitaryAfterPromo(
-                            product.getUnitPrice(), promotion.getPercentage());
-                    priceAfterString = String.format("%.2f", priceAfterFloat);
-                    promo = String.valueOf(nt.format(promotion.getPercentage()));
-                    discountProd = BasketDAO.calculMontReductionProduit(
-                            product.getUnitPrice(), promotion.getPercentage());
-                }else {
-                    priceAfterString = " ";
-                    promo = " ";
-                }               
-                // total price of a product in basket
-                float totalPriceProduct = BasketDAO.calculPriceTotalProduct(
-                        orderline.getQuantity(), priceAfterFloat);
-                prices.add(totalPriceProduct);
+            float priceAfterFloat = product.getUnitPrice();
+            String priceAfterString = "";
+            String promo = "";
+            float discountProd = 0f;
+
+            // convert to percentage
+            NumberFormat nt = NumberFormat.getPercentInstance();
+            nt.setMinimumFractionDigits(2);
             
+            if (promotion != null) {
+                // calculate price unitary after promotion and percentage of promotion
+                priceAfterFloat = BasketDAO.calculPriceUnitaryAfterPromo(
+                        product.getUnitPrice(), promotion.getPercentage());
+                priceAfterString = String.format("%.2f", priceAfterFloat);
+                promo = String.valueOf(nt.format(promotion.getPercentage()));
+                discountProd = BasketDAO.calculMontReductionProduit(
+                        product.getUnitPrice(), promotion.getPercentage());
+            } else {
+                priceAfterString = " ";
+                promo = " ";
+            }
+            // total price of a product in basket
+            float totalPriceProduct = BasketDAO.calculPriceTotalProduct(
+                    orderline.getQuantity(), priceAfterFloat);
+            prices.add(totalPriceProduct);
+
             // System.out.println("product = " + entry.getKey() + ", orderline = " + entry.getValue());
             contentOrder += "<tr><td align='center'><img src='" + product.getUrlThumbnail() + "'  width='100' height='100'></td><td align='center'>" + product.getName() + "</td><td align='center'>"
                     + orderline.getQuantity() + "</td><td align='center'>" + totalPriceProduct + " &#8364;</td></tr>";
-
+            
         }
 
         //Product p1 = new Product("p1", "eau", 1.4f, "https://www.carrefour.fr/media/1500x1500/Photosite/PGC/BOISSONS/3057640257858_PHOTOSITE_20201022_061508_0.jpg?placeholder=1");
@@ -146,7 +146,7 @@ public class SendEmailServlet extends HttpServlet {
                 + "<br>Date de Retrait : de " + dateStart + " à " + dateEnd
                 + "<br> Votre QR Code : " + "<img src='" + qrcode + "'  width='100' height='100'>";
         EmailUtil e = new EmailUtil(receiveMail, content, client.getFirstName() + client.getLastName());
-
+        request.getRequestDispatcher("confirmationOrder").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
