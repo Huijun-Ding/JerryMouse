@@ -111,4 +111,7 @@
     <script src="js/ScriptCheckBasket.js"></script>
     <script src="js/basket.js"></script>
     <script src="js/valider.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/stores.js"></script>
+    <script src="js/time_slots.js"></script>
 </html>
