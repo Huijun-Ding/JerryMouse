@@ -63,7 +63,7 @@
                         </div>
                         <div class="modal-body">
                             <p>S&aacute;lectionner un fichier : </p>
-                            <input type="file" class="form-control w-30 p-40 h-25" class="post_it" width="50">
+                            <input id="fileShoppingList" type="file" class="form-control w-30 p-40 h-25 post_it" width="50">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
