@@ -14,11 +14,14 @@ function validate() {
     idStore = document.getElementById("idStore").value;
     startTime = document.getElementById("startTime").value;
     date = document.getElementById("date").value;
-    
+    checkBox= document.getElementsByName("checkPoint");
+    checkPoint=false;
+    if(checkBox[0].checked) checkPoint=true;
     xhr.open("GET", "Validate?idClient="+idClient 
             + "&idStore=" + idStore
             + "&startTime=" + startTime
-            + "&date=" + date);
+            + "&date=" + date
+            +"checkPoint"+checkPoint);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -29,7 +32,7 @@ function validate() {
             res = result[0].getElementsByTagName("res")[0].firstChild.nodeValue;
                     
             if(res === "ok"){
-                window.location.href = "#";
+                window.location.href = "SendEmailServlet";
             }else if(res === "connection"){
                 window.location.href = "login";
             }else if(res === "stock"){

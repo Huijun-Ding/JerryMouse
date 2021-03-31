@@ -59,6 +59,7 @@ public class ValidateServlet extends HttpServlet {
         String idClient = request.getParameter("idClient");
         int idStore = Integer.parseInt(request.getParameter("idStore"));
         String startTime = request.getParameter("startTime");
+        Boolean checkPoint=Boolean.parseBoolean (request.getParameter("checkPoint"));
         
         Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
         Store store = (idStore == 0) ? null : StoreDAO.get(idStore);
