@@ -7,6 +7,7 @@ package com.jms.dao;
 
 import com.jms.model.Basket;
 import com.jms.model.Client;
+import java.text.ParseException;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -116,6 +117,24 @@ public class ClientDAO {
             Client client = (Client) query.list().get(0);
             t.commit();
             return client;
+        }
+    }
+    
+        public static void updatePoint(Client client, int point) throws ParseException {
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            // Make the client persistent
+            session.update(client);
+            // Update the points for the client
+            client.setFidelityPoints(point);
+            // Save the client in DB
+            session.save(client);
+            // Update in DB
+            session.update(client);
+            // Commit all the changes
+            t.commit();
+            // Close session
+            session.close();
         }
     }
 
