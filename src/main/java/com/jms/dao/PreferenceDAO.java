@@ -9,6 +9,7 @@ import com.jms.model.Client;
 import com.jms.model.Product;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -57,22 +58,31 @@ public class PreferenceDAO {
             Transaction t = session.beginTransaction();
 
             // Make the object in parameter persistent
-            session.persist(client);
+            //client = (Client) session.merge(client);
+            Client clientUp = (Client) session.get(Client.class, client.getCode());
 
             // Get favorite products lazily
-            client.getFavoriteProducts();
+            Hibernate.initialize(clientUp.getFavoriteProducts());
+            for (Product favoriteProduct : clientUp.getFavoriteProducts()) {
+                Hibernate.initialize(favoriteProduct.getLabels());
+                Hibernate.initialize(favoriteProduct.getPromotions());
+            }
 
-//            String sql = "SELECT p "
-//                    + "FROM Produit p "
-//                    + "WHERE p.clients.code = :c";
+//            String sql = "SELECT c "
+//                    + "FROM Client c "
+//                    + "LEFT JOIN FETCH c.favoriteProducts "
+//                    + "WHERE c.code = :c";
 //            
 //            // Create HQL query
 //            Query query = session.createQuery(sql);
 //            query.setParameter("c", client.getCode());
-//            list = query.list();
+            //list = query.list();
             //t.commit();
-            //session.close();
-            return client;
+            session.close();
+//            client = (Client) query.getSingleResult();
+            //client = (Client) session.merge(client);
+            //t.commit();
+            return clientUp;
         }
     }
 }
