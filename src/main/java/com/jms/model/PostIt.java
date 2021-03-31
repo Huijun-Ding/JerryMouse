@@ -181,7 +181,7 @@ public class PostIt implements Serializable{
             return false;
         }
         final PostIt other = (PostIt) obj;
-        if (this.code != other.code) {
+        if (this.wording != other.wording) {
             return false;
         }
         return true;
