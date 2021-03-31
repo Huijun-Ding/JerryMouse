@@ -61,7 +61,7 @@ public class ShoppingList implements Serializable{
     * A constructor of the ShoppingList Class.
     * @param name Name of a shopping list.
     */
-
+    
     public ShoppingList( String name) {
         this.name = name;
     }
@@ -75,6 +75,11 @@ public class ShoppingList implements Serializable{
         this.code = code;
         this.name = name;
         this.client = client;
+    }
+    
+    public ShoppingList( String name, Set<PostIt> postIts) {
+        this.name = name;
+        this.postIts = postIts;
     }
 
     //---------------- GETTERS&SETTERS -----------------------
