@@ -45,11 +45,14 @@ function search_time_slots() {
                 //var startTime = timeSlot[i].getElementsByTagName("startTime")[0].firstChild.nodeValue;
                 document.getElementById('ts' + i).addEventListener("click", function() {
                     changeTimeSlot(this.value);
+                   
                 });
             }
         }
     };
-
+    msg_error = document.getElementById("msg_error");
+    if (msg_error !== null)
+        msg_error.innerHTML = "";
     xhr.send();
 }
 
