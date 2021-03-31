@@ -36,6 +36,8 @@
                 int idStore = (store != null) ? store.getId() : 0;
 
                 Have h = (Have)session.getAttribute("have");
+                session.setAttribute("have", h);
+
                 String startTime = (h != null) ? h.getHaveId().getStartTime() : null;
                 String date = (h != null) ? DF.format(h.getHaveId().getDate()) : null;
                 session.setAttribute("have", h);
@@ -102,7 +104,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </form>
