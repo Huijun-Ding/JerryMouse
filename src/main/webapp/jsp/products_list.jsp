@@ -21,13 +21,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/Style.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--> 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="css/Style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <title>Products List</title>
     </head>
     <body>
@@ -91,7 +91,7 @@
                             %>
                             <img class="img-thumbnail" src="<%= url%>" alt="alt"/>
                             <div class="card-body">
-                                <h6 class="card-title " data-toggle="modal" data-target="#visualise_article"><%= libelle%></h6>
+                                <h6 class="card-title "><%= libelle%></h6>
                                 <!-- subtitle -->
                                 <h8 class="card-subtitle mb-1 text-muted">
                                     <% if (priceKG != "") {
@@ -140,22 +140,20 @@
 
 
                             </div>
-                            <div >
-                                <div class="text-left" >
-                                    <button>
-                                        <i class="fa fa-eye-fill"></i>
-                                    </button>
-                                </div>
-                                <!-- footer (price, button) -->
-                                <div class=" card-footer text-right">
-                                    <h3 class="d-inline-block text-left"><%= price + " €"%></h3>
+                            <!-- footer (price, button) -->
+                            <div class="card-footer text-right">
 
-                                    <h2 class="d-inline-block" name="addButton">
-                                        <a href="AddProductServlet?ean=<%= product.getEan()%>" class="">
-                                            <i class="btn btn-primary fas fa-shopping-basket" ></i>
-                                        </a>
-                                    </h2>
-                                </div>
+                                <h3 class="d-inline-block text-left"><%= price + " €"%></h3>
+
+                                <h2 class="d-inline-block text-right" name="addButton">
+                                    <a href="AddProductServlet?ean=<%= product.getEan()%>" class="btn btn-primary ">
+                                        <i class="fas fa-shopping-basket" ></i>
+                                    </a>
+                                </h2>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#visualise_article">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -164,28 +162,58 @@
                 </div>
             </div>
         </div>
+                    
         <div class="modal" tabindex="-1" id="visualise_article">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Ajouter un post-it</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Contenu de post-it : </p>
-                        <form>
-                            <div class="input-group input-group">
-                                <input type="input" class="form-control" placeholder="Jus de fruit, Lait, Savon...">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-1 col-lg-3 col-xl-6">
+                                    <!--image-->
+                                    <div>
+                                        <img class="img-thumbnail" src="" alt="alt" />
+                                    </div>
+                                </div>
+                                <div class="col-md-1 col-lg-3 col-xl-6">
+                                    <!--detail-->
+                                    <div class="container">
+                                        <div class="row">
+                                            <h4>Libellé</h4>
+                                            <span>Marque</span>
+                                            <span>Conditionnement</span>
+                                            <img src="" alt="Nutriscore">
+                                            <div>
+                                                <span class="btn btn-outline-danger">Promo</span>
+                                                <h5 class="d-inline-block text-left">Prix €</h5>
+                                                <a href="AddProductServlet?ean=" class="btn btn-primary">
+                                                    <i class="fas fa-shopping-basket" ></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
+                        </div>
+
+
+
+                        <!--description-->
+                        <!--composition-->
+                        <!--nutritional values-->
+                        <div></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-primary">Valider</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+
                     </div>
                 </div>
             </div>
         </div>
+        
         <script type="text/javascript" src="js/quantityProduct.js"></script>
     </body>
 </html>
