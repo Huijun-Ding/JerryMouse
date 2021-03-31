@@ -88,7 +88,8 @@ public class Client implements Serializable {
     /**
      * Hibernate join property with Product Class and Client Class.
      */
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "EANP")
     private Map<Product, Basket> baskets = new HashMap(0);
 
@@ -103,7 +104,7 @@ public class Client implements Serializable {
      * Hibernate join property with Client Class and Product Class for the
      * relationship "Preferer".
      */
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.LAZY)
     @JoinTable(name = "Preferer",
             joinColumns = @JoinColumn(name = "CodeCL"),
             inverseJoinColumns = @JoinColumn(name = "EANP"))
@@ -345,9 +346,9 @@ public class Client implements Serializable {
     /**
      * Method which converts the current object into a String object.
      */
-    @Override
+    @Override    
     public String toString() {
-        return "Client{" + "code=" + code + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email + ", password=" + password + ", fidelityPoints=" + fidelityPoints + '}';
+        return "Client{" + "code=" + code + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email + ", password=" + password + ", fidelityPoints=" + fidelityPoints + ", store=" + store + ", baskets=" + baskets + ", orders=" + orders + ", favoriteProducts=" + favoriteProducts + '}';
     }
 
     /**
