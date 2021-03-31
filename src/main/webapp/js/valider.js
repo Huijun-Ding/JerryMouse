@@ -10,15 +10,21 @@
 function validate() {
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
-    idClient = document.getElementById("idClient").value;
-    idStore = document.getElementById("idStore").value;
-    startTime = document.getElementById("startTime").value;
-    date = document.getElementById("date").value;
+//    idClient = document.getElementById("idClient").value;
+//    idStore = document.getElementById("idStore").value;
+//    startTime = document.getElementById("startTime").value;
+//    date = document.getElementById("date").value;
     
-    xhr.open("GET", "Validate?idClient="+idClient 
-            + "&idStore=" + idStore
-            + "&startTime=" + startTime
-            + "&date=" + date);
+    xhr.open("GET", "Validate");
+//        xhr.open("GET", "Validate?idClient="+idClient 
+//            + "&idStore=" + idStore
+//            + "&startTime=" + startTime
+//            + "&date=" + date);
+    
+//    alert = "Validate?idClient="+idClient 
+//            + "&idStore=" + idStore
+//            + "&startTime=" + startTime
+//            + "&date=" + date;
 
     xhr.onload = function () {
         if (xhr.status === 200) {
