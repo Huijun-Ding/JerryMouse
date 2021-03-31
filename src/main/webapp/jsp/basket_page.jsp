@@ -14,6 +14,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/Style.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -70,30 +71,32 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body" id="corp_modal" style="display: none;">
+                                <div id="corp_modal">
                                     <%
                                         Store store = (Store)session.getAttribute("store");
                                         Have have = (Have)session.getAttribute("have");
                                         SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
                                         if(store != null && have != null){
                                     %>
-                                    <div>
-                                        <li class='list-group-item'>
-                                            <div class='card'>
-                                                <div class='card-header'>Magasin de retrait :</div>
-                                                <div class='card-body'>
-                                                    <h5 class='card-title'><%=store.getName()%></h5>
-                                                    <p class='card-text'><%=store.getStreet()%><br>
-                                                    <%=store.getPostalCode() + " " + store.getCity()%></p>
-                                                </div>
-
-                                                <div class='card-header'>Cr&eacute;neau de retrait :</div>
+                                    <div class="modal-body">
+                                        <div>
+                                            <li class='list-group-item'>
+                                                <div class='card'>
+                                                    <div class='card-header'>Magasin de retrait :</div>
                                                     <div class='card-body'>
-                                                        <p class='card-text'><%=DF.format(have.getHaveId().getDate())%><br>
-                                                        <%=have.getTimeSlot().getStartTime() + " - " + have.getTimeSlot().getEndTime()%></p>
+                                                        <h5 class='card-title'><%=store.getName()%></h5>
+                                                        <p class='card-text'><%=store.getStreet()%><br>
+                                                        <%=store.getPostalCode() + " " + store.getCity()%></p>
                                                     </div>
-                                            </div>
-                                        </li>
+
+                                                    <div class='card-header'>Cr&eacute;neau de retrait :</div>
+                                                        <div class='card-body'>
+                                                            <p class='card-text'><%=DF.format(have.getHaveId().getDate())%><br>
+                                                            <%=have.getTimeSlot().getStartTime() + " - " + have.getTimeSlot().getEndTime()%></p>
+                                                        </div>
+                                                </div>
+                                            </li>
+                                        </div>
                                     </div>
                                     <%}%>
                                 </div>
