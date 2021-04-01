@@ -59,8 +59,12 @@ function displayBasket() {
 function displayPoints() {
     var xhr = new XMLHttpRequest();
     var idClient = document.getElementById("idClient").value;
+    checkBox= document.getElementsByName("checkPoint");
+    checkPoint=false;
+    if(checkBox[0].checked) checkPoint=true;
+    
 
-    xhr.open("GET", "checkBasketServlet?idClient=" + idClient);
+    xhr.open("GET", "checkBasketServlet?idClient=" + idClient+"&checkPoint="+checkPoint);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -89,3 +93,9 @@ function displayPoints() {
     };
     xhr.send();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    //test: Glaces et desserts glacés
+    document.getElementById("checkPoint").addEventListener("change", displayPoints);
+});
+

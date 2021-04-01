@@ -8,9 +8,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <title>Mon panier</title>     
-        
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/Style.css">
@@ -52,12 +52,22 @@
                     <div class="msg_error" id="msg_error"></div>
 
                     <div class="row">
-                        <div class="col-6">
-                            <boutton type="button" class="btn btn-outline-primary" name="valider" data-toggle="modal" data-target="#exampleModalLong">Valider</boutton>
-                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">-->
+
+
+                        <div>
+                            <input type="checkbox" id="checkPoint" name="checkPoint" >
+                            <label for="checkPoint"> Utiliser mes points de fid&eacute;lit&eacute;</label><br>
                         </div>
-                        <div class="col-6">
-                            <a class="btn btn-outline-primary" href="index" id="test">Retour</a>
+                        <div class="msg_error" id="msg_error"></div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <boutton type="button" class="btn btn-outline-primary" name="valider" data-toggle="modal" data-target="#exampleModalLong">Valider</boutton>
+                                <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">-->
+                            </div>
+                            <div class="col-6">
+                                <a class="btn btn-outline-primary" href="index" id="test">Retour</a>
+                            </div>
                         </div>
                     </div>
 

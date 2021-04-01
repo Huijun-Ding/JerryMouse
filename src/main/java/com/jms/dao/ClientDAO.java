@@ -120,21 +120,21 @@ public class ClientDAO {
             return client;
         }
     }
-
-    public static void updatePoint(Client client, int point) throws ParseException {
+    
+        public static void updatePoint(Client client, int point) throws ParseException {
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            // Make the client persistent 
+            // Make the client persistent
             session.update(client);
-            // Update the points for the client 
+            // Update the points for the client
             client.setFidelityPoints(point);
-            // Save the client in DB 
+            // Save the client in DB
             session.save(client);
-            // Update in DB 
+            // Update in DB
             session.update(client);
-            // Commit all the changes 
+            // Commit all the changes
             t.commit();
-            // Close session 
+            // Close session
             session.close();
         }
     }
