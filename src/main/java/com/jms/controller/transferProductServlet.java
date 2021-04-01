@@ -37,7 +37,6 @@ public class transferProductServlet extends HttpServlet {
          Client client=(Client)session.getAttribute("client");
          
          Product p=ProductDAO.getProductByHistory(client,ProductDAO.getProductsByName("Bonbons"));
-//         Product produitPrefrence=ProductDAO.getProductByPref(client,ProductDAO.getProductsByName("Bonbons"));
          
          System.out.println(p);
          
