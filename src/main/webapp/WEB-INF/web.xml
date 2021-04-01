@@ -129,6 +129,10 @@
         <servlet-class>com.jms.controller.AddPostItServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>EditQuantityServlet</servlet-name>
+        <servlet-class>com.jms.controller.EditQuantityServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddPostItProductServlet</servlet-name>
         <servlet-class>com.jms.controller.AddPostItProductServlet</servlet-class>
     </servlet>
@@ -264,6 +268,10 @@
     <servlet-mapping>
         <servlet-name>AddPostItServlet</servlet-name>
         <url-pattern>/AddPostItServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditQuantityServlet</servlet-name>
+        <url-pattern>/EditQuantityServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddPostItProductServlet</servlet-name>
