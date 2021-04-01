@@ -70,11 +70,11 @@
                         </div>
                         <div class="modal-body">
                             <input id="search_products" type="search" class="form-control" placeholder="Saisir le nom de produit ici ...">
-                            <ul id="products_list"></ul>
+                            <ul class="list-group" id="products_list">
+                            </ul>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary"id="submit_pt_product">Valider</button>
                         </div>
                     </div>
                 </div>

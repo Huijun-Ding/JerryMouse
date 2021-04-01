@@ -5,6 +5,7 @@
  */
 package com.jms.dao;
 
+import static com.jms.dao.ClientDAO.searchClient;
 import com.jms.model.Client;
 import com.jms.model.Order;
 import com.jms.model.Product;
@@ -147,7 +148,7 @@ public class ProductDAO {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            System.out.println(ean);
+//            System.out.println(ean);
             Query query = session.createQuery("from Produit where EANP = :code");
 
             query.setParameter("code", ean);
@@ -212,7 +213,7 @@ public class ProductDAO {
 
     public static Product getProductByHistory(Client client, List<Product> lstp) {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
-            System.out.println("test1");
+//            System.out.println("test1");
             Transaction t = session.beginTransaction();
             session.update(client);
             
@@ -227,53 +228,54 @@ public class ProductDAO {
                     }
                 }
             }
+//            System.out.println(history);
 
-            lstp.retainAll(history);
-            System.out.println(lstp);
+            history.retainAll(lstp);
+//            System.out.println("getProductByHistory"+history);
 
             t.commit();
 
-            if (lstp.size() >= 1) {
-                return lstp.get(0);
+            if (history.size() >= 1) {
+                return history.get(0);
             } else {
-                return new Product();
+                return null;
             }
         }
     }
 
-    public static Product getProductByPref(Client c, List<Product> lstp) {
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-            session.update(c);
-            
-            Hibernate.initialize(c.getFavoriteProducts());
-            for (Product favoriteProduct : c.getFavoriteProducts()) {
-                Hibernate.initialize(favoriteProduct.getLabels());
-                Hibernate.initialize(favoriteProduct.getPromotions());
-            }
-
-            System.out.println("0");
-
-            Set<Product> lstcp = c.getFavoriteProducts();
-            System.out.println(lstcp.size());
-            ArrayList<Product> lstcpp = new ArrayList<>();
-            for (Iterator it = lstcp.iterator(); it.hasNext();) {
-                System.out.println("1" + it.next());
-                lstcpp.add((Product) it.next());
-                System.out.println("2" + (Product) it.next());
-            }
-
-            lstp.retainAll(lstcpp);
-
-            System.out.println("productttttttttt" + lstp);
-            t.commit();
-            if (lstp.size() >= 1) {
-                return lstp.get(0);
-            } else {
-                return new Product();
-            }
-        }
-    }
+//    public static Product getProductByPref(Client c, List<Product> lstp) {
+//        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+//            Transaction t = session.beginTransaction();
+//            session.update(c);
+//            
+//            Hibernate.initialize(c.getFavoriteProducts());
+//            for (Product favoriteProduct : c.getFavoriteProducts()) {
+//                Hibernate.initialize(favoriteProduct.getLabels());
+//                Hibernate.initialize(favoriteProduct.getPromotions());
+//            }
+//
+//            System.out.println("0");
+//
+//            Set<Product> lstcp = c.getFavoriteProducts();
+//            System.out.println(lstcp.size());
+//            ArrayList<Product> lstcpp = new ArrayList<>();
+//            for (Iterator it = lstcp.iterator(); it.hasNext();) {
+//                System.out.println("1" + it.next());
+//                lstcpp.add((Product) it.next());
+//                System.out.println("2" + (Product) it.next());
+//            }
+//
+//            lstp.retainAll(lstcpp);
+//
+//            System.out.println("productttttttttt" + lstp);
+//            t.commit();
+//            if (lstp.size() >= 1) {
+//                return lstp.get(0);
+//            } else {
+//                return new Product();
+//            }
+//        }
+//    }
 
 //    public static void main(String[] s) throws ClassNotFoundException, SQLException {
 //        try {
@@ -290,14 +292,15 @@ public class ProductDAO {
         //System.out.println(getProductByPref());
         //ProductDAO.returnSrearchResult("Cafés");
 //        getProductsByName("fruit");
-        ProductDAO.getProductsByName("chocolat");
+//        ProductDAO.getProductsByName("chocolat");
+
         /*----- Exit -----*/
         System.exit(0);
 
-        try {
-            ProductDAO.searchProduct("P1");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+//        try {
+//            ProductDAO.searchProduct("P1");
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
     }
 }
