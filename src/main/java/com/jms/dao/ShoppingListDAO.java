@@ -31,7 +31,7 @@ public class ShoppingListDAO {
     }
 
     public static List<ShoppingList> getMyShoppingLists(int idClient) throws SQLException {
-        /*----- Ouverture de la session -----*/
+        
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Query query = session.createQuery("from ListeCourse where CodeCL = :id");
@@ -76,7 +76,7 @@ public class ShoppingListDAO {
 
     }
 
-    public static ShoppingList getNameShoppingList(int id) {
+    public static ShoppingList getShoppingList(int id) {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
 
@@ -112,6 +112,7 @@ public class ShoppingListDAO {
         // ShoppingListDAO.saveShoppingList("cooktail");
         // ShoppingListDAO.getMyShoppingLists(2); 
 //        ShoppingListDAO.getPostIts(5);
+        //ShoppingListDAO.getShoppingList(5);
 
         // Exit
         System.exit(0);

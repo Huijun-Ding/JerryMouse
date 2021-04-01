@@ -140,12 +140,12 @@ public class Product implements Serializable {
     private String urlThumbnail;
 
     // Relation Appartenir Categorie
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CodeCategorieP")
     private ProductCategory category;
 
     // Relation Posseder Label
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.LAZY)
     @JoinTable(name = "Posseder",
             joinColumns = @JoinColumn(name = "EANP"),
             inverseJoinColumns = @JoinColumn(name = "CodeLB"))
@@ -157,19 +157,29 @@ public class Product implements Serializable {
     private Set<PostIt> postIts = new HashSet<>(0);
 
     // Relation Panier Client
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodeCL")
     private Map<Client, Basket> baskets = new HashMap<>(0);
 
     // Relation Reduire Promotion
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodePR")
     private Map<Promotion, Reduce> promotions = new HashMap<>(0);
 
     // Relation Ligne de commande Commande
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodeCD")
     private Map<Order, OrderLine> orders = new HashMap<>(0);
+
+    /**
+     * Hibernate join property with Product Class and Client Class for the
+     * relationship "Preferer".
+     */
+    @ManyToMany(mappedBy = "favoriteProducts", fetch = FetchType.LAZY)
+    private Set<Client> clients = new HashSet<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
     public Product() {
@@ -449,6 +459,7 @@ public class Product implements Serializable {
         this.orders = orders;
     }
 
+
     public String getEnergy() {
         return energy;
     }
@@ -514,6 +525,16 @@ public class Product implements Serializable {
     }
     
     
+
+    public Set<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
+    }
+
+
     // ----------------------- METHODS ----------------------
     // ----------------------- METHODS ------------------------
     @Override
@@ -547,7 +568,9 @@ public class Product implements Serializable {
      */
     @Override
     public String toString() {
+
         return "Product{" + "ean=" + ean + ", name=" + name + ", description=" + description + ", brand=" + brand + ", format=" + format + ", bio=" + bio + ", nutriscore=" + nutriscore + ", packaging=" + packaging + ", packagingQuantity=" + packagingQuantity + ", unitPrice=" + unitPrice + ", kgPrice=" + kgPrice + ", energy=" + energy + ", fats=" + fats + ", saturatedFatAcids=" + saturatedFatAcids + ", carbohydrates=" + carbohydrates + ", sugar=" + sugar + ", protein=" + protein + ", salt=" + salt + ", composition=" + composition + ", urlThumbnail=" + urlThumbnail + ", category=" + category + ", labels=" + labels + ", postIts=" + postIts + ", baskets=" + baskets + ", promotions=" + promotions + ", orders=" + orders + '}';
+
     }
 
     
