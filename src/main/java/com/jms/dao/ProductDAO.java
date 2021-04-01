@@ -5,8 +5,8 @@
  */
 package com.jms.dao;
 
+import com.jms.model.Client;
 import com.jms.model.Product;
-import com.jms.model.ShoppingList;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,7 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -200,6 +202,17 @@ public class ProductDAO {
 
             return lstProducts;
         }
+    }
+    
+    public static Product getProductByPref(Client c, List<Product> lstp) {
+        
+        Set<Product> lstcp = c.getFavoriteProducts();
+        ArrayList<Product> lstcpp=new ArrayList<>();
+        for (Iterator it= lstcp.iterator();it.hasNext();){
+            lstcpp.add((Product)it.next());
+        }
+        ArrayList<Product> lstp1=new ArrayList<Product> (Array.asList(lstp));
+        
     }
 
 //    public static void main(String[] s) throws ClassNotFoundException, SQLException {
