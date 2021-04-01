@@ -91,7 +91,7 @@
             </div>-->
 
             <div class="modal" tabindex="-1" id="import_list_file">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Importer un fichier</h5>
@@ -100,6 +100,7 @@
                         <div class="modal-body">
                             <p>S&eacute;lectionner un fichier : </p>
                             <input id="fileShoppingList" name="file" type="file" class="form-control w-30 p-40 h-25 post_it" width="50">
+                            <div id="post_its_from_file" class="container"></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
