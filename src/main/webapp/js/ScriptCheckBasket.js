@@ -49,7 +49,13 @@ function displayBasket() {
                         + "</tr>";
                 tabProd.insertAdjacentHTML('beforeend', rows);
                 
-                document.getElementById('m_' + ean).addEventListener("click", editQuantity);
+                document.getElementById('m_' + ean).addEventListener("click", function() {
+                    var idp = this.id.substring(2);
+                    if(document.getElementById('qty_' + idp).value === "1")
+                        this.parentNode.parentNode.remove();
+                    editQuantity(this);
+                });
+                
                 document.getElementById('p_' + ean).addEventListener("click", editQuantity);
                 
             }
@@ -98,14 +104,14 @@ function displayPoints() {
     xhr.send();
 }
     
-function editQuantity() {
+function editQuantity(button) {
 //    var idBtn = event.target.id;
-    var idBtn = this.id;
+    var idBtn = button.id;
     var ean = idBtn.substring(2);
     var method = idBtn.substring(0, 1);
 //    alert(ean);
 //    alert(method);
-    
+
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "EditQuantityServlet?ean=" + ean + "&method=" + method);
 
@@ -118,7 +124,7 @@ function editQuantity() {
             res = results[0].getElementsByTagName("res")[0].firstChild.nodeValue;
 
             var msg_error = "";
-            if (msg === "ok") {
+            if (msg === "ok" && qtyProd !== null) {
                 qtyProd.value = res;
             } else {
                 if (msg === "noMinus") {
@@ -130,8 +136,11 @@ function editQuantity() {
                 }
             }
             stock = document.getElementById(ean);
-            stock.innerHTML = "";
-            stock.insertAdjacentHTML('beforeend', msg_error);
+            
+            if(stock !== null) {
+                stock.innerHTML = "";
+                stock.insertAdjacentHTML('beforeend', msg_error);
+            }
         }
     };
     xhr.send();
@@ -140,5 +149,7 @@ function editQuantity() {
 document.addEventListener("DOMContentLoaded", () => {
     //test: Glaces et desserts glacés
     document.getElementById("checkPoint").addEventListener("change", displayPoints);
+    displayBasket();
+    displayPoints();
 });
 
