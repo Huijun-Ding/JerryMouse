@@ -57,7 +57,7 @@
 
         <div id="search_bar">
             <form>
-                <div class="input-groupinput-group-lg">
+                <div class="input-group input-group-lg">
                     <input id="search" type="search" class="form-control" placeholder="Rechercher un produit ...">
                     <div class="input-group-append">
                         <button type="button" class="btn btn-primary" id="search_button">
@@ -132,7 +132,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><i class="fa fa-shopping-bag"></i> Changer de magasin</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
@@ -148,11 +148,11 @@
 </div>
                 
 <div class="modal" id="search_time_slots_modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><i class="fa fa-calendar-alt"></i> Choisir un créneau</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <select id="search_time_slots" class="form-select" aria-label="Sélectionner la date ici ...">

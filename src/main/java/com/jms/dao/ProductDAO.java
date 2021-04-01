@@ -8,7 +8,6 @@ package com.jms.dao;
 import com.jms.model.Client;
 import com.jms.model.Order;
 import com.jms.model.Product;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;

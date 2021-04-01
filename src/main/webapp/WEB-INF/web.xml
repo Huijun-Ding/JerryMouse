@@ -105,6 +105,10 @@
         <servlet-class>com.jms.controller.DisplayPostItServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UploadShoppingFileServlet</servlet-name>
+        <servlet-class>com.jms.controller.UploadShoppingFileServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SendEmailServlet</servlet-name>
         <servlet-class>com.jms.controller.SendEmailServlet</servlet-class>
     </servlet>
@@ -232,6 +236,10 @@
     <servlet-mapping>
         <servlet-name>DisplayPostItServlet</servlet-name>
         <url-pattern>/DisplayPostItServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadShoppingFileServlet</servlet-name>
+        <url-pattern>/UploadShoppingFile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SendEmailServlet</servlet-name>
