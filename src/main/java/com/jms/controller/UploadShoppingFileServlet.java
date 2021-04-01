@@ -9,7 +9,7 @@ import com.jms.dao.StoreDAO;
 import com.jms.model.PostIt;
 import com.jms.model.ShoppingList;
 import com.jms.model.Store;
-import static com.jms.util.FileUtil.importShoppingListFromFile;
+import com.jms.util.FileUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -28,11 +29,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
  * @author axelt
  */
+
 @MultipartConfig
 public class UploadShoppingFileServlet extends HttpServlet {
 
@@ -56,37 +59,27 @@ public class UploadShoppingFileServlet extends HttpServlet {
         
         // Create path components to save the file
         final Part filePart = request.getPart("file");
-        final String fileName = getFileName(filePart);
+        final String fileName = filePart.getSubmittedFileName();
         final File file = new File(fileName);
+        
+        // commons-io
+        FileUtils.copyInputStreamToFile(filePart.getInputStream(), file);
 
         try(PrintWriter out = response.getWriter()) {
             out.println("<?xml version=\"1.0\"?>");
             
             String nameList = request.getParameter("nameList");
             out.println("<shoppingList>");
-
-            out.println("   <name><![CDATA[" + nameList + "]]></name>");
             
-            ShoppingList s = importShoppingListFromFile(nameList, file);
+            out.println("   <nameList><![CDATA[" + nameList + "]]></nameList>");
             
-            for (PostIt p : s.getPostIts()) {
+            Set<PostIt> postIts = FileUtil.importPostItsFromFile(file);
+            
+            for (PostIt p : postIts) {
                 out.println("   <postIt>");
-                out.println("       <libelle><![CDATA[" + p.getWording() + "]]></libelle>");
-                out.println("       <product><![CDATA[" + p.getProduct() + "]]></product>");
+                out.println("       <wording><![CDATA[" + p.getWording() + "]]></wording>");
                 out.println("   </postIt>");
             }
-            
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String ligne;
-                while ((ligne = br.readLine()) != null) {
-                    out.println("   <ligne><![CDATA[" + ligne + "]]></ligne>");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            
-            out.println("   <object><![CDATA[" + s + "]]></object>");
 
             out.println("</shoppingList>");
         } catch(Exception ex) {
@@ -95,54 +88,7 @@ public class UploadShoppingFileServlet extends HttpServlet {
             }
         }
     }
-
-    private String getFileName(final Part part) {
-        final String partHeader = part.getHeader("content-disposition");
-        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
-        for (String content : part.getHeader("content-disposition").split(";")) {
-            if (content.trim().startsWith("filename")) {
-                return content.substring(
-                        content.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return null;
-    }
-
-    /*protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        response.setContentType("application/xml;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        try(PrintWriter out = response.getWriter()) {
-            out.println("<?xml version=\"1.0\"?>");
-
-            Part filePart = request.getPart("file");
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-            File file = new File(fileName);
-
-            String nameList = request.getParameter("nameList");
-            out.println("<shoppingList>");
-
-            ShoppingList s = importShoppingListFromFile(nameList, file);
-            out.println("   <name><![CDATA[" + nameList + "]]></name>");
-
-            
-            for (PostIt p : s.getPostIts()) {
-                out.println("   <postIt>");
-                out.println("       <libelle><![CDATA[" + p.getWording() + "]]></libelle>");
-                out.println("       <product><![CDATA[" + p.getProduct() + "]]></product>");
-                out.println("   </postIt>");
-            }
-            out.println("   <names><![CDATA[" + request.getParameterNames() + "]]></names>");
-
-            out.println("</shoppingList>");
-        } catch(Exception ex) {
-            try(PrintWriter out = response.getWriter()) {
-                out.println("<msg_error>" + ex.getMessage() + "</msg_error>");
-            }
-        }
-    }*/
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -181,5 +127,9 @@ public class UploadShoppingFileServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private ShoppingList importPostItsFromFile(File file) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
