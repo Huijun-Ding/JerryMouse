@@ -159,6 +159,9 @@ html, body {
     width:200px;
 }
 
+#time_slots_list > button {
+    width: 147px;
+}
 #tab_confirm{
     width:75%;
     margin: 0px auto;
