@@ -283,7 +283,7 @@
                                                 <% }%>
                                                 <!--PriceUnit-->
                                                 <h5 class="d-inline-block text-left"><%= price + " €"%></h5>
-                                                <a href="AddProductServlet?ean=" class="btn btn-primary">
+                                                <a href="AddProductServlet?ean=<%=ean%>" class="btn btn-primary">
                                                     <i class="fas fa-shopping-basket" ></i>
                                                 </a>
                                             </div>
