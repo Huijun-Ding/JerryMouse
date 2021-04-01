@@ -100,8 +100,9 @@ public class ValidateServlet extends HttpServlet {
                                 // update stock de prod
                                 StockDAO.updateStockProd(store.getId(), ean, lstProdQte.get(ean));
                                 // delete basket
-                                BasketDAO.deleteBasket(2);
+                                BasketDAO.deleteBasket(client.getCode());
 //                                ClientDAO.updatePoint(client, point);
+//                                majCreneau
                             } catch (SQLException ex) {
                                 Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
                             }
