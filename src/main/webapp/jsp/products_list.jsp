@@ -319,30 +319,30 @@
                                 <div class="col">
                                     <table class="table-responsive-sm-md-lg table table-striped">
                                         <thead> 
-                                        <h5>Valeurs nutritionnelles(pour 100g)</h5>
+                                        <h5>Valeurs nutritionnelles (pour 100g)</h5>
                                         </thead>
                                         <tr>
-                                            <td>Energie(KJ)/(kcal)</td>
+                                            <td>Energie (KJ)/(kcal)</td>
                                             <td><%=energie%></td>
                                         </tr>
                                         <tr>
-                                            <td>Mati&egrave;res grasses(g)</td>
+                                            <td>Mati&egrave;res grasses (g)</td>
                                             <td><%=mg%></td>
                                         </tr>
                                         <tr>
-                                            <td>dont acides gras saturés(g)</td>
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;dont acides gras saturés (g)</td>
                                             <td><%=ags%></td>
                                         </tr>
                                         <tr>
-                                            <td>Glucides(g)</td>
+                                            <td>Glucides (g)</td>
                                             <td><%=glucides%></td>
                                         </tr>
                                         <tr>
-                                            <td>dont sucres(g)</td>
+                                            <td class="">&nbsp;&nbsp;&nbsp;&nbsp;dont sucres(g)</td>
                                             <td><%=sucre%></td>
                                         </tr>
                                         <tr>
-                                            <td>Prot&eac&eacute;ines(g)</td>
+                                            <td>Prot&eacute;ines (g)</td>
                                             <td><%=proteines%></td>
                                         </tr>
                                         <tr>
