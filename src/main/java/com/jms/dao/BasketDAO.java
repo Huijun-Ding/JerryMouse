@@ -51,9 +51,9 @@ public class BasketDAO {
             List<Basket> lstBasket = query.list();
 //            lstBasket.forEach(System.out::println);
             int nb = 0;
-                if(!lstBasket.isEmpty()){
+            if(!lstBasket.isEmpty()){
                     nb = lstBasket.stream().map(basket -> basket.getQtyBasket()).reduce(nb, Integer::sum);
-            }
+                }
             t.commit(); // Commit et flush automatique de la session.
             return nb;
         }
