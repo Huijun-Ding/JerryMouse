@@ -1,9 +1,10 @@
 <%-- 
     Document   : products_list
     Created on : 22 mars 2021, 16:13:18
-    Author     : mlk
+    Author     : Jerry Mouse Software
 --%>
 
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <%@page import="com.jms.model.Client"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.Map"%>
@@ -30,16 +31,16 @@
     </head>
     <body>
 
+        <% if ((session.getAttribute("client") != null) && request.getParameterMap().containsKey("home")) { %>
+        <%@include file="favorites.jsp" %>
+        <% } %>
+        
         <div class="container-lg">
-            <!--<h1>Liste des produits</h1>-->
+            <h1><% if (request.getParameterMap().containsKey("home")) out.println("Promotions"); %></h1>
             <div class="d-flex justify-content-center" >
 
                 <%
                     ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
-                    request.setAttribute("productsList", list);
-                    Client client = (Client) session.getAttribute("client");
-                    session.setAttribute("client", client);
-
                 %> 
                 <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-4 g-4">
                     <% for (Product product : list) { %>
@@ -116,7 +117,7 @@
 
                                 <!-- labels -->
                                 <% if (!labelStrings.isEmpty()) { %>
-                                <div class="row">
+                                <div class="d-inline-block ">
                                     <% for (String labelString : labelStrings) {%>
                                     <div class="btn btn-outline-warning"><%= labelString + " LABEL_HERE "%></div>
                                     <% }%>
@@ -125,7 +126,7 @@
 
                                 <!-- promotions -->
                                 <% if (percent != "") {%>
-                                <div class="">
+                                <div class="d-inline-block ">
                                     <div class="btn btn-outline-danger">
                                         <%= "-" + percent + "%"%>
                                         <% String infoPromo = "";
