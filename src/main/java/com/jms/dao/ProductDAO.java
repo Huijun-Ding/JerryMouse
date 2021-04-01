@@ -6,6 +6,7 @@
 package com.jms.dao;
 
 import com.jms.model.Product;
+import com.jms.model.ShoppingList;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -178,6 +179,28 @@ public class ProductDAO {
             return lstProducts;
         }
     }
+    
+    public static List<Product> getProductsByName(String lib) {
+
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            Query query = session.createQuery("SELECT DISTINCT new com.jms.model.Product(p.ean, p.name, p.format, p.nutriscore, p.packaging, p.packagingQuantity, p.unitPrice, p.kgPrice, p.urlThumbnail) FROM Produit p WHERE p.name LIKE :p");
+
+            query.setParameter("p", "%" + lib + "%");
+
+            List<Product> lstProducts = query.list();
+
+            for (int i = 0; i < lstProducts.size(); i++) {
+                System.out.println(lstProducts.get(i).getName());
+            }
+
+            t.commit();
+
+            return lstProducts;
+        }
+    }
 
 //    public static void main(String[] s) throws ClassNotFoundException, SQLException {
 //        try {
@@ -188,10 +211,11 @@ public class ProductDAO {
 //            System.out.println(ex.getMessage());
 //        }
 //    }
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, ClassNotFoundException {
         /*----- Test -----*/
 
-        ProductDAO.returnSrearchResult("Cafés");
+        //ProductDAO.returnSrearchResult("Cafés");
+        getProductsByName("fruit");
 
         /*----- Exit -----*/
         System.exit(0);
