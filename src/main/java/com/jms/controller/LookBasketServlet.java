@@ -53,16 +53,7 @@ public class LookBasketServlet extends HttpServlet {
             out.println("<pageBasket>");
             out.println("<basket>");
 
-            // ----------- TEST : CONSTANT ---------------
-            Product p = new Product("2", "pomme", "bonne pomme", "bon", "350",
-                    true, ProductNutriScore.A, ProductConditioning.LOT);
-            Client c = new Client("Shangshang", "Zhao", "ss@gmail.com", "ss", 5);
-
             // ------ INFO CLIENT ------------------
-            // get id of client from host page
-//            String idClient = request.getParameter("idClient");
-            // get info of client
-//            Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
             Client client = (Client) session.getAttribute("client");
 
             // ------ INFO BASKET / PRODUCT CLIENT ---------
@@ -152,7 +143,7 @@ public class LookBasketServlet extends HttpServlet {
             // calculer points got
             int pointsGot = BasketDAO.calculPointsGot(total);
             int pointFinal;
-            int pointF = client.getFidelityPoints();
+            int pointF = client.getFidelityPoints()/10;
             if (checkPoint) {
                 if (pointF <= total) {
                     total = total - pointF;
