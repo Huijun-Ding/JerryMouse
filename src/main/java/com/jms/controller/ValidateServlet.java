@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jms.controller;
+package com.jms.controller; 
 
 import com.jms.dao.BasketDAO;
 import com.jms.dao.ClientDAO;
@@ -44,7 +44,7 @@ public class ValidateServlet extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
+     * @throws ServletException if a servlet-specific  error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -101,6 +101,7 @@ public class ValidateServlet extends HttpServlet {
                                 StockDAO.updateStockProd(store.getId(), ean, lstProdQte.get(ean));
                                 // delete basket
                                 BasketDAO.deleteBasket(2);
+//                                ClientDAO.updatePoint(client, point);
                             } catch (SQLException ex) {
                                 Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
                             }
