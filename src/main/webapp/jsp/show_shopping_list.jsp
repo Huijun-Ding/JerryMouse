@@ -15,46 +15,82 @@
 
     </head>
     <body>
-        
+
         <jsp:include page="navbar" flush="true"/>
-        
+
         <div class="container" id="rayon_categorie_navbar">
-            <h2>Ma liste de courses xxxx</h2>
+            <div id="list_name"></div>
             <br>
             <div class="row">
                 <div class="col-7">
-                    <div class="card">
+                    <div class="card" id="show_postit">
                     </div>
                 </div>
 
                 <div class="col-1"></div>
 
                 <div class="col-3">
-                    <button type="button" id="add_shopping_list" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_post-it">Ajouter</button>
-                    <button type="button" id="import_shopping_list" class="btn btn-outline-primary" data-toggle="modal" data-target="#import_list_file">Importer</button>
+                    <div class="btn-group-vertical">
+                        <button type="button" id="valide_add_pt" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_post_it">Ajouter un post-it dans cette liste</button>
+                        <button type="button" id="valide_add_article" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_article">Ajouter un article dans cette liste</button>
+                        <button type="button" id="import_shopping_list" class="btn btn-outline-primary" data-toggle="modal" data-target="#import_list_file">Importer une liste de course</button>
+                        <button type="button" id="list_to_panier" class="btn btn-outline-primary">Transformer ma liste en panier</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="modal" tabindex="-1" id="add_post-it">
+            <div class="modal" tabindex="-1" id="add_post_it">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Ajouter un nouveau post-it</h5>
+                            <h5 class="modal-title">Ajouter un post-it</h5>
                             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Contenu : </p>
-                            <input type="text" class="form-control w-25 p-3 h-25" class="post_it" width="50">
+                            <p>Contenu de post-it : </p>
+                            <form>
+                                <div class="input-group input-group">
+                                    <input type="input" class="form-control" id="input_post_it" placeholder="Huile de coco...">
+                                </div>
+                            </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Supprimer</button>
-                            <button type="button" class="btn btn-primary">Sauvegarder</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <button type="button" class="btn btn-primary"id="submit_post_it">Valider</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-             <div class="modal" tabindex="-1" id="import_list_file">
+
+<!--            <div class="modal" tabindex="-1" id="add_article">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ajouter un article</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Veuillez rechercher l'article : </p>
+                            <form>
+                                <div class="input-group input-group">
+                                    <input id="search" type="search" class="form-control" placeholder="Rechercher un produit ...">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-primary" id="search_button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <button type="button" class="btn btn-primary">Valider</button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="modal" tabindex="-1" id="import_list_file">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -75,6 +111,10 @@
 
         </div>
 
-    <script src="js/postIt.js"></script>
-</body>
+        <script src="js/postIt.js"></script>
+        <script src="js/search.js"></script>
+        <script src="js/stores.js"></script>
+        <script src="js/time_slots.js"></script>
+        <script src="js/basket.js"></script>
+    </body>
 </html>

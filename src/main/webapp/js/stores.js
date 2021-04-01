@@ -83,13 +83,20 @@ function changeStore(storeId) {
             document.getElementById("search_stores").value = "";
             document.getElementById("stores_list").innerHTML = "";
             document.getElementById("time_slot_button").classList.remove("d-none");
+            parent.$("#corp_modal").load(window.parent.location.href + " #corp_modal");
         }
     };
 
     msg_error = document.getElementById("msg_error");
     if (msg_error !== null)
         msg_error.innerHTML = "";
-                    
+    
+    stock = document.getElementsByClassName("stock");
+    if (stock !== null){
+        for (let i = 0; i < stock.length; i++) {
+            stock[i].innerHTML = "";
+        }
+    }
     xhr.send(param);
 }
 

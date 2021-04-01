@@ -120,6 +120,14 @@
         <servlet-name>PreferenceServlet</servlet-name>
         <servlet-class>com.jms.controller.PreferenceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetShoppingListName</servlet-name>
+        <servlet-class>com.jms.controller.GetShoppingListName</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPostItServlet</servlet-name>
+        <servlet-class>com.jms.controller.AddPostItServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -236,6 +244,14 @@
     <servlet-mapping>
         <servlet-name>PreferenceServlet</servlet-name>
         <url-pattern>/Preference</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetShoppingListName</servlet-name>
+        <url-pattern>/GetShoppingListName</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPostItServlet</servlet-name>
+        <url-pattern>/AddPostItServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
