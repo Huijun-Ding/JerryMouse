@@ -117,7 +117,7 @@ public class SendEmailServlet extends HttpServlet {
         }
 
         //generate a QR Code for the client 
-        String qrcode = "data:image/PNG;base64," + QRcodeUtil.getQRCodeImage("" + order.getClient().getCode() + order.getOrderId());
+        String qrcode = "data:image/PNG;base64," + QRcodeUtil.getQRCodeImage("client id : " + order.getClient().getCode() + " commande id "+order.getOrderId());
         float total = (float)session.getAttribute("total");
         contentOrder = contentOrder + "</table>";
         contentOrder = contentOrder + "<table style='width:75%' frame='below'> <tr><td align='left' > <b>Prix Total : </b> </td><td align='right' > <b>" + String.format("%.2f", total) + " &#8364; </b></td></tr></table>";
