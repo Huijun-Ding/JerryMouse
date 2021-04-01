@@ -86,6 +86,5 @@
         <script src="js/stores.js"></script>
         <script src="js/time_slots.js"></script>
         <script src="js/basket.js"></script>
-        <script src="js/upload_shopping_file.js"></script>
     </body>
 </html>
