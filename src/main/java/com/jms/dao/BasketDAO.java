@@ -27,7 +27,8 @@ public class BasketDAO {
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            Query query = session.createQuery("from Panier where CodeCL = :code");
+            Query query = session.createQuery("from Panier where CodeCL = :code "
+                    + "and qtePanier > 0");
 
             query.setParameter("code", CodeCL);
 
@@ -50,9 +51,9 @@ public class BasketDAO {
             List<Basket> lstBasket = query.list();
 //            lstBasket.forEach(System.out::println);
             int nb = 0;
-                if(!lstBasket.isEmpty()){
+            if(!lstBasket.isEmpty()){
                     nb = lstBasket.stream().map(basket -> basket.getQtyBasket()).reduce(nb, Integer::sum);
-            }
+                }
             t.commit(); // Commit et flush automatique de la session.
             return nb;
         }
@@ -127,7 +128,7 @@ public class BasketDAO {
         }
     }
     
-    // update a basket
+    // add a product
     public static int updateBasket(int idClient, String ean) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -153,6 +154,32 @@ public class BasketDAO {
         }
     }
     
+    // qtyprod - 1
+    public static int updateBasketMinus(int idClient, String ean) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            
+            // get the quantity of product
+            Query query1 = session.createSQLQuery("SELECT qtePanier FROM Panier "
+                    + "WHERE EANP= :ean and CodeCL= :codeCL");
+            query1.setParameter("codeCL", idClient);
+            query1.setParameter("ean", ean);
+            int qtePanier = Integer.valueOf(query1.list().get(0).toString());
+            
+            // update the quantity of product
+            Query query = session.createSQLQuery("UPDATE Panier SET qtePanier= :nb "
+                    + "WHERE EANP= :ean and CodeCL= :codeCL");
+            query.setParameter("codeCL", idClient);
+            query.setParameter("ean", ean);
+            query.setParameter("nb", qtePanier - 1);
+            
+            int nb = query.executeUpdate();
+            t.commit(); // Commit et flush automatique de la session.
+            return nb;
+        }
+    }
+    
     // update a basket
     public static int deleteBasket(int idClient) throws SQLException{
         /*----- Ouverture de la session -----*/
@@ -170,6 +197,24 @@ public class BasketDAO {
         }
     }
     
+    // check quantity of prod dans le panier
+    public static int checkQtyProd(int CodeCL, String ean) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Query query = session.createQuery("from Panier "
+                    + "where CodeCL = :code "
+                    + "and EANP = :ean");
+
+            query.setParameter("code", CodeCL);
+            query.setParameter("ean", ean);
+            List<Basket> lstBasket = query.list();
+            int nb = lstBasket.get(0).getQtyBasket(); 
+            
+            t.commit(); // Commit et flush automatique de la session.
+            return nb;
+        }
+    }    
     
 
     public static void main(String[] args) {
@@ -199,7 +244,8 @@ public class BasketDAO {
 //            System.out.println(BasketDAO.checkProductBakset(1, "P4"));
 //            System.out.println(BasketDAO.updateBasket(1, "P3"));
 //            System.out.println(calculNbProduct(2));
-            System.out.println(BasketDAO.deleteBasket(2));
+//            System.out.println(BasketDAO.deleteBasket(2));
+            System.out.println(BasketDAO.checkQtyProd(2, "P10"));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } 

@@ -4,6 +4,7 @@ import com.jms.dao.BasketDAO;
 import com.jms.model.Client;
 import com.jms.model.Product;
 import java.io.IOException;
+import java.io.PrintWriter;
 import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,35 +32,23 @@ public class AddProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        Client client = (Client)session.getAttribute("client");
-        
+        Client client = (Client) session.getAttribute("client");
+
 //        ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
 //        request.setAttribute("productsList", list);
-        
         int idClient = client.getCode();
-//        int idClient = Integer.parseInt(request.getParameter("idClient"));
-//        int idClient = 1;
         String ean = request.getParameter("ean");
-        
         try {
-            // check nb products in basket
-            int nb = BasketDAO.calculNbProduct(idClient);
-//            session.setAttribute("nbProducts", nb);
-            
-            out.println("<?xml version=\"1.0\"?>");
-            response.setContentType("application/xml;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            out.println("<nbProducts>" + nb + "</nbProducts>");
-            
+            BasketDAO.calculNbProduct(idClient);
             // add product in basket
-            if (BasketDAO.checkProductBakset(idClient, ean)){
+            if (BasketDAO.checkProductBakset(idClient, ean)) {
                 BasketDAO.updateBasket(idClient, ean);
-            }else{
+            } else {
                 BasketDAO.addProductToBasket(idClient, ean);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        } 
+        }
         request.getRequestDispatcher("DisplayProducts?home").forward(request, response);
     }
 
@@ -101,5 +90,4 @@ public class AddProductServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

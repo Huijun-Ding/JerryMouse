@@ -14,9 +14,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
     <body>
-
+    
         <jsp:include page="navbar" flush="true"/>
-
+            
         <div id="rayon_categorie_navbar">
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
