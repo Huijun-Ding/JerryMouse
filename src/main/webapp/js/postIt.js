@@ -20,7 +20,7 @@ function showPostIts() {
                 pname = postItLine.getElementsByTagName("pname")[0].firstChild.nodeValue;
                 pbrand = postItLine.getElementsByTagName("pbrand")[0].firstChild.nodeValue;
 
-                if (name === "") {
+                if (name === "" || name === "null") {
                     elt.insertAdjacentHTML("beforeend", "<li class='list-group-item' value='" + code + "'>" + pname + " " + pbrand + "</i>");
                 } else {
                     elt.insertAdjacentHTML("beforeend", "<li class='list-group-item' value='" + code + "'>" + name + "</i>");
@@ -74,8 +74,7 @@ function sendAddPostItRequest() {
 function sendAddPostItProductRequest() {
     var xhr = new XMLHttpRequest();
 
-//    var idsl = window.location.search.substr(8);
-    var idsl = "5";
+    var idsl = window.location.search.substr(8);
     var idp = "P7";
 
     if (idp !== "") {
