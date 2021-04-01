@@ -103,8 +103,8 @@ function editQuantity() {
     var idBtn = this.id;
     var ean = idBtn.substring(2);
     var method = idBtn.substring(0, 1);
-    alert(ean);
-    alert(method);
+//    alert(ean);
+//    alert(method);
     
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "EditQuantityServlet?ean=" + ean + "&method=" + method);
