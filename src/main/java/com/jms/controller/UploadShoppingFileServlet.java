@@ -5,18 +5,21 @@
  */
 package com.jms.controller;
 
+import com.jms.model.Client;
 import com.jms.model.PostIt;
+import com.jms.model.ShoppingList;
 import com.jms.util.FileUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.io.FileUtils;
 
@@ -48,8 +51,19 @@ public class UploadShoppingFileServlet extends HttpServlet {
 
         try ( PrintWriter out = response.getWriter()) {
             out.println("<?xml version=\"1.0\"?>");
-
-            if (!fileName.endsWith("txt") && !fileName.endsWith("csv")) {
+            
+            String title = request.getParameter("title");
+            String[] postItsParam = request.getParameterValues("postIts");
+            
+            if(title != null && postItsParam != null) {
+                Set<PostIt> postIts = new HashSet<>(0);
+                for(String postIt : postItsParam)
+                    postIts.add(new PostIt(postIt));
+                HttpSession session = request.getSession(false);
+                Client client = (Client) session.getAttribute("client");
+                
+                ShoppingList s = new ShoppingList(title, postIts, client);
+            } else if (!fileName.endsWith("txt") && !fileName.endsWith(", csv")) {
                 out.println("<msg_error>\n");
                 out.println("   <title><![CDATA[Erreur de format !]]></title>\n");
                 out.println("   <content><![CDATA[Ce type de fichier n\'est pas pris en charge.]]></content>\n");

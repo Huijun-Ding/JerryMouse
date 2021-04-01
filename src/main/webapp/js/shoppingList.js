@@ -22,6 +22,7 @@ function sendShoppingListName() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
     var btn = document.getElementById("shopping_list_button");
     if (btn !== null) {
         btn.addEventListener("click", displayShoppingLists);
