@@ -109,6 +109,30 @@ public class Product implements Serializable {
     @Column(name = "PrixKgP")
     private float kgPrice;
 
+    @Column(name = "EnergieP")
+    private String energy;
+
+    @Column(name = "MatieresGrassesP")
+    private String fats;
+
+    @Column(name = "GrasSaturesP")
+    private String saturatedFatAcids;
+
+    @Column(name = "GlucidesP")
+    private String carbohydrates;
+
+    @Column(name = "SucreP")
+    private String sugar;
+
+    @Column(name = "ProtéinesP")
+    private String protein;
+
+    @Column(name = "SelP")
+    private String salt;
+    
+    @Column(name = "CompositionP")
+    private String composition;
+
     /**
      * The url of the thumbnail of the product.
      */
@@ -116,12 +140,12 @@ public class Product implements Serializable {
     private String urlThumbnail;
 
     // Relation Appartenir Categorie
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CodeCategorieP")
     private ProductCategory category;
 
     // Relation Posseder Label
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.LAZY)
     @JoinTable(name = "Posseder",
             joinColumns = @JoinColumn(name = "EANP"),
             inverseJoinColumns = @JoinColumn(name = "CodeLB"))
@@ -133,19 +157,29 @@ public class Product implements Serializable {
     private Set<PostIt> postIts = new HashSet<>(0);
 
     // Relation Panier Client
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodeCL")
     private Map<Client, Basket> baskets = new HashMap<>(0);
 
     // Relation Reduire Promotion
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodePR")
     private Map<Promotion, Reduce> promotions = new HashMap<>(0);
 
     // Relation Ligne de commande Commande
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodeCD")
     private Map<Order, OrderLine> orders = new HashMap<>(0);
+
+    /**
+     * Hibernate join property with Product Class and Client Class for the
+     * relationship "Preferer".
+     */
+    @ManyToMany(mappedBy = "favoriteProducts", fetch = FetchType.LAZY)
+    private Set<Client> clients = new HashSet<>(0);
 
     // -------------------- CONSTRUCTORS --------------------
     public Product() {
@@ -155,7 +189,23 @@ public class Product implements Serializable {
         this.ean = ean;
         this.name = libelle;
         this.unitPrice = unitPrice;
-        this.urlThumbnail=urlThumbnail;
+        this.urlThumbnail = urlThumbnail;
+    }
+    
+    
+    public Product(String ean, String name, String format,
+            ProductNutriScore nutriscore, ProductConditioning packaging,
+            int packagingQuantity, float unitPrice, float kgPrice,
+            String urlThumbnail) {
+        this.ean = ean;
+        this.name = name;
+        this.format = format;
+        this.nutriscore = nutriscore;
+        this.packaging = packaging;
+        this.packagingQuantity = packagingQuantity;
+        this.unitPrice = unitPrice;
+        this.kgPrice = kgPrice;
+        this.urlThumbnail = urlThumbnail;
     }
 
     public Product(String ean, String libelle, String description,
@@ -186,12 +236,15 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public Product(String ean, String name, String format,
+    public Product(String ean, String name, String format, String brand, String description,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
-            String urlThumbnail) {
+            String urlThumbnail, String energy, String fats, String saturatedFatAcids, 
+            String carbohydrates, String sugar, String protein, String salt, String composition) {
         this.ean = ean;
         this.name = name;
+        this.brand = brand;
+        this.description = description;
         this.format = format;
         this.nutriscore = nutriscore;
         this.packaging = packaging;
@@ -202,15 +255,54 @@ public class Product implements Serializable {
         this.unitPrice = unitPrice;
         this.kgPrice = kgPrice;
         this.urlThumbnail = urlThumbnail;
+        this.energy = energy;
+        this.fats = fats;
+        this.saturatedFatAcids = saturatedFatAcids;
+        this.carbohydrates = carbohydrates;
+        this.sugar = sugar;
+        this.protein = protein;
+        this.salt = salt;
+        this.composition = composition;
     }
-
-    public Product(String ean, String name, String format,
+    
+    public Product(String ean, String name, String format, String brand, String description,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
-            String urlThumbnail, int idPromotion, float percentage, int rank) {
+            String urlThumbnail, String energy, String fats, String saturatedFatAcids, 
+            String carbohydrates, String sugar, String protein, String salt, String composition,
+            int idPromotion, float percentage, int rank) {
         this.ean = ean;
         this.name = name;
         this.format = format;
+        this.brand = brand;
+        this.description = description;
+        this.nutriscore = nutriscore;
+        this.packaging = packaging;
+        this.packagingQuantity = packagingQuantity;
+        this.unitPrice = unitPrice;
+        this.kgPrice = kgPrice;
+        this.urlThumbnail = urlThumbnail;
+        this.energy = energy;
+        this.fats = fats;
+        this.saturatedFatAcids = saturatedFatAcids;
+        this.carbohydrates = carbohydrates;
+        this.sugar = sugar;
+        this.protein = protein;
+        this.salt = salt;
+        this.composition = composition;
+        this.promotions.put(new Promotion(percentage, rank), new Reduce());
+    }
+    
+    public Product(String ean, String name, String description, 
+            String brand, String format, boolean bio, ProductNutriScore nutriscore, 
+            ProductConditioning packaging, int packagingQuantity, float unitPrice, 
+            float kgPrice,String urlThumbnail, int idPromotion, float percentage, int rank) {
+        this.ean = ean;
+        this.name = name;
+        this.description = description;
+        this.brand = brand;
+        this.format = format;
+        this.bio = bio;
         this.nutriscore = nutriscore;
         this.packaging = packaging;
         this.packagingQuantity = packagingQuantity;
@@ -219,7 +311,6 @@ public class Product implements Serializable {
         this.urlThumbnail = urlThumbnail;
         this.promotions.put(new Promotion(percentage, rank), new Reduce());
     }
-
     public Product(String ean, String name, String format,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
@@ -383,6 +474,82 @@ public class Product implements Serializable {
         this.orders = orders;
     }
 
+
+    public String getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(String energy) {
+        this.energy = energy;
+    }
+
+    public String getFats() {
+        return fats;
+    }
+
+    public void setFats(String fats) {
+        this.fats = fats;
+    }
+
+    public String getSaturatedFatAcids() {
+        return saturatedFatAcids;
+    }
+
+    public void setSaturatedFatAcids(String saturatedFatAcids) {
+        this.saturatedFatAcids = saturatedFatAcids;
+    }
+
+    public String getCarbohydrates() {
+        return carbohydrates;
+    }
+
+    public void setCarbohydrates(String carbohydrates) {
+        this.carbohydrates = carbohydrates;
+    }
+
+    public String getSugar() {
+        return sugar;
+    }
+
+    public void setSugar(String sugar) {
+        this.sugar = sugar;
+    }
+
+    public String getProtein() {
+        return protein;
+    }
+
+    public void setProtein(String protein) {
+        this.protein = protein;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getComposition() {
+        return composition;
+    }
+
+    public void setComposition(String composition) {
+        this.composition = composition;
+    }
+    
+    
+
+    public Set<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
+    }
+
+
     // ----------------------- METHODS ----------------------
     // ----------------------- METHODS ------------------------
     @Override
@@ -409,15 +576,18 @@ public class Product implements Serializable {
         }
         return true;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     @Override
     public String toString() {
-        return "Product{" + "ean=" + ean + ", name=" + name
-                + ", description=" + description + ", brand="
-                + brand + ", format=" + format + ", bio=" + bio
-                + ", nutriscore=" + nutriscore
-                + ", packaging=" + packaging + ", category=" + category
-                + ", labels=" + labels + '}';
+
+        return "Product{" + "ean=" + ean + ", name=" + name + ", description=" + description + ", brand=" + brand + ", format=" + format + ", bio=" + bio + ", nutriscore=" + nutriscore + ", packaging=" + packaging + ", packagingQuantity=" + packagingQuantity + ", unitPrice=" + unitPrice + ", kgPrice=" + kgPrice + ", energy=" + energy + ", fats=" + fats + ", saturatedFatAcids=" + saturatedFatAcids + ", carbohydrates=" + carbohydrates + ", sugar=" + sugar + ", protein=" + protein + ", salt=" + salt + ", composition=" + composition + ", urlThumbnail=" + urlThumbnail + ", category=" + category + ", labels=" + labels + ", postIts=" + postIts + ", baskets=" + baskets + ", promotions=" + promotions + ", orders=" + orders + '}';
+
     }
+
+    
 
 }

@@ -160,6 +160,9 @@ html, body {
     width:200px;
 }
 
+#time_slots_list > button {
+    width: 147px;
+}
 #tab_confirm{
     width:75%;
     margin: 0px auto;
@@ -187,4 +190,13 @@ th{
 
 #confirm_body{
     text-align: center;
+}
+
+#output {
+    position: absolute;
+    width: 319px;
+}
+
+#search_result li {
+    cursor: pointer;
 }

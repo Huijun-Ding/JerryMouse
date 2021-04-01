@@ -40,16 +40,19 @@ public class DisplayPostItServlet extends HttpServlet {
                 
                 String productName = "";
                 String productBrand = "";
+                String productFormat = "";
                 
                 for (PostIt p : lst) {
                     
                     if (p.getProduct()==null) {
                         productName = "Libellé de produit inconnu";
                         productBrand = "Marque inconnu";
+                        productFormat = "Format inconnu";
                     }
                     else{
                         productName = p.getProduct().getName();
                         productBrand = p.getProduct().getBrand();
+                        productFormat = p.getProduct().getFormat();
                     }
 
                     out.println("<postIt>");
@@ -57,6 +60,7 @@ public class DisplayPostItServlet extends HttpServlet {
                     out.println("<code><![CDATA[" + p.getCode() + "]]></code>");
                     out.println("<pname><![CDATA[" + productName + "]]></pname>");
                     out.println("<pbrand><![CDATA[" + productBrand + "]]></pbrand>");
+                    out.println("<pformat><![CDATA[" + productFormat + "]]></pformat>");
                     out.println("</postIt>");
                 }
                 out.println("</postIts>");
