@@ -5,10 +5,9 @@
  */
 package com.jms.controller;
 
-import com.jms.dao.HibernateUtilDAO;
+import com.jms.dao.ProductDAO;
 import com.jms.model.Client;
-import com.jms.model.Order;
-import com.jms.util.EmailUtil;
+import com.jms.model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,15 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import static org.hibernate.criterion.Projections.id;
 
 /**
  *
- * @author Jerry Mouse Software.
+ * @author Mathi
  */
-public class SendEmail extends HttpServlet {
+public class transferProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +33,14 @@ public class SendEmail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+         HttpSession session = request.getSession(true);
+         Client client=(Client)session.getAttribute("client");
+         
+         Product p=ProductDAO.getProductByHistory(client,ProductDAO.getProductsByName("Bonbons"));
+//         Product produitPrefrence=ProductDAO.getProductByPref(client,ProductDAO.getProductsByName("Bonbons"));
+         
+         System.out.println(p);
+         
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
