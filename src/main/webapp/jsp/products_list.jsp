@@ -41,7 +41,7 @@
                     request.setAttribute("productsList", list);
                     Client client = (Client) session.getAttribute("client");
                     session.setAttribute("client", client);
-
+                    
                 %> 
                 <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-4 g-4">
                     <% for (Product product : list) { %>
@@ -50,10 +50,13 @@
                             <%  // Properties of a product
                                 String url = product.getUrlThumbnail();
                                 String libelle = product.getName();
+                                String marque = product.getBrand();
                                 String price = String.format("%.2f", product.getUnitPrice());
                                 String priceKG = "";
+                                
                                 if (product.getKgPrice() != 0f) {
                                     priceKG = String.format("%.2f", product.getKgPrice());
+                                    
                                 }
 
                                 String format = product.getFormat();
@@ -150,45 +153,136 @@
                                         <i class="fas fa-shopping-basket" ></i>
                                     </a>
                                 </h2>
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#visualise_article">
+                                <%String ean = product.getEan();%>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=ean%>">
+
                                     <i class="fas fa-eye"></i>
                                 </button>
 
                             </div>
                         </div>
                     </div>
+
                     <% }%>
 
                 </div>
             </div>
         </div>
-                    
-        <div class="modal" tabindex="-1" id="visualise_article">
+
+        
+                <%for(Product p :list){
+                String ean = p.getEan();
+                    %>
+       
+       
+        <div class="modal" tabindex="-2" id="<%=ean%>">
+
             <div class="modal-dialog modal-dialog-scrollable">
+
+
+
                 <div class="modal-content">
+
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
+                        <%  // Properties of a product
+                            String url = p.getUrlThumbnail();
+                            String libelle = p.getName();
+                            String marque = p.getBrand();
+                            String price = String.format("%.2f", p.getUnitPrice());
+                            String priceKG = "";
+                            if (p.getKgPrice() != 0f) {
+                                priceKG = String.format("%.2f", p.getKgPrice());
+                            }
+
+                            String format = p.getFormat();
+
+                            // Get the conditioning of the product
+                            String conditioningType;
+                            int conditioningVal;
+                            if (p.getPackaging() == ProductConditioning.LOT) {
+                                conditioningType = "lot";
+                                conditioningVal = p.getPackagingQuantity();
+                            } else {
+                                conditioningType = "";
+                                conditioningVal = 1;
+                            }
+                            // Get the nutriscore of the product.
+                            ProductNutriScore nutriscore = p.getNutriscore();
+
+                            // If there are labels for the product, get their names.
+                            ArrayList<String> labelStrings = new ArrayList<String>();
+                            if (!p.getLabels().isEmpty()) {
+                                for (Label label : p.getLabels()) {
+                                    labelStrings.add(label.getDescription());
+                                }
+                            }
+
+                            // If exists, get the current promotion on the product.  
+                            int place = 1;
+                            String percent = "";
+                            for (Promotion promotion : p.getPromotions().keySet()) {
+                                place = promotion.getRank();
+                                int val = (int) (promotion.getPercentage() * 100);
+                                percent = String.valueOf(val);
+                            }
+
+                        %>
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-1 col-lg-3 col-xl-6">
+                                <div class="col-md-1 col-lg-3 col-xl-8">
                                     <!--image-->
                                     <div>
-                                        <img class="img-thumbnail" src="" alt="alt" />
+                                        <img class="img-thumbnail" src="<%= url%>" alt="alt" />
                                     </div>
                                 </div>
-                                <div class="col-md-1 col-lg-3 col-xl-6">
+                                <div class="col-md-1 col-lg-3 col-xl-4">
                                     <!--detail-->
                                     <div class="container">
                                         <div class="row">
-                                            <h4>Libellé</h4>
-                                            <span>Marque</span>
-                                            <span>Conditionnement</span>
-                                            <img src="" alt="Nutriscore">
+                                            <!--detail-->
+                                            <h6><%=libelle%></h6>
+                                            <!--brand-->
+                                            <span><%=marque%></span>
+                                            <!--conditionType-->
+                                            <span>
+                                                <% if (priceKG != "") {
+                                                        out.print(priceKG + " €/kg");
+                                                    }
+                                                %>
+                                                <% if (format != "") {
+                                                        out.print("  " + format + "");
+                                                    } %>
+                                                <% if (conditioningType != "") {
+                                                        if (conditioningType == "lot") {
+                                                            out.print(" | " + conditioningType + " de " + conditioningVal);
+                                                        } else {
+                                                            out.print(" | " + conditioningType);
+                                                        }
+                                                    }
+                                                %>
+                                            </span>
+                                            <!--nuttriscore-->
+                                            <% if (nutriscore != null) {%>
+                                            <img src="img/Nutri-score-<%= nutriscore%>.svg" width="50px" alt="Nutriscore">
+                                            <%}%>
                                             <div>
-                                                <span class="btn btn-outline-danger">Promo</span>
-                                                <h5 class="d-inline-block text-left">Prix €</h5>
+                                                <!--Promotion-->
+                                                <% if (percent != "") {%>
+                                                <span class="btn btn-outline-danger">
+                                                    <%= "-" + percent + "%"%>
+                                                    <% String infoPromo = "";
+                                                        if (place != 1)
+                                                            infoPromo = "sur le " + place + "ème";
+                                                    %>
+                                                    <%= infoPromo%>
+                                                </span>
+                                                <% }%>
+                                                <!--PriceUnit-->
+                                                <h5 class="d-inline-block text-left"><%= price + " €"%></h5>
                                                 <a href="AddProductServlet?ean=" class="btn btn-primary">
                                                     <i class="fas fa-shopping-basket" ></i>
                                                 </a>
@@ -198,22 +292,21 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                         <!--description-->
                         <!--composition-->
                         <!--nutritional values-->
                         <div></div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-
                     </div>
+
                 </div>
+
             </div>
         </div>
-        
+        <%}%>
         <script type="text/javascript" src="js/quantityProduct.js"></script>
     </body>
 </html>
