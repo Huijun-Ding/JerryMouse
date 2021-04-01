@@ -91,7 +91,7 @@ public class ClientDAO {
      *
      * @param id
      */
-    public static void load(int id) {
+    public static Client load(int id) {
         // Open a session
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
@@ -99,6 +99,10 @@ public class ClientDAO {
 
             System.out.println("----------Client------------");
             System.out.println(c.getLastName() + " " + c.getFirstName() + " " + c.getEmail() + " " + c.getFidelityPoints());
+            
+            session.update(c);
+            
+            return c;
         }
     }
 
@@ -139,10 +143,10 @@ public class ClientDAO {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         // test for method searchClient
-        System.out.println(ClientDAO.searchClient(1));
-
+        System.out.println(ClientDAO.searchClient(14).getCode());
+//updatePoint(ClientDAO.searchClient(14),10);
         //create();
         load(2);
         boolean res = authenticate("rc@gmail.com", "rm123");

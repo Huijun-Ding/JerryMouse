@@ -32,6 +32,7 @@
         </div>
 
         <script src="js/shoppingList.js"></script>
+        <script src="js/createShoppingList.js"></script>
         <script src="js/search.js"></script>
         <script src="js/stores.js"></script>
         <script src="js/time_slots.js"></script>

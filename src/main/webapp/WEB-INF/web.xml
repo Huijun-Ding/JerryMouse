@@ -81,7 +81,7 @@
         <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>MyShoppinglLists</servlet-name>
+        <servlet-name>MyShoppingLists</servlet-name>
         <jsp-file>/jsp/my_shopping_lists.jsp</jsp-file>
     </servlet>
     <servlet>
@@ -103,6 +103,10 @@
     <servlet>
         <servlet-name>DisplayPostItServlet</servlet-name>
         <servlet-class>com.jms.controller.DisplayPostItServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadShoppingFileServlet</servlet-name>
+        <servlet-class>com.jms.controller.UploadShoppingFileServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SendEmailServlet</servlet-name>
@@ -131,6 +135,10 @@
     <servlet>
         <servlet-name>transferProductServlet</servlet-name>
         <servlet-class>com.jms.controller.transferProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetPostItProductServlet</servlet-name>
+        <servlet-class>com.jms.controller.GetPostItProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -206,7 +214,7 @@
         <url-pattern>/Connect</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MyShoppinglLists</servlet-name>
+        <servlet-name>MyShoppingLists</servlet-name>
         <url-pattern>/myShoppingLists</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -228,6 +236,10 @@
     <servlet-mapping>
         <servlet-name>DisplayPostItServlet</servlet-name>
         <url-pattern>/DisplayPostItServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadShoppingFileServlet</servlet-name>
+        <url-pattern>/UploadShoppingFile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SendEmailServlet</servlet-name>
@@ -260,6 +272,10 @@
     <servlet-mapping>
         <servlet-name>transferProductServlet</servlet-name>
         <url-pattern>/transferProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetPostItProductServlet</servlet-name>
+        <url-pattern>/GetPostItProductServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

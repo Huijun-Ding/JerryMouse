@@ -30,10 +30,4 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("addProduct").addEventListener("click", displayNbProduct);
 });
 
-window.onload = function () {
-    document.getElementById("addProduct").onclick = function () {
-        alert("1");
-    };
-};
-
 

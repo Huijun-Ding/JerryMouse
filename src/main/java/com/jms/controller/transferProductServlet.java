@@ -43,6 +43,7 @@ public class transferProductServlet extends HttpServlet {
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession(true);
         Client client = (Client) session.getAttribute("client");
+        System.out.println("servlet"+client.getCode());
         int idClient = client.getCode();
         int idList = Integer.parseInt((String) session.getAttribute("idList"));
         ShoppingList sl = ShoppingListDAO.getShoppingList(idList);
@@ -63,8 +64,11 @@ public class transferProductServlet extends HttpServlet {
                         out.println("<message> Non cette genre de produit. </message>");
                     } else {
                         // System.out.println("testetstetsetstets" + ProductDAO.getProductsByName("Chocolat au lait").get(0));
+                        System.out.println("3333333");
                         Product p = ProductDAO.getProductByHistory(client, ProductDAO.getProductsByName(post.getWording()));
+                        System.out.println("4444444");
                         if (p == null) {
+                            System.out.println("55555555");
                             p = ProductDAO.getProductsByName(post.getWording()).get(0);
 
                         }

@@ -108,7 +108,29 @@ public class Product implements Serializable {
      */
     @Column(name = "PrixKgP")
     private float kgPrice;
+ @Column(name = "EnergieP")
+    private String energy;
 
+    @Column(name = "MatieresGrassesP")
+    private String fats;
+
+    @Column(name = "GrasSaturesP")
+    private String saturatedFatAcids;
+
+    @Column(name = "GlucidesP")
+    private String carbohydrates;
+
+    @Column(name = "SucreP")
+    private String sugar;
+
+    @Column(name = "ProtéinesP")
+    private String protein;
+
+    @Column(name = "SelP")
+    private String salt;
+    
+    @Column(name = "CompositionP")
+    private String composition;
     /**
      * The url of the thumbnail of the product.
      */
@@ -246,6 +268,62 @@ public class Product implements Serializable {
         this.urlThumbnail = urlThumbnail;
         this.promotions.put(new Promotion(percentage, rank), new Reduce());
         this.labels = labels;
+    }
+     public Product(String ean, String name, String format, String brand, String description,
+            ProductNutriScore nutriscore, ProductConditioning packaging,
+            int packagingQuantity, float unitPrice, float kgPrice,
+            String urlThumbnail, String energy, String fats, String saturatedFatAcids, 
+            String carbohydrates, String sugar, String protein, String salt, String composition) {
+        this.ean = ean;
+        this.name = name;
+        this.brand = brand;
+        this.description = description;
+        this.format = format;
+        this.nutriscore = nutriscore;
+        this.packaging = packaging;
+        if (packaging == null) {
+            this.packaging = null;
+        }
+        this.packagingQuantity = packagingQuantity;
+        this.unitPrice = unitPrice;
+        this.kgPrice = kgPrice;
+        this.urlThumbnail = urlThumbnail;
+        this.energy = energy;
+        this.fats = fats;
+        this.saturatedFatAcids = saturatedFatAcids;
+        this.carbohydrates = carbohydrates;
+        this.sugar = sugar;
+        this.protein = protein;
+        this.salt = salt;
+        this.composition = composition;
+    }
+    
+    public Product(String ean, String name, String format, String brand, String description,
+            ProductNutriScore nutriscore, ProductConditioning packaging,
+            int packagingQuantity, float unitPrice, float kgPrice,
+            String urlThumbnail, String energy, String fats, String saturatedFatAcids, 
+            String carbohydrates, String sugar, String protein, String salt, String composition,
+            int idPromotion, float percentage, int rank) {
+        this.ean = ean;
+        this.name = name;
+        this.format = format;
+        this.brand = brand;
+        this.description = description;
+        this.nutriscore = nutriscore;
+        this.packaging = packaging;
+        this.packagingQuantity = packagingQuantity;
+        this.unitPrice = unitPrice;
+        this.kgPrice = kgPrice;
+        this.urlThumbnail = urlThumbnail;
+        this.energy = energy;
+        this.fats = fats;
+        this.saturatedFatAcids = saturatedFatAcids;
+        this.carbohydrates = carbohydrates;
+        this.sugar = sugar;
+        this.protein = protein;
+        this.salt = salt;
+        this.composition = composition;
+        this.promotions.put(new Promotion(percentage, rank), new Reduce());
     }
 
     // ----------------- GETTERS & SETTERS ------------------
