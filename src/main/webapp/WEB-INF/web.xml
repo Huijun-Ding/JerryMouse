@@ -113,6 +113,14 @@
         <servlet-class>com.jms.controller.SendEmailServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Favorites</servlet-name>
+        <jsp-file>/jsp/favorites.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>PreferenceServlet</servlet-name>
+        <servlet-class>com.jms.controller.PreferenceServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetShoppingListName</servlet-name>
         <servlet-class>com.jms.controller.GetShoppingListName</servlet-class>
     </servlet>
@@ -232,6 +240,14 @@
     <servlet-mapping>
         <servlet-name>confirmation_order</servlet-name>
         <url-pattern>/confirmationOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Favorites</servlet-name>
+        <url-pattern>/Favorites</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PreferenceServlet</servlet-name>
+        <url-pattern>/Preference</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetShoppingListName</servlet-name>
