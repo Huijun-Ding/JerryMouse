@@ -22,96 +22,111 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/Style.css"/>
+        <link rel="stylesheet" href="css/style_fav.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--> 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <title>Favoris</title>
     </head>
     <body>
 
         <div class="container-lg">
             <h1>Mes favoris</h1>
-            <div class="d-flex justify-content-center" >
+            <div class="d-flex justify-content-center mb-4" >
 
                 <%
-                    
-                    //request.setAttribute("productsList", list);
-                    Client client = (Client) session.getAttribute("client");
-                    //session.setAttribute("client", client);
-                    ArrayList<Product> list = new ArrayList<>(client.getFavoriteProducts());
-
+                    // Get the client who is logged in
+                    Client clientFav = (Client) session.getAttribute("client");
+                    // Get his/her favorite products
+                    ArrayList<Product> listFav = new ArrayList<>(clientFav.getFavoriteProducts());
                 %> 
 
                 <!--Carousel Wrapper-->
-                <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+                <div id="multi-item-example" class="carousel slide carousel-multi-item " data-ride="carousel">
 
                     <!--Controls-->
-                    <div class="controls-top">
-                        <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-                        <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
-                    </div>
+                    <a class="carousel-control-prev w-auto" href="#multi-item-example" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next w-auto" href="#multi-item-example" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                     <!--/.Controls-->
 
                     <!--Slides-->
-                    <div class="carousel-inner" role="listbox">
+                    <div class="carousel-inner " role="listbox">
 
-                        <% // Pour claque slide, creer des cards de %>
-                        <!--First slide-->
-                        <div class="carousel-item active">
+                        <% // For each slide, create cards of products
+                            int max = 4;
+                            int nbSlides = (int) Math.floorDiv(listFav.size(), max);
+                            System.out.println("nbSlides = "+nbSlides);
+                            int reste = listFav.size() % max;
+                            int n = 0;
+                            for (int i = 0; i < nbSlides; i++) {
+                                if (i == nbSlides) max = reste;
+                        %>
+                        <!--Slide-->
+                        <div class="carousel-item  <% if (i == 0) {
+                                out.println("active");
+                            } %>">
+                            <div class="row row-cols-lg-3 row-cols-xl-4 g-4">
+                                <%
+                                    for (int j = n; j < n + max; j++) {
 
+                                        // Properties of a product
+                                        Product product = listFav.get(j);
+                                        String url = product.getUrlThumbnail();
+                                        String libelle = product.getName();
+                                        String price = String.format("%.2f", product.getUnitPrice());
+                                        String priceKG = "";
+                                        if (product.getKgPrice() != 0f) {
+                                            priceKG = String.format("%.2f", product.getKgPrice());
+                                        }
 
+                                        String format = product.getFormat();
 
+                                        // Get the conditioning of the product
+                                        String conditioningType;
+                                        int conditioningVal;
+                                        if (product.getPackaging() == ProductConditioning.LOT) {
+                                            conditioningType = "lot";
+                                            conditioningVal = product.getPackagingQuantity();
+                                        } else {
+                                            conditioningType = "";
+                                            conditioningVal = 1;
+                                        }
+                                        // Get the nutriscore of the product.
+                                        ProductNutriScore nutriscore = product.getNutriscore();
 
-                            <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-4 g-4">
-                                <% for (Product product : list) { %>
-                                <div class = "col">
-                                    <div class="card h-100" >
-                                        <%  // Properties of a product
-                                            String url = product.getUrlThumbnail();
-                                            String libelle = product.getName();
-                                            String price = String.format("%.2f", product.getUnitPrice());
-                                            String priceKG = "";
-                                            if (product.getKgPrice() != 0f) {
-                                                priceKG = String.format("%.2f", product.getKgPrice());
+                                        // If there are labels for the product, get their names.
+                                        ArrayList<String> labelStrings = new ArrayList<String>();
+                                        if (!product.getLabels().isEmpty()) {
+                                            for (Label label : product.getLabels()) {
+                                                labelStrings.add(label.getDescription());
                                             }
+                                        }
 
-                                            String format = product.getFormat();
+                                        // If exists, get the current promotion on the product.  
+                                        int place = 1;
+                                        String percent = "";
+                                        for (Promotion promotion : product.getPromotions().keySet()) {
+                                            place = promotion.getRank();
+                                            int val = (int) (promotion.getPercentage() * 100);
+                                            percent = String.valueOf(val);
+                                        }
+                                %>
 
-                                            // Get the conditioning of the product
-                                            String conditioningType;
-                                            int conditioningVal;
-                                            if (product.getPackaging() == ProductConditioning.LOT) {
-                                                conditioningType = "lot";
-                                                conditioningVal = product.getPackagingQuantity();
-                                            } else {
-                                                conditioningType = "";
-                                                conditioningVal = 1;
-                                            }
-                                            // Get the nutriscore of the product.
-                                            ProductNutriScore nutriscore = product.getNutriscore();
-
-                                            // If there are labels for the product, get their names.
-                                            ArrayList<String> labelStrings = new ArrayList<String>();
-                                            if (!product.getLabels().isEmpty()) {
-                                                for (Label label : product.getLabels()) {
-                                                    labelStrings.add(label.getDescription());
-                                                }
-                                            }
-
-                                            // If exists, get the current promotion on the product.  
-                                            int place = 1;
-                                            String percent = "";
-                                            for (Promotion promotion : product.getPromotions().keySet()) {
-                                                place = promotion.getRank();
-                                                int val = (int) (promotion.getPercentage() * 100);
-                                                percent = String.valueOf(val);
-                                            }
-
-                                        %>
+                                <div class="col" >
+                                    <div class="card h-100 mb-2">
                                         <img class="img-thumbnail" src="<%= url%>" alt="alt"/>
                                         <div class="card-body">
-                                            <a id="addProduct" href="AddProductServlet?ean=<%= product.getEan()%>" class="stretched-link"></a> 
+                                            <a id="addProduct" href="" class="stretched-link"></a> 
                                             <h6 class="card-title "><%= libelle%></h6>
                                             <!-- subtitle -->
                                             <h8 class="card-subtitle mb-1 text-muted">
@@ -133,21 +148,21 @@
                                             </h8>
                                             <!-- nutriscore -->
                                             <% if (nutriscore != null) {%>
-                                            <div><img src="img/Nutri-score-<%= nutriscore%>.svg" width="50px" alt="alt"/></div>
+                                            <div class="d-inline-block mx-2"><img class="img-fluid" width="60px" src="img/Nutri-score-<%= nutriscore%>.svg" alt="alt"/></div>
                                                 <% }%>
 
                                             <!-- labels -->
                                             <% if (!labelStrings.isEmpty()) { %>
-                                            <div class="row">
+                                            <div class="d-inline-flex">
                                                 <% for (String labelString : labelStrings) {%>
-                                                <div class="btn btn-outline-warning"><%= labelString + " LABEL_HERE "%></div>
+                                                <div class=" btn btn-outline-warning " disabled ><%= labelString %></div>
                                                 <% }%>
                                             </div> 
                                             <% }%>
 
                                             <!-- promotions -->
                                             <% if (percent != "") {%>
-                                            <div class="">
+                                            <div class="d-inline-flex ">
                                                 <div class="btn btn-outline-danger">
                                                     <%= "-" + percent + "%"%>
                                                     <% String infoPromo = "";
@@ -158,7 +173,6 @@
                                                 </div>
                                             </div> 
                                             <% }%>
-
 
                                         </div>
                                         <!-- footer (price, button) -->
@@ -173,13 +187,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <% }%>
 
-                            </div>
+                                <% 
+                                    }
+                                    n += max;
+                                %>
+                            </div> <!-- end row -->
                         </div>
+                        <% }%>
                     </div>
                 </div>
             </div>
             <script type="text/javascript" src="js/quantityProduct.js"></script>
+            <script type="text/javascript" src="js/favorites.js"></script>
     </body>
 </html>
