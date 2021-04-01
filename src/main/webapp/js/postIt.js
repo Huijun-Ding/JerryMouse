@@ -21,9 +21,9 @@ function showPostIts() {
                 pbrand = postItLine.getElementsByTagName("pbrand")[0].firstChild.nodeValue;
 
                 if (name === "") {
-                    elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + pname + " " + pbrand + "<p class='text-end'><i class='fas fa-search-plus' value='" + pname + "'></i>");
+                    elt.insertAdjacentHTML("beforeend", "<li class='list-group-item' value='" + code + "'>" + pname + " " + pbrand + "</i>");
                 } else {
-                    elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + name + "<p class='text-end'><i class='fas fa-search-plus' value='" + name + "'></i>");
+                    elt.insertAdjacentHTML("beforeend", "<li class='list-group-item' value='" + code + "'>" + name + "</i>");
                 }
             }
         }
@@ -50,10 +50,14 @@ function showShoppingListName() {
 }
 
 function sendAddPostItRequest() {
-    var xhr = new XMLHttpRequest();
 
     var id = window.location.search.substr(8);
     var name = document.getElementById("input_post_it").value;
+
+    if (name !== "") {
+        var xhr = new XMLHttpRequest();
+    }
+
     xhr.open("GET", "AddPostItServlet?id=" + id + "&name=" + name);
 
     xhr.onload = function ()
@@ -61,6 +65,28 @@ function sendAddPostItRequest() {
         if (xhr.status === 200)
         {
             alert("Post-it ajouté !");
+            window.location.reload();
+        }
+    };
+    xhr.send();
+}
+
+function sendAddPostItProductRequest() {
+    var xhr = new XMLHttpRequest();
+
+//    var idsl = window.location.search.substr(8);
+    var idsl = "5";
+    var idp = "P7";
+
+    if (idp !== "") {
+        xhr.open("GET", "AddPostItProductServlet?idsl=" + idsl + "&idp=" + idp);
+    }
+
+    xhr.onload = function ()
+    {
+        if (xhr.status === 200)
+        {
+            alert("Produit ajouté !");
             window.location.reload();
         }
     };
@@ -75,6 +101,14 @@ document.addEventListener("DOMContentLoaded", () => {
         window.attachEvent('onload', showPostIts); //IE
         window.attachEvent('onload', showShoppingListName);
     }
-    
-    document.getElementById("submit_post_it").addEventListener("click", sendAddPostItRequest);
+
+    var p = document.getElementById("submit_pt_product");
+    if (p !== null) {
+        p.addEventListener("click", sendAddPostItProductRequest);
+    }
+
+    var pt = document.getElementById("submit_post_it");
+    if (pt !== null) {
+        pt.addEventListener("click", sendAddPostItRequest);
+    }
 });

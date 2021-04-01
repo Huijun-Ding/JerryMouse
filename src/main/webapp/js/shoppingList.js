@@ -23,12 +23,12 @@ function sendShoppingListName() {
 
 document.addEventListener("DOMContentLoaded", () => {
     var btn = document.getElementById("shopping_list_button");
-    if (btn != null) {
+    if (btn !== null) {
         btn.addEventListener("click", displayShoppingLists);
     }
 
     var el = document.getElementById("add_sl");
-    if (el != null) {
+    if (el !== null) {
         el.addEventListener("click", sendShoppingListName);
     }
 });
