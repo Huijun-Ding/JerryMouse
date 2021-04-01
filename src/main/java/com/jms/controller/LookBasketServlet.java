@@ -6,8 +6,6 @@ import com.jms.dao.PromotionDAO;
 import com.jms.model.Basket;
 import com.jms.model.Client;
 import com.jms.model.Product;
-import com.jms.model.ProductConditioning;
-import com.jms.model.ProductNutriScore;
 import com.jms.model.Promotion;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,7 +24,7 @@ import java.text.NumberFormat;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * LookBasketServlet Class.
  * @author Jerry Mouse Software.
  */
 public class LookBasketServlet extends HttpServlet {
@@ -39,6 +37,8 @@ public class LookBasketServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws SQLException exception that provides information on a database 
+     * access error or other errors.
      */
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
@@ -53,14 +53,14 @@ public class LookBasketServlet extends HttpServlet {
             out.println("<pageBasket>");
             out.println("<basket>");
 
-            // ------ INFO CLIENT ------------------
+            // ------ GET INFO CLIENT ------------------
             Client client = (Client) session.getAttribute("client");
 
             // ------ INFO BASKET / PRODUCT CLIENT ---------
             // search basket for client
             List<Basket> lstBasket = BasketDAO.loadBasket(client.getCode());
 
-            // search products in basket and add to a list
+            // search products in THE basket and add to a map
             String eanp = "";
             Map<Product, Integer> productQty = new HashMap<>();
             for (Basket basket : lstBasket) {
@@ -85,7 +85,7 @@ public class LookBasketServlet extends HttpServlet {
                 String promo = "";
                 float discountProd = 0f;
 
-                // convert to percentage
+                // convert the discount to percentage
                 NumberFormat nt = NumberFormat.getPercentInstance();
                 nt.setMinimumFractionDigits(2);
 
@@ -94,6 +94,7 @@ public class LookBasketServlet extends HttpServlet {
                     priceAfterFloat = BasketDAO.calculPriceUnitaryAfterPromo(
                             product.getUnitPrice(), promotion.getPercentage());
                     priceAfterString = String.format("%.2f", priceAfterFloat);
+                    
                     promo = String.valueOf(nt.format(promotion.getPercentage()));
                     discountProd = BasketDAO.calculMontReductionProduit(
                             product.getUnitPrice(), promotion.getPercentage());
@@ -114,7 +115,6 @@ public class LookBasketServlet extends HttpServlet {
                 // total price of a product in basket
                 float totalPriceProduct = BasketDAO.calculPriceTotalProduct(
                         quantityProd, priceAfterFloat);
-
                 prices.add(totalPriceProduct);
 
                 out.println("<product>");
@@ -134,13 +134,13 @@ public class LookBasketServlet extends HttpServlet {
             }
             out.println("</basket>");
 
-            // calcul total price of basket
+            // calculate total price of basket
             float total = BasketDAO.calculPriceTotal(prices);
 
             // calculate total discount for all products
             float totalDiscount = BasketDAO.calculPriceTotal(discount);
 
-            // calculer points got
+            // calculate points got for this order
             int pointsGot = BasketDAO.calculPointsGot(total);
             int pointFinal;
             int pointF = client.getFidelityPoints()/10;
@@ -153,10 +153,11 @@ public class LookBasketServlet extends HttpServlet {
                     total = 0;
                 }
             }
+            
             pointFinal = pointF + pointsGot;
             session.setAttribute("pointFinal", pointFinal);
             session.setAttribute("total", total);
-            // get info client via hibernate
+            
             out.println("<client>");
             out.println("<pointsGot>" + pointsGot + "</pointsGot>");
             out.println("<pointsCumulative>" + client.getFidelityPoints()
