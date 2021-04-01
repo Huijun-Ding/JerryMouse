@@ -100,7 +100,7 @@ public class ShoppingListDAO {
             query.setParameter("id", idShoppinglist);
 
             List<PostIt> lstPostIts = query.list();
-            lstPostIts.forEach(System.out::println);
+            //lstPostIts.forEach(System.out::println);
 
             t.commit(); // Commit et flush automatique de la session.
             return lstPostIts;
@@ -111,7 +111,11 @@ public class ShoppingListDAO {
         // Test
         // ShoppingListDAO.saveShoppingList("cooktail");
         // ShoppingListDAO.getMyShoppingLists(2); 
-//        ShoppingListDAO.getPostIts(5);
+        List<PostIt> lstPostIts = ShoppingListDAO.getPostIts(5);
+        for (PostIt lstPostIt : lstPostIts) {
+            if(lstPostIt.getProduct() != null)
+                System.out.println("Product name : " + lstPostIt.getProduct().getName());
+        }
         //ShoppingListDAO.getShoppingList(5);
 
         // Exit
