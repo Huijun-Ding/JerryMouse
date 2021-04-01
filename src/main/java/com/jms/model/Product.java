@@ -186,12 +186,14 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public Product(String ean, String name, String format,
+    public Product(String ean, String name, String format,String brand, String description,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail) {
         this.ean = ean;
         this.name = name;
+        this.brand = brand;
+        this.description = description;
         this.format = format;
         this.nutriscore = nutriscore;
         this.packaging = packaging;
@@ -204,13 +206,15 @@ public class Product implements Serializable {
         this.urlThumbnail = urlThumbnail;
     }
 
-    public Product(String ean, String name, String format,
+    public Product(String ean, String name, String format,String brand, String description,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail, int idPromotion, float percentage, int rank) {
         this.ean = ean;
         this.name = name;
         this.format = format;
+        this.brand = brand;
+        this.description = description;
         this.nutriscore = nutriscore;
         this.packaging = packaging;
         this.packagingQuantity = packagingQuantity;
