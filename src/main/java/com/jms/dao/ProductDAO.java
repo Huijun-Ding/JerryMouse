@@ -8,7 +8,6 @@ package com.jms.dao;
 import com.jms.model.Client;
 import com.jms.model.Order;
 import com.jms.model.Product;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -194,14 +193,13 @@ public class ProductDAO {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
-            Query query = session.createQuery("SELECT DISTINCT new com.jms.model.Product(p.ean, p.name, p.format, p.nutriscore, p.packaging, p.packagingQuantity, p.unitPrice, p.kgPrice, p.urlThumbnail) FROM Produit p WHERE p.name LIKE :p");
-
+            Query query = session.createQuery("FROM Produit p WHERE p.name LIKE :p");
             query.setParameter("p", "%" + lib + "%");
 
             List<Product> lstProducts = query.list();
 
             for (int i = 0; i < lstProducts.size(); i++) {
-                System.out.println(lstProducts.get(i).getName());
+                System.out.println("product"+lstProducts.get(i));
             }
 
             t.commit();
@@ -227,16 +225,17 @@ public class ProductDAO {
                     }
                 }
             }
+            System.out.println(history);
 
-            lstp.retainAll(history);
-            System.out.println(lstp);
+            history.retainAll(lstp);
+            System.out.println("getProductByHistory"+history);
 
             t.commit();
 
-            if (lstp.size() >= 1) {
-                return lstp.get(0);
+            if (history.size() >= 1) {
+                return history.get(0);
             } else {
-                return new Product();
+                return null;
             }
         }
     }
@@ -289,7 +288,7 @@ public class ProductDAO {
 
         //System.out.println(getProductByPref());
         //ProductDAO.returnSrearchResult("Cafés");
-        getProductsByName("fruit");
+        System.out.println(" main "+getProductsByName("Chocolat au lait").get(0));
 
         /*----- Exit -----*/
         System.exit(0);
