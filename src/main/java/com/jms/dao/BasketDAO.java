@@ -168,12 +168,12 @@ public class BasketDAO {
             int qtePanier = Integer.valueOf(query1.list().get(0).toString());
             
             // update the quantity of product
-            Query query = session.createSQLQuery("UPDATE Panier SET qtePanier= :nb "
+                Query query = session.createSQLQuery("UPDATE Panier SET qtePanier= :nb "
                     + "WHERE EANP= :ean and CodeCL= :codeCL");
-            query.setParameter("codeCL", idClient);
-            query.setParameter("ean", ean);
+                query.setParameter("codeCL", idClient);
+                query.setParameter("ean", ean);
             query.setParameter("nb", qtePanier - 1);
-            
+
             int nb = query.executeUpdate();
             t.commit(); // Commit et flush automatique de la session.
             return nb;
@@ -188,6 +188,25 @@ public class BasketDAO {
             
             // get the quantity of product
             Query query = session.createSQLQuery("DELETE FROM `Panier` WHERE CodeCL = :codeCL");
+            query.setParameter("codeCL", idClient);
+
+            int nb = query.executeUpdate();
+            
+            t.commit(); // Commit et flush automatique de la session.
+            return nb;
+        }
+    }
+    
+    // delet basket where qty = 0
+    public static int deleteBasketZero(int idClient) throws SQLException{
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            
+            // get the quantity of product
+            Query query = session.createSQLQuery("DELETE FROM Panier "
+                    + "WHERE CodeCL = :codeCL "
+                    + "and qtePanier = 0");
             query.setParameter("codeCL", idClient);
 
             int nb = query.executeUpdate();
@@ -245,7 +264,8 @@ public class BasketDAO {
 //            System.out.println(BasketDAO.updateBasket(1, "P3"));
 //            System.out.println(calculNbProduct(2));
 //            System.out.println(BasketDAO.deleteBasket(2));
-            System.out.println(BasketDAO.checkQtyProd(2, "P10"));
+//            System.out.println(BasketDAO.checkQtyProd(2, "P10"));
+            System.out.println(BasketDAO.deleteBasketZero(15));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } 
