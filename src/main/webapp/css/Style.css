@@ -14,6 +14,7 @@ html, body {
 
 .quantity{
     width: 30px;
+    text-align: center;
 }
 
 #stores_list {
@@ -160,4 +161,32 @@ html, body {
 
 #time_slots_list > button {
     width: 147px;
+}
+#tab_confirm{
+    width:75%;
+    margin: 0px auto;
+}
+
+i.far {
+    color: #6610f2;
+}
+
+th{
+    color: #6610f2 !important;
+}
+
+#th1, #td1{
+    text-align: right;
+    vertical-align: text-top;
+    padding-right: 7px; 
+}
+
+#th2, #td2{
+    text-align: left;
+    vertical-align: text-top;
+    padding-left: 7px; 
+}
+
+#confirm_body{
+    text-align: center;
 }

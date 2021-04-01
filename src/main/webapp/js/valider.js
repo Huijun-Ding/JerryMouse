@@ -10,6 +10,7 @@
 function validate() {
     // Objet XMLHttpRequest.
     var xhr = new XMLHttpRequest();
+
 //    idClient = document.getElementById("idClient").value;
 //    idStore = document.getElementById("idStore").value;
 //    startTime = document.getElementById("startTime").value;

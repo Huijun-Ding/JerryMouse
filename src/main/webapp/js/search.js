@@ -80,6 +80,7 @@ function searchProductsBySuggestion() {
     {
         if (xhr.status === 200)
         {
+            window.location.href = "index";
             document.getElementById('view').src = "SendSearchRequestServlet?keyword=" + myinput;
             document.getElementById("search_result").innerHTML = "";
         }

@@ -34,7 +34,7 @@ function displayCreateShoppingList() {
 document.addEventListener("DOMContentLoaded", () => {
 
     var sl = document.getElementById("add_new_sl");
-    if (sl != null) {
+    if (sl !== null) {
         sl.addEventListener("click", displayCreateShoppingList);
     }
 

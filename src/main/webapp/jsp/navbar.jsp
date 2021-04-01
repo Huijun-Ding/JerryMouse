@@ -57,7 +57,7 @@
 
         <div id="search_bar">
             <form>
-                <div class="input-group input-group">
+                <div class="input-groupinput-group-lg">
                     <input id="search" type="search" class="form-control" placeholder="Rechercher un produit ...">
                     <div class="input-group-append">
                         <button type="button" class="btn btn-primary" id="search_button">

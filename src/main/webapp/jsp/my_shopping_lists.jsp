@@ -26,7 +26,7 @@
             <div class="btn-group w-50">
                 <button type="button" class="btn btn-primary" id="add_new_sl">
                     <div class="d-flex flex-column">
-                        <span class="far fa-clipboard"></span> Créer une nouvelle shopping liste
+                        <span class="far fa-clipboard"></span> Créer une nouvelle liste de courses
                     </div>
                 </button>
                 <button type="button" id="import_shopping_list" class="btn btn-primary" data-toggle="modal" data-target="#import_list_file">

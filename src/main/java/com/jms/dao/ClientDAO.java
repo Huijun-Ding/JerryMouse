@@ -7,6 +7,7 @@ package com.jms.dao;
 
 import com.jms.model.Basket;
 import com.jms.model.Client;
+import java.text.ParseException;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -46,27 +47,28 @@ public class ClientDAO {
 
     /**
      * Get the object client by the email and the password
+     *
      * @param email
      * @param password
-     * @return 
+     * @return
      */
-    public static Client getByEmailPassword(String email, String password){
+    public static Client getByEmailPassword(String email, String password) {
         Client client;
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             /*----------------Ouverture d'une transaction---------*/
             Transaction t = session.beginTransaction();
-            Query query = session.createQuery( "from Client c "
+            Query query = session.createQuery("from Client c "
                     + "where c.email = :email "
                     + "and c.password = :password");
-            
+
             query.setParameter("email", email);
             query.setParameter("password", password);
-            List <Client> lstClients = query.list(); 
+            List<Client> lstClients = query.list();
             client = lstClients.get(0);
-        } 
-        return client; 
+        }
+        return client;
     }
-    
+
     /**
      * Create a new client in the database
      */
@@ -89,7 +91,7 @@ public class ClientDAO {
      *
      * @param id
      */
-    public static void load(int id) {
+    public static Client load(int id) {
         // Open a session
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
@@ -97,6 +99,10 @@ public class ClientDAO {
 
             System.out.println("----------Client------------");
             System.out.println(c.getLastName() + " " + c.getFirstName() + " " + c.getEmail() + " " + c.getFidelityPoints());
+            
+            session.update(c);
+            
+            return c;
         }
     }
 
@@ -118,11 +124,29 @@ public class ClientDAO {
             return client;
         }
     }
+    
+        public static void updatePoint(Client client, int point) throws ParseException {
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            // Make the client persistent
+            session.update(client);
+            // Update the points for the client
+            client.setFidelityPoints(point);
+            // Save the client in DB
+            session.save(client);
+            // Update in DB
+            session.update(client);
+            // Commit all the changes
+            t.commit();
+            // Close session
+            session.close();
+        }
+    }
 
     public static void main(String[] args) {
         // test for method searchClient
         System.out.println(ClientDAO.searchClient(1));
-        
+
         //create();
         load(2);
         boolean res = authenticate("rc@gmail.com", "rm123");
