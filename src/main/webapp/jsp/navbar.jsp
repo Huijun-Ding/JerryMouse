@@ -60,7 +60,7 @@
                 <div class="input-group input-group-lg">
                     <input id="search" type="search" class="form-control" placeholder="Rechercher un produit ...">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-primary" id="search_button">
+                        <button type="button" class="btn btn-primary h-100" id="search_button">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
