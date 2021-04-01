@@ -5,23 +5,12 @@
  */
 package com.jms.controller;
 
-import com.jms.dao.StoreDAO;
 import com.jms.model.PostIt;
-import com.jms.model.ShoppingList;
-import com.jms.model.Store;
 import com.jms.util.FileUtil;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -35,12 +24,8 @@ import org.apache.commons.io.FileUtils;
  *
  * @author axelt
  */
-
 @MultipartConfig
 public class UploadShoppingFileServlet extends HttpServlet {
-
-    private final static Logger LOGGER
-            = Logger.getLogger(UploadShoppingFileServlet.class.getCanonicalName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,43 +37,52 @@ public class UploadShoppingFileServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request,
-            HttpServletResponse response)
+            final HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/xml;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
         // Create path components to save the file
         final Part filePart = request.getPart("file");
         final String fileName = filePart.getSubmittedFileName();
-        final File file = new File(fileName);
-        
-        // commons-io
-        FileUtils.copyInputStreamToFile(filePart.getInputStream(), file);
 
-        try(PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             out.println("<?xml version=\"1.0\"?>");
-            
-            String nameList = request.getParameter("nameList");
-            out.println("<shoppingList>");
-            
-            out.println("   <nameList><![CDATA[" + nameList + "]]></nameList>");
-            
-            Set<PostIt> postIts = FileUtil.importPostItsFromFile(file);
-            
-            for (PostIt p : postIts) {
-                out.println("   <postIt>");
-                out.println("       <wording><![CDATA[" + p.getWording() + "]]></wording>");
-                out.println("   </postIt>");
-            }
 
-            out.println("</shoppingList>");
-        } catch(Exception ex) {
-            try(PrintWriter out = response.getWriter()) {
+            if (!fileName.endsWith("txt") && !fileName.endsWith("csv")) {
+                out.println("<msg_error>\n");
+                out.println("   <title><![CDATA[Erreur de format !]]></title>\n");
+                out.println("   <content><![CDATA[Ce type de fichier n\'est pas pris en charge.]]></content>\n");
+                out.println("</msg_error>");
+            } else {
+                final File file = new File(fileName);
+
+                // commons-io
+                FileUtils.copyInputStreamToFile(filePart.getInputStream(), file);
+
+                String nameList = request.getParameter("nameList");
+                out.println("<shoppingList>");
+
+                out.println("   <nameList><![CDATA[" + nameList + "]]></nameList>");
+
+                Set<PostIt> postIts = FileUtil.importPostItsFromFile(file);
+
+                for (PostIt p : postIts) {
+                    out.println("   <postIt>");
+                    out.println("       <wording><![CDATA[" + p.getWording()
+                            + "]]></wording>");
+                    out.println("   </postIt>");
+                }
+
+                out.println("</shoppingList>");
+            }
+        } catch (Exception ex) {
+            try ( PrintWriter out = response.getWriter()) {
                 out.println("<msg_error>" + ex.getMessage() + "</msg_error>");
             }
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -127,9 +121,4 @@ public class UploadShoppingFileServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private ShoppingList importPostItsFromFile(File file) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
