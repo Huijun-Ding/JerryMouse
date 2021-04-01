@@ -81,7 +81,7 @@
         <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>MyShoppinglLists</servlet-name>
+        <servlet-name>MyShoppingLists</servlet-name>
         <jsp-file>/jsp/my_shopping_lists.jsp</jsp-file>
     </servlet>
     <servlet>
@@ -210,7 +210,7 @@
         <url-pattern>/Connect</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MyShoppinglLists</servlet-name>
+        <servlet-name>MyShoppingLists</servlet-name>
         <url-pattern>/myShoppingLists</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
