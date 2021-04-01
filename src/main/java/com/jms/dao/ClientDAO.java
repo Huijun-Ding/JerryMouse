@@ -91,7 +91,7 @@ public class ClientDAO {
      *
      * @param id
      */
-    public static void load(int id) {
+    public static Client load(int id) {
         // Open a session
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
@@ -99,6 +99,10 @@ public class ClientDAO {
 
             System.out.println("----------Client------------");
             System.out.println(c.getLastName() + " " + c.getFirstName() + " " + c.getEmail() + " " + c.getFidelityPoints());
+            
+            session.update(c);
+            
+            return c;
         }
     }
 
