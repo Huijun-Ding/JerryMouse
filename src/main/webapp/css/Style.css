@@ -190,3 +190,8 @@ th{
 #confirm_body{
     text-align: center;
 }
+
+#output {
+    position: absolute;
+    width: 319px;
+}
