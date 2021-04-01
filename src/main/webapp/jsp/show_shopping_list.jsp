@@ -33,7 +33,7 @@
                     <div class="btn-group-vertical">
                         <button type="button" id="valide_add_pt" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_post_it">Ajouter un post-it dans cette liste</button>
                         <button type="button" id="valide_add_article" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_article">Ajouter un article dans cette liste</button>
-                        <button type="button" id="list_to_panier" class="btn btn-outline-primary">Transformer ma liste en panier</button>
+                        <button type="button" id="list_to_panier" class="btn btn-outline-primary">Transformer ma liste en panier</button>                      
                     </div>
                 </div>
             </div>
@@ -79,6 +79,21 @@
                     </div>
                 </div>
             </div> 
+            
+            
+            <div class="modal" tabindex="-1" id="transferer">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Message</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="modaltransferer" ></p>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </div>
 
         <script src="js/postIt.js"></script>
@@ -86,5 +101,6 @@
         <script src="js/stores.js"></script>
         <script src="js/time_slots.js"></script>
         <script src="js/basket.js"></script>
+        <script src="js/transferer.js"></script>
     </body>
 </html>
