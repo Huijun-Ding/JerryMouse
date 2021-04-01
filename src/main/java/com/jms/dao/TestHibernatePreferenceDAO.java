@@ -24,7 +24,7 @@ public class TestHibernatePreferenceDAO {
         Client clientUp = PreferenceDAO.getFavoriteProducts(client);
 
         System.out.println("---- CLIENT UPDATED (OUT) ----");
-        //System.out.println(clientUp.getFavoriteProducts());
+        System.out.println(clientUp.getFavoriteProducts().size());
         for (Product favoriteProduct : clientUp.getFavoriteProducts()) {
             System.out.println("" + favoriteProduct);
         }
