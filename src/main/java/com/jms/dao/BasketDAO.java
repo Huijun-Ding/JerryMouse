@@ -1,18 +1,8 @@
 package com.jms.dao;
 
 import com.jms.model.Basket;
-import com.jms.model.Client;
-import com.jms.model.Product;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,6 +13,12 @@ import org.hibernate.query.Query;
  * @author Jerry Mouse Software.
  */
 public class BasketDAO {    
+    /**
+     * Search all products in the Basket of a customer.
+     * @param CodeCL id of customer.
+     * @return int.
+     * @throws SQLException.
+     */
     public static List<Basket> loadBasket(int CodeCL) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -40,16 +36,20 @@ public class BasketDAO {
         }
     }
     
+    /**
+     * Calculate the quantity of products in the basket of the customer.
+     * @param CodeCL id of the customer.
+     * @return int.
+     * @throws SQLException.
+     */
     public static int calculNbProduct(int CodeCL) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Query query = session.createQuery("from Panier where CodeCL = :code");
-
             query.setParameter("code", CodeCL);
-
             List<Basket> lstBasket = query.list();
-//            lstBasket.forEach(System.out::println);
+            
             int nb = 0;
             if(!lstBasket.isEmpty()){
                     nb = lstBasket.stream().map(basket -> basket.getQtyBasket()).reduce(nb, Integer::sum);
@@ -59,22 +59,41 @@ public class BasketDAO {
         }
     }
     
-    // calculer le prix avec promotion : produit sans promo?
+    /**
+     * Calculate the unitary price with discount of a product.
+     * @param price the initial price of a product.
+     * @param percentage the percentage of discount.
+     * @return float.
+     */
     public static float calculPriceUnitaryAfterPromo(float price, float percentage) {
         return price * (1 - percentage);
     }
     
-    // calculer le montant de reduction d'un produit
+    /**
+     * Calculate total discount for a product.
+     * @param price the initial price of a product.
+     * @param percentage the percentage of discount.
+     * @return float.
+     */
     public static float calculMontReductionProduit(float price, float percentage) {
         return price * percentage;
     }
 
-    // calculer le prix total avec promotion pour chaque produit 
+    /**
+     * Calculate the total price of a product.
+     * @param quantity the quantity of a product in the basket.
+     * @param price the price with discount of a product.
+     * @return float.
+     */
     public static float calculPriceTotalProduct(int quantity, float price) {
         return price * quantity; 
     }
     
-    // calculer le prix total final
+    /**
+     * Calculate the total price of all products in a basket.
+     * @param prices a list of the price with discount of all products.
+     * @return float.
+     */
     public static float calculPriceTotal(ArrayList<Float> prices) {
         float sum = 0f;
         for(int i = 0; i<prices.size(); i++){
@@ -83,12 +102,22 @@ public class BasketDAO {
         return sum; 
     }
     
-    // calculate points got
+    /**
+     * Calculate the points got of an order.
+     * @param priceTotal.
+     * @return int.
+     */
     public static int calculPointsGot(float priceTotal) {
         return (int)priceTotal/10; 
     }
     
-    // check if a product is in basket of a client
+    /**
+     * Check if a product is already in the basket.
+     * @param idClient.
+     * @param ean.
+     * @return boolean.
+     * @throws SQLException.
+     */
     public static boolean checkProductBakset(int idClient, String ean) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -111,7 +140,12 @@ public class BasketDAO {
         }
     }
     
-    // add product to basket
+    /**
+     * Add product to basket.
+     * @param idClient id of the customer.
+     * @param ean id of a product.
+     * @throws SQLException. 
+     */
     public static void addProductToBasket(int idClient, String ean) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -129,6 +163,13 @@ public class BasketDAO {
     }
     
     // add a product
+    /**
+     * Add a product to the basket.
+     * @param idClient id of a customer.
+     * @param ean id of a product.
+     * @return int
+     * @throws SQLException 
+     */
     public static int updateBasket(int idClient, String ean) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -155,6 +196,14 @@ public class BasketDAO {
     }
     
     // qtyprod - 1
+    /**
+     * Update the quantity of a product in the basket if the number of products
+     * is reduced by one.
+     * @param idClient id of a customer.
+     * @param ean id of a product.
+     * @return int.
+     * @throws SQLException 
+     */
     public static int updateBasketMinus(int idClient, String ean) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -181,6 +230,13 @@ public class BasketDAO {
     }
     
     // update a basket
+    /**
+     * Update the quantity of a product in the basket if the number of products
+     * plus one.
+     * @param idClient id of a customer.
+     * @return int.
+     * @throws SQLException 
+     */
     public static int deleteBasket(int idClient) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -197,7 +253,12 @@ public class BasketDAO {
         }
     }
     
-    // delet basket where qty = 0
+    /**
+     * Delete the product if the quantity is 0.
+     * @param idClient id of a customer.
+     * @return int.
+     * @throws SQLException. 
+     */
     public static int deleteBasketZero(int idClient) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -217,6 +278,13 @@ public class BasketDAO {
     }
     
     // check quantity of prod dans le panier
+    /**
+     * Check the quantity of prod in the basket.
+     * @param CodeCL id of a customer.
+     * @param ean id of a product.
+     * @return int.
+     * @throws SQLException. 
+     */
     public static int checkQtyProd(int CodeCL, String ean) throws SQLException{
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
