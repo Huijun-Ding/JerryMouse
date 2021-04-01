@@ -57,6 +57,7 @@ public class EditQuantityServlet extends HttpServlet {
                     if (method.equals("m")) {
                         if (qtyProdBefore > 0) {
                             BasketDAO.updateBasketMinus(client.getCode(), ean);
+                            BasketDAO.deleteBasketZero(client.getCode());
                             qtyProdAfter -= 1;
                             out.println("<msg>ok</msg>");
                             out.println("<res>" + qtyProdAfter + "</res>");
