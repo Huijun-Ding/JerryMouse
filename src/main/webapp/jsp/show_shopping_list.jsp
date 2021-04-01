@@ -33,7 +33,6 @@
                     <div class="btn-group-vertical">
                         <button type="button" id="valide_add_pt" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_post_it">Ajouter un post-it dans cette liste</button>
                         <button type="button" id="valide_add_article" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_article">Ajouter un article dans cette liste</button>
-                        <button type="button" id="import_shopping_list" class="btn btn-outline-primary" data-toggle="modal" data-target="#import_list_file">Importer une liste de course</button>
                         <button type="button" id="list_to_panier" class="btn btn-outline-primary">Transformer ma liste en panier</button>
                     </div>
                 </div>
@@ -62,7 +61,7 @@
                 </div>
             </div>
 
-<!--            <div class="modal" tabindex="-1" id="add_article">
+            <div class="modal" tabindex="-1" id="add_article">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -70,45 +69,16 @@
                             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Veuillez rechercher l'article : </p>
-                            <form>
-                                <div class="input-group input-group">
-                                    <input id="search" type="search" class="form-control" placeholder="Rechercher un produit ...">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-primary" id="search_button">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                            <input id="search_products" type="search" class="form-control" placeholder="Saisir le nom de produit ici ...">
+                            <ul id="products_list"></ul>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">Valider</button>
+                            <button type="button" class="btn btn-primary"id="submit_pt_product">Valider</button>
                         </div>
                     </div>
                 </div>
-            </div>-->
-
-            <div class="modal" tabindex="-1" id="import_list_file">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Importer un fichier</h5>
-                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>S&aacute;lectionner un fichier : </p>
-                            <input type="file" class="form-control w-30 p-40 h-25" class="post_it" width="50">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">Valider</button>
-                        </div>
-                    </div>
-                </div>
-            </div>    
-
+            </div> 
         </div>
 
         <script src="js/postIt.js"></script>

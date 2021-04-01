@@ -31,7 +31,7 @@ public class ShoppingListDAO {
     }
 
     public static List<ShoppingList> getMyShoppingLists(int idClient) throws SQLException {
-        /*----- Ouverture de la session -----*/
+        
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Query query = session.createQuery("from ListeCourse where CodeCL = :id");

@@ -81,10 +81,6 @@
         <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>SendEmail</servlet-name>
-        <servlet-class>com.jms.controller.SendEmail</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MyShoppinglLists</servlet-name>
         <jsp-file>/jsp/my_shopping_lists.jsp</jsp-file>
     </servlet>
@@ -127,6 +123,14 @@
     <servlet>
         <servlet-name>AddPostItServlet</servlet-name>
         <servlet-class>com.jms.controller.AddPostItServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPostItProductServlet</servlet-name>
+        <servlet-class>com.jms.controller.AddPostItProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>transferProductServlet</servlet-name>
+        <servlet-class>com.jms.controller.transferProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -197,10 +201,6 @@
         <url-pattern>/navbar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SendEmail</servlet-name>
-        <url-pattern>/SendEmail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
         <url-pattern>/Connect</url-pattern>
@@ -252,6 +252,14 @@
     <servlet-mapping>
         <servlet-name>AddPostItServlet</servlet-name>
         <url-pattern>/AddPostItServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPostItProductServlet</servlet-name>
+        <url-pattern>/AddPostItProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>transferProductServlet</servlet-name>
+        <url-pattern>/transferProductServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
