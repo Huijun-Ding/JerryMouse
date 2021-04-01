@@ -32,8 +32,10 @@
     <body>
 
         <% if ((session.getAttribute("client") != null) && request.getParameterMap().containsKey("home")) { %>
+        <% Client client = (Client) session.getAttribute("client");
+            if (!client.getFavoriteProducts().isEmpty()) { %>
         <%@include file="favorites.jsp" %>
-        <% } %>
+        <% }} %>
         
         <div class="container-lg">
             <h1><% if (request.getParameterMap().containsKey("home")) out.println("Promotions"); %></h1>
