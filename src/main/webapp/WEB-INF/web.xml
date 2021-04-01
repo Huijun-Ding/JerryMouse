@@ -132,6 +132,10 @@
         <servlet-name>transferProductServlet</servlet-name>
         <servlet-class>com.jms.controller.transferProductServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetPostItProductServlet</servlet-name>
+        <servlet-class>com.jms.controller.GetPostItProductServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -260,6 +264,10 @@
     <servlet-mapping>
         <servlet-name>transferProductServlet</servlet-name>
         <url-pattern>/transferProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetPostItProductServlet</servlet-name>
+        <url-pattern>/GetPostItProductServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
