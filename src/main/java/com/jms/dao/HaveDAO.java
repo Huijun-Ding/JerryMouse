@@ -18,7 +18,7 @@ import org.hibernate.query.Query;
 
 /**
  *
- * @author RAKOTOARISOA
+ * @author JerryMouseSoftware
  */
 public class HaveDAO {
 
@@ -27,7 +27,12 @@ public class HaveDAO {
     private static final SimpleDateFormat DF = new SimpleDateFormat(format);
 
     /**
-     *
+     * Create and save a new Have object
+     * @param startTime
+     * @param storeId
+     * @param date
+     * @param capacity
+     * @throws ParseException 
      */
     public static void create(String startTime, int storeId, String date, int capacity) throws ParseException {
         //Open a session
@@ -43,12 +48,16 @@ public class HaveDAO {
             t.commit();
         }
     }
-
+    
+    /**
+     * Initialize the insertion into table Avoir
+     * @throws ParseException 
+     */
     public static void initialize() throws ParseException {
-        int[] storeIds = new int[]{15, 19, 38, 40};
+        int[] storeIds = new int[]{40, 28};
 
         for (int storeId : storeIds) {
-            for (Date d : DateUtil.nextDays(4)) {
+            for (Date d : DateUtil.nextDays(8)) {
                 int hour = 7;
                 String minutes = "30";
                 int minCapacite = 0;
@@ -91,7 +100,7 @@ public class HaveDAO {
     }
 
     /**
-     *
+     *Get the timeslot by idStore and the date
      * @param storeId
      * @param date
      * @return
@@ -116,7 +125,13 @@ public class HaveDAO {
             return query.list();
         }
     }
-
+    /**
+     * Get an object Have with the storeId, a date and a start time
+     * @param storeId
+     * @param datePickUp
+     * @param startTime
+     * @return 
+     */
     public static Have getHave(int storeId, Date datePickUp, String startTime) {
         //Open a session
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -140,7 +155,10 @@ public class HaveDAO {
 
         }
     }
-
+    /**
+     * Decrease the capacity of a timeslot
+     * @param have 
+     */
     public static void decreaseTimeSlotAfterValidation(Have have) {
         //Open a session
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -165,7 +183,6 @@ public class HaveDAO {
     }
 
     public static void main(String[] args) throws ParseException {
-        // HaveDAO.initialize();
-
+        HaveDAO.initialize();
     }
 }

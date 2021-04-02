@@ -24,8 +24,8 @@ public class FileUtil {
 
     /**
      * Read and turn each line of file into a PostIt
-     *
      * @param fileList
+     * @return a set of Post-It
      */
     public static Set<PostIt> importPostItsFromFile(File fileList) {
         Set<PostIt> postIts = new HashSet<>();
@@ -59,7 +59,12 @@ public class FileUtil {
 
         return postIts;
     }
-
+    /**
+     * Import a shopping list with the file uploaded
+     * @param titleList
+     * @param file
+     * @return 
+     */
     public static ShoppingList importShoppingListFromFile(String titleList, File file) {
         Set<PostIt> postIts = importPostItsFromFile(file);
         ShoppingList fileImported = new ShoppingList(titleList, postIts);
@@ -70,7 +75,8 @@ public class FileUtil {
 
         return fileImported;
     }
-
+    
+    
     public static void main(String[] args) {
         File file = new File("nb-configuration.xml");
         ShoppingList s = importShoppingListFromFile("Liste apéro", file);

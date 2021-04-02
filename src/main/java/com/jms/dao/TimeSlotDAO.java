@@ -27,9 +27,8 @@ public class TimeSlotDAO {
 
     /**
      * Create a timeslot
-     *
-     * @param startTime
-     * @param endTime
+     * @param startTime the start of the timeslot
+     * @param endTime the end of the timeslot
      * @throws ParseException
      */
     public static void create(String startTime, String endTime)  {
@@ -46,6 +45,11 @@ public class TimeSlotDAO {
         }
     }
     
+    /**
+     * Get the timeslot by start time
+     * @param startTime the start of the timeslot
+     * @return 
+     */
     public static TimeSlot get(String startTime) {
         //Open a session
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -56,7 +60,7 @@ public class TimeSlotDAO {
     }
     
     /**
-     *
+     *Create all time slots 
      */
     public static void initialize() {
         
@@ -93,33 +97,7 @@ public class TimeSlotDAO {
         
     }
     
-    
-    
     public static void main(String[] args) {
-        /*int minutes = 0;
-        for (int i = 7; i < 21; i++) {
-            String startMinutes = (minutes % 2 == 0 ? "00" : "30");
-            String endMinutes = (minutes % 2 != 0 ? "00" : "30");
-            
-            String startHours = "";
-            
-            String endHours;
-            if(startMinutes.equals("00") && endMinutes.equals("30")) {
-                startHours = (i < 10) ? "0" + i : "" + i;
-                endHours = (i + 1 < 10) ? "0" + (i + 1) : "" + (i + 1);
-            } else {
-                startHours = (i < 10) ? "0" + i : "" + i;
-                endHours = (i < 10) ? "0" + i : "" + i;
-            }
-                
-            minutes++;
-            System.out.println("\"" + startHours + ":" + startMinutes + "\", \"" + endHours + ":" + endMinutes + '"');
-        }*/
-        
         //TimeSlotDAO.initialize();
-        
-        //TimeSlotDAO.create("07:00","07:30");
-        // TimeSlotDAO.initialize();
-        
     }
 }
