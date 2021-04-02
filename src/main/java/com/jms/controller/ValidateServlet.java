@@ -7,9 +7,7 @@ package com.jms.controller;
 
 import com.jms.dao.BasketDAO;
 import com.jms.dao.ClientDAO;
-import com.jms.dao.HaveDAO;
 import com.jms.dao.StockDAO;
-import com.jms.dao.StoreDAO;
 import com.jms.dao.ValiderDAO;
 import com.jms.model.Basket;
 import com.jms.model.Client;
@@ -33,8 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
- * @author mlk
+ * ValidateServlet Class.
+ * @author Jerry Mouse Software.
  */
 public class ValidateServlet extends HttpServlet {
 
