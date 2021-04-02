@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
-
+  
 /**
  * The class Product represents a product that exists in the catalog of a store.
  *
