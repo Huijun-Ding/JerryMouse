@@ -50,11 +50,12 @@ public class ChooseTimeSlotServlet extends HttpServlet {
                 SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = DF.parse(request.getParameter("date"));
                 String startTime = request.getParameter("startTime");
+                int capacity = Integer.parseInt(request.getParameter("capacity"));
 
-                if(startTime != null && store != null && date !=null) {
-                    HaveId haveId = new HaveId(startTime, 0, date);
+                if(startTime != null && store != null && date != null && capacity != 0) {
+                    HaveId haveId = new HaveId(startTime, store.getId(), date);
                     TimeSlot timeSlot = TimeSlotDAO.get(startTime);
-                    Have have = new Have(haveId, 0, timeSlot);
+                    Have have = new Have(haveId, capacity, timeSlot);
                     session.setAttribute("have", have);
                     out.println("<msg>" + DateUtil.dateOfHaveObject(have) + "</msg>");
                 } else if(store != null && date != null) {
