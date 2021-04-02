@@ -65,6 +65,9 @@ public class StoreServlet extends HttpServlet {
             }
 
             out.println("</stores>");
+            
+            if(request.getSession().getAttribute("have")!=null)
+            request.getSession().removeAttribute("have");
         }
     }
 
