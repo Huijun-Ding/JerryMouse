@@ -20,6 +20,7 @@ import com.jms.model.ProductConditioning;
 import com.jms.model.ProductNutriScore;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -86,9 +87,7 @@ public class ProductDAOH {
             //System.out.println("--------- GET PRODUCTS OF A CATEGORY ");
             
             String sql = 
-                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
-                    + "p.nutriscore, p.packaging, p.packagingQuantity, "
-                    + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
+                    "SELECT p "
                     + "FROM Produit p "
                     + "WHERE p.category.id = :id "
                     + "ORDER BY p.name ASC";
@@ -96,6 +95,11 @@ public class ProductDAOH {
             Query query = session.createQuery(sql);
             query.setParameter("id", id);
             list = query.list();
+            
+            for (Product product : list) {
+                Hibernate.initialize(product.getLabels());
+                Hibernate.initialize(product.getPromotions());
+            }
             
             return list;
         }
@@ -115,15 +119,20 @@ public class ProductDAOH {
             //System.out.println("--------- GET PRODUCTS OF A DEPARTMENT ");
             
             String sql = 
-                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
-                    + "p.nutriscore, p.packaging, p.packagingQuantity, "
-                    + "p.unitPrice, p.kgPrice, p.urlThumbnail,p.brand ,p.description ) "
+                    "SELECT p "
                     + "FROM Produit p "
                     + "WHERE p.category.department.id = :id "
                     + "ORDER BY p.name ASC";
             Query query = session.createQuery(sql);
             query.setParameter("id", id);
             list = query.list();
+            
+            for (Product product : list) {
+                Hibernate.initialize(product.getLabels());
+                Hibernate.initialize(product.getPromotions());
+            }
+            session.close();
+            
             return list;
         }
     }
@@ -141,13 +150,7 @@ public class ProductDAOH {
             //System.out.println("--------- GET PRODUCTS CURRENTLY IN PROMOTION");
             
             String sql = 
-                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format,"
-                    + "p.brand, p.description, "
-                    + "p.nutriscore, p.packaging, p.packagingQuantity, "
-                    + "p.unitPrice, p.kgPrice, p.urlThumbnail, "
-                    + "p.energy, p.fats, p.saturatedFatAcids, "
-                    + "p.carbohydrates, p.sugar, p.protein, p.salt, p.composition, "
-                    + "pr.id, pr.percentage, pr.rank) "
+                    "SELECT p "
                     + "FROM Reduire r "
                     + "JOIN r.product p "
                     + "JOIN r.promotion pr "
@@ -156,6 +159,11 @@ public class ProductDAOH {
                     + "ORDER BY p.unitPrice";
             Query query = session.createQuery(sql);
             List<Product> list = query.list();
+            
+            for (Product product : list) {
+                Hibernate.initialize(product.getLabels());
+                Hibernate.initialize(product.getPromotions());
+            }
             //session.close();
             return list;
         }
