@@ -2,12 +2,8 @@ package com.jms.controller;
 
 import com.jms.dao.BasketDAO;
 import com.jms.model.Client;
-import com.jms.model.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * AddProductServlet Class.
  * @author Jerry Mouse Software.
  */
 public class AddProductServlet extends HttpServlet {
@@ -33,17 +29,17 @@ public class AddProductServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         Client client = (Client) session.getAttribute("client");
-
-//        ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
-//        request.setAttribute("productsList", list);
         int idClient = client.getCode();
         String ean = request.getParameter("ean");
+        
         try {
             BasketDAO.calculNbProduct(idClient);
-            // add product in basket
+            // Check if the same product is already in the basket
             if (BasketDAO.checkProductBakset(idClient, ean)) {
+                // update the quantity of product if it exists
                 BasketDAO.updateBasket(idClient, ean);
             } else {
+                // add a new product to basket
                 BasketDAO.addProductToBasket(idClient, ean);
             }
         } catch (SQLException ex) {
