@@ -100,7 +100,7 @@ function sendAddPostItProductRequest() {
     var xhr = new XMLHttpRequest();
 
     var idsl = window.location.search.substr(8);
-    var idp = this.firstChild.nodeValue;;
+    var idp = this.value;
 
     if (idp !== "") {
         xhr.open("GET", "AddPostItProductServlet?idsl=" + idsl + "&idp=" + idp);
@@ -140,7 +140,7 @@ function showProducts() {
                     brand = p.getElementsByTagName("brand")[0].firstChild.nodeValue;
                     format = p.getElementsByTagName("format")[0].firstChild.nodeValue;
 
-                    elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + name + " " + brand + " " + format + " " + "<br><p class='text-end'><button type='button' class='btn btn-primary product_select' value='" + code + "'>sélectionner</button></p></li>");
+                    elt.insertAdjacentHTML("beforeend", "<li class='list-group-item'>" + name + " " + brand + " " + format + " " + "<br><p class='text-end'><button type='button' class='btn btn-primary product_select' value='"+ code +"'>sélectionner</button></p></li>");
                 }
 
                 var product_select_buttons = document.getElementsByClassName("product_select");
