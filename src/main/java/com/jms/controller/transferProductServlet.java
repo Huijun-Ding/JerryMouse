@@ -38,7 +38,7 @@ public class transferProductServlet extends HttpServlet {
          
          Product p=ProductDAO.getProductByHistory(client,ProductDAO.getProductsByName("Bonbons"));
          
-         System.out.println(p);
+         System.out.println("résultat : "+p.getName());
          
     }
 
