@@ -1,12 +1,17 @@
 html, body {
-    font-family: Arial, sans-serif;
+    font-family: Roboto, sans-serif;
     height: 100%;
+}
+
+nav.navbar {
+    min-height: 126px;
 }
 
 #logo{
     width: 70px;
     height: 45px;
 }
+
 .prodPhoto{
     width: 50px;
     height: 50px;
@@ -82,22 +87,8 @@ html, body {
     width: 100%;
 }
 
-@media only screen and (min-width: 758px) {
-    #rayon_categorie_navbar {
-        margin-top: 145px;
-    }
-}
-
-@media only screen and (max-width: 758px) and (min-width: 513px)  {
-    #rayon_categorie_navbar {
-        margin-top: 210px;
-    }
-}
-
-@media only screen and (max-width: 513px) {
-    #rayon_categorie_navbar {
-        margin-top: 250px;
-    }
+#rayon_categorie_navbar {
+    margin-top: 160px;
 }
 
 .user_card {
@@ -122,14 +113,19 @@ html, body {
     height: 170px;
     width: 170px;
     top: -75px;
-    padding: 10px;
     text-align: center;
 }
+
+form[action="Connect"] p {
+    color : white;
+}
+
 .brand_logo {
-    height: 150px;
-    width: 150px;
-    border: 2px solid white;
+    height: 170px;
+    width: 170px;
+    border: 3px solid white;
     border-radius: 15%;
+    box-shadow: 1px 1px 10px black;
 }
 .form_container {
     margin-top: 100px;
@@ -139,12 +135,14 @@ html, body {
 .login_container {
     padding: 0 2rem;
 }
+
 .input-group-text {
     background: black !important;
     color: white !important;
     border: 0 !important;
     border-radius: 0.25rem 0 0 0.25rem !important;
 }
+
 .input_user,
 .input_pass:focus {
     box-shadow: none !important;
