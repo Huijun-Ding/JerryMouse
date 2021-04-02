@@ -5,6 +5,7 @@
  */
 package com.jms.controller;
 
+import com.jms.dao.ShoppingListDAO;
 import com.jms.model.Client;
 import com.jms.model.PostIt;
 import com.jms.model.ShoppingList;
@@ -42,28 +43,38 @@ public class UploadShoppingFileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request,
             final HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        Client client = (Client) session.getAttribute("client");
+                
         response.setContentType("application/xml;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         // Create path components to save the file
         final Part filePart = request.getPart("file");
-        final String fileName = filePart.getSubmittedFileName();
+        
+        String fileName = null;
+        if(filePart != null) fileName = filePart.getSubmittedFileName();
 
         try ( PrintWriter out = response.getWriter()) {
             out.println("<?xml version=\"1.0\"?>");
-            
+            out.println("<shoppingList>");
+                
             String title = request.getParameter("title");
             String[] postItsParam = request.getParameterValues("postIts");
             
             if(title != null && postItsParam != null) {
                 Set<PostIt> postIts = new HashSet<>(0);
+                
                 for(String postIt : postItsParam)
                     postIts.add(new PostIt(postIt));
-                HttpSession session = request.getSession(false);
-                Client client = (Client) session.getAttribute("client");
                 
-                ShoppingList s = new ShoppingList(title, postIts, client);
-            } else if (!fileName.endsWith("txt") && !fileName.endsWith(", csv")) {
+                out.println("<msg_success>\n");
+                out.println("   <title><![CDATA[Ajout de la liste " + title + " réussi]]></title>\n");
+                out.println("   <content><![CDATA[Votre liste de courses a bien été enregistrée.]]></content>\n");
+                out.println("</msg_success>");
+                
+                ShoppingListDAO.create(title, postIts, client);
+            } else if (fileName != null && !fileName.endsWith("txt") && !fileName.endsWith(", csv")) {
                 out.println("<msg_error>\n");
                 out.println("   <title><![CDATA[Erreur de format !]]></title>\n");
                 out.println("   <content><![CDATA[Ce type de fichier n\'est pas pris en charge.]]></content>\n");
@@ -75,7 +86,6 @@ public class UploadShoppingFileServlet extends HttpServlet {
                 FileUtils.copyInputStreamToFile(filePart.getInputStream(), file);
 
                 String nameList = request.getParameter("nameList");
-                out.println("<shoppingList>");
 
                 out.println("   <nameList><![CDATA[" + nameList + "]]></nameList>");
 
@@ -87,12 +97,13 @@ public class UploadShoppingFileServlet extends HttpServlet {
                             + "]]></wording>");
                     out.println("   </postIt>");
                 }
-
-                out.println("</shoppingList>");
             }
+            
+            out.println("</shoppingList>");
         } catch (Exception ex) {
             try ( PrintWriter out = response.getWriter()) {
                 out.println("<msg_error>" + ex.getMessage() + "</msg_error>");
+                out.println("</shoppingList>");
             }
         }
     }

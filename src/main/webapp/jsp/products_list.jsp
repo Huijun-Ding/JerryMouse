@@ -165,7 +165,7 @@
 
                             </div>
                             <!-- footer (price, button) -->
-                            <div class="card-footer text-right" style="z-index:100">
+                            <div class="card-footer text-end" style="z-index:100">
 
                                 <h3 class="d-inline-block text-left"><%= price + " €"%></h3>
 
