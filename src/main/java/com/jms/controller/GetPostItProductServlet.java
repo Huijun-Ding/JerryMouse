@@ -1,24 +1,22 @@
 package com.jms.controller;
 
-import com.jms.dao.BasketDAO;
-import com.jms.model.Client;
+import com.jms.dao.ProductDAO;
+import com.jms.dao.ShoppingListDAO;
+import com.jms.model.PostIt;
 import com.jms.model.Product;
+import com.jms.model.ShoppingList;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Jerry Mouse Software.
- */
-public class AddProductServlet extends HttpServlet {
+public class GetPostItProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,26 +28,28 @@ public class AddProductServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        Client client = (Client) session.getAttribute("client");
+            throws ServletException, IOException, SQLException {
 
-//        ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
-//        request.setAttribute("productsList", list);
-        int idClient = client.getCode();
-        String ean = request.getParameter("ean");
-        try {
-            BasketDAO.calculNbProduct(idClient);
-            // add product in basket
-            if (BasketDAO.checkProductBakset(idClient, ean)) {
-                BasketDAO.updateBasket(idClient, ean);
-            } else {
-                BasketDAO.addProductToBasket(idClient, ean);
+        try (PrintWriter out = response.getWriter()) {
+            
+            String name = request.getParameter("name");
+
+            // get all my shopping lists by getMyShoppingLists()
+            List<Product> lst = ProductDAO.getProductsByName(name);
+            response.setContentType("application/xml;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            out.println("<?xml version=\"1.0\"?>");
+            out.println("<products>");
+            for (Product p : lst) {
+                out.println("<product>");
+                out.println("<code><![CDATA[" + p.getEan() + "]]></code>");
+                out.println("<name><![CDATA[" + p.getName() + "]]></name>");
+                out.println("<brand><![CDATA[" + p.getBrand() + "]]></brand>");
+                out.println("<format><![CDATA[" + p.getFormat()+ "]]></format>");
+                out.println("</product>");
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            out.println("</products>");
         }
-        request.getRequestDispatcher("DisplayProducts?home").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,7 +64,11 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(GetPostItProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -78,7 +82,11 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(GetPostItProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -90,4 +98,5 @@ public class AddProductServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

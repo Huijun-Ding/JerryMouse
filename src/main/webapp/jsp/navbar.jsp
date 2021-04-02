@@ -198,3 +198,4 @@
 </div>
 
 <script src="js/shoppingList.js"></script>
+<script src="js/search.js"></script>

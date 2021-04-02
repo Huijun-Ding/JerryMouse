@@ -193,7 +193,7 @@ public class ProductDAO {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
-            Query query = session.createQuery("SELECT DISTINCT new com.jms.model.Product(p.ean, p.name, p.format, p.nutriscore, p.packaging, p.packagingQuantity, p.unitPrice, p.kgPrice, p.urlThumbnail) FROM Produit p WHERE p.name LIKE :p");
+            Query query = session.createQuery("FROM Produit p WHERE p.name LIKE :p");
 
             query.setParameter("p", "%" + lib + "%");
 
@@ -208,6 +208,7 @@ public class ProductDAO {
             return lstProducts;
         }
     }
+    
 
     public static Product getProductByHistory(Client client, List<Product> lstp) {
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
@@ -283,13 +284,13 @@ public class ProductDAO {
 //            System.out.println(ex.getMessage());
 //        }
 //    }
-    public static void main(String[] args) throws ParseException, ClassNotFoundException {
+    public static void main(String[] args) throws ParseException, ClassNotFoundException, SQLException {
         /*----- Test -----*/
 
         //System.out.println(getProductByPref());
         //ProductDAO.returnSrearchResult("Cafés");
-        getProductsByName("fruit");
-
+//        getProductsByName("fruit");
+        ProductDAO.getProductsByName("chocolat");
         /*----- Exit -----*/
         System.exit(0);
 
