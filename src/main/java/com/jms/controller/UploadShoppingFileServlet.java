@@ -13,6 +13,8 @@ import com.jms.util.FileUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Set;
 import javax.servlet.ServletException;
@@ -74,7 +76,7 @@ public class UploadShoppingFileServlet extends HttpServlet {
                 out.println("</msg_success>");
                 
                 ShoppingListDAO.create(title, postIts, client);
-            } else if (fileName != null && !fileName.endsWith("txt") && !fileName.endsWith(", csv")) {
+            } else if (fileName != null && !fileName.endsWith("txt") && !fileName.endsWith("csv")) {
                 out.println("<msg_error>\n");
                 out.println("   <title><![CDATA[Erreur de format !]]></title>\n");
                 out.println("   <content><![CDATA[Ce type de fichier n\'est pas pris en charge.]]></content>\n");
@@ -93,7 +95,7 @@ public class UploadShoppingFileServlet extends HttpServlet {
 
                 for (PostIt p : postIts) {
                     out.println("   <postIt>");
-                    out.println("       <wording><![CDATA[" + p.getWording()
+                    out.println("       <wording><![CDATA[" + URLDecoder.decode(p.getWording(), Charset.forName("UTF-8"))
                             + "]]></wording>");
                     out.println("   </postIt>");
                 }
