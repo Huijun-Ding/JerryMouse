@@ -192,6 +192,21 @@ public class Product implements Serializable {
         this.urlThumbnail = urlThumbnail;
     }
     
+    
+    public Product(String ean, String name, String format,
+            ProductNutriScore nutriscore, ProductConditioning packaging,
+            int packagingQuantity, float unitPrice, float kgPrice,
+            String urlThumbnail) {
+        this.ean = ean;
+        this.name = name;
+        this.format = format;
+        this.nutriscore = nutriscore;
+        this.packaging = packaging;
+        this.packagingQuantity = packagingQuantity;
+        this.unitPrice = unitPrice;
+        this.kgPrice = kgPrice;
+        this.urlThumbnail = urlThumbnail;
+    }
 
     public Product(String ean, String libelle, String description,
             String brand, String format, boolean bio,

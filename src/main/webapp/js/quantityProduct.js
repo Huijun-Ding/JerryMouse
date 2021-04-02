@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 function displayNbProduct(){
+    var ean = this.value;
     var xhr = new XMLHttpRequest();
 //    var idClient = document.getElementById("idClient").value;
 
-    xhr.open("GET", "AddProductServlet");
+    xhr.open("GET", "AddProductServlet?ean=" + ean);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -15,17 +16,19 @@ function displayNbProduct(){
             nb_products.innerHTML = "";
             product = xhr.responseXML.getElementsByTagName("nbProducts");
             
-            for (i = 0; i < product.length; i++) {
-                productLine = product[i];
-                nb = productLine[i].firstChild.nodeValue;
+            nb = product[0].firstChild.nodeValue;
+            if(nb !== "no"){
                 alert(nb);
-                nb_products.insertAdjacentHTML('beforeend', nb);
-            }    
+                var text = '<jsp:param name="ref2"' + ' value="' + nb +'"/>'
+                nb_products.innerHTML = text;
+            }
         }
     };
     xhr.send();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("addProduct").addEventListener("click", displayNbProduct);
+    document.getElementById("addProd").addEventListener("click", displayNbProduct);
 });
+
+

@@ -14,7 +14,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     </head>
-    <body>
+    <body>   
 
         <jsp:include page="navbar" flush="true"/>
 
@@ -86,6 +86,5 @@
         <script src="js/stores.js"></script>
         <script src="js/time_slots.js"></script>
         <script src="js/basket.js"></script>
-        <script src="js/upload_shopping_file.js"></script>
     </body>
 </html>

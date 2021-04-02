@@ -13,8 +13,9 @@ html, body {
 }
 
 .quantity{
-    width: 30px;
+    width: 40px;
     text-align: center;
+    border: 0;
 }
 
 #stores_list {
@@ -189,4 +190,13 @@ th{
 
 #confirm_body{
     text-align: center;
+}
+
+#output {
+    position: absolute;
+    width: 319px;
+}
+
+#search_result li {
+    cursor: pointer;
 }
