@@ -117,7 +117,15 @@ public class SendEmailServlet extends HttpServlet {
         }
 
         //generate a QR Code for the client 
-        String qrcode = "data:image/PNG;base64," + QRcodeUtil.getQRCodeImage("client id : " + order.getClient().getCode() + " commande id "+order.getOrderId());
+        String message = "";
+        message += "Bonjour " + order.getClient().getFirstName() + " " + order.getClient().getLastName().toUpperCase() + ",\n\n";
+        message += "\tVotre commande a bien &eacute;t&eacute; enregitré par nos services !\n";
+        message += "\tVotre identifiant de commande est le No." + order.getOrderId() + ".\n";
+        message += "\tNous vous prions de le pr&eacute;senter lors de votre retrait.\n\n";
+        message += "Bien cordialement,\n\n";
+        message += "- Le service client de Jerry Mouse Software -";
+        
+        String qrcode = "data:image/PNG;base64," + QRcodeUtil.getQRCodeImage(message);
         float total = (float)session.getAttribute("total");
         contentOrder = contentOrder + "</table>";
         contentOrder = contentOrder + "<table style='width:75%' frame='below'> <tr><td align='left' > <b>Prix Total : </b> </td><td align='right' > <b>" + String.format("%.2f", total) + " &#8364; </b></td></tr></table>";
