@@ -55,7 +55,9 @@ function displayBasket() {
                     editQuantity(this);
                 });
                 
-                document.getElementById('p_' + ean).addEventListener("click", editQuantity);
+                document.getElementById('p_' + ean).addEventListener("click", function() {
+                    editQuantity(this);
+                });
                 
             }
         }
@@ -126,7 +128,7 @@ function editQuantity(button) {
                 qtyProd.value = res;
             } else {
                 if (msg === "noMinus") {
-                    msg_error = "deja 0 !";
+                    msg_error = "Déjà 0 !";
                 } else if (msg === "noPlus") {
                     msg_error = "Rupture de stock !";
                 } else if (msg === "store") {
@@ -139,6 +141,9 @@ function editQuantity(button) {
                 stock.innerHTML = "";
                 stock.insertAdjacentHTML('beforeend', msg_error);
             }
+            
+            displayBasket();
+            displayPoints();
         }
     };
     xhr.send();
