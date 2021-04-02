@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * EditQuantityServlet Class.
  * @author Jerry Mouse Software.
  */
 public class EditQuantityServlet extends HttpServlet {
@@ -54,9 +54,11 @@ public class EditQuantityServlet extends HttpServlet {
                 int qtyProdBefore = BasketDAO.checkQtyProd(client.getCode(), ean);
                 int qtyProdAfter = qtyProdBefore;
                 if (store != null) {
+                    // if the customer want to Subtract Quantity of a product
                     if (method.equals("m")) {
                         if (qtyProdBefore > 0) {
                             BasketDAO.updateBasketMinus(client.getCode(), ean);
+                            BasketDAO.deleteBasketZero(client.getCode());
                             qtyProdAfter -= 1;
                             out.println("<msg>ok</msg>");
                             out.println("<res>" + qtyProdAfter + "</res>");
@@ -64,17 +66,18 @@ public class EditQuantityServlet extends HttpServlet {
                             out.println("<msg>noMinus</msg>");
                             out.println("<res>" + qtyProdAfter + "</res>");
                         }
+                    // if the customer want to Add Quantity of a product
                     } else if (method.equals("p")) {
-                        // check stock de store
+                        // check the stock of store
                         Boolean stock = StockDAO.checkStockProd(store.getId(), ean, qtyProdBefore + 1);
                         if (stock == true) {
-                            // mettre à jour panier si stock suffisant
+                            // mettre à jour panier if stock is enough
                             BasketDAO.updateBasket(client.getCode(), ean);
                             qtyProdAfter += 1;
                             out.println("<msg>ok</msg>");
                             out.println("<res>" + qtyProdAfter + "</res>");
                         } else {
-                            // stock doesn't enough
+                            // stock isn't enough
                             out.println("<msg>noPlus</msg>");
                             out.println("<res>" + qtyProdAfter + "</res>");
                         }
