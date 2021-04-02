@@ -115,7 +115,7 @@
                         <div class="dropdown-menu">
                             <%if (client == null) {%>
                             <a class="dropdown-item" href="login"><i class="fa fa-sign-in-alt"></i> Se connecter</a>
-                            <a class="dropdown-item" href="signup"><i class="fa fa-user-plus"></i> S'inscrire</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-user-plus"></i> S'inscrire</a>
                             <%} else {%>
                             <a class="dropdown-item" href="Deconnect"><i class="fa fa-sign-out-alt"></i> Se d&eacute;connecter</a>
                             <%}%>

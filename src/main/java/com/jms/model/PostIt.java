@@ -12,10 +12,11 @@ import javax.persistence.ManyToOne;
 
 /**
  * PostIt Class
+ *
  * @author JerryMouseSoftware
  */
 @Entity(name = "PostIt")
-public class PostIt implements Serializable{
+public class PostIt implements Serializable {
 
     //------------- PROPERTIES ------------------
     /**
@@ -25,44 +26,44 @@ public class PostIt implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CodePI")
     private int code;
-    
+
     /**
      * Designation: Label of a post-it
      */
     @Column(name = "LibellePI")
     private String wording;
-    
+
     /**
-    *  Hibernate join property with PostIt Class  and ShoppingList Class.
-    */
+     * Hibernate join property with PostIt Class and ShoppingList Class.
+     */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CodeLC")
     private ShoppingList shoppingList;
-    
+
     /**
-    *  Hibernate join property with PostIt Class  and Product Class.
-    */
+     * Hibernate join property with PostIt Class and Product Class.
+     */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EANP")
     private Product product;
 
     //------------- CONSTRUCTOR ------------------
     /**
-    * A constructor of the PostIt Class.
-    */
+     * A constructor of the PostIt Class.
+     */
     public PostIt() {
     }
-    
+
     public PostIt(int code, String wording) {
         this.code = code;
         this.wording = wording;
     }
-    
-    
+
     /**
-    * A constructor of the PostIt Class.
-    * @param wording Label of a post-it.
-    */
+     * A constructor of the PostIt Class.
+     *
+     * @param wording Label of a post-it.
+     */
     public PostIt(String wording) {
         this.wording = wording;
     }
@@ -76,11 +77,11 @@ public class PostIt implements Serializable{
         this.shoppingList = shoppingList;
         this.product = product;
     }
-    
-    //------------ GETTERS&SETTERS --------------
 
+    //------------ GETTERS&SETTERS --------------
     /**
      * Getter for the property code.
+     *
      * @return the code property .
      */
     public int getCode() {
@@ -89,6 +90,7 @@ public class PostIt implements Serializable{
 
     /**
      * Setter for the property code.
+     *
      * @param code The new value to set to the property.
      */
     public void setCode(int code) {
@@ -97,7 +99,8 @@ public class PostIt implements Serializable{
 
     /**
      * Getter for the property wording.
-     * @return the wording property. 
+     *
+     * @return the wording property.
      */
     public String getWording() {
         return wording;
@@ -105,22 +108,25 @@ public class PostIt implements Serializable{
 
     /**
      * Setter for the property wording.
+     *
      * @param wording The new value to set to the property.
      */
     public void setWording(String wording) {
         this.wording = wording;
     }
-    
+
     /**
      * Getter for the object shoppingList.
-     * @return the shoppingList object. 
+     *
+     * @return the shoppingList object.
      */
     public ShoppingList getShoppingList() {
         return shoppingList;
     }
-    
+
     /**
      * Setter for the Object shoppingList.
+     *
      * @param shoppingList The new value to set to the property.
      */
     public void setShoppingList(ShoppingList shoppingList) {
@@ -129,21 +135,22 @@ public class PostIt implements Serializable{
 
     /**
      * Getter for the object product.
-     * @return the product property. 
+     *
+     * @return the product property.
      */
     public Product getProduct() {
         return product;
     }
-    
+
     /**
      * Setter for the object product.
+     *
      * @param product The new value to set to the property.
      */
     public void setProduct(Product product) {
         this.product = product;
     }
-    
-    
+
     //------------ METHODS --------------
     /**
      * Method which converts the current object into a String object.
@@ -155,6 +162,7 @@ public class PostIt implements Serializable{
 
     /**
      * Method which returns the hash code of the current object id.
+     *
      * @return The hash code of the current object id.
      */
     @Override
@@ -166,6 +174,7 @@ public class PostIt implements Serializable{
 
     /**
      * Method which compares the current object with another one.
+     *
      * @param obj The object to compare with.
      * @return <b>True</b> if both objects are equals, <b>False</b> else.
      */
@@ -181,10 +190,13 @@ public class PostIt implements Serializable{
             return false;
         }
         final PostIt other = (PostIt) obj;
+        if (this.code != other.code) {
+            return false;
+        }
         if (this.wording != other.wording) {
             return false;
         }
         return true;
-    }
 
+    }
 }

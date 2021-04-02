@@ -34,14 +34,14 @@ import javax.persistence.OneToMany;
 public class Client implements Serializable {
     //------------ PROPERTIES  ------------
 
-    /**
+    /** 
      * Designation: Unique code identifying a customer
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CodeCL")
     private int code;
-
+ 
     /**
      * Designation: Last name of a customer
      */
@@ -129,7 +129,7 @@ public class Client implements Serializable {
     public Client(String lastName, String firstName, String email, String password, int fidelityPoints) {
         this.lastName = lastName;
         this.firstName = firstName;
-        this.email = email;
+        this.email = email; 
         this.password = password;
         this.fidelityPoints = fidelityPoints;
     }
@@ -137,11 +137,31 @@ public class Client implements Serializable {
     public Client(int code, String lastName, String firstName, String email, String password, int fidelityPoints) {
         this.code = code;
         this.lastName = lastName;
-        this.firstName = firstName;
+        this.firstName = firstName; 
         this.email = email;
         this.password = password;
         this.fidelityPoints = fidelityPoints;
     }
+
+    public Client(String lastName, String firstName, String email, String password, int fidelityPoints, Store store) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.password = password; 
+        this.fidelityPoints = fidelityPoints;
+        this.store = store;
+    }
+
+    public Client(int code, String lastName, String firstName, String email, String password, int fidelityPoints, Store store) {
+        this.code = code;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email; 
+        this.password = password;
+        this.fidelityPoints = fidelityPoints;
+        this.store = store;
+    }
+    
 
     // ----------------- GETTERS & SETTERS ------------------
     /**
@@ -348,7 +368,7 @@ public class Client implements Serializable {
      */
     @Override    
     public String toString() {
-        return "Client{" + "code=" + code + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email + ", password=" + password + ", fidelityPoints=" + fidelityPoints + ", store=" + store + ", baskets=" + baskets + ", orders=" + orders + ", favoriteProducts=" + favoriteProducts + '}';
+         return "Client{" + "code=" + code + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email + ", password=" + password + ", fidelityPoints=" + fidelityPoints + ", store=" + store + ", baskets=" + baskets + ", orders=" + orders + ", favoriteProducts=" + favoriteProducts + '}';
     }
 
     /**
@@ -357,10 +377,10 @@ public class Client implements Serializable {
      * @return The hash code of the current object id.
      */
     @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + this.code;
-        return hash;
+    public int hashCode() { 
+         int hash = 3;
+         hash = 73 * hash + this.code;
+         return hash;
     }
 
     /**
@@ -371,18 +391,18 @@ public class Client implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+         if (this == obj) { 
+             return true;
         }
         if (obj == null) {
-            return false;
-        }
+             return false;
+         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Client other = (Client) obj;
+         final Client other = (Client) obj;
         if (this.code != other.code) {
-            return false;
+             return false;
         }
         return true;
     }

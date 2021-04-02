@@ -18,7 +18,7 @@ import org.hibernate.query.Query;
 
 /**
  *
- * @author RAKOTOARISOA
+ * @author JerryMouseSoftware
  */
 public class HaveDAO {
 
@@ -27,9 +27,14 @@ public class HaveDAO {
     private static final SimpleDateFormat DF = new SimpleDateFormat(format);
 
     /**
-     *
+     * Create and save a new Have object
+     * @param startTime
+     * @param storeId
+     * @param date
+     * @param capacity
+     * @throws ParseException 
      */
-    public static void create(String startTime, int storeId,String date, int capacity) throws ParseException {
+    public static void create(String startTime, int storeId, String date, int capacity) throws ParseException {
         //Open a session
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
@@ -43,12 +48,16 @@ public class HaveDAO {
             t.commit();
         }
     }
-
+    
+    /**
+     * Initialize the insertion into table Avoir
+     * @throws ParseException 
+     */
     public static void initialize() throws ParseException {
-        int[] storeIds = new int[]{15, 19, 38, 40};
-        
-        for(int storeId : storeIds) {
-            for (Date d : DateUtil.nextDays(4)) {
+        int[] storeIds = new int[]{40, 28};
+
+        for (int storeId : storeIds) {
+            for (Date d : DateUtil.nextDays(8)) {
                 int hour = 7;
                 String minutes = "30";
                 int minCapacite = 0;
@@ -72,18 +81,18 @@ public class HaveDAO {
                             + capacity + " "
                             + DateUtil.yearMonthDayFormat(d)
                     );
-                    
-                    if(hour > 12 && hour <= 16) {
+
+                    if (hour > 12 && hour <= 16) {
                         minCapacite = 0;
                         maxCapacite = 15;
-                    } else if(hour > 16) {
+                    } else if (hour > 16) {
                         minCapacite = 0;
                         maxCapacite = 20;
                     }
 
-                   range = maxCapacite - minCapacite + 1;
-                   
-                   create(hoursMinutes, storeId,DateUtil.yearMonthDayFormat(d), capacity);
+                    range = maxCapacite - minCapacite + 1;
+
+                    create(hoursMinutes, storeId, DateUtil.yearMonthDayFormat(d), capacity);
                 }
             }
         }
@@ -91,7 +100,7 @@ public class HaveDAO {
     }
 
     /**
-     *
+     *Get the timeslot by idStore and the date
      * @param storeId
      * @param date
      * @return
@@ -116,33 +125,56 @@ public class HaveDAO {
             return query.list();
         }
     }
-    
-    public static Have getHave(int storeId, Date datePickUp, String startTime){
+    /**
+     * Get an object Have with the storeId, a date and a start time
+     * @param storeId
+     * @param datePickUp
+     * @param startTime
+     * @return 
+     */
+    public static Have getHave(int storeId, Date datePickUp, String startTime) {
         //Open a session
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
             Query query = session.createQuery("from Avoir "
                     + "where HeureDebutCR = :startTime "
                     + "and CodeM = :storeId "
                     + "and DateCR = :datePickUp");
-            
+
             query.setParameter("startTime", startTime);
             query.setParameter("storeId", storeId);
             query.setParameter("datePickUp", datePickUp);
-            
+
             Have have = null;
-            if(!query.list().isEmpty()){
-                have = (Have)query.list().get(0);
+            if (!query.list().isEmpty()) {
+                have = (Have) query.list().get(0);
             }
             t.commit();
             return have;
-            
+
+        }
+    }
+    /**
+     * Decrease the capacity of a timeslot
+     * @param have 
+     */
+    public static void decreaseTimeSlotAfterValidation(Have have) {
+        //Open a session
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            //Open a transaction
+            Transaction t = session.beginTransaction();
+
+            int capacity = have.getCapacity() - 1;
+            have.setCapacity(capacity);
+            session.update(have);
+                
+            t.commit();
+            session.close();
         }
     }
 
     public static void main(String[] args) throws ParseException {
-        // HaveDAO.initialize();
-        
+        HaveDAO.initialize();
     }
 }
