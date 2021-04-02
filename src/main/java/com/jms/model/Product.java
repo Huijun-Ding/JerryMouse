@@ -131,6 +131,10 @@ public class Product implements Serializable {
     
     @Column(name = "CompositionP")
     private String composition;
+
+
+
+
     /**
      * The url of the thumbnail of the product.
      */
@@ -218,7 +222,7 @@ public class Product implements Serializable {
             this.category = category;
     }
 
-    public Product(String ean, String name, String format,
+    public Product(String ean, String name, String format, String brand, String description,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail) {
@@ -235,8 +239,8 @@ public class Product implements Serializable {
             this.kgPrice = kgPrice;
             this.urlThumbnail = urlThumbnail;
     }
-
-    public Product(String ean, String name, String format,
+    
+    public Product(String ean, String name, String format, String brand, String description,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail, int idPromotion, float percentage, int rank) {
@@ -250,6 +254,34 @@ public class Product implements Serializable {
             this.kgPrice = kgPrice;
             this.urlThumbnail = urlThumbnail;
             this.promotions.put(new Promotion(percentage, rank), new Reduce());
+    }
+
+    public Product(String ean, String name, String format, String brand, String description,
+            ProductNutriScore nutriscore, ProductConditioning packaging,
+            int packagingQuantity, float unitPrice, float kgPrice,
+            String urlThumbnail, String energy, String fats, String saturatedFatAcids, 
+            String carbohydrates, String sugar, String protein, String salt, String composition,
+            int idPromotion, float percentage, int rank) {
+        this.ean = ean;
+        this.name = name;
+        this.format = format;
+        this.brand = brand;
+        this.description = description;
+        this.nutriscore = nutriscore;
+        this.packaging = packaging;
+        this.packagingQuantity = packagingQuantity;
+        this.unitPrice = unitPrice;
+        this.kgPrice = kgPrice;
+        this.urlThumbnail = urlThumbnail;
+        this.energy = energy;
+        this.fats = fats;
+        this.saturatedFatAcids = saturatedFatAcids;
+        this.carbohydrates = carbohydrates;
+        this.sugar = sugar;
+        this.protein = protein;
+        this.salt = salt;
+        this.composition = composition;
+        this.promotions.put(new Promotion(percentage, rank), new Reduce());
     }
 
     public Product(String ean, String name, String format,
@@ -296,34 +328,6 @@ public class Product implements Serializable {
             this.protein = protein;
             this.salt = salt;
             this.composition = composition;
-    }
-    
-    public Product(String ean, String name, String format, String brand, String description,
-            ProductNutriScore nutriscore, ProductConditioning packaging,
-            int packagingQuantity, float unitPrice, float kgPrice,
-            String urlThumbnail, String energy, String fats, String saturatedFatAcids, 
-            String carbohydrates, String sugar, String protein, String salt, String composition,
-            int idPromotion, float percentage, int rank) {
-            this.ean = ean;
-            this.name = name;
-            this.format = format;
-            this.brand = brand;
-            this.description = description;
-            this.nutriscore = nutriscore;
-            this.packaging = packaging;
-            this.packagingQuantity = packagingQuantity;
-            this.unitPrice = unitPrice;
-            this.kgPrice = kgPrice;
-            this.urlThumbnail = urlThumbnail;
-            this.energy = energy;
-            this.fats = fats;
-            this.saturatedFatAcids = saturatedFatAcids;
-            this.carbohydrates = carbohydrates;
-            this.sugar = sugar;
-            this.protein = protein;
-            this.salt = salt;
-            this.composition = composition;
-            this.promotions.put(new Promotion(percentage, rank), new Reduce());
     }
 
     // ----------------- GETTERS & SETTERS ------------------
@@ -471,6 +475,73 @@ public class Product implements Serializable {
         this.orders = orders;
     }
 
+
+    public String getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(String energy) {
+        this.energy = energy;
+    }
+
+    public String getFats() {
+        return fats;
+    }
+
+    public void setFats(String fats) {
+        this.fats = fats;
+    }
+
+    public String getSaturatedFatAcids() {
+        return saturatedFatAcids;
+    }
+
+    public void setSaturatedFatAcids(String saturatedFatAcids) {
+        this.saturatedFatAcids = saturatedFatAcids;
+    }
+
+    public String getCarbohydrates() {
+        return carbohydrates;
+    }
+
+    public void setCarbohydrates(String carbohydrates) {
+        this.carbohydrates = carbohydrates;
+    }
+
+    public String getSugar() {
+        return sugar;
+    }
+
+    public void setSugar(String sugar) {
+        this.sugar = sugar;
+    }
+
+    public String getProtein() {
+        return protein;
+    }
+
+    public void setProtein(String protein) {
+        this.protein = protein;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getComposition() {
+        return composition;
+    }
+
+    public void setComposition(String composition) {
+        this.composition = composition;
+    }
+    
+    
+
     public Set<Client> getClients() {
         return clients;
     }
@@ -478,6 +549,7 @@ public class Product implements Serializable {
     public void setClients(Set<Client> clients) {
         this.clients = clients;
     }
+
 
     // ----------------------- METHODS ----------------------
     // ----------------------- METHODS ------------------------
@@ -505,7 +577,11 @@ public class Product implements Serializable {
             }
             return true;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     @Override
     public String toString() {
             return "Product{" + "ean=" + ean + ", name=" + name
@@ -516,5 +592,7 @@ public class Product implements Serializable {
                     + ", labels=" + labels
                     + ", promotions=" + promotions + '}';
     }
+
+    
 
 }

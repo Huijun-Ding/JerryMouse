@@ -7,9 +7,7 @@ package com.jms.controller;
 
 import com.jms.dao.BasketDAO;
 import com.jms.dao.ClientDAO;
-import com.jms.dao.HaveDAO;
 import com.jms.dao.StockDAO;
-import com.jms.dao.StoreDAO;
 import com.jms.dao.ValiderDAO;
 import com.jms.model.Basket;
 import com.jms.model.Client;
@@ -33,8 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
- * @author mlk
+ * ValidateServlet Class.
+ * @author Jerry Mouse Software.
  */
 public class ValidateServlet extends HttpServlet {
 
@@ -102,8 +100,10 @@ public class ValidateServlet extends HttpServlet {
                                 // update stock de prod
                                 StockDAO.updateStockProd(store.getId(), ean, lstProdQte.get(ean));
                                 // delete basket
-                                BasketDAO.deleteBasket(2);
+                                BasketDAO.deleteBasket(client.getCode());
+                                // update point of client
                                 ClientDAO.updatePoint(client, pointFinal);
+//                                majCreneau
                             } catch (SQLException ex) {
                                 Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
                             }

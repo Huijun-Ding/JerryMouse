@@ -59,7 +59,7 @@ public class transferProductServlet extends HttpServlet {
                 if (post.getProduct() == null) {
                     System.out.println("111111" + post.getWording());
                     ProductDAO.getProductsByName(post.getWording()).get(0);
-                    System.out.println("22222222" + ProductDAO.getProductsByName(post.getWording()).get(0));
+                    System.out.println("22222222" + ProductDAO.getProductsByName(post.getWording()).get(0).getBrand());
                     if (ProductDAO.getProductsByName(post.getWording()) == null) {
                         out.println("<message> Non cette genre de produit. </message>");
                     } else {
