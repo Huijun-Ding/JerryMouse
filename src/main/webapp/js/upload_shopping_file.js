@@ -75,7 +75,7 @@ function save() {
 
             if (msg_error.length === 0) {
                 var msg_success = '<div class="alert alert-success alert-dismissible fade show" role="alert">\n';
-                msg_success += '   <strong>' + title + ' :"</strong> ' + content + '\n';
+                msg_success += '   <strong>' + title + ' :</strong> ' + content + '\n';
                 msg_success += '   <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">\n';
                 msg_success += '       <span aria-hidden="true"></span>\n';
                 msg_success += '   </button>\n';
