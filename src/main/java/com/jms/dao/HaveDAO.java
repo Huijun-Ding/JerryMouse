@@ -164,21 +164,13 @@ public class HaveDAO {
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
-            Query query = session.createQuery("update CapciteCR from Avoir "
-                    + "where HeureDebutCR = :starTime "
-                    + "and CodeM = :storeId "
-                    + "and DateCR = :datePickUp");
 
-            query.setParameter("startTime", have.getHaveId().getStartTime());
-            query.setParameter("storeId", have.getHaveId().getStoreId());
-            query.setParameter("datePickUp", have.getHaveId().getDate());
-
-            if (!query.list().isEmpty()) {
-                have = (Have) query.list().get(0);
-                int capacity = have.getCapacity();
-                capacity = capacity - 1;
-            }
+            int capacity = have.getCapacity() - 1;
+            have.setCapacity(capacity);
+            session.update(have);
+                
             t.commit();
+            session.close();
         }
     }
 
