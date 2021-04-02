@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class GetShoppingListName extends HttpServlet {
 
@@ -29,6 +30,8 @@ public class GetShoppingListName extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
 
             String id = request.getParameter("id");
+            HttpSession session = request.getSession(true);
+            session.setAttribute("idList", id);
 
             ShoppingList slt = ShoppingListDAO.getShoppingList(Integer.parseInt(id));
             response.setContentType("application/xml;charset=UTF-8");

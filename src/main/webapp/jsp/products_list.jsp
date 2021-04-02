@@ -47,12 +47,9 @@
 
                 <%
                     ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
-
                     request.setAttribute("productsList", list);
                     Client client = (Client) session.getAttribute("client");
                     session.setAttribute("client", client);
-
-
                 %> 
                 <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-4 g-4">
                     <% for (Product product : list) { %>
@@ -65,14 +62,10 @@
                                 String marque = product.getBrand();
                                 String price = String.format("%.2f", product.getUnitPrice());
                                 String priceKG = "";
-
                                 if (product.getKgPrice() != 0f) {
                                     priceKG = String.format("%.2f", product.getKgPrice());
-
                                 }
-
                                 String format = product.getFormat();
-
                                 // Get the conditioning of the product
                                 String conditioningType;
                                 int conditioningVal;
@@ -85,7 +78,6 @@
                                 }
                                 // Get the nutriscore of the product.
                                 ProductNutriScore nutriscore = product.getNutriscore();
-
                                 // If there are labels for the product, get their names.
                                 ArrayList<String> labelStrings = new ArrayList<String>();
                                 if (!product.getLabels().isEmpty()) {
@@ -93,7 +85,6 @@
                                         labelStrings.add(label.getDescription());
                                     }
                                 }
-
                                 // If exists, get the current promotion on the product.  
                                 int place = 1;
                                 String percent = "";
@@ -102,7 +93,6 @@
                                     int val = (int) (promotion.getPercentage() * 100);
                                     percent = String.valueOf(val);
                                 }
-
                             %>
                             <img class="img-thumbnail" src="<%= url%>" alt="alt"/>
                             <div class="card-body">
@@ -192,13 +182,10 @@
                 String sucre = p.getSugar();
                 String proteines = p.getProtein();
                 String sel = p.getSalt();
-
                 if (p.getKgPrice() != 0f) {
                     priceKG = String.format("%.2f", p.getKgPrice());
                 }
-
                 String format = p.getFormat();
-
                 // Get the conditioning of the product
                 String conditioningType;
                 int conditioningVal;
@@ -211,7 +198,6 @@
                 }
                 // Get the nutriscore of the product.
                 ProductNutriScore nutriscore = p.getNutriscore();
-
                 // If there are labels for the product, get their names.
                 ArrayList<String> labelStrings = new ArrayList<String>();
                 if (!p.getLabels().isEmpty()) {
@@ -219,7 +205,6 @@
                         labelStrings.add(label.getDescription());
                     }
                 }
-
                 // If exists, get the current promotion on the product.  
                 int place = 1;
                 String percent = "";
@@ -237,14 +222,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="container">
-                            <div class="row">
-                                <div class="col">
+                            <div class="row mb-3">
+                                <div class="col h-100">
                                     <!--image-->
                                     <div>
                                         <img class="img-thumbnail" src="<%= url%>" alt="alt" />
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col h-100">
                                     <!--libelle-->
                                     <h4><%=libelle%></h4>
                                     <!--brand-->
@@ -254,59 +239,59 @@
                                         <h6>Description</h6>
                                         <span><%=description%></span>
                                     </div>
-                                        <!-------ConditionType------>
-                                        <div class="text-muted">
-                                            <% if (priceKG != "") {
-                                                    out.print(priceKG + " €/kg");
+                                    <!-------ConditionType------>
+                                    <div class="text-muted">
+                                        <% if (priceKG != "") {
+                                                out.print(priceKG + " €/kg");
+                                            }
+                                        %>
+                                        <% if (format != "") {
+                                                out.print("  " + format + "");
+                                            } %>
+                                        <% if (conditioningType != "") {
+                                                if (conditioningType == "lot") {
+                                                    out.print(" | " + conditioningType + " de " + conditioningVal);
+                                                } else {
+                                                    out.print(" | " + conditioningType);
                                                 }
-                                            %>
-                                            <% if (format != "") {
-                                                    out.print("  " + format + "");
-                                                } %>
-                                            <% if (conditioningType != "") {
-                                                    if (conditioningType == "lot") {
-                                                        out.print(" | " + conditioningType + " de " + conditioningVal);
-                                                    } else {
-                                                        out.print(" | " + conditioningType);
-                                                    }
-                                                }
-                                            %> 
-                                        </div>
-                                        <div>
-                                            <!--nuttriscore-->
-                                            <% if (nutriscore != null) {%>
-                                            <img src="img/Nutri-score-<%= nutriscore%>.svg" width="60px" alt="Nutriscore">
-                                            <%}%>
-                                        </div>  
-                                            <!-- labels -->
-                                            <% if (!labelStrings.isEmpty()) { %>
-                                        <div class="d-inline-block ">
-                                            <% for (String labelString : labelStrings) {%>
-                                            <div class="btn btn-outline-warning"><%= labelString + " LABEL_HERE "%></div>
-                                            <% }%>
-                                        </div> 
+                                            }
+                                        %> 
+                                    </div>
+                                    <div>
+                                        <!--nuttriscore-->
+                                        <% if (nutriscore != null) {%>
+                                        <img src="img/Nutri-score-<%= nutriscore%>.svg" width="60px" alt="Nutriscore">
+                                        <%}%>
+                                    </div>  
+                                    <!-- labels -->
+                                    <% if (!labelStrings.isEmpty()) { %>
+                                    <div class="d-inline-block ">
+                                        <% for (String labelString : labelStrings) {%>
+                                        <div class="btn btn-outline-warning"><%= labelString + " LABEL_HERE "%></div>
                                         <% }%>
-                                            <!--Promotion-->
-                                            <% if (percent != "") {%>
-                                        <span class="btn btn-outline-danger">
-                                            <%= "-" + percent + "%"%>
-                                            <% String infoPromo = "";
-                                                if (place != 1)
-                                                    infoPromo = "sur le " + place + "ème";
-                                            %>
-                                            <%= infoPromo%>
-                                        </span>
-                                        <div class="text-right">
-                                            <% }%>
-                                            <!--PriceUnit-->
-                                            <h5 class="d-inline-block"><%= price + " €"%></h5>
-                                            <a href="AddProductServlet?ean=<%=ean%>" class="btn btn-primary">
-                                                <i class="fas fa-shopping-basket" ></i>
-                                            </a>
-                                        </div>
-
+                                    </div> 
+                                    <% }%>
+                                    <!--Promotion-->
+                                    <% if (percent != "") {%>
+                                    <div class="btn btn-outline-danger">
+                                        <%= "-" + percent + "%"%>
+                                        <% String infoPromo = "";
+                                            if (place != 1)
+                                                infoPromo = "sur le " + place + "ème";
+                                        %>
+                                        <%= infoPromo%>
+                                    </div>
+                                    <% }%>
+                                    <div class="text-right">
+                                        <!--PriceUnit-->
+                                        <h5 class="d-inline-block"><%= price + " €"%></h5>
+                                        <a href="AddProductServlet?ean=<%=ean%>" class="btn btn-primary">
+                                            <i class="fas fa-shopping-basket" ></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col">
                                     <div>

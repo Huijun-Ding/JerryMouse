@@ -48,8 +48,6 @@ public class HaveIdDAO {
         }
     }
     
-
-    
     public static void main (String[] args) throws ParseException{
         
     }

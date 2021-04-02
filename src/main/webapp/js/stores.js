@@ -83,7 +83,9 @@ function changeStore(storeId) {
             document.getElementById("search_stores").value = "";
             document.getElementById("stores_list").innerHTML = "";
             document.getElementById("time_slot_button").classList.remove("d-none");
-            parent.$("#corp_modal").load(window.parent.location.href + " #corp_modal");
+            parent.$("#corp_modal").load(window.parent.location.href + " #corp_modal");            
+            
+            document.getElementById("time_slot_name").innerHTML = "Choisir un créneau";
         }
     };
 
