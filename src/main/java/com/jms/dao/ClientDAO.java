@@ -143,10 +143,10 @@ public class ClientDAO {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         // test for method searchClient
-        System.out.println(ClientDAO.searchClient(1));
-
+        System.out.println(ClientDAO.searchClient(14).getCode());
+//updatePoint(ClientDAO.searchClient(14),10);
         //create();
         load(2);
         boolean res = authenticate("rc@gmail.com", "rm123");

@@ -4,9 +4,8 @@
 
 function displayBasket() {
     var xhr = new XMLHttpRequest();
-    var idClient = document.getElementById("idClient").value;
 
-    xhr.open("GET", "checkBasketServlet?idClient=" + idClient);
+    xhr.open("GET", "checkBasketServlet");
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -67,14 +66,13 @@ function displayBasket() {
 
 function displayPoints() {
     var xhr = new XMLHttpRequest();
-    var idClient = document.getElementById("idClient").value;
     checkBox = document.getElementsByName("checkPoint");
     checkPoint = false;
     if (checkBox[0].checked)
         checkPoint = true;
 
 
-    xhr.open("GET", "checkBasketServlet?idClient=" + idClient + "&checkPoint=" + checkPoint);
+    xhr.open("GET", "checkBasketServlet?checkPoint=" + checkPoint);
 
     xhr.onload = function () {
         if (xhr.status === 200) {

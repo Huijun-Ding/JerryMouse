@@ -47,12 +47,9 @@
 
                 <%
                     ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("productsList");
-
                     request.setAttribute("productsList", list);
                     Client client = (Client) session.getAttribute("client");
                     session.setAttribute("client", client);
-
-
                 %> 
                 <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-4 g-4">
                     <% for (Product product : list) { %>
@@ -65,14 +62,10 @@
                                 String marque = product.getBrand();
                                 String price = String.format("%.2f", product.getUnitPrice());
                                 String priceKG = "";
-
                                 if (product.getKgPrice() != 0f) {
                                     priceKG = String.format("%.2f", product.getKgPrice());
-
                                 }
-
                                 String format = product.getFormat();
-
                                 // Get the conditioning of the product
                                 String conditioningType;
                                 int conditioningVal;
@@ -85,7 +78,6 @@
                                 }
                                 // Get the nutriscore of the product.
                                 ProductNutriScore nutriscore = product.getNutriscore();
-
                                 // If there are labels for the product, get their names.
                                 ArrayList<String> labelStrings = new ArrayList<String>();
                                 if (!product.getLabels().isEmpty()) {
@@ -93,7 +85,6 @@
                                         labelStrings.add(label.getDescription());
                                     }
                                 }
-
                                 // If exists, get the current promotion on the product.  
                                 int place = 1;
                                 String percent = "";
@@ -102,7 +93,6 @@
                                     int val = (int) (promotion.getPercentage() * 100);
                                     percent = String.valueOf(val);
                                 }
-
                             %>
                             <img class="img-thumbnail" src="<%= url%>" alt="alt"/>
                             <div class="card-body">
@@ -157,7 +147,7 @@
 
                             </div>
                             <!-- footer (price, button) -->
-                            <div class="card-footer text-right" style="z-index:100">
+                            <div class="card-footer text-end" style="z-index:100">
 
                                 <h3 class="d-inline-block text-left"><%= price + " €"%></h3>
 
@@ -192,13 +182,10 @@
                 String sucre = p.getSugar();
                 String proteines = p.getProtein();
                 String sel = p.getSalt();
-
                 if (p.getKgPrice() != 0f) {
                     priceKG = String.format("%.2f", p.getKgPrice());
                 }
-
                 String format = p.getFormat();
-
                 // Get the conditioning of the product
                 String conditioningType;
                 int conditioningVal;
@@ -211,7 +198,6 @@
                 }
                 // Get the nutriscore of the product.
                 ProductNutriScore nutriscore = p.getNutriscore();
-
                 // If there are labels for the product, get their names.
                 ArrayList<String> labelStrings = new ArrayList<String>();
                 if (!p.getLabels().isEmpty()) {
@@ -219,7 +205,6 @@
                         labelStrings.add(label.getDescription());
                     }
                 }
-
                 // If exists, get the current promotion on the product.  
                 int place = 1;
                 String percent = "";
