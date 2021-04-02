@@ -105,7 +105,9 @@ public class ValidateServlet extends HttpServlet {
                                 BasketDAO.deleteBasket(client.getCode());
                                 // update point of client
                                 ClientDAO.updatePoint(client, pointFinal);
-//                                majCreneau
+                                //majCreneau, decrease capcity
+                                HaveDAO.decreaseTimeSlotAfterValidation(have);
+                                session.removeAttribute("have");
                             } catch (SQLException ex) {
                                 Logger.getLogger(ValidateServlet.class.getName()).log(Level.SEVERE, null, ex);
                             }
