@@ -60,15 +60,15 @@ public class ProductDAOH {
             //System.out.println("--------- GET ALL PRODUCTS ");
             
             String sql = 
-                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
-                    + "p.brand, p.description, "
-                    + "p.nutriscore, p.packaging, p.packagingQuantity, "
-                    + "p.unitPrice, p.kgPrice, p.urlThumbnail, "
-                    + "p.energy, p.fats, p.saturatedFatAcids, " 
-                    +" p.carbohydrates, p.sugar, p.protein, "
-                    + "p.salt, p.composition) "
+                    "SELECT p "
                     + "FROM Produit p LEFT OUTER JOIN p.labels l ";
             list = session.createQuery(sql).list();
+            
+            for (Product product : list) {
+                Hibernate.initialize(product.getLabels());
+                Hibernate.initialize(product.getPromotions());
+            }
+            
             return list;
         } 
     }
