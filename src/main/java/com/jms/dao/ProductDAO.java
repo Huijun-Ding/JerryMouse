@@ -168,12 +168,17 @@ public class ProductDAO {
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
-            Query query = session.createQuery("SELECT DISTINCT new com.jms.model.Product(p.ean, p.name, p.format, p.nutriscore, p.packaging, p.packagingQuantity, p.unitPrice, p.kgPrice, p.urlThumbnail) FROM Produit p WHERE p.category.name = :c OR p.name LIKE :p");
+            Query query = session.createQuery("SELECT DISTINCT p FROM Produit p WHERE p.category.name = :c OR p.name LIKE :p");
 
             query.setParameter("c", keyword);
             query.setParameter("p", "%" + keyword + "%");
 
             List<Product> lstProducts = query.list();
+            
+            for (Product lstProduct : lstProducts) {
+                Hibernate.initialize(lstProduct.getLabels());
+                Hibernate.initialize(lstProduct.getPromotions());
+            }
 
 //            for (int i = 0; i < lstProducts.size(); i++) {
 //                System.out.println(lstProducts.get(i).getName());
