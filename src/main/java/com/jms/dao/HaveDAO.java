@@ -29,7 +29,7 @@ public class HaveDAO {
     /**
      *
      */
-    public static void create(String startTime, int storeId,String date, int capacity) throws ParseException {
+    public static void create(String startTime, int storeId, String date, int capacity) throws ParseException {
         //Open a session
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
@@ -46,8 +46,8 @@ public class HaveDAO {
 
     public static void initialize() throws ParseException {
         int[] storeIds = new int[]{15, 19, 38, 40};
-        
-        for(int storeId : storeIds) {
+
+        for (int storeId : storeIds) {
             for (Date d : DateUtil.nextDays(4)) {
                 int hour = 7;
                 String minutes = "30";
@@ -72,18 +72,18 @@ public class HaveDAO {
                             + capacity + " "
                             + DateUtil.yearMonthDayFormat(d)
                     );
-                    
-                    if(hour > 12 && hour <= 16) {
+
+                    if (hour > 12 && hour <= 16) {
                         minCapacite = 0;
                         maxCapacite = 15;
-                    } else if(hour > 16) {
+                    } else if (hour > 16) {
                         minCapacite = 0;
                         maxCapacite = 20;
                     }
 
-                   range = maxCapacite - minCapacite + 1;
-                   
-                   create(hoursMinutes, storeId,DateUtil.yearMonthDayFormat(d), capacity);
+                    range = maxCapacite - minCapacite + 1;
+
+                    create(hoursMinutes, storeId, DateUtil.yearMonthDayFormat(d), capacity);
                 }
             }
         }
@@ -116,33 +116,56 @@ public class HaveDAO {
             return query.list();
         }
     }
-    
-    public static Have getHave(int storeId, Date datePickUp, String startTime){
+
+    public static Have getHave(int storeId, Date datePickUp, String startTime) {
         //Open a session
-        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             //Open a transaction
             Transaction t = session.beginTransaction();
             Query query = session.createQuery("from Avoir "
                     + "where HeureDebutCR = :startTime "
                     + "and CodeM = :storeId "
                     + "and DateCR = :datePickUp");
-            
+
             query.setParameter("startTime", startTime);
             query.setParameter("storeId", storeId);
             query.setParameter("datePickUp", datePickUp);
-            
+
             Have have = null;
-            if(!query.list().isEmpty()){
-                have = (Have)query.list().get(0);
+            if (!query.list().isEmpty()) {
+                have = (Have) query.list().get(0);
             }
             t.commit();
             return have;
-            
+
+        }
+    }
+
+    public static void decreaseTimeSlotAfterValidation(Have have) {
+        //Open a session
+        try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            //Open a transaction
+            Transaction t = session.beginTransaction();
+            Query query = session.createQuery("update CapciteCR from Avoir "
+                    + "where HeureDebutCR = :starTime "
+                    + "and CodeM = :storeId "
+                    + "and DateCR = :datePickUp");
+
+            query.setParameter("startTime", have.getHaveId().getStartTime());
+            query.setParameter("storeId", have.getHaveId().getStoreId());
+            query.setParameter("datePickUp", have.getHaveId().getDate());
+
+            if (!query.list().isEmpty()) {
+                have = (Have) query.list().get(0);
+                int capacity = have.getCapacity();
+                capacity = capacity - 1;
+            }
+            t.commit();
         }
     }
 
     public static void main(String[] args) throws ParseException {
         // HaveDAO.initialize();
-        
+
     }
 }
