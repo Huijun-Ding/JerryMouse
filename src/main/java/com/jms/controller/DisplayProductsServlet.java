@@ -40,22 +40,30 @@ public class DisplayProductsServlet extends HttpServlet {
         // Get the HTTP session
         HttpSession session = request.getSession(false);
 
+        if (request.getParameterMap().containsKey("max")) {
+            String max = request.getParameter("max");
+            System.out.println("MAX ----- " + max);
+            request.setAttribute("max", max);
+        }
+        
         // Get the client in session
         Client client = (Client) session.getAttribute("client");
 
         // Get the favorite products of the client
         if (client != null) {
-            System.out.println("Client = " + client.getCode() + " email = " + client.getEmail());
+            //System.out.println("Client = " + client.getCode() + " email = " + client.getEmail());
             Client clientUp = PreferenceDAO.getFavoriteProducts(client);
-            System.out.println("Prenom = " + clientUp.getFirstName());
+            //System.out.println("Prenom = " + clientUp.getFirstName());
             //System.out.println("SIZE = " + clientUp.getFavoriteProducts().size());
 //            for (Product favoriteProduct : clientUp.getFavoriteProducts()) {
 //                //System.out.println("" + favoriteProduct);
 //            }
             // Update client in session
             session.setAttribute("client", clientUp);
+            
+           
         }
-
+        
         // Redirect to products_list.jsp
         //response.sendRedirect("ProductsList");
         // All products to display     
@@ -83,6 +91,7 @@ public class DisplayProductsServlet extends HttpServlet {
             request.setAttribute("productsList", list);
             // Dispatch to ProductsList
             request.getRequestDispatcher("ProductsList?home").forward(request, response);
+            //response.sendRedirect("ProductsList?home");
         }
 
         // Products of a category  
