@@ -237,14 +237,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="container">
-                            <div class="row">
-                                <div class="col">
+                            <div class="row mb-3">
+                                <div class="col h-100">
                                     <!--image-->
                                     <div>
                                         <img class="img-thumbnail" src="<%= url%>" alt="alt" />
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col h-100">
                                     <!--libelle-->
                                     <h4><%=libelle%></h4>
                                     <!--brand-->
@@ -254,59 +254,59 @@
                                         <h6>Description</h6>
                                         <span><%=description%></span>
                                     </div>
-                                        <!-------ConditionType------>
-                                        <div class="text-muted">
-                                            <% if (priceKG != "") {
-                                                    out.print(priceKG + " €/kg");
+                                    <!-------ConditionType------>
+                                    <div class="text-muted">
+                                        <% if (priceKG != "") {
+                                                out.print(priceKG + " €/kg");
+                                            }
+                                        %>
+                                        <% if (format != "") {
+                                                out.print("  " + format + "");
+                                            } %>
+                                        <% if (conditioningType != "") {
+                                                if (conditioningType == "lot") {
+                                                    out.print(" | " + conditioningType + " de " + conditioningVal);
+                                                } else {
+                                                    out.print(" | " + conditioningType);
                                                 }
-                                            %>
-                                            <% if (format != "") {
-                                                    out.print("  " + format + "");
-                                                } %>
-                                            <% if (conditioningType != "") {
-                                                    if (conditioningType == "lot") {
-                                                        out.print(" | " + conditioningType + " de " + conditioningVal);
-                                                    } else {
-                                                        out.print(" | " + conditioningType);
-                                                    }
-                                                }
-                                            %> 
-                                        </div>
-                                        <div>
-                                            <!--nuttriscore-->
-                                            <% if (nutriscore != null) {%>
-                                            <img src="img/Nutri-score-<%= nutriscore%>.svg" width="60px" alt="Nutriscore">
-                                            <%}%>
-                                        </div>  
-                                            <!-- labels -->
-                                            <% if (!labelStrings.isEmpty()) { %>
-                                        <div class="d-inline-block ">
-                                            <% for (String labelString : labelStrings) {%>
-                                            <div class="btn btn-outline-warning"><%= labelString + " LABEL_HERE "%></div>
-                                            <% }%>
-                                        </div> 
+                                            }
+                                        %> 
+                                    </div>
+                                    <div>
+                                        <!--nuttriscore-->
+                                        <% if (nutriscore != null) {%>
+                                        <img src="img/Nutri-score-<%= nutriscore%>.svg" width="60px" alt="Nutriscore">
+                                        <%}%>
+                                    </div>  
+                                    <!-- labels -->
+                                    <% if (!labelStrings.isEmpty()) { %>
+                                    <div class="d-inline-block ">
+                                        <% for (String labelString : labelStrings) {%>
+                                        <div class="btn btn-outline-warning"><%= labelString + " LABEL_HERE "%></div>
                                         <% }%>
-                                            <!--Promotion-->
-                                            <% if (percent != "") {%>
-                                        <span class="btn btn-outline-danger">
-                                            <%= "-" + percent + "%"%>
-                                            <% String infoPromo = "";
-                                                if (place != 1)
-                                                    infoPromo = "sur le " + place + "ème";
-                                            %>
-                                            <%= infoPromo%>
-                                        </span>
-                                        <div class="text-right">
-                                            <% }%>
-                                            <!--PriceUnit-->
-                                            <h5 class="d-inline-block"><%= price + " €"%></h5>
-                                            <a href="AddProductServlet?ean=<%=ean%>" class="btn btn-primary">
-                                                <i class="fas fa-shopping-basket" ></i>
-                                            </a>
-                                        </div>
-
+                                    </div> 
+                                    <% }%>
+                                    <!--Promotion-->
+                                    <% if (percent != "") {%>
+                                    <div class="btn btn-outline-danger">
+                                        <%= "-" + percent + "%"%>
+                                        <% String infoPromo = "";
+                                            if (place != 1)
+                                                infoPromo = "sur le " + place + "ème";
+                                        %>
+                                        <%= infoPromo%>
+                                    </div>
+                                    <% }%>
+                                    <div class="text-right">
+                                        <!--PriceUnit-->
+                                        <h5 class="d-inline-block"><%= price + " €"%></h5>
+                                        <a href="AddProductServlet?ean=<%=ean%>" class="btn btn-primary">
+                                            <i class="fas fa-shopping-basket" ></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col">
                                     <div>
