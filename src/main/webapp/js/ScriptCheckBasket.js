@@ -4,9 +4,8 @@
 
 function displayBasket() {
     var xhr = new XMLHttpRequest();
-    var idClient = document.getElementById("idClient").value;
 
-    xhr.open("GET", "checkBasketServlet?idClient=" + idClient);
+    xhr.open("GET", "checkBasketServlet");
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -56,7 +55,9 @@ function displayBasket() {
                     editQuantity(this);
                 });
                 
-                document.getElementById('p_' + ean).addEventListener("click", editQuantity);
+                document.getElementById('p_' + ean).addEventListener("click", function() {
+                    editQuantity(this);
+                });
                 
             }
         }
@@ -67,14 +68,13 @@ function displayBasket() {
 
 function displayPoints() {
     var xhr = new XMLHttpRequest();
-    var idClient = document.getElementById("idClient").value;
     checkBox = document.getElementsByName("checkPoint");
     checkPoint = false;
     if (checkBox[0].checked)
         checkPoint = true;
 
 
-    xhr.open("GET", "checkBasketServlet?idClient=" + idClient + "&checkPoint=" + checkPoint);
+    xhr.open("GET", "checkBasketServlet?checkPoint=" + checkPoint);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -128,7 +128,7 @@ function editQuantity(button) {
                 qtyProd.value = res;
             } else {
                 if (msg === "noMinus") {
-                    msg_error = "deja 0 !";
+                    msg_error = "Déjà 0 !";
                 } else if (msg === "noPlus") {
                     msg_error = "Rupture de stock !";
                 } else if (msg === "store") {
@@ -141,6 +141,9 @@ function editQuantity(button) {
                 stock.innerHTML = "";
                 stock.insertAdjacentHTML('beforeend', msg_error);
             }
+            
+            displayBasket();
+            displayPoints();
         }
     };
     xhr.send();
