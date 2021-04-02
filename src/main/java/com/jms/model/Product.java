@@ -184,72 +184,72 @@ public class Product implements Serializable {
     }
 
     public Product(String ean, String libelle, float unitPrice, String urlThumbnail) {
-        this.ean = ean;
-        this.name = libelle;
-        this.unitPrice = unitPrice;
-        this.urlThumbnail=urlThumbnail;
+         this.ean = ean;
+         this.name = libelle;
+         this.unitPrice = unitPrice;
+         this.urlThumbnail=urlThumbnail;
     }
 
     public Product(String ean, String libelle, String description,
             String brand, String format, boolean bio,
             ProductNutriScore nutriscore, ProductConditioning packaging) {
-        this.ean = ean;
-        this.name = libelle;
-        this.description = description;
-        this.brand = brand;
-        this.format = format;
-        this.bio = bio;
-        this.nutriscore = nutriscore;
-        this.packaging = packaging;
+         this.ean = ean;
+         this.name = libelle;
+         this.description = description;
+         this.brand = brand;
+         this.format = format;
+         this.bio = bio;
+         this.nutriscore = nutriscore;
+         this.packaging = packaging;
     }
 
     public Product(String ean, String libelle, String description,
             String brand, String format, boolean bio,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             ProductCategory category) {
-        this.ean = ean;
-        this.name = libelle;
-        this.description = description;
-        this.brand = brand;
-        this.format = format;
-        this.bio = bio;
-        this.nutriscore = nutriscore;
-        this.packaging = packaging;
-        this.category = category;
+            this.ean = ean;
+            this.name = libelle;
+            this.description = description;
+            this.brand = brand;
+            this.format = format;
+            this.bio = bio;
+            this.nutriscore = nutriscore;
+            this.packaging = packaging;
+            this.category = category;
     }
 
     public Product(String ean, String name, String format,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail) {
-        this.ean = ean;
-        this.name = name;
-        this.format = format;
-        this.nutriscore = nutriscore;
-        this.packaging = packaging;
-        if (packaging == null) {
-            this.packaging = null;
-        }
-        this.packagingQuantity = packagingQuantity;
-        this.unitPrice = unitPrice;
-        this.kgPrice = kgPrice;
-        this.urlThumbnail = urlThumbnail;
+            this.ean = ean;
+            this.name = name;
+            this.format = format;
+            this.nutriscore = nutriscore;
+            this.packaging = packaging;
+            if (packaging == null) {
+                this.packaging = null;
+            }
+            this.packagingQuantity = packagingQuantity;
+            this.unitPrice = unitPrice;
+            this.kgPrice = kgPrice;
+            this.urlThumbnail = urlThumbnail;
     }
 
     public Product(String ean, String name, String format,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail, int idPromotion, float percentage, int rank) {
-        this.ean = ean;
-        this.name = name;
-        this.format = format;
-        this.nutriscore = nutriscore;
-        this.packaging = packaging;
-        this.packagingQuantity = packagingQuantity;
-        this.unitPrice = unitPrice;
-        this.kgPrice = kgPrice;
-        this.urlThumbnail = urlThumbnail;
-        this.promotions.put(new Promotion(percentage, rank), new Reduce());
+            this.ean = ean;
+            this.name = name;
+            this.format = format;
+            this.nutriscore = nutriscore;
+            this.packaging = packaging;
+            this.packagingQuantity = packagingQuantity;
+            this.unitPrice = unitPrice;
+            this.kgPrice = kgPrice;
+            this.urlThumbnail = urlThumbnail;
+            this.promotions.put(new Promotion(percentage, rank), new Reduce());
     }
 
     public Product(String ean, String name, String format,
@@ -257,45 +257,45 @@ public class Product implements Serializable {
             int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail, int idPromotion, float percentage, int rank,
             Set<Label> labels) {
-        this.ean = ean;
-        this.name = name;
-        this.format = format;
-        this.nutriscore = nutriscore;
-        this.packaging = packaging;
-        this.packagingQuantity = packagingQuantity;
-        this.unitPrice = unitPrice;
-        this.kgPrice = kgPrice;
-        this.urlThumbnail = urlThumbnail;
-        this.promotions.put(new Promotion(percentage, rank), new Reduce());
-        this.labels = labels;
+            this.ean = ean;
+            this.name = name;
+            this.format = format;
+            this.nutriscore = nutriscore;
+            this.packaging = packaging;
+            this.packagingQuantity = packagingQuantity;
+            this.unitPrice = unitPrice;
+            this.kgPrice = kgPrice;
+            this.urlThumbnail = urlThumbnail;
+            this.promotions.put(new Promotion(percentage, rank), new Reduce());
+            this.labels = labels;
     }
      public Product(String ean, String name, String format, String brand, String description,
             ProductNutriScore nutriscore, ProductConditioning packaging,
             int packagingQuantity, float unitPrice, float kgPrice,
             String urlThumbnail, String energy, String fats, String saturatedFatAcids, 
             String carbohydrates, String sugar, String protein, String salt, String composition) {
-        this.ean = ean;
-        this.name = name;
-        this.brand = brand;
-        this.description = description;
-        this.format = format;
-        this.nutriscore = nutriscore;
-        this.packaging = packaging;
-        if (packaging == null) {
-            this.packaging = null;
-        }
-        this.packagingQuantity = packagingQuantity;
-        this.unitPrice = unitPrice;
-        this.kgPrice = kgPrice;
-        this.urlThumbnail = urlThumbnail;
-        this.energy = energy;
-        this.fats = fats;
-        this.saturatedFatAcids = saturatedFatAcids;
-        this.carbohydrates = carbohydrates;
-        this.sugar = sugar;
-        this.protein = protein;
-        this.salt = salt;
-        this.composition = composition;
+            this.ean = ean;
+            this.name = name;
+            this.brand = brand;
+            this.description = description;
+            this.format = format;
+            this.nutriscore = nutriscore;
+            this.packaging = packaging;
+            if (packaging == null) {
+                this.packaging = null;
+            }
+            this.packagingQuantity = packagingQuantity;
+            this.unitPrice = unitPrice;
+            this.kgPrice = kgPrice;
+            this.urlThumbnail = urlThumbnail;
+            this.energy = energy;
+            this.fats = fats;
+            this.saturatedFatAcids = saturatedFatAcids;
+            this.carbohydrates = carbohydrates;
+            this.sugar = sugar;
+            this.protein = protein;
+            this.salt = salt;
+            this.composition = composition;
     }
     
     public Product(String ean, String name, String format, String brand, String description,
@@ -304,26 +304,26 @@ public class Product implements Serializable {
             String urlThumbnail, String energy, String fats, String saturatedFatAcids, 
             String carbohydrates, String sugar, String protein, String salt, String composition,
             int idPromotion, float percentage, int rank) {
-        this.ean = ean;
-        this.name = name;
-        this.format = format;
-        this.brand = brand;
-        this.description = description;
-        this.nutriscore = nutriscore;
-        this.packaging = packaging;
-        this.packagingQuantity = packagingQuantity;
-        this.unitPrice = unitPrice;
-        this.kgPrice = kgPrice;
-        this.urlThumbnail = urlThumbnail;
-        this.energy = energy;
-        this.fats = fats;
-        this.saturatedFatAcids = saturatedFatAcids;
-        this.carbohydrates = carbohydrates;
-        this.sugar = sugar;
-        this.protein = protein;
-        this.salt = salt;
-        this.composition = composition;
-        this.promotions.put(new Promotion(percentage, rank), new Reduce());
+            this.ean = ean;
+            this.name = name;
+            this.format = format;
+            this.brand = brand;
+            this.description = description;
+            this.nutriscore = nutriscore;
+            this.packaging = packaging;
+            this.packagingQuantity = packagingQuantity;
+            this.unitPrice = unitPrice;
+            this.kgPrice = kgPrice;
+            this.urlThumbnail = urlThumbnail;
+            this.energy = energy;
+            this.fats = fats;
+            this.saturatedFatAcids = saturatedFatAcids;
+            this.carbohydrates = carbohydrates;
+            this.sugar = sugar;
+            this.protein = protein;
+            this.salt = salt;
+            this.composition = composition;
+            this.promotions.put(new Promotion(percentage, rank), new Reduce());
     }
 
     // ----------------- GETTERS & SETTERS ------------------
@@ -483,38 +483,38 @@ public class Product implements Serializable {
     // ----------------------- METHODS ------------------------
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.ean);
-        return hash;
+            int hash = 3;
+            hash = 97 * hash + Objects.hashCode(this.ean);
+            return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {   
+            if (this == obj) {   
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Product other = (Product) obj;
+            if (!Objects.equals(this.ean, other.ean)) {
+                return false;
+            }
             return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Product other = (Product) obj;
-        if (!Objects.equals(this.ean, other.ean)) {
-            return false;
-        }
-        return true;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "ean=" + ean + ", name=" + name
-                + ", description=" + description + ", brand="
-                + brand + ", format=" + format + ", bio=" + bio
-                + ", nutriscore=" + nutriscore
-                + ", packaging=" + packaging + ", category=" + category
-                + ", labels=" + labels
-                + ", promotions=" + promotions + '}';
+            return "Product{" + "ean=" + ean + ", name=" + name
+                    + ", description=" + description + ", brand="
+                    + brand + ", format=" + format + ", bio=" + bio
+                    + ", nutriscore=" + nutriscore
+                    + ", packaging=" + packaging + ", category=" + category
+                    + ", labels=" + labels
+                    + ", promotions=" + promotions + '}';
     }
 
 }

@@ -50,7 +50,7 @@ public class PostIt implements Serializable{
     /**
     * A constructor of the PostIt Class.
     */
-    public PostIt() {
+    public PostIt() { 
     }
     
     /**
@@ -58,17 +58,17 @@ public class PostIt implements Serializable{
     * @param wording Label of a post-it.
     */
     public PostIt(String wording) {
-        this.wording = wording;
+         this.wording = wording;
     }
 
     public PostIt(String wording, ShoppingList shoppingList) {
-        this.wording = wording;
-        this.shoppingList = shoppingList;
+            this.wording = wording;
+            this.shoppingList = shoppingList;
     }
 
     public PostIt(ShoppingList shoppingList, Product product) {
-        this.shoppingList = shoppingList;
-        this.product = product;
+            this.shoppingList = shoppingList;
+            this.product = product;
     }
     
     //------------ GETTERS&SETTERS --------------
@@ -144,7 +144,7 @@ public class PostIt implements Serializable{
      */
     @Override
     public String toString() {
-        return "PostIt{" + "wording=" + wording + ", shoppingList=" + shoppingList + ", product=" + product + '}';
+         return "PostIt{" + "wording=" + wording + ", shoppingList=" + shoppingList + ", product=" + product + '}';
     }
 
     /**
@@ -153,9 +153,9 @@ public class PostIt implements Serializable{
      */
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + this.code;
-        return hash;
+            int hash = 7;
+            hash = 67 * hash + this.code;
+            return hash;
     }
 
     /**
@@ -165,20 +165,20 @@ public class PostIt implements Serializable{
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final PostIt other = (PostIt) obj;
+            if (this.code != other.code) {
+                return false;
+            }
             return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PostIt other = (PostIt) obj;
-        if (this.code != other.code) {
-            return false;
-        }
-        return true;
     }
 
 }
