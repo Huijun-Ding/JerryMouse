@@ -78,8 +78,12 @@ public class ProductDAOH {
             
             String sql = 
                     "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
+                    + "p.brand, p.description, "
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
-                    + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
+                    + "p.unitPrice, p.kgPrice, p.urlThumbnail, "
+                    + "p.energy, p.fats, p.saturatedFatAcids, " 
+                    +" p.carbohydrates, p.sugar, p.protein, "
+                    + "p.salt, p.composition) "
                     + "FROM Produit p LEFT OUTER JOIN p.labels l ";
             list = session.createQuery(sql).list();
             return list;
@@ -154,7 +158,7 @@ public class ProductDAOH {
             String sql = 
                     "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
-                    + "p.unitPrice, p.kgPrice, p.urlThumbnail) "
+                    + "p.unitPrice, p.kgPrice, p.urlThumbnail,p.brand ,p.description ) "
                     + "FROM Produit p "
                     + "WHERE p.category.department.id = :id "
                     + "ORDER BY p.name ASC";
@@ -178,9 +182,12 @@ public class ProductDAOH {
             //System.out.println("--------- GET PRODUCTS CURRENTLY IN PROMOTION");
             
             String sql = 
-                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format, "
+                    "SELECT new com.jms.model.Product(p.ean, p.name, p.format,"
+                    + "p.brand, p.description, "
                     + "p.nutriscore, p.packaging, p.packagingQuantity, "
                     + "p.unitPrice, p.kgPrice, p.urlThumbnail, "
+                    + "p.energy, p.fats, p.saturatedFatAcids, "
+                    + "p.carbohydrates, p.sugar, p.protein, p.salt, p.composition, "
                     + "pr.id, pr.percentage, pr.rank) "
                     + "FROM Reduire r "
                     + "JOIN r.product p "
@@ -221,4 +228,9 @@ public class ProductDAOH {
         }
     }
     
+    public static void main (String[] args){
+//        System.out.println(getAllProducts());
+//        
+//        System.out.println(getProductsWithPromo());
+    }
 }

@@ -1,4 +1,4 @@
-package com.jms.model;
+    package com.jms.model;
 
 import java.io.Serializable;
 import java.text.ParseException;

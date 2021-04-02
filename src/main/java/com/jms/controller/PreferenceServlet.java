@@ -1,9 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.jms.controller;
 
-import com.jms.dao.BasketDAO;
+import com.jms.dao.PreferenceDAO;
 import com.jms.model.Client;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,15 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * AddProductServlet Class.
- * @author Jerry Mouse Software.
+ *
+ * @author mlk
  */
-public class AddProductServlet extends HttpServlet {
+public class PreferenceServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *   
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -27,25 +32,35 @@ public class AddProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        Client client = (Client) session.getAttribute("client");
-        int idClient = client.getCode();
-        String ean = request.getParameter("ean");
+        response.setContentType("text/html;charset=UTF-8");
         
-        try {
-            BasketDAO.calculNbProduct(idClient);
-            // Check if the same product is already in the basket
-            if (BasketDAO.checkProductBakset(idClient, ean)) {
-                // update the quantity of product if it exists
-                BasketDAO.updateBasket(idClient, ean);
-            } else {
-                // add a new product to basket
-                BasketDAO.addProductToBasket(idClient, ean);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        // Get the HTTP session
+        HttpSession session = request.getSession(false);
+        
+        // Get the client in session
+        Client client = (Client) session.getAttribute("client");
+        
+        // Get the favorite products of the client
+        client = PreferenceDAO.getFavoriteProducts(client);
+        
+        // Update client in session
+        session.setAttribute("client", client);
+        
+        // Redirect to products_list.jsp
+        response.sendRedirect("ProductsList");
+        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet PreferenceServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet PreferenceServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        request.getRequestDispatcher("DisplayProducts?home").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -86,4 +101,5 @@ public class AddProductServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

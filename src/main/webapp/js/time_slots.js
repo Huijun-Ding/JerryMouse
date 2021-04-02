@@ -25,31 +25,43 @@ function search_time_slots() {
             //document.getElementById("stores_list").innerHtml = "";
             var htmlText = "";
             var timeSlot = xhr.responseXML.getElementsByTagName("timeSlot");
-            
+
             for (var i = 0; i < timeSlot.length; i++) {
                 var startTime = timeSlot[i].getElementsByTagName("startTime")[0].firstChild.nodeValue;
                 var endTime = timeSlot[i].getElementsByTagName("endTime")[0].firstChild.nodeValue;
                 var capacity = timeSlot[i].getElementsByTagName("capacity")[0].firstChild.nodeValue;
                 var message_capacity = (capacity <= 1) ? capacity + " place restante." : capacity + " places restantes.";
                
-                
-                htmlText += '   <button tabindex="' + i + '" id="ts' + i + '" class="btn btn-dark d-inline-block mb-3" type="button" value="' + startTime + '" title="' + message_capacity + '" data-toggle="tooltip" data-placement="top"';                
+                htmlText += '   <button tabindex="' + i + '" id="ts' + i + '" title="' + message_capacity + '"';
+                htmlText += ' class="btn btn-';
+                if (capacity !== "0")
+                    htmlText += 'primary';
+                else 
+                    htmlText += 'dark';
+                htmlText += ' d-inline-block mb-3" type="button" value="' + startTime + '" data-toggle="tooltip" data-placement="top"';                
                 if (capacity === "0")
                     htmlText += ' disabled';
-                htmlText += ' data-dismiss="modal">' + startTime + ' - ' + endTime + '</button>\n';
+                htmlText += ' data-dismiss="modal">' + startTime + ' - ' + endTime;
+                if (capacity !== "0")
+                    htmlText += ' <span class="badge bg-info"><span class="fa fa-user"></span> ' + capacity + '</span>';
+                htmlText += '</button>\n';
             }
 
             time_slots_list.innerHTML = htmlText;
 
             for (var i = 0; i < timeSlot.length; i++) {
                 //var startTime = timeSlot[i].getElementsByTagName("startTime")[0].firstChild.nodeValue;
-                document.getElementById('ts' + i).addEventListener("click", function() {
+                document.getElementById('ts' + i).addEventListener("click", function () {
                     changeTimeSlot(this.value);
+
                 });
             }
         }
     };
-
+//    msg_error = document.getElementById("msg_error");
+//    if (msg_error !== null)
+//        msg_error.innerHTML = "";
+//    $("#corp_modal").load(location.href + " #corp_modal");
     xhr.send();
 }
 
@@ -72,10 +84,14 @@ function changeTimeSlot(startTime) {
         if (xhr.status === 200) {
             var timeSlot = xhr.responseXML.getElementsByTagName("msg")[0];
             document.getElementById("time_slot_name").innerHTML = timeSlot.innerHTML;
+            parent.$("#corp_modal").load(window.parent.location.href + " #corp_modal");
         }
     };
     
-
+    msg_error = document.getElementById("msg_error");
+    if (msg_error !== null)
+        msg_error.innerHTML = "";
+    
     xhr.send();
 }
 
@@ -86,6 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("search_time_slots").addEventListener("change", search_time_slots);
 });
 
-$(function(){
-  $('[data-toggle="tooltip"]').tooltip();
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
 });
