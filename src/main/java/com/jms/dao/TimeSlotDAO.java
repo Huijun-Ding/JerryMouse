@@ -54,7 +54,7 @@ public class TimeSlotDAO {
             return session.get(TimeSlot.class, startTime);
         }
     }
-
+    
     /**
      *
      */
