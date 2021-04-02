@@ -1,19 +1,26 @@
 html, body {
-    font-family: Arial, sans-serif;
+    font-family: Roboto, sans-serif;
     height: 100%;
+}
+
+nav.navbar {
+    min-height: 126px;
 }
 
 #logo{
     width: 70px;
     height: 45px;
 }
+
 .prodPhoto{
     width: 50px;
     height: 50px;
 }
 
-#quantity{
-    width: 30px;
+.quantity{
+    width: 40px;
+    text-align: center;
+    border: 0;
 }
 
 #stores_list {
@@ -39,6 +46,15 @@ html, body {
     font-weight:bold;
     font-size: 20px;
 }
+
+.stock{
+    color:red;
+}
+
+.msg_error{
+    color:red;
+}
+
 #points{
     /*width: 50%;*/
     /*float: right;*/
@@ -72,20 +88,113 @@ html, body {
     width: 100%;
 }
 
-@media only screen and (min-width: 758px) {
-    #rayon_categorie_navbar {
-        margin-top: 145px;
-    }
+#rayon_categorie_navbar {
+    margin-top: 160px;
 }
 
-@media only screen and (max-width: 758px) and (min-width: 513px)  {
-    #rayon_categorie_navbar {
-        margin-top: 210px;
-    }
+.user_card {
+    height: 450px;
+    width: 400px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: #6610f2;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 7px;
+
+}
+.brand_logo_container {
+    position: absolute;
+    height: 170px;
+    width: 170px;
+    top: -75px;
+    text-align: center;
 }
 
-@media only screen and (max-width: 513px) {
-    #rayon_categorie_navbar {
-        margin-top: 250px;
-    }
+form[action="Connect"] p {
+    color : white;
+}
+
+.brand_logo {
+    height: 170px;
+    width: 170px;
+    border: 3px solid white;
+    border-radius: 15%;
+    box-shadow: 1px 1px 10px black;
+}
+.form_container {
+    margin-top: 100px;
+}
+
+
+.login_container {
+    padding: 0 2rem;
+}
+
+.input-group-text {
+    background: black !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+}
+
+.input_user,
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+
+#titrePageConnexion{
+    color:white;
+}
+
+#btn_login, #btn_return{
+    width:200px;
+}
+
+#time_slots_list > button {
+    width: 147px;
+}
+#tab_confirm{
+    width:75%;
+    margin: 0px auto;
+}
+
+i.far {
+    color: #6610f2;
+}
+
+th{
+    color: #6610f2 !important;
+}
+
+#th1, #td1{
+    text-align: right;
+    vertical-align: text-top;
+    padding-right: 7px; 
+}
+
+#th2, #td2{
+    text-align: left;
+    vertical-align: text-top;
+    padding-left: 7px; 
+}
+
+#confirm_body{
+    text-align: center;
+}
+
+#output {
+    position: absolute;
+    width: 319px;
+}
+
+#search_result li {
+    cursor: pointer;
 }

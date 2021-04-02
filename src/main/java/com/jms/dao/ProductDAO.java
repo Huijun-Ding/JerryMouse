@@ -5,7 +5,11 @@
  */
 package com.jms.dao;
 
+import static com.jms.dao.ClientDAO.searchClient;
+import com.jms.model.Client;
+import com.jms.model.Order;
 import com.jms.model.Product;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,7 +17,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import javax.servlet.http.HttpSession;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -139,7 +148,7 @@ public class ProductDAO {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            System.out.println(ean);
+//            System.out.println(ean);
             Query query = session.createQuery("from Produit where EANP = :code");
 
             query.setParameter("code", ean);
@@ -179,27 +188,80 @@ public class ProductDAO {
         }
     }
 
-//    public static void main(String[] s) throws ClassNotFoundException, SQLException {
-//        try {
-//        System.out.println(ProductDAO.completeSearchBarByProductName("Chocolat"));
-//        System.out.println(ProductDAO.completeSearchBarByCategory("Chocolat"));
-//
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//    }
-    public static void main(String[] args) throws ParseException {
+    public static List<Product> getProductsByName(String lib) {
+
+        //Open a session
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            Query query = session.createQuery("FROM Produit p WHERE p.name LIKE :p");
+
+            query.setParameter("p", "%" + lib + "%");
+
+            List<Product> lstProducts = query.list();
+
+//            for (int i = 0; i < lstProducts.size(); i++) {
+//                System.out.println(lstProducts.get(i).getName());
+//            }
+            t.commit();
+
+            return lstProducts;
+        }
+    }
+
+    public static Product getProductByHistory(Client client, List<Product> lstp) {
+        try (Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
+            System.out.println("test1");
+            Transaction t = session.beginTransaction();
+            session.update(client);
+            System.out.println("clienteeeeee" + client.getEmail());
+            Hibernate.initialize(client.getOrders());
+            for (Order order : client.getOrders()) {
+                Hibernate.initialize(order.getProducts());
+            }
+
+            // Update the points for the client
+            List<Product> history = new ArrayList<>();
+            for (Iterator it = client.getOrders().iterator(); it.hasNext();) {
+                Order order = (Order) it.next();
+                System.out.println("orderrrrrr" + order.getOrderId());
+                List<Product> lst = new ArrayList<>(order.getProducts().keySet());
+                for (Product p : lst) {
+                    if (history.contains(p) == false) {
+                        history.add(p);
+                    }
+                }
+            }
+            System.out.println(history);
+
+            history.retainAll(lstp);
+            System.out.println("getProductByHistory" + history);
+
+            t.commit();
+
+            if (history.size() >= 1) {
+                return history.get(0);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public static void main(String[] args) throws ParseException, ClassNotFoundException, SQLException {
         /*----- Test -----*/
 
-        ProductDAO.returnSrearchResult("Cafés");
+        //System.out.println(getProductByPref());
+        //ProductDAO.returnSrearchResult("Cafés");
+//        getProductsByName("fruit");
+//        ProductDAO.getProductsByName("chocolat");
 
         /*----- Exit -----*/
         System.exit(0);
 
-        try {
-            ProductDAO.searchProduct("P1");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+//        try {
+//            ProductDAO.searchProduct("P1");
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
     }
 }

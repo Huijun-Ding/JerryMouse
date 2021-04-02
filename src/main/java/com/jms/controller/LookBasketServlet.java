@@ -1,16 +1,12 @@
 package com.jms.controller;
 
 import com.jms.dao.BasketDAO;
-import com.jms.dao.ClientDAO;
 import com.jms.dao.ProductDAO;
 import com.jms.dao.PromotionDAO;
 import com.jms.model.Basket;
 import com.jms.model.Client;
 import com.jms.model.Product;
-import com.jms.model.ProductConditioning;
-import com.jms.model.ProductNutriScore;
 import com.jms.model.Promotion;
-import com.jms.model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -28,7 +24,7 @@ import java.text.NumberFormat;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * LookBasketServlet Class.
  * @author Jerry Mouse Software.
  */
 public class LookBasketServlet extends HttpServlet {
@@ -41,12 +37,14 @@ public class LookBasketServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws SQLException exception that provides information on a database 
+     * access error or other errors.
      */
-    protected void processRequest(HttpServletRequest request, 
+    protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession(true);
-        
+        Boolean checkPoint = Boolean.parseBoolean(request.getParameter("checkPoint"));
         try ( PrintWriter out = response.getWriter()) {
             // get un document DOM - XML
             out.println("<?xml version=\"1.0\"?>");
@@ -55,24 +53,14 @@ public class LookBasketServlet extends HttpServlet {
             out.println("<pageBasket>");
             out.println("<basket>");
 
-            // ----------- TEST : CONSTANT ---------------
-            Product p = new Product("2", "pomme", "bonne pomme", "bon", "350",
-                    true, ProductNutriScore.A, ProductConditioning.LOT);
-            Client c = new Client("Shangshang", "Zhao", "ss@gmail.com", "ss", 5);
-            
-            
-            // ------ INFO CLIENT ------------------
-            // get id of client from host page
-//            String idClient = request.getParameter("idClient");
-            // get info of client
-//            Client client = ClientDAO.searchClient(Integer.parseInt(idClient));
+            // ------ GET INFO CLIENT ------------------
             Client client = (Client) session.getAttribute("client");
-            
+
             // ------ INFO BASKET / PRODUCT CLIENT ---------
             // search basket for client
             List<Basket> lstBasket = BasketDAO.loadBasket(client.getCode());
 
-            // search products in basket and add to a list
+            // search products in THE basket and add to a map
             String eanp = "";
             Map<Product, Integer> productQty = new HashMap<>();
             for (Basket basket : lstBasket) {
@@ -82,7 +70,7 @@ public class LookBasketServlet extends HttpServlet {
 
             // a list of initial price for all products
             ArrayList<Float> prices = new ArrayList<>();
-            
+
             // a list of discount for all products
             ArrayList<Float> discount = new ArrayList<>();
 
@@ -96,45 +84,46 @@ public class LookBasketServlet extends HttpServlet {
                 String priceAfterString = "";
                 String promo = "";
                 float discountProd = 0f;
-                
-                // convert to percentage
+
+                // convert the discount to percentage
                 NumberFormat nt = NumberFormat.getPercentInstance();
                 nt.setMinimumFractionDigits(2);
-                
-                if (promotion != null){
+
+                if (promotion != null) {
                     // calculate price unitary after promotion and percentage of promotion
                     priceAfterFloat = BasketDAO.calculPriceUnitaryAfterPromo(
                             product.getUnitPrice(), promotion.getPercentage());
                     priceAfterString = String.format("%.2f", priceAfterFloat);
+                    
                     promo = String.valueOf(nt.format(promotion.getPercentage()));
                     discountProd = BasketDAO.calculMontReductionProduit(
                             product.getUnitPrice(), promotion.getPercentage());
-                }else {
+                } else {
                     priceAfterString = " ";
                     promo = " ";
                 }
-                
+
                 // quantity of a product in basket
                 int quantityProd = productQty.get(product);
-                
+
                 // total price of a product in basket
                 float totalDiscountProduct = BasketDAO.calculPriceTotalProduct(
                         quantityProd, discountProd);
                 // add discount for product to list of discount
                 discount.add(totalDiscountProduct);
-                
+
                 // total price of a product in basket
                 float totalPriceProduct = BasketDAO.calculPriceTotalProduct(
                         quantityProd, priceAfterFloat);
-
                 prices.add(totalPriceProduct);
 
                 out.println("<product>");
+                out.println("<ean>" + product.getEan() + "</ean>");
                 out.println("<photo>" + product.getUrlThumbnail() + "</photo>");
                 out.println("<id>" + product.getEan() + "</id>");
                 out.println("<name>" + product.getName() + "</name>");
                 out.println("<format>" + product.getFormat() + "</format>");
-                out.println("<price>" + String.format("%.2f", product.getUnitPrice()) 
+                out.println("<price>" + String.format("%.2f", product.getUnitPrice())
                         + "</price>");
                 out.println("<priceAfter>" + priceAfterString + "</priceAfter>");
                 out.println("<quantity>" + quantityProd + "</quantity>");
@@ -144,23 +133,37 @@ public class LookBasketServlet extends HttpServlet {
                 out.println("</product>");
             }
             out.println("</basket>");
-            
-            // calcul total price of basket
+
+            // calculate total price of basket
             float total = BasketDAO.calculPriceTotal(prices);
-            
+
             // calculate total discount for all products
             float totalDiscount = BasketDAO.calculPriceTotal(discount);
 
-            // calculer points got
+            // calculate points got for this order
             int pointsGot = BasketDAO.calculPointsGot(total);
-
-            // get info client via hibernate
+            int pointFinal;
+            int pointF = client.getFidelityPoints()/10;
+            if (checkPoint) {
+                if (pointF <= total) {
+                    total = total - pointF;
+                    pointF = 0;
+                } else {
+                    pointF = pointF - (int) total - 1;
+                    total = 0;
+                }
+            }
+            
+            pointFinal = pointF + pointsGot;
+            session.setAttribute("pointFinal", pointFinal);
+            session.setAttribute("total", total);
+            
             out.println("<client>");
             out.println("<pointsGot>" + pointsGot + "</pointsGot>");
-            out.println("<pointsCumulative>" + client.getFidelityPoints() 
+            out.println("<pointsCumulative>" + client.getFidelityPoints()
                     + "</pointsCumulative>");
-            out.println("<discount>" + String.format("%.2f", totalDiscount) 
-                        + "</discount>");
+            out.println("<discount>" + String.format("%.2f", totalDiscount)
+                    + "</discount>");
             out.println("<total>" + String.format("%.2f", total) + "</total>");
             out.println("</client>");
             out.println("</pageBasket>");

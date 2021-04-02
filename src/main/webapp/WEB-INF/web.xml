@@ -9,6 +9,10 @@
         <jsp-file>/jsp/basket_page.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>confirmationOrder</servlet-name>
+        <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>StoreServlet</servlet-name>
         <servlet-class>com.jms.controller.StoreServlet</servlet-class>
     </servlet>
@@ -73,11 +77,11 @@
         <jsp-file>/jsp/navbar.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>SendEmail</servlet-name>
-        <servlet-class>com.jms.controller.SendEmail</servlet-class>
+        <servlet-name>confirmation_order</servlet-name>
+        <jsp-file>/jsp/confirmation_order.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>MyShoppinglLists</servlet-name>
+        <servlet-name>MyShoppingLists</servlet-name>
         <jsp-file>/jsp/my_shopping_lists.jsp</jsp-file>
     </servlet>
     <servlet>
@@ -91,6 +95,54 @@
     <servlet>
         <servlet-name>NewShoppingListServlet</servlet-name>
         <servlet-class>com.jms.controller.NewShoppingListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayAllShoppingLists</servlet-name>
+        <servlet-class>com.jms.controller.DisplayAllShoppingListsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayPostItServlet</servlet-name>
+        <servlet-class>com.jms.controller.DisplayPostItServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadShoppingFileServlet</servlet-name>
+        <servlet-class>com.jms.controller.UploadShoppingFileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendEmailServlet</servlet-name>
+        <servlet-class>com.jms.controller.SendEmailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Favorites</servlet-name>
+        <jsp-file>/jsp/favorites.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>PreferenceServlet</servlet-name>
+        <servlet-class>com.jms.controller.PreferenceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetShoppingListName</servlet-name>
+        <servlet-class>com.jms.controller.GetShoppingListName</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPostItServlet</servlet-name>
+        <servlet-class>com.jms.controller.AddPostItServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditQuantityServlet</servlet-name>
+        <servlet-class>com.jms.controller.EditQuantityServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPostItProductServlet</servlet-name>
+        <servlet-class>com.jms.controller.AddPostItProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>transferProductServlet</servlet-name>
+        <servlet-class>com.jms.controller.transferProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetPostItProductServlet</servlet-name>
+        <servlet-class>com.jms.controller.GetPostItProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -161,16 +213,12 @@
         <url-pattern>/navbar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SendEmail</servlet-name>
-        <url-pattern>/SendEmail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ConnectServlet</servlet-name>
         <url-pattern>/connect</url-pattern>
         <url-pattern>/Connect</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MyShoppinglLists</servlet-name>
+        <servlet-name>MyShoppingLists</servlet-name>
         <url-pattern>/myShoppingLists</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -184,6 +232,58 @@
     <servlet-mapping>
         <servlet-name>NewShoppingListServlet</servlet-name>
         <url-pattern>/NewShoppingListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayAllShoppingLists</servlet-name>
+        <url-pattern>/DisplayAllShoppingLists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayPostItServlet</servlet-name>
+        <url-pattern>/DisplayPostItServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadShoppingFileServlet</servlet-name>
+        <url-pattern>/UploadShoppingFile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendEmailServlet</servlet-name>
+        <url-pattern>/SendEmailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>confirmation_order</servlet-name>
+        <url-pattern>/confirmationOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Favorites</servlet-name>
+        <url-pattern>/Favorites</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PreferenceServlet</servlet-name>
+        <url-pattern>/Preference</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetShoppingListName</servlet-name>
+        <url-pattern>/GetShoppingListName</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPostItServlet</servlet-name>
+        <url-pattern>/AddPostItServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditQuantityServlet</servlet-name>
+        <url-pattern>/EditQuantityServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPostItProductServlet</servlet-name>
+        <url-pattern>/AddPostItProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>transferProductServlet</servlet-name>
+        <url-pattern>/transferProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetPostItProductServlet</servlet-name>
+        <url-pattern>/GetPostItProductServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

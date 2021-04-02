@@ -7,9 +7,7 @@ package com.jms.model;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -102,6 +100,14 @@ public class Order {
         this.store = store;
         this.timeslot = timeslot;
     }
+
+    public Order(int orderId, Client client, Store store, TimeSlot timeslot) {
+       this.orderId=orderId;
+        this.client = client;
+        this.store = store;
+        this.timeslot = timeslot;
+    }
+    
 
     //-----------Getters and setters----------------
     public int getOrderId() {

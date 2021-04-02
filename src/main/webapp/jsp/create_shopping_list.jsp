@@ -19,7 +19,7 @@
         <div class="container" id="rayon_categorie_navbar">
             <h2>Créer ma nouvelle liste de courses</h2>
             <br>
-            
+
             <form>
                 <div class="mb-3">
                     <label for="name_shopping_list" class="form-label">Nom de la liste</label>
@@ -31,6 +31,11 @@
             </form>
         </div>
 
-        <!--<script type="text/JavaScript" src="js/shoppingList.js"></script>-->
+        <script src="js/shoppingList.js"></script>
+        <script src="js/createShoppingList.js"></script>
+        <script src="js/search.js"></script>
+        <script src="js/stores.js"></script>
+        <script src="js/time_slots.js"></script>
+        <script src="js/basket.js"></script>
     </body>
 </html>

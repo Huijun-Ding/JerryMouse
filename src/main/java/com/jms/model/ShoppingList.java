@@ -47,7 +47,7 @@ public class ShoppingList implements Serializable{
     /**
     *  Hibernate join property with ShoppingList Class  and PostIt Class.
     */
-    @OneToMany(mappedBy ="shoppingList", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="shoppingList", fetch = FetchType.EAGER)
     private Set<PostIt> postIts = new HashSet(0);
     
     //---------------- CONSTRUCTOR -----------------
@@ -61,13 +61,30 @@ public class ShoppingList implements Serializable{
     * A constructor of the ShoppingList Class.
     * @param name Name of a shopping list.
     */
-
+    
     public ShoppingList( String name) {
         this.name = name;
     }
 
     public ShoppingList(String name, Client client) {
         this.name = name;
+        this.client = client;
+    }
+
+    public ShoppingList(int code, String name, Client client) {
+        this.code = code;
+        this.name = name;
+        this.client = client;
+    }
+    
+    public ShoppingList( String name, Set<PostIt> postIts) {
+        this.name = name;
+        this.postIts = postIts;
+    }
+
+    public ShoppingList(String name, Set<PostIt> postIts, Client client) {
+        this.name = name;
+        this.postIts = postIts;
         this.client = client;
     }
 
