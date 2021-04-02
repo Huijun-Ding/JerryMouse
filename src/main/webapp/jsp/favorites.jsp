@@ -198,7 +198,6 @@
                     </div>
                 </div>
             </div>
-            <script type="text/javascript" src="js/quantityProduct.js"></script>
             <script type="text/javascript" src="js/favorites.js"></script>
     </body>
 </html>

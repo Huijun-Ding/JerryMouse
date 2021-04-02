@@ -5,6 +5,7 @@
  */
 package com.jms.dao;
 
+import static com.jms.dao.ClientDAO.searchClient;
 import com.jms.model.Client;
 import com.jms.model.Order;
 import com.jms.model.Product;
@@ -204,14 +205,13 @@ public class ProductDAO {
             return lstProducts;
         }
     }
-    
 
     public static Product getProductByHistory(Client client, List<Product> lstp) {
         try ( Session session = HibernateUtilDAO.getSessionFactory().getCurrentSession()) {
             System.out.println("test1");
             Transaction t = session.beginTransaction();
             session.update(client);
-            System.out.println("clienteeeeee"+client.getEmail());
+            System.out.println("clienteeeeee" + client.getEmail());
             Hibernate.initialize(client.getOrders());
             for (Order order : client.getOrders()) {
                 Hibernate.initialize(order.getProducts());
@@ -221,7 +221,7 @@ public class ProductDAO {
             List<Product> history = new ArrayList<>();
             for (Iterator it = client.getOrders().iterator(); it.hasNext();) {
                 Order order = (Order) it.next();
-                System.out.println("orderrrrrr"+order.getOrderId());
+                System.out.println("orderrrrrr" + order.getOrderId());
                 List<Product> lst = new ArrayList<>(order.getProducts().keySet());
                 for (Product p : lst) {
                     if (history.contains(p) == false) {
@@ -312,20 +312,11 @@ public class ProductDAO {
             if (lstp.size() >= 1) {
                 return lstp.get(0);
             } else {
-                return new Product();
+                return null;
             }
         }
     }
 
-//    public static void main(String[] s) throws ClassNotFoundException, SQLException {
-//        try {
-//        System.out.println(ProductDAO.completeSearchBarByProductName("Chocolat"));
-//        System.out.println(ProductDAO.completeSearchBarByCategory("Chocolat"));
-//
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//    }
     public static void main(String[] args) throws ParseException, ClassNotFoundException, SQLException {
         /*----- Test -----*/
 
@@ -335,14 +326,15 @@ public class ProductDAO {
         System.out.println(" main " + getProductsByName("Chocolat au lait extra fin").get(0).getBrand());
 
 //        getProductsByName("fruit");
-        ProductDAO.getProductsByName("chocolat");
+//        ProductDAO.getProductsByName("chocolat");
+
         /*----- Exit -----*/
         System.exit(0);
 
-        try {
-            ProductDAO.searchProduct("P1");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+//        try {
+//            ProductDAO.searchProduct("P1");
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
     }
 }

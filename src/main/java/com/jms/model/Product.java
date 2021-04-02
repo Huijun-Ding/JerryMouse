@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
-
+  
 /**
  * The class Product represents a product that exists in the catalog of a store.
  *
@@ -584,15 +584,13 @@ public class Product implements Serializable {
      */
     @Override
     public String toString() {
-            return "Product{" + "ean=" + ean + ", name=" + name
-                    + ", description=" + description + ", brand="
-                    + brand + ", format=" + format + ", bio=" + bio
-                    + ", nutriscore=" + nutriscore
-                    + ", packaging=" + packaging + ", category=" + category
-                    + ", labels=" + labels
-                    + ", promotions=" + promotions + '}';
+        return "Product{" + "ean=" + ean + ", name=" + name
+                + ", description=" + description + ", brand="
+                + brand + ", format=" + format + ", bio=" + bio
+                + ", nutriscore=" + nutriscore
+                + ", packaging=" + packaging + ", category=" + category
+                + ", labels=" + labels
+                + ", promotions=" + promotions + '}';
     }
-
-    
 
 }

@@ -349,6 +349,5 @@
             </div>
         </div>
         <%}%>
-        <script type="text/javascript" src="js/quantityProduct.js"></script>
     </body>
 </html>

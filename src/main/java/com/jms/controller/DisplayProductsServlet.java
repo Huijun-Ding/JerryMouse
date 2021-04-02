@@ -48,16 +48,10 @@ public class DisplayProductsServlet extends HttpServlet {
             System.out.println("Client = " + client.getCode() + " email = " + client.getEmail());
             Client clientUp = PreferenceDAO.getFavoriteProducts(client);
             System.out.println("Prenom = " + clientUp.getFirstName());
-            //System.out.println("SIZE = " + clientUp.getFavoriteProducts().size());
-//            for (Product favoriteProduct : clientUp.getFavoriteProducts()) {
-//                //System.out.println("" + favoriteProduct);
-//            }
             // Update client in session
             session.setAttribute("client", clientUp);
         }
-
-        // Redirect to products_list.jsp
-        //response.sendRedirect("ProductsList");
+        
         // All products to display     
         if (request.getParameterMap().containsKey("all")) {
             List<Product> list = ProductDAOH.getAllProducts(); // for now display all products
@@ -65,18 +59,7 @@ public class DisplayProductsServlet extends HttpServlet {
             // Dispatch to ProductsList
             request.getRequestDispatcher("ProductsList?all").forward(request, response);
         }
-
-        // All products to display     
-        if (request.getParameterMap().containsKey("allData")) {
-            List<Product> list = ProductDAOH.getAllProducts(); // for now display all products
-            for (Product product : list) {
-                product = ProductDAOH.getAll(product);
-            }
-            request.setAttribute("productsList", list);
-            // Dispatch to ProductsList
-            request.getRequestDispatcher("ProductsList").forward(request, response);
-        }
-
+        
         // Products to display on homePage    
         if (request.getParameterMap().containsKey("home")) {
             List<Product> list = ProductDAOH.getProductsWithPromo(); // for now display all products
