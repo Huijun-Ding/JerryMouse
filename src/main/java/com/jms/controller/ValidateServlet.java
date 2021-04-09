@@ -7,6 +7,7 @@ package com.jms.controller;
 
 import com.jms.dao.BasketDAO;
 import com.jms.dao.ClientDAO;
+import com.jms.dao.HaveDAO;
 import com.jms.dao.StockDAO;
 import com.jms.dao.ValiderDAO;
 import com.jms.model.Basket;

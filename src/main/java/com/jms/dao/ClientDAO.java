@@ -145,11 +145,12 @@ public class ClientDAO {
 
     public static void main(String[] args) throws ParseException {
         // test for method searchClient
-        System.out.println(ClientDAO.searchClient(14).getCode());
-//updatePoint(ClientDAO.searchClient(14),10);
+//        System.out.println(ClientDAO.searchClient(1));
+        updatePoint(searchClient(12), 200);
+
         //create();
-        load(2);
-        boolean res = authenticate("rc@gmail.com", "rm123");
-        System.out.println(res);
+//        load(2);
+//        boolean res = authenticate("rc@gmail.com", "rm123");
+//        System.out.println(res);
     }
 }
